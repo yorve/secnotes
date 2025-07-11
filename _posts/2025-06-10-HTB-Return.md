@@ -1,9 +1,16 @@
 ---
+La máquina Return de Hack The Box es un laboratorio orientado a la plataforma Windows, con un enfoque en la enumeración de servicios y explotación de una funcionalidad mal configurada en una impresora de red. A través de una interfaz web vulnerable, es posible obtener credenciales válidas mediante un ataque LDAP sin autenticación, lo que permite el acceso inicial mediante WinRM.
+
+Posteriormente, la máquina presenta una oportunidad de escalada de privilegios mediante una técnica de BinPath Hijacking, aprovechando un servicio con una ruta mal definida. La máquina pone a prueba la comprensión de conceptos como enum4linux, gestión de servicios en Windows, y el uso de herramientas como evil-winrm y Metasploit para lograr la explotación total del sistema.
+
+Este writeup explica el proceso completo paso a paso, de forma clara y didáctica, ideal para quienes están aprendiendo Active Directory, servicios SMB y técnicas de post-explotación en entornos Windows.
+
 ---
 ![banner](/secnotes/assets/img/return/return.png)
 
-1.- Reconocimiento
-## escaneo inicial
+**Reconocimiento**
+
+escaneo inicial
 ---
 ![img1](/secnotes/assets/img/return/1.jpg)
 
@@ -16,7 +23,7 @@ servicios corren en ellos.
 ![img3](/secnotes/assets/img/return/3.png)
 
 ---
-2.- Enumeración
+**Enumeración**
 ---
 
 Al revisar el servicio web nos encontramos con un panel de
@@ -33,40 +40,40 @@ Al inspeccionar el código de la página no encontramos información importante.
 Con la herramienta “enum4linux” realizaremos un escaneo, esta se utiliza para enumerar información de sistemas Windows a través del protocolo SMB (puerto 445) y RPC (puerto 135).  Este escaneo permite obtener información sin necesidad de credenciales.
 
 Este escaneo podría enumerar:
-•	Usuarios de dominio
-•	Grupos y miembros
-•	Shares Compartidos (SMB)
-•	Políticas de contraseñas
-•	Controlador de dominio
-•	Arquitectura y versión del sistema
-•	Políticas de bloqueo de cuentas
-•	Servicios del sistema
-•	computadores conectados al dominio
+-	Usuarios de dominio
+-	Grupos y miembros
+-	Shares Compartidos (SMB)
+-	Políticas de contraseñas
+-	Controlador de dominio
+-	Arquitectura y versión del sistema
+-	Políticas de bloqueo de cuentas
+-	Servicios del sistema
+-	computadores conectados al dominio
 
 ![img6](/secnotes/assets/img/return/6.png)
 
 Con esta herramienta encontramos algo de información.
 
-•	Dominio NetBIOS: RETURN
-•	Dominio DNS: return.local
-•	SID del dominio: S-1-5-21-3750359090-2939318659-876128439
-•	Controlador de dominio: printer.return.local
-•	Nombre del host: PRINTER
-•	Sistema operativo identificado: Windows Server 2019 (Build 17763)
-•	SMBv1: deshabilitado
-•	SMB Signing: requerido (firmas obligatorias en sesiones SMB)
-•	Servicios expuestos: LDAP (389), LDAPS (636), SMB (445), NetBIOS (139)
+-	Dominio NetBIOS: RETURN
+-	Dominio DNS: return.local
+-	SID del dominio: S-1-5-21-3750359090-2939318659-876128439
+-	Controlador de dominio: printer.return.local
+-	Nombre del host: PRINTER
+-	Sistema operativo identificado: Windows Server 2019 (Build 17763)
+-	SMBv1: deshabilitado
+-	SMB Signing: requerido (firmas obligatorias en sesiones SMB)
+-	Servicios expuestos: LDAP (389), LDAPS (636), SMB (445), NetBIOS (139)
 
 ![img7](/secnotes/assets/img/return/7.png)
 
 Este panel de administración de la impresora permite configurar un servidor LDAP externo al cual se conectaría una impresora para autenticarse o consultar usuarios. Estos paneles tienen los campos vistos
-•	Server Address / IP
-•	LDAP Port
-•	Blin Dn / Ususario LDAP
-•	Password
+-	Server Address / IP
+-	LDAP Port
+-	Blin Dn / Ususario LDAP
+-	Password
 
 ---
-3.- Explotación
+Explotación
 ---
 
 En el panel de configuración pondremos nuestra IP en el Server Address y pondremos en nuestra máquina el puerto 389 en escucha. Con esto lograremos que la impresora se intente autenticar con el usuario svc-printer y su contraseña.
@@ -91,7 +98,7 @@ Navegando por los directorios encontramos la flag de usuario
 ![img13](/secnotes/assets/img/return/13.png)
 
 ---
-4.- Elevación de privilegios.
+Elevación de privilegios.
 ---
 
 Con la sesión activa por medio de evil-winrm lanzaremos el comando “net user svc-printer”, con esto podremos enumerar los grupos a los que pertenece el usuario svc-printer.
@@ -104,7 +111,7 @@ Con el comando “sc.exe query vss” podemos comprobar si el servicio está ins
 
 ![img15](/secnotes/assets/img/return/15.png)
 
-##BinPath hijacking##
+**BinPath hijacking**
 
 Esta es una técnica de escalada de privilegios en sistemas Windows, que se aprovecha de como el sistema interpreta rutas de archivos mal formateadas o sin comillas. 
 Cuando creamos un servicio con sc.exe o desde el registro, se le asigna una ruta binaria (binPath) que indica qué ejecutable debe correr el servicio.
