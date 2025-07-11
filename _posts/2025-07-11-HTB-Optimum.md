@@ -57,6 +57,7 @@ Para tener una sesión más estable y evitar problemas a navegar vamos a migrar 
 Para esto utilizaremos el comando `ps` y del listado de los procesos, en este caso migraremos al de explorer.exe. debemos recordar el numero de **PID.**
 
 ![img11](/secnotes/assets/img/optimun/11.png)
+
 ![img12](/secnotes/assets/img/optimun/12.png)
   
 
@@ -64,7 +65,7 @@ Para esto utilizaremos el comando `ps` y del listado de los procesos, en este ca
 
 Buscando información sobre el sistema operativo, vemos que existe una vulnerabilidad sobre esta versión. 
 
-![img13](/secnotes/assets/img/optimun/13.png
+![img13](/secnotes/assets/img/optimun/13.png)
  
 Nuevamente en metasploit vamos a buscarla, esta vez desde la sesión que tenemos abierta en meterpreter.
  
