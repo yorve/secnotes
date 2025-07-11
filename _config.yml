@@ -8,8 +8,6 @@ url: "" # the base hostname & protocol for your site, e.g. http://example.com
 author: Yorve CSEC
 author-img:  perfil.jpg
 about-author: Estudiante tercer año de Ing. en Ciberseguridad - AIEP
-#social-twitter: # add your Twitter handle
-#social-facebook: # add your Facebook handle
 social-github: https://github.com/yorve
 social-linkedin: www.linkedin.com/in/yonathan-rivera-velozo-9b362798
 social-email: yorve.csec@gmail.com
