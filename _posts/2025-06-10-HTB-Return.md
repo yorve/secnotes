@@ -1,11 +1,3 @@
----
-La máquina Return de Hack The Box es un laboratorio orientado a la plataforma Windows, con un enfoque en la enumeración de servicios y explotación de una funcionalidad mal configurada en una impresora de red. A través de una interfaz web vulnerable, es posible obtener credenciales válidas mediante un ataque LDAP sin autenticación, lo que permite el acceso inicial mediante WinRM.
-
-Posteriormente, la máquina presenta una oportunidad de escalada de privilegios mediante una técnica de BinPath Hijacking, aprovechando un servicio con una ruta mal definida. La máquina pone a prueba la comprensión de conceptos como enum4linux, gestión de servicios en Windows, y el uso de herramientas como evil-winrm y Metasploit para lograr la explotación total del sistema.
-
-Este writeup explica el proceso completo paso a paso, de forma clara y didáctica, ideal para quienes están aprendiendo Active Directory, servicios SMB y técnicas de post-explotación en entornos Windows.
-
----
 ![banner](/secnotes/assets/img/return/return.png)
 
 **Reconocimiento**
