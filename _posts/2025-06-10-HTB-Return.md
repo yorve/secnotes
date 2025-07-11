@@ -2,7 +2,8 @@
 ---
 ![banner](/assets/img/return/return.png)
 
-1.- Reconocimiento
+##1.- Reconocimiento
+### escaneo inicial
 ---
 ![img1](/assets/img/return/1.jpg)
 ![img2](/assets/img/return/2.png)
@@ -12,7 +13,7 @@ máquina Windows y enumeramos los puertos para verificar que
 servicios corren en ellos.
 ![img3](/assets/img/return/3.png)
 ---
-2.- Enumeración
+##2.- Enumeración
 ---
 Al revisar el servicio web nos encontramos con un panel de
 una impresora a la cual podemos acceder a la configuración
