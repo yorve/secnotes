@@ -143,11 +143,11 @@ Este comando configura el servicio vss para que, en vez de ejecutar el comando o
 
 ![img22](/secnotes/assets/img/return/22.png)
 
-Ahora debemos migrar a un proceso con privilegios de SYSTEM, ya que la sesión que creamos se cierra al cabo de unos minutos. Para esto utilizamos el comando “ps” cuando obtengamos la sesión y buscamos un proceso que se ejecute como NT AUTHORITY\SYSTEM  
+Ahora debemos migrar a un proceso con privilegios de SYSTEM, ya que la sesión que creamos se cierra al cabo de unos minutos. Para esto utilizamos el comando `ps` cuando obtengamos la sesión y buscamos un proceso que se ejecute como NT AUTHORITY\SYSTEM  
 
 ![img23](/secnotes/secnotes/assets/img/return/23.png)
 
-Con el comando _migrate_ y el _PID_ obtendremos más estabilidad.
+Con el comando `migrate` y el número PID obtendremos más estabilidad.
 Luego abrimos una Shell y ya tendremos un acceso completo con todos los privilegios a la máquina.
 
 ![img24](/secnotes/assets/img/return/24.png)
