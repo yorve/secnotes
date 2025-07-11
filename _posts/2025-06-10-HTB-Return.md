@@ -1,7 +1,5 @@
 ---
 layout: post
-titlle: "WriteUp"
+title: "WriteUp"
 ---
-# Hola
 
-**asd**, prueba de pag
