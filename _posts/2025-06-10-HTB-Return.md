@@ -1,3 +1,8 @@
+---
+layout: post
+title: "Return – HTB"
+date: 2025-07-11
+---
 ![banner](/secnotes/assets/img/return/return.png)
 
 **Reconocimiento**
