@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Optimum – HTB - Windows (A.D) - Fácil"
+title: "Optimum – HTB - Windows - Fácil"
 date: 2025-07-11
 ---
 ![banner](/secnotes/assets/img/optimun/banner.png)
