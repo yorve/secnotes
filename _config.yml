@@ -1,28 +1,24 @@
-title: Bienvenidos a mis writes-up educativos
-description: > # this means to ignore newlines until "baseurl:"
-  Write an awesome description for your new site here. You can edit this
-  line in _config.yml. It will appear in your document head meta (for
-  Google search results) and in your feed.xml site description.
-permalink: ':title/'
-baseurl: "/flexible-jekyll" # the subpath of your site, e.g. /blog
+title: SecNotes
+description: Documentación de labs, explicadas de forma sencilla para ayudar a entender técnicas reales de hacking ético.
+permalink: /:title/
+baseurl: "/secnotes"
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
-site-twitter: #if your site has a twitter account, enter it here
 
 # Author Settings
-author: David Freeman # add your name
-author-img: david-freeman.jpg # add your photo
-about-author: I am a web developer focusing on front-end development. Always hungry to keep learning. # add description
-social-twitter: # add your Twitter handle
-social-facebook: # add your Facebook handle
-social-github: artemsheludko # add your Github handle
-social-linkedin: # add your Linkedin handle
-social-email: # add your Email address
+author: Yonathan Rivera Velozo - >Yorve CSEC
+author-img:  # add your photo
+about-author: Estudiante tercer año de Ing. en Ciberseguridad - AIEP
+#social-twitter: # add your Twitter handle
+#social-facebook: # add your Facebook handle
+social-github: https://github.com/yorve
+social-linkedin: www.linkedin.com/in/yonathan-rivera-velozo-9b362798
+social-email: yorve.csec@gmail.com
 
 # Disqus
-discus-identifier: mr-brown # add your discus identifier
+discus-identifier: Yorve 
 
 # Tracker
-analytics: # Google Analytics
+analytics: G-G8V2DW9MZ5
 
 # Build Settings
 markdown: kramdown
