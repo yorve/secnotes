@@ -1,11 +1,12 @@
 ---
 ---
-![banner](/assets/img/return/return.png)
+![banner](secnotes/assets/img/return/return.png)
 
-#1.- Reconocimiento
+1.- Reconocimiento
 ## escaneo inicial
 ---
-![img1]([secnotes](https://yorve.github.io/secnotes/assets/img/return/1.jpg)
+![img1](secnotes/assets/img/return/1.jpg)
+
 ![img2](/assets/img/return/2.png)
 
 Con esta información sabemos que nos encontramos ante una
@@ -15,7 +16,7 @@ servicios corren en ellos.
 ![img3](/assets/img/return/3.png)
 
 ---
-#2.- Enumeración
+2.- Enumeración
 ---
 
 Al revisar el servicio web nos encontramos con un panel de
@@ -45,6 +46,7 @@ Este escaneo podría enumerar:
 ![img6](/assets/img/return/6.png)
 
 Con esta herramienta encontramos algo de información.
+
 •	Dominio NetBIOS: RETURN
 •	Dominio DNS: return.local
 •	SID del dominio: S-1-5-21-3750359090-2939318659-876128439
@@ -89,7 +91,7 @@ Navegando por los directorios encontramos la flag de usuario
 ![img13](/assets/img/return/13.png)
 
 ---
-4.- Escalación de privilegios.
+4.- Elevación de privilegios.
 ---
 
 Con la sesión activa por medio de evil-winrm lanzaremos el comando “net user svc-printer”, con esto podremos enumerar los grupos a los que pertenece el usuario svc-printer.
