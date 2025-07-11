@@ -3,13 +3,13 @@ layout: post
 title: "Return – HTB - Windows (A.D) - Fácil"
 date: 2025-07-11
 ---
-La máquina Return es una máquina Windows (Active Directory) de dificultad media, enfocada en explotar vulnerabilidades comunes en entornos AD, como LDAP inseguro, abuso de grupos privilegiados y BinPath Hijacking.
+Return es una máquina Windows (Active Directory), enfocada en explotar vulnerabilidades comunes en entornos AD, como LDAP inseguro, abuso de grupos privilegiados y BinPath Hijacking.
 
 ![banner](/secnotes/assets/img/return/return.png)
 
 **Reconocimiento**
 
-escaneo inicial
+Escaneo inicial
 ---
 ![img1](/secnotes/assets/img/return/1.jpg)
 
@@ -31,7 +31,7 @@ de esta.
 
 ![img4](/secnotes/assets/img/return/4.png)
 
-Aquí nos encontramos con un usuario llamado “svc-printer”
+Aquí nos encontramos con un usuario llamado _svc-printer_
 
 ![img5](/secnotes/assets/img/return/5.png)
 
@@ -75,14 +75,14 @@ Este panel de administración de la impresora permite configurar un servidor LDA
 Explotación
 ---
 
-En el panel de configuración pondremos nuestra IP en el Server Address y pondremos en nuestra máquina el puerto 389 en escucha. Con esto lograremos que la impresora se intente autenticar con el usuario svc-printer y su contraseña.
+En el panel de configuración pondremos nuestra IP en el Server Address y pondremos en nuestra máquina el puerto 389 en escucha. Con esto lograremos que la impresora se intente autenticar con el usuario _svc-printer_ y su contraseña.
 
 ![img8](/secnotes/assets/img/return/8.png)
 
 ![img9](/secnotes/assets/img/return/9.png)
 
 Esto funcionó por que el panel de la impresora usa una configuración de LDAP simple, y es por esto que podemos ver la contraseña en texto plano.
-Ahora que tenemos un usuario, su contraseña y el servicio de winrm (administración remota de Windows) disponible, utilizaremos la herramienta “evil-winrm” para conectarnos a la máquina objetivo.
+Ahora que tenemos un usuario, su contraseña y el servicio de winrm (administración remota de Windows) disponible, utilizaremos la herramienta **evil-winr** para conectarnos a la máquina objetivo.
 
 ![img10](/secnotes/assets/img/return/10.png)
 
@@ -100,13 +100,14 @@ Navegando por los directorios encontramos la flag de usuario
 Elevación de privilegios.
 ---
 
-Con la sesión activa por medio de evil-winrm lanzaremos el comando “net user svc-printer”, con esto podremos enumerar los grupos a los que pertenece el usuario svc-printer.
+Con la sesión activa por medio de evil-winrm lanzaremos el comando `net user svc-printer`, con esto podremos enumerar los grupos a los que pertenece el usuario svc-printer.
 
 ![img14](/secnotes/assets/img/return/14.png)
 
 Aquí encontramos información importante. Entre algunas es que el usuario esta en el grupo Remote Management Use. Este grupo no es tan elevado como Administrators, pero nos permite reiniciar servicios, cambiar configuraciones del sistema, entre otros.
+
 En los sistemas de Windows hay un servicio que funciona por defecto llamado Volume Shadow Copy Service (vss). Este corre con privilegios elevados y no está protegido contra modificaciones si un usuario no tiene permisos suficientes.
-Con el comando “sc.exe query vss” podemos comprobar si el servicio está instalado y detenido. Esto nos permitirá modificar el binario. 
+Con el comando `sc.exe query vss` podemos comprobar si el servicio está instalado y detenido. Esto nos permitirá modificar el binario. 
 
 ![img15](/secnotes/assets/img/return/15.png)
 
@@ -117,7 +118,7 @@ Cuando creamos un servicio con sc.exe o desde el registro, se le asigna una ruta
 Cuando la ruta contiene espacios y no está correctamente entrecomillada, windows interpreta la ruta por partes, y esto puede ejecutar un binario incorrecto si este existe.
 Sabiendo esto, nos crearemos una Reverse Shell y la subiremos a la máquina víctima para establecer una conexión. Esto lo vamos a realizar con meterpreter ya que es más robusta y estable.
 
-Nos crearemos el payload ejecutable con msfvenom
+Nos crearemos el payload ejecutable con **msfvenom**
 
 ![img16](/secnotes/assets/img/return/16.png)
 
@@ -134,8 +135,9 @@ Ahora con Metasploit configuraremos un listener para la reverse Shell que subimo
 ![img20](/secnotes/assets/img/return/20.png)
 
 En la sesión de evil-winrm con el comando:
-sc.exe config vss binPath="C:\Users\svc-printer\Desktop\rs.exe"
-Este comando configura el servicio vss para que, en vez de ejecutar el comando original, ejecute rs.exe
+`sc.exe config vss binPath="C:\Users\svc-printer\Desktop\rs.exe`
+
+Este comando configura el servicio vss para que, en vez de ejecutar el comando original, ejecute **rs.exe**
 
 ![img21](/secnotes/assets/img/return/21.png)
 
@@ -145,7 +147,7 @@ Ahora debemos migrar a un proceso con privilegios de SYSTEM, ya que la sesión q
 
 ![img23](/secnotes/secnotes/assets/img/return/23.png)
 
-Con el comando “migrate “y el PID obtendremos más estabilidad.
+Con el comando _migrate_ y el _PID_ obtendremos más estabilidad.
 Luego abrimos una Shell y ya tendremos un acceso completo con todos los privilegios a la máquina.
 
 ![img24](/secnotes/assets/img/return/24.png)
