@@ -10,7 +10,7 @@ Return es una máquina Windows (Active Directory), enfocada en explotar vulnerab
 **Reconocimiento**
 
 Escaneo inicial
----
+
 ![img1](/secnotes/assets/img/return/1.jpg)
 
 ![img2](/secnotes/assets/img/return/2.png)
@@ -21,9 +21,9 @@ servicios corren en ellos.
 
 ![img3](/secnotes/assets/img/return/3.png)
 
----
+
 **Enumeración**
----
+
 
 Al revisar el servicio web nos encontramos con un panel de
 una impresora a la cual podemos acceder a la configuración
@@ -71,9 +71,9 @@ Este panel de administración de la impresora permite configurar un servidor LDA
 -	Blin Dn / Ususario LDAP
 -	Password
 
----
-Explotación
----
+
+**Explotación**
+
 
 En el panel de configuración pondremos nuestra IP en el Server Address y pondremos en nuestra máquina el puerto 389 en escucha. Con esto lograremos que la impresora se intente autenticar con el usuario _svc-printer_ y su contraseña.
 
@@ -96,9 +96,9 @@ Navegando por los directorios encontramos la flag de usuario
 
 ![img13](/secnotes/assets/img/return/13.png)
 
----
-Elevación de privilegios.
----
+
+**Elevación de privilegios.**
+
 
 Con la sesión activa por medio de evil-winrm lanzaremos el comando `net user svc-printer`, con esto podremos enumerar los grupos a los que pertenece el usuario svc-printer.
 
