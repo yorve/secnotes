@@ -5,7 +5,7 @@
 #1.- Reconocimiento
 ## escaneo inicial
 ---
-![img1](secnotes/assets/img/return/1.jpg)
+![img1]([secnotes](https://yorve.github.io/secnotes/assets/img/return/1.jpg)
 ![img2](/assets/img/return/2.png)
 
 Con esta información sabemos que nos encontramos ante una
