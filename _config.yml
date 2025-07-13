@@ -1,22 +1,22 @@
-title: SecNotes
-description: Documentación de labs, explicadas de forma sencilla para ayudar a entender técnicas reales de hacking ético.
-permalink: /:title/
+title: "SecNotes"
+description: "Documentación de labs, explicadas de forma sencilla para ayudar a entender técnicas reales de hacking ético."
+permalink: "/:title/"
 baseurl: "/secnotes"
-url: "" # the base hostname & protocol for your site, e.g. http://example.com
+url: "" # el dominio base, por ejemplo: "https://yorve.github.io"
 
 # Author Settings
-author: Yorve CSEC
-author-img:  logo.png
-about-author: Hola, soy Yony y aquí comparto writeups formativos sobre hacking ético, pensados especialmente para quienes están comenzando. 
-social-github: yorve
-social-linkedin: yonathan-rivera-velozo-9b362798
-social-email: yorve.csec@gmail.com
+author: "Yorve CSEC"
+author-img: "logo.png"
+about-author: "Hola, soy Yony y aquí comparto writeups formativos sobre hacking ético, pensados especialmente para quienes están comenzando."
+social-github: "yorve"
+social-linkedin: "yonathan-rivera-velozo-9b362798"
+social-email: "yorve.csec@gmail.com"
 
 # Disqus
-discus-identifier: Yorve 
+discus-identifier: "Yorve"
 
 # Tracker
-analytics: G-G8V2DW9MZ5
+analytics: "G-G8V2DW9MZ5"
 
 # Build Settings
 markdown: kramdown
@@ -28,4 +28,8 @@ plugins:
 paginate: 8
 paginate_path: "/page/:num"
 
-exclude: ["node_modules", "gulpfile.js", "package.json", "yarn.lock"]
+exclude:
+  - "node_modules"
+  - "gulpfile.js"
+  - "package.json"
+  - "yarn.lock"
