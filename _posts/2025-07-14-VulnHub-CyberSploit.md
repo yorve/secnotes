@@ -97,3 +97,5 @@ Y ejecutamos el exploit **a.out**
 Una vez ejecutado el script nos convertimos en usuario root. Ya solo nos queda encontrar la última flag, que normalmente se encuentra en la ruta /root
 
 ![img20](/secnotes/assets/img/cybersploit/20.png)
+
+![img21](/secnotes/assets/img/cybersploit/21.png)
