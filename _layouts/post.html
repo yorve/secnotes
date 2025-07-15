@@ -22,9 +22,21 @@ layout: main
       {{content | markdownify}}
       <div class="page-footer">
         <div class="page-share">
-          <a href="https://twitter.com/intent/tweet?text={{ page.title }}&url={{ site.url }}{{ page.url }}" title="Share on Twitter" rel="nofollow" target="_blank">Twitter</a>
-          <a href="https://facebook.com/sharer.php?u={{ site.url }}{{ page.url }}" title="Share on Facebook" rel="nofollow" target="_blank">Facebook</a>
-          <a href="https://plus.google.com/share?url={{ site.url }}{{ page.url }}" title="Share on Google+" rel="nofollow" target="_blank">Google+</a>
+         <!-- Redes sociales para compartir -->
+<a href="https://twitter.com/intent/tweet?text={{ page.title }}&url={{ site.url }}{{ page.url }}" 
+   title="Compartir en Twitter" rel="nofollow" target="_blank">Twitter</a>
+
+<a href="https://facebook.com/sharer.php?u={{ site.url }}{{ page.url }}" 
+   title="Compartir en Facebook" rel="nofollow" target="_blank">Facebook</a>
+
+<a href="https://www.linkedin.com/shareArticle?mini=true&url={{ site.url }}{{ page.url }}&title={{ page.title }}" 
+   title="Compartir en LinkedIn" rel="nofollow" target="_blank">LinkedIn</a>
+
+<a href="mailto:?subject={{ page.title }}&body=Mira esto: {{ site.url }}{{ page.url }}" 
+   title="Compartir por Email" rel="nofollow">Email</a>
+
+<a href="https://wa.me/?text={{ page.title }}%20{{ site.url }}{{ page.url }}" 
+   title="Compartir en WhatsApp" rel="nofollow" target="_blank">WhatsApp</a>
         </div>
         <div class="page-tag">
           {% for tag in page.tags %}
