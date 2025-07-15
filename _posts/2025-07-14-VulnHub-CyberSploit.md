@@ -6,7 +6,7 @@ date: 2025-07-14
 ![banner](/secnotes/assets/img/cybersploit/banner.png)
 
 
-Identificar nuestra ip y buscar la máquina objetivo en la red con netdiscover.
+nuestro primer paso será identificar nuestra ip y buscar la máquina objetivo en la red con la herramienta 'netdiscover'.
 
 ![img1](/secnotes/assets/img/cybersploit/1.png)
  
@@ -14,18 +14,22 @@ Con el comando `nmap -O <ip>` encontraremos la máquina objetivo.
  
 ![img2](/secnotes/assets/img/cybersploit/2.png)
 
-Nos encontramos que la máquina tiene el puerto 22 y 80 abiertos, vamos a usar un script básico de enumeración de directorios que tiene integrado nmap para hacer un escaneo rápido al servicio web en el puerto 80
+Nos encontramos que la máquina tiene los puertos 22 y 80 abiertos, vamos a usar un script básico de enumeración de directorios que tiene integrado nmap para hacer un escaneo rápido al servicio web sobre el puerto 80
 
  ![img3](/secnotes/assets/img/cybersploit/3.png)
 
  Nos encontramos un documento llamado _robots.txt_, y que al acceder a él nos muestra un código.
 
  ![img4](/secnotes/assets/img/cybersploit/4.png)
-									visión herramienta curl
+
+									vista herramienta curl
+
  ![img5](/secnotes/assets/img/cybersploit/5.png)
-									visión navegador web
+
+									vista navegador web
 
 Este código que nos muestra es un texto codificado. A simple vista es ilegible, sin embargo, podemos usar una página web para descifrarlo.
+
 https://gchq.github.io/CyberChef/  
 
 En esta página ponemos el texto encriptado en el input, y presionamos la varita del output.
@@ -36,7 +40,6 @@ Y con eso automáticamente descifrará el texto encriptado obteniendo la primera
 
 ![img7](/secnotes/assets/img/cybersploit/7.png)
 
- 
 Al acceder al servicio web de la maquina objetivo no tendremos más información. Es por esto que una buena practica es inspeccionar la página web en búsqueda de comentarios o alguna información relevante. 
 
  ![img8](/secnotes/assets/img/cybersploit/8.png)
@@ -51,7 +54,7 @@ Para conectarse al servicio debemos usar el siguiente formato.
 
 ![img10](/secnotes/assets/img/cybersploit/10.png)
  
-Al intentar ingresar por el servicio ssh, este nos pide un password valido. Luego de intentos fallidos con contraseñas básicas (admin, root, etc) y al no tener más información intentamos con la flag como contraseña cybersploit{youtube.com/c/cybersploit}.
+Al intentar ingresar por el servicio ssh, este nos pide un password valido . Luego de intentos fallidos con contraseñas básicas (admin, root, etc) y al no tener más información intentamos con la flag como contraseña **cybersploit{youtube.com/c/cybersploit}**.
 Así pudimos acceder al servicio.
 
 ![img11](/secnotes/assets/img/cybersploit/11.png)
