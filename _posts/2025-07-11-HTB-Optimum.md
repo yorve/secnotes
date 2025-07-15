@@ -2,11 +2,9 @@
 layout: post
 title: "Optimum – HTB - Windows - Fácil"
 date: 2025-07-11
+img: /assets/img/optimun/banner.png
 ---
 Optimum es una máquina para principiantes que se centra principalmente en la enumeración de servicios con exploits conocidos. Ambos exploits son fáciles de obtener y cuentan con módulos de Metasploit asociados, lo que hace que esta máquina sea bastante sencilla de completar.
-
-![banner](/secnotes/assets/img/optimun/banner.png)
-
 
 **Reconocimiento**
 
