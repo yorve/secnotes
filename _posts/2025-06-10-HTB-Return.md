@@ -2,11 +2,9 @@
 layout: post
 title: "Return – HTB - Windows (A.D) - Fácil"
 date: 2025-07-11
-img: banner
+img: return
 ---
 Return es una máquina Windows (Active Directory), enfocada en explotar vulnerabilidades comunes en entornos AD, como LDAP inseguro, abuso de grupos privilegiados y BinPath Hijacking.
-
-![banner](/secnotes/assets/img/return/return.png)
 
 **Reconocimiento**
 
