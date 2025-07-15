@@ -22,11 +22,11 @@ Nos encontramos que la máquina tiene los puertos 22 y 80 abiertos, vamos a usar
 
  ![img4](/secnotes/assets/img/cybersploit/4.png)
 
-									vista herramienta curl
+vista herramienta curl
 
  ![img5](/secnotes/assets/img/cybersploit/5.png)
 
-									vista navegador web
+vista navegador web
 
 Este código que nos muestra es un texto codificado. A simple vista es ilegible, sin embargo, podemos usar una página web para descifrarlo.
 
