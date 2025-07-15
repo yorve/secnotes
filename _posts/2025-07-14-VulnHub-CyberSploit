@@ -5,7 +5,6 @@ date: 2025-07-11
 ---
 ![banner](/secnotes/assets/img/cybersploit/banner.png)
 
-**Reconocimiento**
 
 Identificar nuestra ip y buscar la máquina objetivo en la red con netdiscover.
 
