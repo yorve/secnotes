@@ -2,9 +2,9 @@
 layout: post
 title: "CyberSploit1 – VULNHUB - Linux - Fácil"
 date: 2025-07-14
+img: /assets/img/cybersploit/banner.png
 ---
-![banner](/secnotes/assets/img/cybersploit/banner.png)
-
+Cybersploit es una máquina de tipo CTF diseñada para reforzar conocimientos en pentesting web, enumeración y explotación básica. Inspirada en escenarios del mundo real, esta máquina simula un entorno vulnerable donde es necesario aplicar técnicas comunes como fuzzing, análisis de código y posibles vectores de ejecución remota.
 
 Nuestro primer paso será identificar nuestra ip y buscar la máquina objetivo en la red con la herramienta **netdiscover**.
 
