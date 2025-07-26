@@ -5,10 +5,10 @@ date: 2025-07-26
 img: /assets/img/grillo/banner.png
 ---
 ![img1](/secnotes/assets/img/grillo/banner.png)
+
 Esta es una máquina Linux de nivel facil, diseñada para fortalecer la enumeración de aplicación web: Exploración de contenido web visible y oculto para detectar puntos de entrada.
 Enumeración de servicios: Identificación de los servicios que corren en los puertos abiertos, incluyendo versiones.
 Escaneo de puertos TCP: Detección de puertos abiertos en la máquina objetivo mediante escaneo TCP.
-
 
 **Reconocimiento**
 
