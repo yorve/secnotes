@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Obsession - Dockerlabs - Linux - Fácil"
-date: 2025-07-11
+date: 2025-08-16
 img: /assets/img/obssesion/1.png
 ---
 
@@ -33,7 +33,7 @@ Vemos el archivo chat-gonza.txt
  
 Y el archivo pendientes.txt
 
-![img6](/secnotes/assets/img/obsession/6.png)
+![img6](/secnotes/assets/img/obssesion/6.png)
  
 Aquí podemos obtener dos posibles usuarios llamados _Gonza_  y _Russoski_.
 
