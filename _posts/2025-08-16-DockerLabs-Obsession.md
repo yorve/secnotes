@@ -102,7 +102,7 @@ En **gtfobins** encontramos que podemos elevar privilegios con un comando.
 
 ![img19](/secnotes/assets/img/obssesion/19.png) 
 
-![img20](/secnotes/assets/img/obsession/20.png)
+![img20](/secnotes/assets/img/obssesion/20.png)
 
 Ejecutamos el primer comando (a) y obtenemos acceso como root
 
