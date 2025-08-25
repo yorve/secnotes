@@ -57,7 +57,7 @@ Al ejecutar el script obtendremos automaticamente una shell como usuario root en
 
 Podemos modificar el script para reemplazar telnet por pwntools, así el script funcionará con las versiones actuales de python 
 
-```python
+`python
 from pwn import *
 import argparse
 from signal import signal, SIGINT
@@ -94,7 +94,8 @@ try:
     shell.interactive()
     shell.close()
 except Exception as e:
-    print(f"[!] Error: {e}") ```
+    print(f"[!] Error: {e}")`
+
 
 
 
