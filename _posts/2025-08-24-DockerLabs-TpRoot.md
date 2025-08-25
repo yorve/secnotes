@@ -95,10 +95,3 @@ try:
     shell.close()
 except Exception as e:
     print(f"[!] Error: {e}")```
-
-
-
-
-![img12](/secnotes/assets/img/tproot/12.png) 
-
-
