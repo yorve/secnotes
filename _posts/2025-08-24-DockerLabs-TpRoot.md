@@ -38,12 +38,13 @@ Ejecutamos el script que descargamos pero nos da un error. Indica que no tenemos
 
 ![img7](/secnotes/assets/img/tproot/7.png) 
 
-![img8](/secnotes/assets/img/tproot/8.png)
 
 con el siguiente comando podemos ejecutar directamente la versión 3.11.13 de Python desde un contenedor de docker en nuestro entorno aislado
 
 `docker run -it --rm -v "$PWD":/work -w /work python:3.11 bash
 python3 –version`
+
+![img8](/secnotes/assets/img/tproot/8.png)
 
 ![img9](/secnotes/assets/img/tproot/9.png)
  
