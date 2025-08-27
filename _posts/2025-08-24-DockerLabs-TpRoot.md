@@ -49,7 +49,7 @@ python3 –version`
  
 Al ejecutar el script obtendremos automaticamente una shell como usuario root en la máquina víctima.
 
-![img10](/secnotes/assets/img/tproot/10.png)
+![img12](/secnotes/assets/img/tproot/12.png)
 
 
 
