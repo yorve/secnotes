@@ -5,6 +5,8 @@ date: 2025-09-09
 img: /assets/img/firsthacking/banner.png
 ---
 
+![img12](/secnotes/assets/img/firsthacking/banner.png)
+
 La máquina First Hacking es un laboratorio básico de Docker Labs que sirve como punto de partida en el mundo del pentesting.
 El objetivo principal es detectar y aprovechar la vulnerabilidad para conseguir acceso al sistema.
 Esta práctica ayuda a entender cómo un servicio desactualizado puede convertirse en una puerta de entrada para un atacante y muestra la importancia de mantener los sistemas siempre actualizados.
