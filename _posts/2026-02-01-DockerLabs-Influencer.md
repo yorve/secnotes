@@ -7,9 +7,13 @@ img: /assets/img/influencer/1.png
 
 ![img1](/secnotes/assets/img/influencer/1.png)
 
-En esta máquina pondremos a prueba los ataques de fuerza bruta contra el objetivo.
+En este laboratio pondremos a prueba los ataques de fuerza bruta contra distintos servicios.
 
-Utilizaremos un script que cree para la fase de reconocimiento (Pueden encontrarlo en mi perfil), este me ayuda en estos laboratorios, ya que automatiza el reconocimiento básico del objetivo, entregando en pantalla los puertos, servicios, directorios, y otros datos importantes qyue nos permitirán trabajar de manera más rápida.
+Para la fase de reconocimiento, utilizaremos un script que arme para estos labotarios.
+
+> https://github.com/yorve/Auto-Recon
+
+Este nos ayudará para automatizar la fase de reconocimientos de puertos, servicios, escaneo de directorios web y otros.
 
 ![img1](/secnotes/assets/img/influencer/objetivo.png)
 
@@ -25,53 +29,54 @@ La segunda etapa nos muestra información sobre el servicio web
 
 ![img4](/secnotes/assets/img/influencer/web.png)
 
-Este escaneo automatizado nos da información por donde empezar:
-contiene *401 Unauthorized*, Esto nos indica que el objetivo tiene un mecanismo de autenticación, el servidor responde correctamente.
-*WWW-Authenticate: Basic*, el usuario y contraseña se envían en `Authorization: Basic base64(user:pass)`, no existe hash ni tokens, esto lo hace vulnerable a ataques de fuerza bruta.
+Una vez finalizado, el resultado nos muestra información por donde empezar.
+Vemos que el servicio web contiene *401 Unauthorized*, Esto nos indica que el objetivo tiene un mecanismo de autenticación y que el servidor responde correctamente.
+*WWW-Authenticate: Basic*, indica que el usuario y contraseña se envían en `Authorization: Basic base64(user:pass)`, no existe hash ni tokens, esto lo hace vulnerable a ataques de fuerza bruta.
 
 ![img5](/secnotes/assets/img/influencer/directorios.png)
 
-El escaneo de directorios no se inicio, esto ocurre por que el objetivo pide estar autenticado para prosegir.
+El escaneo de directorios no se inicio, esto ocurre por que el objetivo pide pasar la primera autenticación para seguir.
 
 ![img6](/secnotes/assets/img/influencer/web1.png)
 
-efectivamente al ingresar por el navegador, este nos pide igresar las credenciales. 
+efectivamente al ingresar por el navegador, este nos pide igresar las credenciales al acceder. 
 
 ![img7](/secnotes/assets/img/influencer/curlget.png)
 
-Al acceder a la página con curl, podemos confirmar que el sitio usa HTTP Basic Authentication, este no es un formulario HTML, sino una autenticación a nivel HTTP. Esto nos dice que el navegador debe reenviar la petición de la siguiente forma:
-*Authorization: Basic base64(usuario:contraseña)*
-Esta autenticación se realiza mediante un request GET.
+Al inspeccionar la página con la herramienta curl, se confirma que el sitio utiliza HTTP Basic Authentication.
+Este mecanismo no corresponde a un formulario HTML, sino que a una autenticación a nivel de protocolo HTTP, donde el navegador incluye las credenciales en la cabecera. 
 
-Ya que tenemos los datos anteriores vamos a realizar un ataque de fuerza bruta con hydra.
+*Authorization: Basic base64(usuario:contraseña)*
+
+La autenticación HTTP Bascis es independiente del método HTTP utilizado (GET o POST). En este caso, el acceso inicial al recurso protegido se realiza mediante peticiones GET, razón por la cual el servidor responde con el código 401 Unauthorized cuando no se incluyen credenciales válidas. 
+
+Ya con los datos anteriores, vamos a intentar un ataque de fuerza bruta con la herramienta hydra.
 
 ![img8](/secnotes/assets/img/influencer/fuerzabruta1.png)
 
-Utilizamos el argumento -C (combo) y el diccionario de usuarios y contraseña tenga el formato *user:pass* (admin:admin, root:root, etc)
+Utilizamos el argumento -C (combo) y el diccionario de usuarios y contraseña que contengan el formato *user:pass* (admin:admin, root:root, etc)
 Obtenemos las credenciales del usuario httpadmin.
 
 ![img9](/secnotes/assets/img/influencer/login1.png)
 
-al ingresar las credenciales, no encontramos nada (aparentemente), pero ya que las tenemos, podremos realizar un escaneo de directorios con gobuster utilizando las credenciales obtenidas en el ataque de fierza bruta.
+Una vez ingresadas las credenciales encontradas, no tenemos nada (aparentemente), pero esto nos da pie para realizar un escaneo de directorios con la herramienta gobuster utilizando las credenciales obtenidas en el ataque de fuerza bruta.
 
 ![img10](/secnotes/assets/img/influencer/gobuster1.png)
 
-una vez terminado este escaneo encontramos la ruta a /login.php
-
-Accedemos a él y nos encontramos con otro panel de login
+En este escaneo encontramos una ruta a /login.php, aquí nos encontramos con otro panel de login.
 
 ![img11](/secnotes/assets/img/influencer/login2.png)
 
-Aqui nos encontramos con una doble autenticacion encadenada. Esto significa que, primero se debe pasar la primera barrera (Basic Auth) y pasar por la segunda.
+Tenemos una doble autenticacion encadenada. Esto significa que primero se debe pasar la primera barrera (Basic Auth) y pasar por la segunda.
 
 ![img12](/secnotes/assets/img/influencer/login3.png)
 
-Al utilizar gobuster para hacer la misma verificacion anterior, debemos utilizar las credenciales encontradas para pasar la primera barrera y luego hacer la petición por método POST con credenciales de pruena y así ver la respuesta que entrega el servidor.
-en este caso el mensaje de Credenciales Incorrectas. 
+Utilizamos nuevamente gobuster para hacer la misma verificación anterior, esta vez debemos utilizar las credenciales encontradas para pasar la primera barrera y luego hacer la petición por método POST con credenciales de prueba y así ver la respuesta que entrega el servidor.
+en este caso el mensaje de *Credenciales Incorrectas*. 
 
 ![img13](/secnotes/assets/img/influencer/login4.png)
 
-Entonces, el formulario tiene método POST, el servidor procesa estos parametros y devuelve un mensaje de error dependiendo del contenido enviado, y el POST funciona solo despues de pasar al Basic Auth.
+Entonces, el formulario tiene método POST, el servidor procesa estos parámetros y devuelve un mensaje de error dependiendo del contenido envíado, y el POST funciona solo despues de pasar al Basic Auth.
 vamos a realizar otro ataque de fuerza bruta, ahora sobre el segundo login.
 
 ![img14](/secnotes/assets/img/influencer/fuerzabruta2.png)
@@ -121,6 +126,9 @@ y podemos cambiarnos al usuario root
 
 ![img22](/secnotes/assets/img/influencer/root1.png)
 
+En un entorno real, los ataques de fuerza bruta locales contra el binario su no suelen ser viables debido a las protecciones implementadas por PAM.
+Sin embargo, en este laboratorio, dichas protecciones han sido debilitadas intencionadamente, permitiendo la automatización de intentos contra el usuario root.
+Aprovechando esta configuración insegura, fue posible realizar un ataque de fuerza bruta interno y obtener la contraseña del usuario root.
 
 
  
