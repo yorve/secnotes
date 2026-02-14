@@ -1,3 +1,11 @@
+---
+layout: post
+title: "Ping CTF - Dockelabs - Linux - Fácil"
+date: 2026-02-14
+img: /assets/img/ping/1.png
+---
+
+
 Para la fase de reconocimiento inicial utilicé un script que diseñé que me permite el escaneo de puertos, servicios, directorios web, y algunas vulnerabilidades conocidas de manera automatizada.
 Pueden encontrar esta herramienta en mi perfil de Github.
 
