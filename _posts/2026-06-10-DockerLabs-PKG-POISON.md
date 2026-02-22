@@ -63,7 +63,7 @@ Como pip3 install permite instalar paquetes desde directorios locales que conten
 
 ******Gereramos este código con ayuda de la IA*******
 
-'''python
+```python
 cat << EOF > setup.py
 from setuptools import setup
 from setuptools.command.install import install
@@ -99,7 +99,7 @@ cmdclass: aqui le decimos a setup que, en lugar de usar la función de instalaci
 
 La ejecución
 
-sudo /usr/bin/pip3 install .
+`sudo /usr/bin/pip3 install .`
 
 pip3 busca un paquete en el directorio actual (.)
 encuentra setup.py
