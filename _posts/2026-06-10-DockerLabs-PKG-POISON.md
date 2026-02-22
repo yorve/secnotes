@@ -6,7 +6,8 @@ img: /assets/img/pkgpoison/1.png
 ---
 
 Para iniciar la fase de reconocimiento utilizaré un script que escribí en bash que realiza un escaneo de puertos, servicios, directorios web y algunas vulnerabilidades conocidas de manera automatica. Este script lo utilizo en laboratorios con el fin de ganar algo de tiempo de este proceso.
-pueden encontrarlo en mi perfil de GitHub 
+pueden encontrarlo en mi perfil de GitHub.
+
 ![img1](/secnotes/assets/img/pkgpoison/escaneo.png)
 
 ![img2](/secnotes/assets/img/pkgpoison/dir.png)
@@ -78,11 +79,11 @@ EOF
 vamos a explicar este script
 
 << EOF: le indica a la Shell que todo lo que se escriba a continuación es parte del archivo, hasta que se escriba la palabra EOF (End Of File) solo en una linea.
-> setup.py: Redirige todo ese bloque de texto para crear el archivo llamado setup.py
- from setuptools import setup: La función estándar para definir paquetes en Python.
+setup.py: Redirige todo ese bloque de texto para crear el archivo llamado setup.py
+from setuptools import setup: La función estándar para definir paquetes en Python.
 from setuptools.command.install import install: Importamos la clase que gestiona el proceso de instalación.
 
-aquí viene la clase maliciosa
+Aquí viene la clase maliciosa
 
 Creamos una clase (class PreInstall (install)) que hereda de la clase original de instalación.
 def run (self): Le decimos a Python: Antes de hacer la instalación normal, ejecuta lo que yo te diga.
