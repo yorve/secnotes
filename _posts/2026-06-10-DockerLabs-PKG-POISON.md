@@ -77,6 +77,7 @@ class PreInstall(install):
 
 setup(name="poison", version="1.0", cmdclass={'install': PreInstall})
 EOF
+``` 
 
 
 vamos a explicar este script
