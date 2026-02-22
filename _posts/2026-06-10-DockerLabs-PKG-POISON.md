@@ -63,7 +63,8 @@ Como pip3 install permite instalar paquetes desde directorios locales que conten
 
 ******Gereramos este código con ayuda de la IA*******
 
-`cat << EOF > setup.py
+'''python
+cat << EOF > setup.py
 from setuptools import setup
 from setuptools.command.install import install
 import os
@@ -75,7 +76,7 @@ class PreInstall(install):
         install.run(self)
 
 setup(name="poison", version="1.0", cmdclass={'install': PreInstall})
-EOF`
+EOF
 
 
 vamos a explicar este script
