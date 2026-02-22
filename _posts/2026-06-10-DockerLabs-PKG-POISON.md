@@ -35,9 +35,12 @@ Luego de este ataque obtenemos sus credenciales.
 ![img8](/secnotes/assets/img/pkgpoison/ssh.png)
 
 Una vez dentro del sistema con este usuario, procedemos con la búsqueda de permisos o aplicaciones mal configuradas con el fin de encontrar algún vector de ataque de escalada de privilegios. Sin embargo no encontramos nada.. 
-al no encontrar nada útil, buscamos en los directorios a los que tenemos acceso con este usuario, y finalmente, en la ruta de /opt, encontramos algo de interés...
-en el directorio "__pychache__" es donde Python guarda automaticamente los archivos compilados (secret.cpython-38-pyc). Cuando ejecutamos un programa en python, el intérprete no lee el código fuente (.py) directamente cada vez. Para ir mas rápido, este lo compila a un lenguaje intermedio llamado Bytecode.
+
+Al no encontrar nada útil, buscamos en los directorios a los que tenemos acceso con este usuario, y finalmente, en la ruta de /opt, encontramos algo de interés...
+en el directorio "__pycache__" es donde Python guarda automaticamente los archivos compilados (secret.cpython-38-pyc). Cuando ejecutamos un programa en python, el intérprete no lee el código fuente (.py) directamente cada vez. Para ir mas rápido, este lo compila a un lenguaje intermedio llamado Bytecode.
+
 Un archivo .py es el código que nosotros escribimos (legible para humanos) 
+
 Un archivo .pyc es el código compilado (legible para máquinas)
 
 Al leer el archivos encontramos algo de texto que no es muy legible, es por esto que utilizamos `strings` para que nos extraiga texto legible, es por esto que nos mostró las credenciales.
@@ -60,7 +63,7 @@ Como pip3 install permite instalar paquetes desde directorios locales que conten
 
 ******Gereramos este código con ayuda de la IA*******
 
-cat << EOF > setup.py
+`cat << EOF > setup.py
 from setuptools import setup
 from setuptools.command.install import install
 import os
@@ -72,9 +75,8 @@ class PreInstall(install):
         install.run(self)
 
 setup(name="poison", version="1.0", cmdclass={'install': PreInstall})
-EOF
+EOF`
 
-********-**********
 
 vamos a explicar este script
 
@@ -83,7 +85,7 @@ setup.py: Redirige todo ese bloque de texto para crear el archivo llamado setup.
 from setuptools import setup: La función estándar para definir paquetes en Python.
 from setuptools.command.install import install: Importamos la clase que gestiona el proceso de instalación.
 
-Aquí viene la clase maliciosa
+Aquí viene la clase maliciosa...
 
 Creamos una clase (class PreInstall (install)) que hereda de la clase original de instalación.
 def run (self): Le decimos a Python: Antes de hacer la instalación normal, ejecuta lo que yo te diga.
@@ -105,7 +107,7 @@ Como pip3 se lanzó con sudo, el comando chmod u+s /bin/bash se ejecuta con perm
 
 Resultado
 
-bash -p 
+`bash -p` 
 
 Si ejecutamos bash que tienen el bit SUID, el mismo detrecta que el usuario real (admin) no es el dueño (root) y suelta los privilegios por seguridad.
 pero al usar -p (persist) forzamos a la shell a mantener el privilegio  del dueño del archivo. Como el dueño es root, obtenemos una shell con sus permisos
