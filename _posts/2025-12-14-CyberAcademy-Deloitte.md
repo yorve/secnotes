@@ -67,7 +67,7 @@ En resumen. el servidor no verifica quién es el usuario, sino que la petición 
 
 Al enviar la solicitud obtenemos la quinta flag. 
 
-![img14](/secnotes/assets/img/deloitte2/16.png)
+![img14](/secnotes/assets/img/deloitte2/16 .png)
 
 De vuelta a la página principal, el tercer enlace nos envía a ping, una aplicación web que nos indica como podemos enviar un ping a una ip que se introduzca en el navegador por método GET.
 
@@ -109,7 +109,7 @@ Decodificamos y así obtenemos nuestra octava bandera.
 
 En el escaneo de directorios web, habiamos encontrado la ruta **/uploads**, al acceder a ella encontramos la novena bandera. 
 
-![img24](/secnotes/assets/img/deloitte2/45.png)
+![img24](/secnotes/assets/img/deloitte2/41.png)
 
 En este punto solo nos queda la última bandera, la correspondiente al usuario root. El siguiente paso será identificar la versión de Linux de la máquina víctima, aprovechando la vulnerabilidad de RCE vamos a utilizar el comando `uname -a` para que el servidor nos muestre esta información.
 
