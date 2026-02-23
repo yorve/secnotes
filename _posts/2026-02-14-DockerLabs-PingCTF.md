@@ -78,6 +78,9 @@ pty.spawn("/bin/bash") = lanza /bin/bash, lo ata a la psudo terminal creada, nos
 
 al lanzar este comando automáticamente nos convertimos en usuarios root
 
-
 ![img13](/secnotes/assets/img/ping/root.png)
- 
+
+☕ ¿Te sirvió el Write-up?
+Si este contenido te ayudó a rootear la máquina o a aprender algo nuevo, ¡puedes invitarme un café! Todo el apoyo se va directo a mejorar el blog y seguir subiendo retos de DockerLabs.
+
+![Invitame un café](https://img.buymeacoffee.com/button-api/?text=Invítame un café&emoji=☕&slug=TU_USUARIO&button_colour=FFDD00&font_colour=000000&font_family=Cookie&outline_colour=000000&coffee_colour=ffffff)
