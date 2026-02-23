@@ -3,6 +3,7 @@ layout: post
 title: "Ping CTF - Dockelabs - Linux - Fácil"
 date: 2026-02-14
 img: /assets/img/ping/1.png
+tags: [DockerLabs, Linux, ICMP, CommandInjection, RCE]
 ---
 
 
