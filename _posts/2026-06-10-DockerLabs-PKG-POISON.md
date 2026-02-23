@@ -3,6 +3,7 @@ layout: post
 title: "PKG Poison - Dockerlabs - Linux - Fácil"
 date: 2026-02-22
 img: /assets/img/pkgpoison/1.png
+tags: [DockerLabs, Linux, SUID, Python, Pentesting]
 ---
 
 Para iniciar la fase de reconocimiento utilizaré un script que escribí en bash que realiza un escaneo de puertos, servicios, directorios web y algunas vulnerabilidades conocidas de manera automatica. Este script lo utilizo en laboratorios con el fin de ganar algo de tiempo de este proceso.
