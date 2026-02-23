@@ -3,6 +3,7 @@ layout: post
 title: "Deloitte - CyberAcademy - Linux - CTF"
 date: 2025-12-14
 img: /assets/img/deloitte2/banner.png
+tags: [CyberAcademy, Networking, PrivEsc, Pentesting]
 ---
 Deloitte es un laboratio práctico donde nuestro objetivo será aprovechar las vulnerabilidades encontradas en el servidor y encontrar 10 flags.
 
