@@ -3,35 +3,69 @@ layout: main
 ---
 <article class="article-page">
   <div class="page-content">
-
     <div class="wrap-content">
       <header class="header-page">
         <h1 class="page-title">{{ page.title }}</h1>
         <div class="page-date"><span>{{ page.date | date: '%Y, %b %d' }}&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
+        
+        <div class="page-tag top-tags">
+          {% for tag in page.tags %}
+            <a href="{{ site.baseurl }}/tags#{{ tag }}" class="tag-item">&#35;{{ tag }}</a>
+          {% endfor %}
+        </div>
       </header>
 
-      {{ content | markdownify }}
+      <div class="markdown-body">
+        {{ content | markdownify }}
+      </div>
 
       <div class="page-footer">
         <div class="page-share">
-          <!-- Redes sociales para compartir -->
-          <a href="https://twitter.com/intent/tweet?text={{ page.title }}&url={{ site.url }}{{ page.url }}" title="Compartir en Twitter" rel="nofollow" target="_blank">Twitter</a>
-
-          <a href="https://facebook.com/sharer.php?u={{ site.url }}{{ page.url }}" title="Compartir en Facebook" rel="nofollow" target="_blank">Facebook</a>
-
-          <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ site.url }}{{ page.url }}&title={{ page.title }}" title="Compartir en LinkedIn" rel="nofollow" target="_blank">LinkedIn</a>
-
-          <a href="https://wa.me/?text={{ page.title }}%20{{ site.url }}{{ page.url }}" title="Compartir en WhatsApp" rel="nofollow" target="_blank">WhatsApp</a>
-        </div>
-
-        <div class="page-tag">
-          {% for tag in page.tags %}
-            <a href="{{ site.baseurl }}/tags#{{ tag }}" class="tag">&#35; {{ tag }}</a>
-          {% endfor %}
+          <p class="share-title">Comparte este writeup:</p>
+          <a href="https://twitter.com/intent/tweet?text={{ page.title }}&url={{ site.url }}{{ page.url }}" title="Compartir en Twitter" rel="nofollow" target="_blank"><i class="fab fa-twitter"></i> Twitter</a>
+          <a href="https://facebook.com/sharer.php?u={{ site.url }}{{ page.url }}" title="Compartir en Facebook" rel="nofollow" target="_blank"><i class="fab fa-facebook"></i> Facebook</a>
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ site.url }}{{ page.url }}&title={{ page.title }}" title="Compartir en LinkedIn" rel="nofollow" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
+          <a href="https://wa.me/?text={{ page.title }}%20{{ site.url }}{{ page.url }}" title="Compartir en WhatsApp" rel="nofollow" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
         </div>
       </div>
 
       {% include disqus.html %}
-    </div> <!-- End Wrap Content -->
-  </div> <!-- End Page Content -->
-</article> <!-- End Article Page -->
+    </div> </div> </article> ```
+
+---
+
+### El "toque mágico": CSS para tus Tags
+Para que esos tags no se vean como simples enlaces, debes agregar este código a tu archivo de estilos (normalmente `assets/css/main.scss` o `style.css`):
+
+```css
+/* Estilo para los tags tipo 'Cyber' */
+.tag-item {
+    display: inline-block;
+    background: #2ea44f; /* Verde GitHub, muy pro */
+    color: #ffffff !important;
+    padding: 2px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    margin: 4px 2px;
+    text-decoration: none !important;
+    transition: all 0.3s ease;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.tag-item:hover {
+    background: #22863a;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+/* Mejora para el cuerpo del post */
+.markdown-body {
+    line-height: 1.7;
+    font-size: 1.1rem;
+}
+
+.share-title {
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #555;
+}
