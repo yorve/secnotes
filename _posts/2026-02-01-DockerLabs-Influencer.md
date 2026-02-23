@@ -3,6 +3,7 @@ layout: post
 title: "Influencer - Dockerlabs - Linux - Fácil"
 date: 2026-02-01
 img: /assets/img/influencer/1.png
+tags: [DockerLabs, Linux, Web, InformationLeakage, PrivEsc]
 ---
 
 ![img1](/secnotes/assets/img/influencer/1.png)
