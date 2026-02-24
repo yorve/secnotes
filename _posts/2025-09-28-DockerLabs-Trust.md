@@ -3,6 +3,7 @@ layout: post
 title: "Trust - Dockerlabs - Linux - Fácil"
 date: 2025-09-28
 img: /assets/img/trust/banner.png
+tags: [DockerLabs, Linux, SSH, BruteForce, SUID]
 ---
 
 La máquina Trust de DockerLabs es un desafío de nivel muy fácil diseñado para practicar habilidades básicas de enumeración y elevación de privilegios. 
