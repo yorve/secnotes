@@ -1491,3 +1491,27 @@ a.newer-posts:hover {
     text-decoration: none !important;
     transition: all 0.3s ease;
 }
+.main-nav {
+    margin-top: 20px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 20px;
+}
+
+.main-nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+.main-nav li a {
+    color: #2ea44f; /* Tu verde característico */
+    text-decoration: none;
+    font-weight: bold;
+    display: block;
+    padding: 8px 0;
+    transition: 0.3s;
+}
+
+.main-nav li a:hover {
+    color: #ffffff;
+    padding-left: 10px;
+}
