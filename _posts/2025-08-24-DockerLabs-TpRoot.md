@@ -3,6 +3,7 @@ layout: post
 title: "TpRoot - Dockerlabs - Linux - Fácil"
 date: 2025-08-24
 img: /assets/img/tproot/banner.png
+tags: [DockerLabs, Linux, SUID, PrivEsc, Easy]
 ---
 TProot es una máquina Linux de nivel fácil en DockerLabs que nos permite practicar enumeración básica y explotación de vulnerabilidades conocidas.
 
