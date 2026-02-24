@@ -1479,3 +1479,15 @@ a.newer-posts:hover {
     font-size: 21px;
   }
 }
+/* Botones de Tags estilo Security */
+.tag-item {
+    display: inline-block;
+    background: #2ea44f; 
+    color: #ffffff !important;
+    padding: 2px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    margin: 4px 2px;
+    text-decoration: none !important;
+    transition: all 0.3s ease;
+}
