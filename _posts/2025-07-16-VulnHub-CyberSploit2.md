@@ -3,6 +3,7 @@ layout: post
 title: "CyberSploit2 – VULNHUB - Linux - Fácil"
 date: 2025-07-16
 img: /assets/img/cybersploit2/banner.png
+tags: [VulnHub, Linux, HashCracking, PrivEsc, Easy]
 ---
 
 Cybersploit 2 es una máquina de tipo Boot2Root diseñada para poner a prueba habilidades de enumeración, explotación y escalada de privilegios en un entorno controlado.
