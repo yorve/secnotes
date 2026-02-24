@@ -3,6 +3,7 @@ layout: post
 title: "Grillo – TheHackerLabs - Linux - Fácil"
 date: 2025-07-26
 img: /assets/img/grillo/banner.png
+tags: [TheHackersLabs, Linux, Web, AbuseOfFunctionality, Easy]
 ---
 ![img1](/secnotes/assets/img/grillo/banner.png)
 
