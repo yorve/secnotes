@@ -45,21 +45,22 @@ layout: default
 
 <div class="content-box clearfix">
   {{ content }}
-  <div class="content-box clearfix">
-  {{ content }}
 
   {% if paginate.total_pages > 1 %}
   <div class="pagination">
     {% if paginate.previous_page %}
       <a href="{{ paginate.previous_page_path | relative_url }}" class="previous">« Anterior</a>
+    {% else %}
+      <span class="previous">« Anterior</span>
     {% endif %}
 
-    <span class="page_number ">Página {{ paginate.page }} de {{ paginate.total_pages }}</span>
+    <span class="page_number ">{{ paginate.page }} de {{ paginate.total_pages }}</span>
 
     {% if paginate.next_page %}
       <a href="{{ paginate.next_page_path | relative_url }}" class="next">Siguiente »</a>
+    {% else %}
+      <span class="next">Siguiente »</span>
     {% endif %}
   </div>
   {% endif %}
-</div>
 </div>
