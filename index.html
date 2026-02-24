@@ -3,41 +3,37 @@ layout: main
 ---
 
 {% for post in paginator.posts %}
-  <article class="post-card">
+  <article class="post">
     {% if post.image %}
-      <div class="post-thumbnail">
-        <a href="{{ post.url | relative_url }}">
-          <img src="{{ post.image | relative_url }}" alt="{{ post.title }}">
+      <div class="post-image">
+        <a href="{{ site.baseurl }}{{ post.url }}">
+          <img src="{{ site.baseurl }}/assets/img/{{ post.image }}" alt="{{ post.title }}">
         </a>
       </div>
     {% endif %}
     
-    <div class="post-data">
-      <h2 class="post-title-link">
-        <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-      </h2>
-      
-      <div class="post-summary">
-        {{ post.excerpt | strip_html | truncatewords: 30 }}
-      </div>
-
-      <a href="{{ post.url | relative_url }}" class="read-more-btn">Leer más →</a>
-      
-      <div class="post-meta-info">
-        <span>{{ post.date | date: "%Y, %b %d" }}</span>
-      </div>
+    <div class="post-content">
+      <h2 class="post-title"><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h2>
+      <p>{{ post.content | strip_html | truncatewords: 30 }}</p>
+      <span class="post-date">{{ post.date | date: '%Y, %b %d' }}&nbsp;&nbsp;—&nbsp;&nbsp;{% capture words %}{{ post.content | number_of_words }}{% endcapture %}{% unless words contains '-' %}{{ words | plus: 250 | divided_by: 200 | append: ' minute read' }}{% endunless %}</span>
     </div>
   </article>
 {% endfor %}
 
 {% if paginator.total_pages > 1 %}
-<div class="pagination">
-  {% if paginator.previous_page %}
-    <a href="{{ paginator.previous_page_path | relative_url }}" class="page-link-nav">« Anterior</a>
-  {% endif %}
-  <span class="page-info">{{ paginator.page }} de {{ paginator.total_pages }}</span>
-  {% if paginator.next_page %}
-    <a href="{{ paginator.next_page_path | relative_url }}" class="page-link-nav">Siguiente »</a>
-  {% endif %}
-</div>
+  <div class="pagination">
+    {% if paginator.previous_page %}
+      <a href="{{ paginator.previous_page_path | relative_url }}" class="previous">« Anterior</a>
+    {% else %}
+      <span class="previous">« Anterior</span>
+    {% endif %}
+
+    <span class="page_number ">{{ paginator.page }} de {{ paginator.total_pages }}</span>
+
+    {% if paginator.next_page %}
+      <a href="{{ paginator.next_page_path | relative_url }}" class="next">Siguiente »</a>
+    {% else %}
+      <span class="next">Siguiente »</span>
+    {% endif %}
+  </div>
 {% endif %}
