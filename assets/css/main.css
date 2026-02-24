@@ -1515,3 +1515,29 @@ a.newer-posts:hover {
     color: #ffffff;
     padding-left: 10px;
 }
+.pagination-wrapper {
+    margin-top: 50px;
+    padding: 20px 0;
+    border-top: 1px solid #eee;
+    text-align: center;
+}
+
+.btn-nav {
+    background-color: #2ea44f; /* Tu verde característico */
+    color: white !important;
+    padding: 8px 16px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    margin: 0 10px;
+    transition: background 0.3s ease;
+}
+
+.btn-nav:hover {
+    background-color: #22863a;
+}
+
+.page-number {
+    color: #666;
+    font-size: 0.9rem;
+}
