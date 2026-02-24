@@ -1,39 +1,4 @@
----
-layout: main
----
-<article class="article-page">
-  <div class="page-content">
-    <div class="wrap-content">
-      <header class="header-page">
-        <h1 class="page-title">{{ page.title }}</h1>
-        <div class="page-date"><span>{{ page.date | date: '%Y, %b %d' }}&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
-        
-        <div class="page-tag top-tags">
-          {% for tag in page.tags %}
-            <a href="{{ site.baseurl }}/tags#{{ tag }}" class="tag-item">&#35;{{ tag }}</a>
-          {% endfor %}
-        </div>
-      </header>
-
-      <div class="markdown-body">
-        {{ content | markdownify }}
-      </div>
-
-      <div class="page-footer">
-        <div class="page-share">
-          <p class="share-title">Comparte este writeup:</p>
-          <a href="https://twitter.com/intent/tweet?text={{ page.title }}&url={{ site.url }}{{ page.url }}" title="Compartir en Twitter" rel="nofollow" target="_blank"><i class="fab fa-twitter"></i> Twitter</a>
-          <a href="https://facebook.com/sharer.php?u={{ site.url }}{{ page.url }}" title="Compartir en Facebook" rel="nofollow" target="_blank"><i class="fab fa-facebook"></i> Facebook</a>
-          <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ site.url }}{{ page.url }}&title={{ page.title }}" title="Compartir en LinkedIn" rel="nofollow" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
-          <a href="https://wa.me/?text={{ page.title }}%20{{ site.url }}{{ page.url }}" title="Compartir en WhatsApp" rel="nofollow" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
-        </div>
-      </div>
-
-      {% include disqus.html %}
-    </div> </div> </article> ```
-
----
-
+index.html
 ### El "toque mágico": CSS para tus Tags
 Para que esos tags no se vean como simples enlaces, debes agregar este código a tu archivo de estilos (normalmente `assets/css/main.scss` o `style.css`):
 
