@@ -15,7 +15,11 @@ layout: main
     <div class="post-content">
       <h2 class="post-title"><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h2>
       <p>{{ post.content | strip_html | truncatewords: 30 }}</p>
-      <span class="post-date">{{ post.date | date: '%Y, %b %d' }}&nbsp;&nbsp;—&nbsp;&nbsp;{% capture words %}{{ post.content | number_of_words }}{% endcapture %}{% unless words contains '-' %}{{ words | plus: 250 | divided_by: 200 | append: ' minute read' }}{% endunless %}</span>
+      <span class="post-date">
+        {{ post.date | date: '%Y, %b %d' }}&nbsp;&nbsp;—&nbsp;&nbsp;
+        {% capture words %}{{ post.content | number_of_words }}{% endcapture %}
+        {{ words | divided_by: 200 | plus: 1 }} minute read
+      </span>
     </div>
   </article>
 {% endfor %}
@@ -24,16 +28,12 @@ layout: main
   <div class="pagination">
     {% if paginator.previous_page %}
       <a href="{{ paginator.previous_page_path | relative_url }}" class="previous">« Anterior</a>
-    {% else %}
-      <span class="previous">« Anterior</span>
     {% endif %}
 
-    <span class="page_number ">{{ paginator.page }} de {{ paginator.total_pages }}</span>
+    <span class="page_number">{{ paginator.page }} de {{ paginator.total_pages }}</span>
 
     {% if paginator.next_page %}
       <a href="{{ paginator.next_page_path | relative_url }}" class="next">Siguiente »</a>
-    {% else %}
-      <span class="next">Siguiente »</span>
     {% endif %}
   </div>
 {% endif %}
