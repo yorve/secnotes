@@ -44,18 +44,7 @@ layout: default
 </aside>
 <div class="content-box clearfix">
   {{ content }}
-
-  <div class="pagination">
-    {% if paginate.previous_page %}
-      <a href="{{ paginate.previous_page_path | relative_url }}" class="page-link-nav">« Anterior</a>
-    {% endif %}
-
-    <span class="page-info">Página {{ paginate.page }} de {{ paginate.total_pages }}</span>
-
-    {% if paginate.next_page %}
-      <a href="{{ paginate.next_page_path | relative_url }}" class="page-link-nav">Siguiente »</a>
-    {% endif %}
-  </div>
+ </div>
 </div>
 
 
