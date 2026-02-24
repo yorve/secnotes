@@ -1541,3 +1541,6 @@ a.newer-posts:hover {
     color: #666;
     font-size: 0.9rem;
 }
+.author-name { color: #333; font-weight: 700; }
+.main-nav ul li a { color: #2ea44f !important; font-weight: bold; }
+.contact-title { border-bottom: 1px solid #eee; color: #333; }
