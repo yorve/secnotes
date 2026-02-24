@@ -3,6 +3,7 @@ layout: post
 title: "Vacaciones - Dockerlabs - Linux - Fácil"
 date: 2025-08-21
 img: /assets/img/vacaciones/vacaciones.png
+tags: [DockerLabs, Linux, Enumeration, Sudo, Easy]
 ---
 ![img1](/secnotes/assets/img/vacaciones/vacaciones.png)
 
