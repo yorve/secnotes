@@ -2,14 +2,23 @@ title: "SecNotes"
 description: "Documentación de labs, explicadas de forma sencilla para ayudar a entender técnicas reales de hacking ético."
 permalink: "/:title/"
 baseurl: "/secnotes"
-url: "" # el dominio base, por ejemplo: "https://yorve.github.io"
+url: "https://yorve.github.io" # Añadido tu dominio para que el sitemap y los feeds funcionen bien
+
+# Configuración del Menú de Navegación (Añadido)
+navigation:
+  - title: "Inicio"
+    url: "/"
+  - title: "Etiquetas"
+    url: "/tags/"
+  - title: "Auto-Recon"
+    url: "https://github.com/yorve/Auto-Recon"
 
 # Author Settings
 author: "Yorve CSEC"
 author-img: "logo.png"
 about-author: "Aqui encontrarás writeups formativos sobre hacking ético, pensados especialmente para quienes están comenzando."
 social-github: "yorve"
-social-linkedin: "yonathan-rivera-velozo-9b362798"
+social-linkedin: "yonathan-rivera-v" # Simplificado para que coincida con tu perfil profesional
 social-email: "yorve.csec@gmail.com"
 
 # Disqus
@@ -20,6 +29,7 @@ analytics: "G-G8V2DW9MZ5"
 
 # Build Settings
 markdown: kramdown
+highlighter: rouge # Añadido para que los bloques de código tengan colores de sintaxis (hacking style)
 plugins:
   - jekyll-sitemap
   - jekyll-paginate
@@ -33,3 +43,4 @@ exclude:
   - "gulpfile.js"
   - "package.json"
   - "yarn.lock"
+  - "vendor"
