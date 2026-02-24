@@ -1,36 +1,35 @@
-index.html
-### El "toque mágico": CSS para tus Tags
-Para que esos tags no se vean como simples enlaces, debes agregar este código a tu archivo de estilos (normalmente `assets/css/main.scss` o `style.css`):
+---
+layout: main
+---
 
-```css
-/* Estilo para los tags tipo 'Cyber' */
-.tag-item {
-    display: inline-block;
-    background: #2ea44f; /* Verde GitHub, muy pro */
-    color: #ffffff !important;
-    padding: 2px 12px;
-    border-radius: 20px;
-    font-size: 0.85rem;
-    margin: 4px 2px;
-    text-decoration: none !important;
-    transition: all 0.3s ease;
-    font-family: 'Courier New', Courier, monospace;
-}
+{% for post in paginator.posts %}
+<article class="post">
+  {% if post.img %}
+    <a class="post-thumbnail" style="background-image: url('{{ post.img | prepend: site.baseurl }}')" href="{{post.url | prepend: site.baseurl}}"></a>
+  {% endif %}
+  
+  <div class="post-content">
+    <h2 class="post-title"><a href="{{post.url | prepend: site.baseurl}}">{{post.title}}</a></h2>
+    <p>{{ post.content | strip_html | truncatewords: 15 }}</p>
+    <span class="post-date">{{post.date | date: '%Y, %b %d'}}&nbsp;&nbsp;&nbsp;—&nbsp;</span>
+    <span class="post-words">
+      {% capture words %}{{ post.content | number_of_words }}{% endcapture %}
+      {% unless words contains "-" %}{{ words | plus: 250 | divided_by: 250 | append: " minute read" }}{% endunless %}
+    </span>
+  </div>
+</article>
+{% endfor %}
 
-.tag-item:hover {
-    background: #22863a;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-}
+{% if paginator.total_pages > 1 %}
+  <div class="pagination">
+    {% if paginator.previous_page %}
+      <a href="{{ paginator.previous_page_path | relative_url }}" class="previous">« Anterior</a>
+    {% endif %}
 
-/* Mejora para el cuerpo del post */
-.markdown-body {
-    line-height: 1.7;
-    font-size: 1.1rem;
-}
+    <span class="page_number">{{ paginator.page }} de {{ paginator.total_pages }}</span>
 
-.share-title {
-    font-weight: bold;
-    margin-bottom: 10px;
-    color: #555;
-}
+    {% if paginator.next_page %}
+      <a href="{{ paginator.next_page_path | relative_url }}" class="next">Siguiente »</a>
+    {% endif %}
+  </div>
+{% endif %}
