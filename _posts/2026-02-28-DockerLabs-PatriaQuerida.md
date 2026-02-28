@@ -35,7 +35,7 @@ Como sabemos que el servidor utiliza *page*?
 
 ![img5](/secnotes/assets/img/patriaquerida/nikto.png)
 
-Nuestro script automatizado nos dijo. **Nikto** realiza fuzzing de oaranetros comunes, ya que tiene una base de datos con miles de nombre de variables que suelen ser vulnerables. 
+Nuestro script automatizado nos dijo. **Nikto** realiza fuzzing de paranetros comunes, ya que tiene una base de datos con miles de nombre de variables que suelen ser vulnerables. 
 por otra parte nos dice que el servidor es vulnerable a file traversal, permitiendo que los atacantes puedan ver archivos en el host.
 
 `/index.php?page=../../../../../../../../../../etc/passwd`
