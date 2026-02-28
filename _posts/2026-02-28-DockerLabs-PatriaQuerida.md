@@ -10,9 +10,9 @@ tags: [DockerLabs, Linux, Easy, LFI, SUDI, SSH, Python; Enumeration, Path-Traver
 
 Como ya es costumbre iniciaremos la fase de reconocimiento con el script **Auto-Recon** (Disponible en mi perfil) el cúal nos ayudará con los escaneos iniciales de los objetivos de manera automatizada.
 
-![img1](/secnotes/assets/img/patriaquerida/incio.png)
+![img1](/secnotes/assets/img/patriaquerida/inicio.png)
 
-![img2](/secnotes/assets/img/patriaquerida/incio1.png)
+![img2](/secnotes/assets/img/patriaquerida/inicio1.png)
 
 Los resultados nos muestra que tenemos servicio SSH y WEB. Sabemos que sin un usuario almenos no podemos hacer nada sobre el servicio SSH. En el servicio web tenemos una ruta a *index.html* y *index.php*
 
