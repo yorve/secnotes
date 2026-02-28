@@ -77,11 +77,17 @@ A lo que vinimos...
 Vamos a desglozar el comando.
 
 `/usr/bin/python3.8` - Aquí llamamos a la ruta absoluta del binario que contramos con find. Al tener el bit **SUID** activo, este archivo se ejecuta con los privilegios del dueño (root) 
+
 `-c` - le indica a python que el codigo que se ejecute entre comillas debe ejecutarse inmediatamente como un comando.
+
 `os.execl("/bin/sh", "sh", "-p")` - Aqui esta la magia
+
 os.execl - reemplaza el proceso actual por un nuevo proceso
+
 "/bin/sh" - es la ruta del ejecutable que queremos lanzar
+
 "sh" - en el nombre del proceso
+
 "-p" - Privileged mode - el le ordena a la shell no descartar los permisos heredados del SUID, permitiendo mantener la identidad de root
 
 ![img12](/secnotes/assets/img/patriaquerida/root.png)
