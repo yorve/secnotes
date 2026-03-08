@@ -115,7 +115,7 @@ Resultado
 Si ejecutamos bash que tienen el bit SUID, el mismo detrecta que el usuario real (admin) no es el dueño (root) y suelta los privilegios por seguridad.
 pero al usar -p (persist) forzamos a la shell a mantener el privilegio  del dueño del archivo. Como el dueño es root, obtenemos una shell con sus permisos
 
-EN resumen, utilizamos un archivo lamado setup.py malisioso para abusar de la funcionalidad de instalacion de paquetes de Python, que al ejecutar pip3 con privilegios de sudo, el script de configuración agrego el bit de SUID a bash, permitiendo una escalada de privilegios persistente mediante el comando bash -p
+EN resumen, utilizamos un archivo lamado setup.py malicioso para abusar de la funcionalidad de instalación de paquetes de Python, que al ejecutar pip3 con privilegios de sudo, el script de configuración agrego el bit de SUID a bash, permitiendo una escalada de privilegios persistente mediante el comando bash -p
 
 ![img11](/secnotes/assets/img/pkgpoison/root.png)
 
