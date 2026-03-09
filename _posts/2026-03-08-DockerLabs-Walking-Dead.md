@@ -89,7 +89,7 @@ así que:
 
 y no es magia.. es solo aprovechar una mala configuración.
 
-Los comandos para los permisos heredados pueden verlos en **gtfobins, esta es la bliblia del hacker donde podemos encontrar mucha información valiosa y útil.
+Los comandos para los permisos heredados pueden verlos en **gtfobins**, esta es la bliblia del hacker donde podemos encontrar mucha información valiosa y útil.
 >https://gtfobins.org/gtfobins/python/
 
 
