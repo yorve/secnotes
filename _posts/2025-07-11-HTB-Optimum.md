@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Optimum – HTB - Windows - Fácil"
+title: "Optimum – HTB - Windows"
 date: 2025-07-11
 img: /assets/img/optimun/banner.png
 tags: [HackTheBox, Windows, RCE, Metasploit, Easy]
