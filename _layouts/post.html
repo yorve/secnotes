@@ -4,77 +4,189 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ page.title }} | SecNotes</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
     <style>
-        body { background: #0a0a0a; color: #c9d1d9; font-family: sans-serif; line-height: 1.6; padding: 40px 20px; }
-        /* AJUSTE PARA ALINEAR TODO A LA IZQUIERDA */
-.content { 
-    max-width: 900px; /* Un poco más ancho para que los scans de Nmap no se corten */
-    margin: 0;        /* Quita el margen centrado */
-    padding: 20px 40px; /* Dale aire a la izquierda y derecha */
-    text-align: left; /* Asegura que el texto esté a la izquierda */
-}
+        :root {
+            --bg: #0a0a0a;
+            --sidebar-bg: #0d1117;
+            --text: #c9d1d9;
+            --accent: #00ff41;
+            --border: #30363d;
+        }
 
-/* Forzar que el título también esté a la izquierda y alineado */
-h1 { 
-    color: #fff; 
-    border-bottom: 1px solid #222; 
-    padding-bottom: 10px; 
-    margin-top: 0; /* Quita margen extra arriba */
-    text-align: left; /* Asegura el título a la izquierda */
-}
+        body { 
+            background: var(--bg); 
+            color: var(--text); 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            margin: 0; 
+            display: flex;
+        }
 
-/* Ajuste de las capturas (que ya está a la izquierda pero le damos profundidad) */
-.content img { 
-    max-width: 100%; 
-    height: auto; 
-    border-radius: 5px; 
-    border: 1px solid #30363d; 
-    box-shadow: 0 4px 10px rgba(0,0,0,0.5); /* Le da profundidad a los scans */
-}
+        /* Contenedor Principal */
+        .main-wrapper {
+            display: flex;
+            width: 100%;
+            min-height: 100vh;
+        }
 
-    <div class="main-wrapper">
-    <aside class="sidebar">
-        <div class="sidebar-content">
-            <a href="{{ site.baseurl }}/" class="sidebar-logo">
-                <img src="{{ site.baseurl }}/logo.png" alt="Logo">
-            </a>
-            
-            <nav class="sidebar-nav">
-                <a href="{{ site.baseurl }}/" class="side-link"><i class="fas fa-home"></i> Inicio</a>
-                <a href="{{ site.baseurl }}/tags" class="side-link"><i class="fas fa-tags"></i> Etiquetas</a>
-                <a href="https://github.com/yorve/Auto-Recon" target="_blank" class="side-link"><i class="fas fa-terminal"></i> Auto-Recon</a>
-            </nav>
+        /* SIDEBAR IZQUIERDA FIJA */
+        .sidebar {
+            width: 260px;
+            height: 100vh;
+            background: var(--sidebar-bg);
+            border-right: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            padding: 40px 25px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            z-index: 100;
+        }
 
-            <div class="sidebar-social">
-                <p>CONTACT</p>
-                <a href="https://github.com/yorve" target="_blank"><i class="fab fa-github"></i> GitHub</a>
-                <a href="https://linkedin.com/in/tu-perfil" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
-                <a href="mailto:yorve.csec@gmail.com"><i class="fas fa-envelope"></i> Email</a>
-            </div>
-            
-            <div class="sidebar-footer">
-                2026 © Yorve
-            </div>
-        </div>
-    </aside>
+        .sidebar-logo img {
+            width: 70px;
+            border-radius: 50%;
+            margin-bottom: 35px;
+            border: 2px solid var(--border);
+        }
 
-    <main class="content">
-        <a href="{{ site.baseurl }}/" class="back-link">← Volver al inicio</a>
-        <h1>{{ page.title }}</h1>
-        <div class="post-meta">
-            {{ page.date | date: "%d/%m/%Y" }} • SecNotes 2.0
-        </div>
-        <hr>
-        {{ content }}
-    </main>
-</div>
+        .sidebar-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            margin-bottom: auto;
+        }
+
+        .side-link {
+            text-decoration: none;
+            color: #8b949e;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: 0.3s;
+        }
+
+        .side-link i { width: 20px; text-align: center; }
+        .side-link:hover { color: var(--accent); transform: translateX(5px); }
+
+        .sidebar-social { margin-top: 40px; }
+        .sidebar-social p { font-size: 0.7rem; color: #444; letter-spacing: 1px; margin-bottom: 15px; font-weight: bold; }
+        
+        .sidebar-social a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: #8b949e;
+            font-size: 0.85rem;
+            margin-bottom: 12px;
+            transition: 0.3s;
+        }
+
+        .sidebar-social a:hover { color: #fff; }
+
+        .sidebar-footer {
+            font-size: 0.75rem;
+            color: #333;
+            margin-top: 20px;
+        }
+
+        /* ÁREA DE CONTENIDO (POST) */
+        .content-area {
+            flex: 1;
+            padding: 60px 80px;
+            max-width: 900px;
+        }
+
+        .back-link {
+            text-decoration: none;
+            color: var(--accent);
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        h1 { 
+            color: #fff; 
+            font-size: 2.2rem;
+            margin: 0 0 10px 0;
+        }
+
+        .post-meta {
+            font-size: 0.9rem;
+            color: #555;
+            margin-bottom: 30px;
+        }
+
+        hr { border: 0; border-top: 1px solid var(--border); margin: 30px 0; }
+
+        /* Imágenes de los writeups */
+        .content-area img { 
+            max-width: 100%; 
+            height: auto; 
+            border-radius: 6px; 
+            border: 1px solid var(--border);
+            margin: 25px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+        }
+
+        /* Estilo para código/terminal */
+        code { background: #161b22; padding: 2px 6px; border-radius: 4px; font-family: monospace; color: #ff7b72; }
+        pre { background: #161b22; padding: 20px; border-radius: 8px; border: 1px solid var(--border); overflow-x: auto; }
+
+        /* Responsivo */
+        @media (max-width: 1100px) {
+            body { flex-direction: column; }
+            .sidebar { width: 100%; height: auto; position: relative; border-right: none; border-bottom: 1px solid var(--border); }
+            .content-area { padding: 40px 20px; }
+        }
     </style>
 </head>
 <body>
-    <div class="content">
-        <a href="{{ site.baseurl }}/" class="back-link">← Volver al inicio</a>
-        <h1>{{ page.title }}</h1>
-        {{ content }}
+
+    <div class="main-wrapper">
+        <aside class="sidebar">
+            <div class="sidebar-content">
+                <a href="{{ site.baseurl }}/" class="sidebar-logo">
+                    <img src="{{ site.baseurl }}/logo.png" alt="Logo">
+                </a>
+                
+                <nav class="sidebar-nav">
+                    <a href="{{ site.baseurl }}/" class="side-link"><i class="fas fa-home"></i> Inicio</a>
+                    <a href="{{ site.baseurl }}/tags" class="side-link"><i class="fas fa-tags"></i> Etiquetas</a>
+                    <a href="https://github.com/yorve/Auto-Recon" target="_blank" class="side-link"><i class="fas fa-terminal"></i> Auto-Recon</a>
+                </nav>
+
+                <div class="sidebar-social">
+                    <p>CONTACT</p>
+                    <a href="https://github.com/yorve" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+                    <a href="https://linkedin.com/in/tu-perfil" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                    <a href="mailto:yorve.csec@gmail.com"><i class="fas fa-envelope"></i> Email</a>
+                </div>
+                
+                <div class="sidebar-footer">
+                    2026 © Yorve CSEC
+                </div>
+            </div>
+        </aside>
+
+        <main class="content-area">
+            <a href="{{ site.baseurl }}/" class="back-link">← Volver al inicio</a>
+            <h1>{{ page.title }}</h1>
+            <div class="post-meta">
+                {{ page.date | date: "%d/%m/%Y" }} • SecNotes 2.0
+            </div>
+            <hr>
+            
+            <div class="markdown-content">
+                {{ content }}
+            </div>
+        </main>
     </div>
+
 </body>
 </html>
