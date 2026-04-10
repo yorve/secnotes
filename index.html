@@ -7,14 +7,15 @@ layout: null
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SecNotes | Knowledge Base</title>
-    <link rel="icon" type="image/png" href="{{ site.baseurl }}/favicon.ico">
+    <link rel="icon" type="image/png" href="{{ site.baseurl }}/logo.png">
+    
     <style>
         :root {
             --bg: #0a0a0a;
             --card: #141414;
             --text: #c9d1d9;
             --title: #ffffff;
-            --accent: #00ff41; /* El verde de tu logo */
+            --accent: #00ff41; 
             --border: #222;
         }
 
@@ -29,11 +30,10 @@ layout: null
 
         .container {
             width: 100%;
-            max-width: 850px;
+            max-width: 1000px;
             padding: 40px 20px;
         }
 
-        /* Encabezado Sencillo */
         header {
             text-align: center;
             margin-bottom: 60px;
@@ -43,32 +43,36 @@ layout: null
             width: 100px;
             height: 100px;
             margin-bottom: 15px;
+            border-radius: 50%;
         }
 
         h1 {
             color: var(--title);
             margin: 0;
-            font-size: 2rem;
+            font-size: 2.5rem;
             letter-spacing: 2px;
         }
 
         .bio {
             color: #888;
-            font-size: 0.9rem;
+            font-size: 1rem;
             margin-top: 10px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        /* Botón de Donación */
         .donate-btn {
             display: inline-block;
-            margin-top: 20px;
-            padding: 8px 16px;
+            margin-top: 25px;
+            padding: 10px 20px;
             border: 1px solid var(--accent);
             color: var(--accent);
             text-decoration: none;
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             font-weight: bold;
             transition: 0.3s;
+            border-radius: 4px;
         }
 
         .donate-btn:hover {
@@ -76,182 +80,141 @@ layout: null
             color: #000;
         }
 
-        /* Lista de Posts */
+        /* LISTA DE POSTS - VERTICAL */
         .post-list {
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 25px;
         }
 
         .post-card {
             background: var(--card);
-            padding: 25px;
+            padding: 20px;
             border: 1px solid var(--border);
             text-decoration: none;
             color: inherit;
-            transition: border-color 0.2s;
+            display: flex;
+            flex-direction: row;
+            gap: 30px;
+            align-items: center;
+            border-radius: 8px;
+            transition: 0.3s;
         }
 
         .post-card:hover {
             border-color: var(--accent);
+            transform: translateX(5px);
         }
 
-        .post-card h2 {
+        /* BANNER */
+        .post-banner {
+            width: 320px;
+            height: 180px;
+            flex-shrink: 0;
+            overflow: hidden;
+            border-radius: 6px;
+            background: #000;
+        }
+
+        .post-banner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* INFO DEL POST */
+        .post-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .post-info h2 {
             margin: 0 0 10px 0;
             color: var(--title);
-            font-size: 1.4rem;
+            font-size: 1.6rem;
         }
 
-        .post-card p {
+        .post-info p {
             margin: 0;
-            font-size: 0.95rem;
-            color: #888;
-            line-height: 1.5;
+            font-size: 1rem;
+            color: #8b949e;
+            line-height: 1.4;
+        }
+
+        /* TAGS */
+        .post-tags {
+            margin: 15px 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tag {
+            background: #21262d;
+            color: #58a6ff;
+            font-size: 0.75rem;
+            padding: 2px 10px;
+            border-radius: 12px;
+            border: 1px solid #30363d;
+            font-family: monospace;
         }
 
         .post-meta {
-            margin-top: 15px;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             color: #555;
-            font-family: monospace;
-        }https://github.com/yorve/Secnotes2.0/blob/main/index.html
-
-        @media (max-width: 600px) {
-            h1 { font-size: 1.5rem; }
+            font-weight: bold;
         }
-    /* Contenedor de cada post */
-.post-card {
-    background: var(--card);
-    padding: 20px;
-    border: 1px solid var(--border);
-    text-decoration: none;
-    color: inherit;
-    display: flex;       /* Pone imagen y texto en la misma fila */
-    gap: 30px;           /* Espacio entre banner y texto */
-    align-items: center; /* Centra verticalmente */
-    margin-bottom: 25px;
-    border-radius: 8px;
-    transition: 0.3s;
-}
 
-/* El Banner: Limitamos su tamaño aquí */
-.post-banner {
-    width: 320px;        /* Ancho máximo del banner */
-    height: 180px;       /* Alto proporcional (16:9) */
-    flex-shrink: 0;      /* Evita que la imagen se achique si hay poco espacio */
-    overflow: hidden;
-    border-radius: 6px;
-    background: #000;
-}
-
-.post-banner img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;   /* Ajusta la imagen sin deformar */
-}
-
-/* El Texto: Para que respire al lado de la imagen */
-.post-info {
-    flex: 1;             /* Toma el resto del espacio */
-}
-
-.post-info h2 {
-    font-size: 1.5rem !important;
-    margin: 0 0 10px 0 !important;
-    line-height: 1.2;
-}
-
-.post-info p {
-    font-size: 0.95rem !important;
-    color: #8b949e !important;
-    margin-bottom: 15px !important;
-}
-}
-
-.post-meta {
-    font-size: 0.85rem;
-    color: #666;
-    font-weight: bold;
-}
-}
-
-.post-info h2 {
-    font-size: 1.2rem !important;
-    margin-bottom: 5px !important;
-}
-
-.post-info p {
-    font-size: 0.85rem !important;
-    margin: 5px 0 !important;
-}
-
-   .post-tags {
-    margin: 10px 0;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-}
-
-.tag {
-    background: #21262d; /* Gris oscuro estilo GitHub */
-    color: #58a6ff;    /* Azul claro para que resalte */
-    font-size: 0.75rem;
-    padding: 2px 10px;
-    border-radius: 12px;
-    border: 1px solid #30363d;
-    font-family: 'Courier New', Courier, monospace; /* Toque técnico */
-}  
-
-        
+        @media (max-width: 768px) {
+            .post-card { flex-direction: column; align-items: flex-start; }
+            .post-banner { width: 100%; height: 200px; }
+        }
     </style>
 </head>
 <body>
 
     <div class="container">
         <header>
-            <img src="{{ site.baseurl }}/ico.jpg" class="logo" alt="SecNotes">
+            <img src="{{ site.baseurl }}/logo.png" class="logo" alt="SecNotes">
             <h1>SecNotes</h1>
-            <p class="bio">Documentación técnica y writeups de ciberseguridad / Aqui encontrarás writeups formativos sobre hacking ético de manera fácil de entender..</p>
-            
+            <p class="bio">Documentación técnica y writeups de ciberseguridad. Aquí encontrarás writeups formativos sobre hacking ético de manera fácil de entender.</p>
             <a href="https://buymeacoffee.com/yorve" class="donate-btn">[ Apoya mi Proyecto ]</a>
         </header>
+
         <div class="post-list">
-    {% for post in site.posts %}
-    <a href="{{ post.url | relative_url }}" class="post-card">
-        <div class="post-banner">
-            {% if post.img %}
-                <img src="{{ site.baseurl }}/{{ post.img }}" alt="{{ post.title }}">
-            {% else %}
-                <img src="{{ site.baseurl }}/logo.png" style="opacity: 0.2; object-fit: contain;">
-            {% endif %}
+            {% for post in site.posts %}
+            <a href="{{ post.url | relative_url }}" class="post-card">
+                <div class="post-banner">
+                    {% if post.img %}
+                        <img src="{{ post.img | relative_url }}" alt="{{ post.title }}">
+                    {% else %}
+                        <img src="{{ site.baseurl }}/logo.png" style="opacity: 0.2; object-fit: contain;">
+                    {% endif %}
+                </div>
+
+                <div class="post-info">
+                    <h2>{{ post.title }}</h2>
+                    <p>{{ post.content | strip_html | truncatewords: 20 }}</p>
+                    
+                    {% if post.tags %}
+                    <div class="post-tags">
+                        {% for tag in post.tags %}
+                            <span class="tag">{{ tag }}</span>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    <div class="post-meta">
+                        {{ post.date | date: "%d/%m/%Y" }} • 
+                        {% capture words %}{{ post.content | number_of_words }}{% endcapture %}
+                        {{ words | plus: 250 | divided_by: 250 }} min lectura
+                    </div>
+                </div>
+            </a>
+            {% endfor %}
         </div>
-
-      <div class="post-info">
-    <h2>{{ post.title }}</h2>
-    <p>{{ post.content | strip_html | truncatewords: 15 }}</p>
-    
-    {% if post.tags %}
-    <div class="post-tags">
-        {% for tag in post.tags %}
-            <span class="tag">{{ tag }}</span>
-        {% endfor %}
-    </div>
-    {% endif %}
-
-    <div class="post-meta">
-        {{ post.date | date: "%d/%m/%Y" }} • 
-        {% capture words %}{{ post.content | number_of_words }}{% endcapture %}
-        {{ words | plus: 250 | divided_by: 250 }} min lectura
-    </div>
-</div>
-            </div>
-        </div>
-    </a>
-    {% endfor %}
-</div>
-
-        
     </div>
 
 </body>
-</html> 
+</html>
