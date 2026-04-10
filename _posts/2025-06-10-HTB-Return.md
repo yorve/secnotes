@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Return – HTB - Windows (A.D) - Fácil"
+title: "Return – HTB - Windows (A.D)"
 date: 2025-07-11
 img: /assets/img/return/return.png
 tags: [HackTheBox, Windows, WebEnumeration, ServiceManipulation, Easy]
