@@ -118,39 +118,53 @@ layout: null
         @media (max-width: 600px) {
             h1 { font-size: 1.5rem; }
         }
-    .post-card {
+    /* Contenedor de cada post */
+.post-card {
     background: var(--card);
-    padding: 25px; /* Más aire interno */
+    padding: 20px;
     border: 1px solid var(--border);
     text-decoration: none;
     color: inherit;
-    display: flex;
-    gap: 30px; /* Más separación entre imagen y texto */
-    align-items: center;
-    transition: 0.2s;
-    margin-bottom: 25px; /* Más separación entre un post y otro */
+    display: flex;       /* Pone imagen y texto en la misma fila */
+    gap: 30px;           /* Espacio entre banner y texto */
+    align-items: center; /* Centra verticalmente */
+    margin-bottom: 25px;
+    border-radius: 8px;
+    transition: 0.3s;
 }
 
+/* El Banner: Limitamos su tamaño aquí */
 .post-banner {
-    width: 100%
-    height: 100%; 
-    object-fit: cover;
-    object-position: center;
-    flex-shrink: 0;
+    width: 320px;        /* Ancho máximo del banner */
+    height: 180px;       /* Alto proporcional (16:9) */
+    flex-shrink: 0;      /* Evita que la imagen se achique si hay poco espacio */
     overflow: hidden;
     border-radius: 6px;
     background: #000;
 }
 
+.post-banner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;   /* Ajusta la imagen sin deformar */
+}
+
+/* El Texto: Para que respire al lado de la imagen */
+.post-info {
+    flex: 1;             /* Toma el resto del espacio */
+}
+
 .post-info h2 {
-    font-size: 1.6rem !important; /* Títulos más grandes */
-    margin-bottom: 8px !important;
+    font-size: 1.5rem !important;
+    margin: 0 0 10px 0 !important;
+    line-height: 1.2;
 }
 
 .post-info p {
-    font-size: 1rem !important; /* Texto de descripción más legible */
-    line-height: 1.5;
-    margin: 8px 0 !important;
+    font-size: 0.95rem !important;
+    color: #8b949e !important;
+    margin-bottom: 15px !important;
+}
 }
 
 .post-meta {
