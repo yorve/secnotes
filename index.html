@@ -132,8 +132,10 @@ layout: null
 }
 
 .post-banner {
-    width: 200px; /* Antes era 140px, ahora el banner es más grande */
-    height: 110px; /* Proporción más cinematográfica */
+    width: 100%
+    height: 100%; 
+    object-fit: cover;
+    object-position: center;
     flex-shrink: 0;
     overflow: hidden;
     border-radius: 6px;
