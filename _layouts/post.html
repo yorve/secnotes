@@ -31,8 +31,43 @@ h1 {
     border: 1px solid #30363d; 
     box-shadow: 0 4px 10px rgba(0,0,0,0.5); /* Le da profundidad a los scans */
 }
-}
-}
+
+    <div class="main-wrapper">
+    <aside class="sidebar">
+        <div class="sidebar-content">
+            <a href="{{ site.baseurl }}/" class="sidebar-logo">
+                <img src="{{ site.baseurl }}/logo.png" alt="Logo">
+            </a>
+            
+            <nav class="sidebar-nav">
+                <a href="{{ site.baseurl }}/" class="side-link"><i class="fas fa-home"></i> Inicio</a>
+                <a href="{{ site.baseurl }}/tags" class="side-link"><i class="fas fa-tags"></i> Etiquetas</a>
+                <a href="https://github.com/yorve/Auto-Recon" target="_blank" class="side-link"><i class="fas fa-terminal"></i> Auto-Recon</a>
+            </nav>
+
+            <div class="sidebar-social">
+                <p>CONTACT</p>
+                <a href="https://github.com/yorve" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+                <a href="https://linkedin.com/in/tu-perfil" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                <a href="mailto:yorve.csec@gmail.com"><i class="fas fa-envelope"></i> Email</a>
+            </div>
+            
+            <div class="sidebar-footer">
+                2026 © Yorve
+            </div>
+        </div>
+    </aside>
+
+    <main class="content">
+        <a href="{{ site.baseurl }}/" class="back-link">← Volver al inicio</a>
+        <h1>{{ page.title }}</h1>
+        <div class="post-meta">
+            {{ page.date | date: "%d/%m/%Y" }} • SecNotes 2.0
+        </div>
+        <hr>
+        {{ content }}
+    </main>
+</div>
     </style>
 </head>
 <body>
