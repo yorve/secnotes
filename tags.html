@@ -1,0 +1,60 @@
+---
+layout: null
+---
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Etiquetas | SecNotes</title>
+    <link rel="icon" type="image/png" href="{{ site.baseurl }}/logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root { --bg: #0a0a0a; --card: #141414; --text: #c9d1d9; --accent: #00ff41; --border: #222; }
+        body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; margin: 0; display: flex; justify-content: center; }
+        .container { width: 100%; max-width: 900px; padding: 60px 20px; }
+        h1 { color: #fff; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
+        .back-link { text-decoration: none; color: var(--accent); display: inline-block; margin-bottom: 20px; }
+        
+        /* Lista de etiquetas */
+        .tag-cloud { display: flex; flex-wrap: wrap; gap: 15px; margin: 40px 0; }
+        .tag-btn { 
+            background: var(--card); border: 1px solid var(--border); color: var(--text);
+            padding: 8px 15px; border-radius: 5px; text-decoration: none; transition: 0.3s;
+        }
+        .tag-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+        /* Secciones por tag */
+        .tag-section { margin-top: 50px; }
+        .tag-title { color: var(--accent); font-family: monospace; font-size: 1.5rem; margin-bottom: 20px; border-left: 4px solid var(--accent); padding-left: 15px; }
+        .post-item { display: block; text-decoration: none; color: var(--text); padding: 10px 0; border-bottom: 1px solid #1a1a1a; transition: 0.2s; }
+        .post-item:hover { padding-left: 10px; color: #fff; }
+        .post-date { color: #555; font-size: 0.8rem; margin-right: 10px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="{{ site.baseurl }}/" class="back-link">← Volver al inicio</a>
+        <h1>Explorar por Etiquetas</h1>
+
+        <div class="tag-cloud">
+            {% assign tags = site.tags | sort %}
+            {% for tag in tags %}
+                <a href="#{{ tag[0] | slugify }}" class="tag-btn">{{ tag[0] }} ({{ tag[1].size }})</a>
+            {% endfor %}
+        </div>
+
+        {% for tag in tags %}
+            <section class="tag-section" id="{{ tag[0] | slugify }}">
+                <div class="tag-title">> {{ tag[0] }}</div>
+                {% for post in tag[1] %}
+                    <a href="{{ post.url | relative_url }}" class="post-item">
+                        <span class="post-date">{{ post.date | date: "%d/%m/%Y" }}</span>
+                        {{ post.title }}
+                    </a>
+                {% endfor %}
+            </section>
+        {% endfor %}
+    </div>
+</body>
+</html>
