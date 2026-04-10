@@ -7,8 +7,11 @@ layout: null
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SecNotes | Knowledge Base</title>
-    <link rel="icon" type="image/png" href="{{ site.baseurl }}/favicon.ico">
     
+    <link rel="icon" type="image/png" href="{{ site.baseurl }}/logo.png">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
     <style>
         :root {
             --bg: #0a0a0a;
@@ -34,24 +37,12 @@ layout: null
             padding: 40px 20px;
         }
 
+        /* --- Header --- */
         header {
             text-align: center;
-            margin-bottom: 60px;
+            margin-bottom: 40px;
         }
-<nav class="main-nav">
-    <div class="nav-links">
-        <a href="{{ site.baseurl }}/" class="nav-item">Inicio</a>
-        <a href="{{ site.baseurl }}/tags" class="nav-item">Etiquetas</a>
-        <a href="https://github.com/yorve/Auto-Recon" target="_blank" class="nav-item">Auto-Recon</a>
-    </div>
-    
-    <div class="contact-me">
-        <span>Contact me:</span>
-        <a href="https://github.com/yorve" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
-        <a href="https://linkedin.com/in/tu-perfil" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-        <a href="mailto:yorve.csec@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
-    </div>
-</nav>
+
         .logo {
             width: 100px;
             height: 100px;
@@ -93,7 +84,58 @@ layout: null
             color: #000;
         }
 
-        /* LISTA DE POSTS - VERTICAL */
+        /* --- Nueva Navegación --- */
+        .main-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 40px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-item {
+            text-decoration: none;
+            color: var(--text);
+            font-size: 1rem;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        .nav-item:hover {
+            color: var(--accent);
+        }
+
+        .contact-me {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .contact-me span {
+            font-size: 0.9rem;
+            color: #666;
+            margin-right: 5px;
+        }
+
+        .contact-me a {
+            color: var(--text);
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: 0.3s;
+        }
+
+        .contact-me a:hover {
+            color: var(--accent);
+        }
+
+        /* --- Lista de Posts --- */
         .post-list {
             display: flex;
             flex-direction: column;
@@ -119,7 +161,6 @@ layout: null
             transform: translateX(5px);
         }
 
-        /* BANNER */
         .post-banner {
             width: 320px;
             height: 180px;
@@ -135,7 +176,6 @@ layout: null
             object-fit: cover;
         }
 
-        /* INFO DEL POST */
         .post-info {
             flex: 1;
             display: flex;
@@ -155,7 +195,7 @@ layout: null
             line-height: 1.4;
         }
 
-        /* TAGS */
+        /* --- Tags --- */
         .post-tags {
             margin: 15px 0;
             display: flex;
@@ -179,9 +219,20 @@ layout: null
             font-weight: bold;
         }
 
-        @media (max-width: 768px) {
+        /* --- Footer --- */
+        footer {
+            text-align: center;
+            margin-top: 80px;
+            padding: 20px;
+            color: #555;
+            font-size: 0.9rem;
+            border-top: 1px solid #222;
+        }
+
+        @media (max-width: 850px) {
             .post-card { flex-direction: column; align-items: flex-start; }
             .post-banner { width: 100%; height: 200px; }
+            .main-nav { flex-direction: column; gap: 15px; text-align: center; }
         }
     </style>
 </head>
@@ -189,11 +240,26 @@ layout: null
 
     <div class="container">
         <header>
-            <img src="{{ site.baseurl }}/ico.jpg" class="logo" alt="SecNotes">
+            <img src="{{ site.baseurl }}/logo.png" class="logo" alt="SecNotes">
             <h1>SecNotes</h1>
             <p class="bio">Documentación técnica y writeups de ciberseguridad. Aquí encontrarás writeups formativos sobre hacking ético de manera fácil de entender.</p>
             <a href="https://buymeacoffee.com/yorve" class="donate-btn">[ Apoya mi Proyecto ]</a>
         </header>
+
+        <nav class="main-nav">
+            <div class="nav-links">
+                <a href="{{ site.baseurl }}/" class="nav-item">Inicio</a>
+                <a href="{{ site.baseurl }}/tags" class="nav-item">Etiquetas</a>
+                <a href="https://github.com/yorve/Auto-Recon" target="_blank" class="nav-item">Auto-Recon</a>
+            </div>
+            
+            <div class="contact-me">
+                <span>Contact me:</span>
+                <a href="https://github.com/yorve" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://linkedin.com/in/tu-perfil" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="mailto:yorve.csec@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+            </div>
+        </nav>
 
         <div class="post-list">
             {% for post in site.posts %}
@@ -227,6 +293,10 @@ layout: null
             </a>
             {% endfor %}
         </div>
+
+        <footer>
+            2026 © Yorve CSEC
+        </footer>
     </div>
 
 </body>
