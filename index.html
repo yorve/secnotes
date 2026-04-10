@@ -1,0 +1,150 @@
+---
+layout: null
+---
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SecNotes | Knowledge Base</title>
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --card: #141414;
+            --text: #c9d1d9;
+            --title: #ffffff;
+            --accent: #00ff41; /* El verde de tu logo */
+            --border: #222;
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 850px;
+            padding: 40px 20px;
+        }
+
+        /* Encabezado Sencillo */
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .logo {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            color: var(--title);
+            margin: 0;
+            font-size: 2rem;
+            letter-spacing: 2px;
+        }
+
+        .bio {
+            color: #888;
+            font-size: 0.9rem;
+            margin-top: 10px;
+        }
+
+        /* Botón de Donación */
+        .donate-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 8px 16px;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .donate-btn:hover {
+            background: var(--accent);
+            color: #000;
+        }
+
+        /* Lista de Posts */
+        .post-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .post-card {
+            background: var(--card);
+            padding: 25px;
+            border: 1px solid var(--border);
+            text-decoration: none;
+            color: inherit;
+            transition: border-color 0.2s;
+        }
+
+        .post-card:hover {
+            border-color: var(--accent);
+        }
+
+        .post-card h2 {
+            margin: 0 0 10px 0;
+            color: var(--title);
+            font-size: 1.4rem;
+        }
+
+        .post-card p {
+            margin: 0;
+            font-size: 0.95rem;
+            color: #888;
+            line-height: 1.5;
+        }
+
+        .post-meta {
+            margin-top: 15px;
+            font-size: 0.8rem;
+            color: #555;
+            font-family: monospace;
+        }
+
+        @media (max-width: 600px) {
+            h1 { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <img src="{{ site.baseurl }}/logo.png" class="logo" alt="SecNotes">
+            <h1>SEC-NOTES</h1>
+            <p class="bio">Documentación técnica y writeups de ciberseguridad.</p>
+            
+            <a href="TU_LINK_DE_DONACION" class="donate-btn">[ APOYAR_PROYECTO ]</a>
+        </header>
+
+        <div class="post-list">
+            {% for post in site.posts %}
+            <a href="{{ post.url | relative_url }}" class="post-card">
+                <h2>{{ post.title }}</h2>
+                <p>{{ post.content | strip_html | truncatewords: 25 }}</p>
+                <div class="post-meta">
+                    {{ post.date | date: "%d · %b · %Y" | upcase }} | READ_TIME: 
+                    {% capture words %}{{ post.content | number_of_words }}{% endcapture %}
+                    {{ words | plus: 250 | divided_by: 250 }} MIN
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+
+</body>
+</html>

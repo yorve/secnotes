@@ -1,0 +1,5 @@
+title: SecNotes
+description: Writeups de hacking ético.
+baseurl: "/Secnotes2.0" # IMPORTANTE: Pon aquí el nombre exacto de tu repositorio
+url: "https://yorve.github.io"
+theme: null # Para que use tus archivos y no un tema de GitHub
