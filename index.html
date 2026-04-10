@@ -120,37 +120,42 @@ layout: null
         }
     .post-card {
     background: var(--card);
-    padding: 15px;
+    padding: 25px; /* Más aire interno */
     border: 1px solid var(--border);
     text-decoration: none;
     color: inherit;
-    display: flex; /* Esto pone la imagen al lado del texto */
-    gap: 20px;
+    display: flex;
+    gap: 30px; /* Más separación entre imagen y texto */
     align-items: center;
     transition: 0.2s;
-    margin-bottom: 15px;
+    margin-bottom: 25px; /* Más separación entre un post y otro */
 }
 
 .post-banner {
-    width: 140px; /* Tamaño del banner */
-    height: 80px;
+    width: 200px; /* Antes era 140px, ahora el banner es más grande */
+    height: 110px; /* Proporción más cinematográfica */
     flex-shrink: 0;
     overflow: hidden;
-    border-radius: 4px;
+    border-radius: 6px;
     background: #000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
-.post-banner img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Ajusta la imagen sin deformarla */
+.post-info h2 {
+    font-size: 1.6rem !important; /* Títulos más grandes */
+    margin-bottom: 8px !important;
 }
 
-.post-info {
-    flex: 1;
+.post-info p {
+    font-size: 1rem !important; /* Texto de descripción más legible */
+    line-height: 1.5;
+    margin: 8px 0 !important;
+}
+
+.post-meta {
+    font-size: 0.85rem;
+    color: #666;
+    font-weight: bold;
+}
 }
 
 .post-info h2 {
