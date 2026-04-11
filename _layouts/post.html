@@ -23,7 +23,29 @@
             margin: 0; 
             display: flex;
         }
-
+        .content-area {
+    flex: 1;
+    padding: 40px 5%;    /* Padding en porcentaje para que se ajuste al dividir pantalla */
+    max-width: 900px;
+    box-sizing: border-box;
+}
+@media (max-width: 900px) { /* Si la ventana mide menos de 900px (como en tu captura) */
+    .main-wrapper { 
+        flex-direction: column; 
+    }
+    .sidebar { 
+        width: 100%; 
+        max-width: 100%;
+        height: auto; 
+        position: relative; 
+        border-right: none; 
+        border-bottom: 1px solid var(--border); 
+        padding: 20px;
+    }
+    .content-area { 
+        padding: 30px 20px; 
+    }
+}
         /* Contenedor Principal */
         .main-wrapper {
             display: flex;
@@ -33,18 +55,20 @@
 
         /* SIDEBAR IZQUIERDA FIJA */
         .sidebar {
-            width: 260px;
-            height: 100vh;
-            background: var(--sidebar-bg);
-            border-right: 1px solid var(--border);
-            position: sticky;
-            top: 0;
-            padding: 40px 25px;
-            box-sizing: border-box;
-            display: flex;
-            flex-direction: column;
-            z-index: 100;
-        }
+    width: 20%;          /* En lugar de px fijos, usamos un porcentaje */
+    min-width: 200px;    /* Pero que no sea más pequeña que esto para que se lea */
+    max-width: 260px;    /* Ni más grande que esto en pantallas gigantes */
+    height: 100vh;
+    background: var(--sidebar-bg);
+    border-right: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    padding: 30px 15px;  /* Reduje un poco el padding lateral */
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    z-index: 100;
+}
 
         .sidebar-logo img {
             width: 70px;
