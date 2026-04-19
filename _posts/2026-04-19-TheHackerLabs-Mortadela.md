@@ -3,7 +3,7 @@ layout: post
 title: "Mortadela - Hackerlabs - Linux "
 date: 2026-04-16
 img: /assets/img/mortadela/banner.png
-tags: [tags: [HackerLabs, Writeup, Linux, SQLi, WPScan, JohnTheRipper, KeePass, MemoryForensics, CVE-2023-32784, PrivEsc]
+tags:[HackerLabs, Writeup, Linux, SQLi, WPScan, JohnTheRipper, KeePass, MemoryForensics, CVE-2023-32784, PrivEsc]
 ---
 
 En este laboratorio nos enfrentamos a un escenario de post-explotación avanzado. Tras obtener acceso inicial y recolectar archivos confidenciales, el desafío se centró en la exfiltración de datos protegidos por una base de datos KeePass y un contenedor ZIP cifrado
@@ -126,7 +126,7 @@ con esto solo nos queda probar estas credenciales en el servicio ssh
 
 ![img26](/secnotes/assets/img/mortadela/acceso-root.png)
 
-https://labs.thehackerslabs.com/machines/59
+>https://labs.thehackerslabs.com/machines/59
 
 
 
