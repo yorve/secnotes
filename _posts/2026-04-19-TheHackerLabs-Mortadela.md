@@ -26,7 +26,7 @@ Podemoss observar que tenemos WordPress en él, así que utilizaremos la herrami
 
 Con este comando wpscan utiliza ataques pasivos y activos contra la esctructura de WordPress. Así puede recopilar información útil.
 
-![img5](/secnotes/assets/img/mortadela/wpscan.png)
+![img5](/secnotes/assets/img/mortadela/wpscan .png)
 
 ![img6](/secnotes/assets/img/mortadela/wp-user.png)
 
@@ -52,7 +52,7 @@ La segunda en la db **confidencial**, nos encontramos unas credenciales del usua
 
 ![img11](/secnotes/assets/img/mortadela/confidencial.png)
 
-![img12](/secnotes/assets/img/mortadela/user.png)
+![img12](/secnotes/assets/img/mortadela/user .png)
 
 Con estas credenciales probaremos entrar via ssh a la máquina víctima.
 
