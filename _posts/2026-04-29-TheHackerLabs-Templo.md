@@ -6,6 +6,7 @@ img: /assets/img/templo/banner.png
 tags: [HackerLabs, Linux, Enumeration, LFI, PHP-Wrappers, RCE, ROT13, Zip-Cracking, JohnTheRipper, LXC, LXD, Container-Escape, Medium]
 ---
 ![banner](/secnotes/assets/img/templo/banner.png)
+
 En este laboratorio, exploraremos cómo un parámetro de inclusión de archivos (LFI) aparentemente inofensivo puede ser la llave maestra para extraer el código fuente del servidor mediante PHP Wrappers. El análisis del código nos revelará un mecanismo de ofuscación basado en ROT13 diseñado para ocultar archivos subidos, el cual saltaremos para obtener ejecución remota de comandos (RCE).
 
 Comenzamos con la fase de reconocimiento inicial con nuestra herramienta **Auto_recon** (Disponible en mi perfil)
@@ -89,15 +90,15 @@ hacemos la conversión para saber el nombre del archivo.
 
 ![img16](/secnotes/assets/img/templo/rot13.png)
 
-[img17](/secnotes/assets/img/templo/command.png)
+![img17](/secnotes/assets/img/templo/command.png)
 
 Tenemos resultado, nuestro siguiente paso será subir una reverse Shell y conectarnos al servidor con el mismo procedimiento anterior.
 
 https://www.revshells.com/  (la vieja confiable)
 
-[img18](/secnotes/assets/img/templo/reverseshell.png)
+![img18](/secnotes/assets/img/templo/reverseshell.png)
 
-[img19](/secnotes/assets/img/templo/reverse_shell.png)
+![img19](/secnotes/assets/img/templo/reverse_shell.png)
 
 ya tenemos conexión al servidor. Ahora nuestro primer paso es hacer el tratamiento de la terminal.
 
@@ -120,45 +121,45 @@ y los últimos para exportar las variables de entorno
 
 Ahora podemos continuar.. vamos a ir directamente por la pista que encontramos en un inicio en la ruta _/opt_, ya que con el usuario actual (www-data) no tenemos ningún privilegio.
 
-[img20](/secnotes/assets/img/templo/_opt.png)
+![img20](/secnotes/assets/img/templo/_opt.png)
 
 En este directorio nos encontramos un archivo .zip, dado que no tenemos la herramientas necesarias en el servidor, vamos a iniciar un servidor aprovechando python3 y lo descargaremos en nuestra máquina atacante.
 
-[img21](/secnotes/assets/img/templo/http.server.png)
+![img21](/secnotes/assets/img/templo/http.server.png)
 
 Ya en nuestra máquina intentamos descomprimir el archivo, pero este nos pide una contraseña. Así que le dejaremos la tarea a **john the ripper**.
 
 Primero extraemos el hash del archivo comprimido.
 
-[img22](/secnotes/assets/img/templo/hash.png)
+![img22](/secnotes/assets/img/templo/hash.png)
 
 Luego le pasamos el hash y un diccionario para que intente descifrar la contraseña.
 
-[img23](/secnotes/assets/img/templo/john.png)
+![img23](/secnotes/assets/img/templo/john.png)
 
 Con la contraseña descifrada podemos extraer el archivo para ver su contenido.
 
-[img24](/secnotes/assets/img/templo/contraseña.png)
+![img24](/secnotes/assets/img/templo/contraseña.png)
 
 podemos ver un archivo llamado **Rodgar.txt** con un texto que pareciera ser una contraseña. El siguiente paso será probar si es válida.
 
-[img25](/secnotes/assets/img/templo/rodgar.png)
+![img25](/secnotes/assets/img/templo/rodgar.png)
 
 Efectivamente era la contraseña de este usuario.
  
-[img26](/secnotes/assets/img/templo/userflag.png)
+![img26](/secnotes/assets/img/templo/userflag.png)
 
 y como era de esperar, nos encontramos la flag de usuario en su directorio. Seguimos con las comprobaciones básicas del usuario Rodgar, y sorpresa.. no tenemos nada en nuestra primera comprobación.
 
-[img27](/secnotes/assets/img/templo/perm.png)
+![img27](/secnotes/assets/img/templo/perm.png)
 
 Pero... al revisar algunos datos de este, podemos ver que pertenece a un grupo en particular. 
 
-[img28](/secnotes/assets/img/templo/id.png)
+![img28](/secnotes/assets/img/templo/id.png)
 
 Con una investigación rápida podemos ver lo siguiente... 
 
-[img29](/secnotes/assets/img/templo/lxd.png)
+![img29](/secnotes/assets/img/templo/lxd.png)
 
 Entonces nuestra escalada de privilegios será por medio de este grupo (al parecer)
 
@@ -180,9 +181,9 @@ https://medium.com/@mstrbgn/privilege-escalation-using-lxd-lxc-group-assignment-
 
 Seguimos los pasos señalados y ya tenemos acceso como usuario root dentro del contenedor
 
-[img30](/secnotes/assets/img/templo/lxc-contenedor.png)
+![img30](/secnotes/assets/img/templo/lxc-contenedor.png)
 
 Ahora nos falta el último paso que, en nuestro caso, es buscar la flag del usuario root
 
-[img31](/secnotes/assets/img/templo/root.png)
+![img31](/secnotes/assets/img/templo/root.png)
 
