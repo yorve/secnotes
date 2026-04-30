@@ -121,7 +121,7 @@ y los últimos para exportar las variables de entorno
 
 Ahora podemos continuar.. vamos a ir directamente por la pista que encontramos en un inicio en la ruta _/opt_, ya que con el usuario actual (www-data) no tenemos ningún privilegio.
 
-![img20](/secnotes/assets/img/templo/_opt.png)
+![img20](/secnotes/assets/img/templo/opt.png)
 
 En este directorio nos encontramos un archivo .zip, dado que no tenemos la herramientas necesarias en el servidor, vamos a iniciar un servidor aprovechando python3 y lo descargaremos en nuestra máquina atacante.
 
@@ -181,7 +181,7 @@ https://medium.com/@mstrbgn/privilege-escalation-using-lxd-lxc-group-assignment-
 
 Seguimos los pasos señalados y ya tenemos acceso como usuario root dentro del contenedor
 
-![img30](/secnotes/assets/img/templo/lxc-contenedor.png)
+![img30](/secnotes/assets/img/templo/contenedor-lxc.png)
 
 Ahora nos falta el último paso que, en nuestro caso, es buscar la flag del usuario root
 
