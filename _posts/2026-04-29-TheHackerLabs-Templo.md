@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Templo - Hackerlabs - Linux"
-date: 2026-04-**
+date: 2026-04-29
 img: /assets/img/templo/banner.png
 tags: [HackerLabs, Linux, Enumeration, LFI, PHP-Wrappers, RCE, ROT13, Zip-Cracking, JohnTheRipper, LXC, LXD, Container-Escape, Medium]
 ---
