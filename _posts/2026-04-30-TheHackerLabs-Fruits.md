@@ -47,7 +47,7 @@ Para evitar que ffuf nos muestre todo el ruido en pantalla cuando esta haciendo 
 
 **Un punto importante**
 
-Se utiliza la ruta _/etc/passwd_ ya que es el estándar de oro para verificar que un **LFI** es real. Al ser un archivo que existe en prácticamente todos los sistemas operativos basados en Linux y Unix, y que además tiene permiso de lectura para todos los usuarios es el objetivo perfecto para conformar que el servidor está procesando y devolviendo archivos del sistema.
+>Se utiliza la ruta _/etc/passwd_ ya que es el estándar de oro para verificar que un **LFI** es real. Al ser un archivo que existe en prácticamente todos los sistemas operativos basados en Linux y Unix, y que además tiene permiso de lectura para todos los usuarios es el objetivo perfecto para conformar que el servidor está procesando y devolviendo archivos del sistema.
 
 ![img9](/secnotes/assets/img/fruits/LFI.png)
 
@@ -59,7 +59,7 @@ Ataque exitoso, tenemos la contraseña del usuario bananaman. Ya con sus credenc
 
 **Nota**
 
-El laboratorios es común encontrar las contraseñas en estos ataques de manera rápida y con el diccionario Rockyou, ya que estos están enfocados en los procedimientos y técnicas de cada paso. En la vida real hay que tener mucha paciencia.
+>El laboratorios es común encontrar las contraseñas en estos ataques de manera rápida y con el diccionario Rockyou, ya que estos están enfocados en los procedimientos y técnicas de cada paso. En la vida real hay que tener mucha paciencia.
 
 Una vez conectados al servidor, hacemos la comprobación básica de permisos para así identificar la escalada de privilegios.
 
@@ -67,11 +67,13 @@ Una vez conectados al servidor, hacemos la comprobación básica de permisos par
 
 Tenemos el bit de SUID en la herramienta **find**, este bit nos permite ejecutar un archivo con los privilegios del propietario (root)
 
-https://gtfobins.org/gtfobins/find/
+>https://gtfobins.org/gtfobins/find/
 
 ![img12](/secnotes/assets/img/fruits/gtfobins.png)
 
-Según **GTFObins** tenemos un método de lanzar una Shell como usuario root con el comando `find . -exec /bin/sh -p \; -quit`, 
+Según **GTFObins** tenemos un método de lanzar una Shell como usuario root con el comando:
+
+`find . -exec /bin/sh -p \; -quit`, 
 
 ![img13](/secnotes/assets/img/fruits/root.png)
 
