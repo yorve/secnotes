@@ -58,8 +58,7 @@ Confirmamos el LFI y obtenemos un usuario llamado **bananaman**. Ya tenemos un u
 Ataque exitoso, tenemos la contraseña del usuario bananaman. Ya con sus credenciales podremos ingresar al servidor con estos datos.
 
 **Nota**
-
->El laboratorios es común encontrar las contraseñas en estos ataques de manera rápida y con el diccionario Rockyou, ya que estos están enfocados en los procedimientos y técnicas de cada paso. En la vida real hay que tener mucha paciencia.
+>En laboratorios es común encontrar las contraseñas en estos ataques de manera rápida y con el diccionario Rockyou, ya que estos están enfocados en los procedimientos y técnicas de cada paso. En la vida real hay que tener mucha paciencia.
 
 Una vez conectados al servidor, hacemos la comprobación básica de permisos para así identificar la escalada de privilegios.
 
