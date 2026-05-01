@@ -42,7 +42,7 @@ Ya con este archivo identificado, el siguiente paso es encontrar el parámetro e
 
 Para evitar que ffuf nos muestre todo el ruido en pantalla cuando esta haciendo la búsqueda del parámetro, utilizaremos el argumento `-fl 2` (Filter Lines) En este caso le decimos a la herramienta que no muestre nada que tenga exactamente esa cantidad de líneas. De esta manera, la herramienta solo se detendrá y nos mostrará un resultado cuando encuentre una respuesta con una cantidad de líneas diferente.
 
-![img8.1](/secnotes/assets/img/fruits/ffuf.png)
+![img8.1](/secnotes/assets/img/fruits/ffuf-filtro.png)
 
 
 **Un punto importante**
