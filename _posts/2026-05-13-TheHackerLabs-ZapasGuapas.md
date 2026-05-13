@@ -1,11 +1,13 @@
 ---
 layout: post
-title: "zapas - Hackerlabs - Linux"
+title: "ZapasGuapas - Hackerlabs - Linux"
 date: 2026-05-13
 img: /assets/img/zapas/banner.png
-tags: 
+tags: Command Injection, RCE, Sudo Abuse, APT, AWS-CLI, Netcat, stty, Linux, GTFObins, Shell Escape
 ---
 ![banner](/secnotes/assets/img/zapas/banner.png)
+
+Este laboratorio pone a prueba nuestra capacidad para identificar vulnerabilidades web y explotar configuraciones inseguras en el sistema operativo Linux. El reto nos lleva a través de una cadena de ataque que comienza con una inyección de comandos en un formulario de autenticación y culmina con el compromiso total del sistema aprovechando permisos excesivos en herramientas administrativas comunes.
 
 Comenzamos con la fase de reconocimiento con la herramienta **auto-recon** esta nos hará un escaneo automatizado de puertos, servicios y versiones y directorios web
 
