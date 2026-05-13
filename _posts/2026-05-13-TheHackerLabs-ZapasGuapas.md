@@ -97,7 +97,7 @@ Al intentar descomprimir el archivos que transferimos desde la máquina víctima
 
 ![img14](/secnotes/assets/img/zapas/crackzip.png)
 
-![img15](/secnotes/assets/img/zapas/john-the-ripper.png)
+![img15](/secnotes/assets/img/zapas/jhon-the-ripper.png)
 
 Ya tenemos la contraseña del archivo , procedemos a descomprimir y ver que nos encontramos.
 
@@ -134,15 +134,13 @@ Una vez dentro del visor de texto, se aprovechó la funcionalidad de _less_ para
 
 Como resultado el paginador generó un proceso hijo de bash con el UID de proadidas, obteniendo así una shell de este usuario.
 
-![img19](/secnotes/assets/img/zapas/proadidas.png)
+![img19](/secnotes/assets/img/zapas/aproadidas.png)
 
 Ahora hacemos el mismo procedimiento con este usuario, no encontramos nada en sus directorios y revisando los permisos encontramos que podemos lanzar aws como usuario root.
 
 ![img20](/secnotes/assets/img/zapas/aws.png)
 
 Aquí el procedimiento es igual al usuario anterior. aprovecharemos el paginador para realizar la escala de privilegios
-
-![img21](/secnotes/assets/img/zapas/escalada.png)
 
 ![img22](/secnotes/assets/img/zapas/escalada1.png)
 
