@@ -91,6 +91,75 @@ También encontramos un archivo muy importante en el directorio _/opt_. Iniciamo
 
 ![img13](/secnotes/assets/img/zapas/http-server.png)
 
+Al intentar descomprimir el archivos que transferimos desde la máquina víctima este nos pide una contraseña. Suerte que hemos visto el procedimiento necesario para crackearla con **JohnTheRipper** en laboratorios recientes.
+
+![img14](/secnotes/assets/img/zapas/crackzip.png)
+
+![img15](/secnotes/assets/img/zapas/john-the-ripper.png)
+
+Ya tenemos la contraseña del archivo , procedemos a descomprimir y ver que nos encontramos.
+
+![img15](/secnotes/assets/img/zapas/unzip.png)
+
+Contraseña del usuario **pronike** obtenida...
+
+![img16](/secnotes/assets/img/zapas/pronike.png)
+
+Gracias al tratamiento de la shell pudimos cancelar el servidor local y cambiar de usuario sin perder la reverse shell.
+
+Luego de un rato navegando por los directorios de este usuario no encontramos nada más. Así que verificamos si extiste algún permiso mal configurado para explotar.
+
+![img17](/secnotes/assets/img/zapas/apt.png)
+
+Tenemos disponible **apt** pero no como usuario root, sino que como el usuario **proadidas**. Según **GTFObins** 
+
+![img18](/secnotes/assets/img/zapas/gtfobins.png)
+
+Luego de una larga investigación y lectura, encontramos que la manera de hacer el movimiento lateral explotando este binario es con el comando:
+
+`sudo -u proadidas /usr/bin/apt changelog apt`
+
+luego debemos ejecutar `!/bin/bash`
+
+> El alma de este blog es enseñar que hace cada comando, no solo copiar y pegar. Así que a continuación de explicación del paso anterior.
+
+El binario _/usr/bin/apt_ tiene sub comandos diseñados para mostrar grandes cantidades de texto como **changelog**
+
+Cuando solicitamos un changelog, **apt** invoca automáticamente un programa paginador (comunmente _less_) para facilitar la lectura.
+Debido a que apt se lanza con _sudo -u proadidas_, el paginador herera esos privilegios. Si el paginador permite la ejecución de comandos externos, podemos escapar de él hacia una shell.
+
+Una vez dentro del visor de texto, se aprovechó la funcionalidad de _less_ para ejecutar comandos del sistema anteponiendo el simbolo **!**
+
+Como resultado el paginador generó un proceso hijo de bash con el UID de proadidas, obteniendo así una shell de este usuario.
+
+![img19](/secnotes/assets/img/zapas/proadidas.png)
+
+Ahora hacemos el mismo procedimiento con este usuario, no encontramos nada en sus directorios y revisando los permisos encontramos que podemos lanzar aws como usuario root.
+
+![img20](/secnotes/assets/img/zapas/aws.png)
+
+Aquí el procedimiento es igual al usuario anterior. aprovecharemos el paginador para realizar la escala de privilegios
+
+![img21](/secnotes/assets/img/zapas/escalada.png)
+
+![img22](/secnotes/assets/img/zapas/escalada1.png)
+
+![img23](/secnotes/assets/img/zapas/escalada2.png)
+
+y al ejecutar `!/bin/bash` ganamos acceso como el usuario root.
+
+![img24](/secnotes/assets/img/zapas/root.png)
+
+![img25](/secnotes/assets/img/zapas/flags.png)
+
+_archivo sudoers_
+
+![img26](/secnotes/assets/img/zapas/sudoers.png)
+
+
+
+
+
 
 
 
