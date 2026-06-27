@@ -1,7 +1,7 @@
 # 🔒 SecNotes | Cybersecurity Writeups & Documentation
 
 <p align="center">
-  <img src="./logo.png" alt="SecNotes Logo" width="120">
+  <img src="./SecNotes.png" alt="SecNotes Logo" width="120">
 </p>
 
 <p align="center">
