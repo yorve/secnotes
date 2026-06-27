@@ -1,0 +1,46 @@
+I"8<p><img src="/secnotes/assets/img/metasploitable2/banner.png" alt="Banner" /></p>
+
+<p>Este es un nuevo proyecto de Hardening para el laboratorio Metasploitable2. Este es conocido por tener múltiples vulnerabilidades que como atacante podemos sacar provecho y comprometer la máquina. Pero esta vez nos pondrémos en los zapatos del equipo defensivo y aplicaremos configuraciones correctas para volver Metasploitable 2 una máquina segura.</p>
+
+<p><strong>Los objetivos del proyecto serán:</strong></p>
+
+<p>reducir la superficie de ataque.
+Corregir fallas de configuración.
+Implementar contramedidas.
+Validar la postura de seguridad.</p>
+
+<p><strong>Metodología:</strong></p>
+
+<p>Inspección y validación de la vulnerabilidad.
+Remediación (Hardening).
+Validación de seguridad.
+Esta máquina tiene multiples puertos y vulnerabilidades habilitados. Es por eso que iremos resolviendolas por servicios por separado.</p>
+
+<p><img src="/secnotes/assets/img/metasploitable2/20260619161500.png" alt="TELNET" /></p>
+
+<p>El protocolo Telnet es históricamente inseguro, ya que transmite todo en texto plano (incluyendo usuarios y contraseñas), aquí qualquier atacante que este haciendo un análisis de tráfico en la red como por ejemplo sniffing podría robarse las credenciales fácilmente.</p>
+
+<p>En esta máquina además de ser inseguro por naturaleza, tiene una vulnerabilidad <strong>critica</strong> de configuración que veremos a continuación.</p>
+
+<p><img src="/secnotes/assets/img/metasploitable2/20260621152546.png" alt="TELNET" /></p>
+
+<p>Como podemos observar, al conectarnos a este servicio con el usuario <code class="language-plaintext highlighter-rouge">msfadmin</code> y misma contraseña tenemos acceso a ejecutar todo por privilegios de administrador.</p>
+
+<h1 id="hardening-de-telnet">Hardening de Telnet</h1>
+
+<p>Para la ciberseguridad, dejar Telnet abierto es inaceptable. La recomendación oficial es sustituirlo por <strong>SSH</strong> (que cifra todo el tráfico) y apagar Telnet para siempre.</p>
+
+<p>Para realizar esto, primero debemos localizar el archivo de configuración y luego de una búsqueda encontramos que este servicio se encuentra configurado en el archivo <em>inetd.conf</em></p>
+
+<p><img src="/secnotes/assets/img/metasploitable2/20260621162029.png" alt="TELNET" /></p>
+
+<p>Para deshabilitarlo basta con comentar (#) la línea donde esta la configuración de telnet y posteriormente reiniciamos el servicio para aplicar los cambios.</p>
+
+<p><img src="/secnotes/assets/img/metasploitable2/20260621173519.png" alt="TELNET" /></p>
+
+<p><code class="language-plaintext highlighter-rouge">/etc/init.d/xinetd restart</code></p>
+
+<p>Con esto ejecutado, intentamos acceder desde nuestra máquina atacante resultando en una conexión fallida.</p>
+
+<p><img src="/secnotes/assets/img/metasploitable2/20260621174019.png" alt="TELNET" /></p>
+:ET

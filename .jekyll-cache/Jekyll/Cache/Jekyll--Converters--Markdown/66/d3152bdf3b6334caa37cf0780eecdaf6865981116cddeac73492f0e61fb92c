@@ -1,0 +1,90 @@
+I"<p>Optimum es una máquina para principiantes que se centra principalmente en la enumeración de servicios con exploits conocidos. Ambos exploits son fáciles de obtener y cuentan con módulos de Metasploit asociados, lo que hace que esta máquina sea bastante sencilla de completar.</p>
+
+<p><strong>Reconocimiento</strong></p>
+
+<p>Con nmap comenzaremos a escanear el objetivo y así
+descubrir sus puertos abiertos, servicios que corren en
+ellos y las versiones de estos servicios.</p>
+
+<p><img src="/secnotes/assets/img/optimun/1.png" alt="img1" /></p>
+
+<p><img src="/secnotes/assets/img/optimun/2.png" alt="img2" /></p>
+
+<p><img src="/secnotes/assets/img/optimun/3.png" alt="img3" /></p>
+
+<p>Con esta info ya sabemos que nos enfrentamos a una máquina Windows. Esta solo nos muestra el servicio web.</p>
+
+<p><strong>Enumeración</strong></p>
+
+<p><img src="/secnotes/assets/img/optimun/4.png" alt="img4" /></p>
+
+<p><em>HFS</em> es un programa que permite a los usuarios compartir archivos a través de HTTP, convirtiendo un computador en un servidor web simple. Este funciona sin necesidad de configuraciones complicadas o instalación de software adicional en el cliente, permitiendo el acceso a los archivos desde cualquier navegador.</p>
+
+<p><img src="/secnotes/assets/img/optimun/5.png" alt="img5" /></p>
+
+<p>Navegando un poco por la red encontramos que esta aplicación es vulnerable a RCE.</p>
+
+<p>Con metasploit vamos a buscar el nombre de la aplicación</p>
+
+<p><img src="/secnotes/assets/img/optimun/6.png" alt="img6" /></p>
+
+<p>Configuramos los parámetros necesarios</p>
+
+<p><img src="/secnotes/assets/img/optimun/7.png" alt="img7" /></p>
+
+<p><img src="/secnotes/assets/img/optimun/8.png" alt="img8" /></p>
+
+<p>Y así obtenemos una sesión de meterpreter.
+Usamos el comando <code class="language-plaintext highlighter-rouge">Shell</code> para abrir una sesion con una Shell interactiva y navegando por los directorios encontramos la flag de usuario.</p>
+
+<p><img src="/secnotes/assets/img/optimun/9.png" alt="img9" /></p>
+
+<p>Validaremos la versión del sistema operativo con el comando <code class="language-plaintext highlighter-rouge">sysinfo</code></p>
+
+<p><img src="/secnotes/assets/img/optimun/10.png" alt="img10" /></p>
+
+<p>Tenemos un <em>Windows server 2012</em></p>
+
+<p><strong>Explotación</strong></p>
+
+<p>Para tener una sesión más estable y evitar problemas a navegar vamos a migrar la ejecución del payload a otro proceso.
+Para esto utilizaremos el comando <code class="language-plaintext highlighter-rouge">ps</code> y del listado de los procesos, en este caso migraremos al de explorer.exe. debemos recordar el numero de <strong>PID.</strong></p>
+
+<p><img src="/secnotes/assets/img/optimun/11.png" alt="img11" /></p>
+
+<p><img src="/secnotes/assets/img/optimun/12.png" alt="img12" /></p>
+
+<p><strong>Escalada de privilegios</strong></p>
+
+<p>Buscando información sobre el sistema operativo, vemos que existe una vulnerabilidad sobre esta versión.</p>
+
+<p><img src="/secnotes/assets/img/optimun/13.png" alt="img13" /></p>
+
+<p>Nuevamente en metasploit vamos a buscarla, esta vez desde la sesión que tenemos abierta en meterpreter.</p>
+
+<p><img src="/secnotes/assets/img/optimun/14.png" alt="img14" />
+ <img src="/secnotes/assets/img/optimun/15.png" alt="img15" />
+ <img src="/secnotes/assets/img/optimun/16.png" alt="img16" /></p>
+
+<p>Es importante configurar la sesión que teníamos abierta con meterpreter</p>
+
+<p><img src="/secnotes/assets/img/optimun/17.png" alt="img17" /></p>
+
+<p>Iniciamos metasploit</p>
+
+<p><img src="/secnotes/assets/img/optimun/18.png" alt="img18" /></p>
+
+<p>Y ganamos el acceso como administrador</p>
+
+<p><img src="/secnotes/assets/img/optimun/19.png" alt="img19" /></p>
+
+<p>Ahora solo buscamos la flag de admin por los directorios</p>
+
+<p><img src="/secnotes/assets/img/optimun/20.png" alt="img20" /></p>
+
+<p>☕ ¿Te sirvió el Write-up?
+Si este contenido te ayudó a rootear la máquina o a aprender algo nuevo, ¡puedes invitarme un café! Todo el apoyo se va directo a mejorar el blog y seguir subiendo retos de DockerLabs.</p>
+
+<p><img src="https://img.buymeacoffee.com/button-api/?text=Invítame un café&amp;emoji=☕&amp;slug=TU_USUARIO&amp;button_colour=FFDD00&amp;font_colour=000000&amp;font_family=Cookie&amp;outline_colour=000000&amp;coffee_colour=ffffff" alt="Invitame un café" /></p>
+
+:ET

@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-G8V2DW9MZ5');
+</script>
+
+    <title>ZapasGuapas - Hackerlabs - Linux | SecNotes</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --sidebar-bg: #0d1117;
+            --text: #c9d1d9;
+            --accent: #00ff41;
+            --border: #30363d;
+        }
+
+        body { 
+            background: var(--bg); 
+            color: var(--text); 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            margin: 0; 
+            display: flex;
+        }
+        .content-area {
+    flex: 1;
+    padding: 40px 5%;    /* Padding en porcentaje para que se ajuste al dividir pantalla */
+    max-width: 900px;
+    box-sizing: border-box;
+}
+@media (max-width: 900px) { /* Si la ventana mide menos de 900px (como en tu captura) */
+    .main-wrapper { 
+        flex-direction: column; 
+    }
+    .sidebar { 
+        width: 100%; 
+        max-width: 100%;
+        height: auto; 
+        position: relative; 
+        border-right: none; 
+        border-bottom: 1px solid var(--border); 
+        padding: 20px;
+    }
+    .content-area { 
+        padding: 30px 20px; 
+    }
+}
+        /* Contenedor Principal */
+        .main-wrapper {
+            display: flex;
+            width: 100%;
+            min-height: 100vh;
+        }
+
+        /* SIDEBAR IZQUIERDA FIJA */
+        .sidebar {
+    width: 20%;          /* En lugar de px fijos, usamos un porcentaje */
+    min-width: 200px;    /* Pero que no sea más pequeña que esto para que se lea */
+    max-width: 260px;    /* Ni más grande que esto en pantallas gigantes */
+    height: 100vh;
+    background: var(--sidebar-bg);
+    border-right: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    padding: 30px 15px;  /* Reduje un poco el padding lateral */
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    z-index: 100;
+}
+
+        .sidebar-logo img {
+            width: 70px;
+            border-radius: 50%;
+            margin-bottom: 35px;
+            border: 2px solid var(--border);
+        }
+
+        .sidebar-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            margin-bottom: auto;
+        }
+
+        .side-link {
+            text-decoration: none;
+            color: #8b949e;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: 0.3s;
+        }
+
+        .side-link i { width: 20px; text-align: center; }
+        .side-link:hover { color: var(--accent); transform: translateX(5px); }
+
+        .sidebar-social { margin-top: 40px; }
+        .sidebar-social p { font-size: 0.7rem; color: #444; letter-spacing: 1px; margin-bottom: 15px; font-weight: bold; }
+        
+        .sidebar-social a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: #8b949e;
+            font-size: 0.85rem;
+            margin-bottom: 12px;
+            transition: 0.3s;
+        }
+
+        .sidebar-social a:hover { color: #fff; }
+
+        .sidebar-footer {
+            font-size: 0.75rem;
+            color: #333;
+            margin-top: 20px;
+        }
+
+        /* ÁREA DE CONTENIDO (POST) */
+        .content-area {
+            flex: 1;
+            padding: 60px 80px;
+            max-width: 900px;
+        }
+
+        .back-link {
+            text-decoration: none;
+            color: var(--accent);
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        h1 { 
+            color: #fff; 
+            font-size: 2.2rem;
+            margin: 0 0 10px 0;
+        }
+
+        .post-meta {
+            font-size: 0.9rem;
+            color: #555;
+            margin-bottom: 30px;
+        }
+
+        hr { border: 0; border-top: 1px solid var(--border); margin: 30px 0; }
+
+        /* Imágenes de los writeups */
+        .content-area img { 
+            max-width: 100%; 
+            height: auto; 
+            border-radius: 6px; 
+            border: 1px solid var(--border);
+            margin: 25px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+        }
+
+        /* Estilo para código/terminal */
+        code { background: #161b22; padding: 2px 6px; border-radius: 4px; font-family: monospace; color: #ff7b72; }
+        pre { background: #161b22; padding: 20px; border-radius: 8px; border: 1px solid var(--border); overflow-x: auto; }
+
+        /* Responsivo */
+        @media (max-width: 1100px) {
+            body { flex-direction: column; }
+            .sidebar { width: 100%; height: auto; position: relative; border-right: none; border-bottom: 1px solid var(--border); }
+            .content-area { padding: 40px 15px; }
+        }
+        pre {
+    background: #0d1117 !important;
+    border: 1px solid #30363d;
+    padding: 15px;
+    border-radius: 8px;
+    position: relative;
+}
+pre::before {
+    content: "root@yorve:~#";
+    display: block;
+    color: #8b949e;
+    font-size: 0.7rem;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #222;
+}
+    </style>
+</head>
+<body>
+
+    <div class="main-wrapper">
+        <aside class="sidebar">
+            <div class="sidebar-content">
+                <a href="/secnotes/" class="sidebar-logo">
+                    <img src="/secnotes/ico.jpg" alt="Logo">
+                </a>
+                
+                <nav class="sidebar-nav">
+                    <a href="/secnotes/" class="side-link"><i class="fas fa-home"></i> Inicio</a>
+                    <a href="/secnotes/tags" class="side-link"><i class="fas fa-tags"></i> Etiquetas</a>
+                    <a href="https://github.com/yorve/Auto-Recon" target="_blank" class="side-link"><i class="fas fa-terminal"></i> Auto-Recon</a>
+                </nav>
+
+                <div class="sidebar-social">
+                    <p>Contacto</p>
+                    <a href="https://github.com/yorve" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+                    <a href="https://linkedin.com/in/yonathan-rivera-velozo" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                    <a href="mailto:yorve.csec@gmail.com"><i class="fas fa-envelope"></i> Email</a>
+                    <a href="https://buymeacoffee.com/yorve" target="_blank" class="donate-btn">
+
+    <i class="fas fa-coffee"></i> Apoya el contenido de SecNotes </a>
+                </div>
+                
+                <div class="sidebar-footer">
+                    2026 © Yorve CSEC
+                </div>
+            </div>
+        </aside>
+
+        <main class="content-area">
+            <a href="/secnotes/" class="back-link">← Volver al inicio</a>
+            <h1>ZapasGuapas - Hackerlabs - Linux</h1>
+            <div class="post-meta">
+                13/05/2026 • SecNotes 2.0
+            </div>
+            <hr>
+            
+            <div class="markdown-content">
+                <p><img src="/secnotes/assets/img/zapas/banner.png" alt="banner" /></p>
+
+<p>Este laboratorio pone a prueba nuestra capacidad para identificar vulnerabilidades web y explotar configuraciones inseguras en el sistema operativo Linux. El reto nos lleva a través de una cadena de ataque que comienza con una inyección de comandos en un formulario de autenticación y culmina con el compromiso total del sistema aprovechando permisos excesivos en herramientas administrativas comunes.</p>
+
+<p>Comenzamos con la fase de reconocimiento con la herramienta <strong>auto-recon</strong> esta nos hará un escaneo automatizado de puertos, servicios y versiones y directorios web</p>
+
+<p><img src="/secnotes/assets/img/zapas/recon.png" alt="img1" /></p>
+
+<p><img src="/secnotes/assets/img/zapas/recon2.png" alt="img2" /></p>
+
+<p>El resultado nos muestra servicio SSH y WEB disponibles, al no tener ninguna credencial vamos a destartar el servicio SSH de momento.
+Al acceder al servicio WEB nos encontramos con una página de venta de zapatillas.</p>
+
+<p><img src="/secnotes/assets/img/zapas/zapas.png" alt="img3" /></p>
+
+<p>No encontramos mayor información al navegar por ella. El siguiente paso será realizar un escaneo de directorios de manera mas profunda, la idea es agregar mas extensiones en la busqueda.</p>
+
+<p>En este caso buscaremos extensiones <strong>.html, .php, .txt, .py, .sh, .log</strong></p>
+
+<p><img src="/secnotes/assets/img/zapas/directorios.png" alt="img4" /></p>
+
+<p>Esta nueva búsqueda nos muestra otras rutas disponibles, de estas llama la atención <em>testimonial.html</em>, <em>nike.php</em>, y obviamente <em>login.html</em></p>
+
+<p><img src="/secnotes/assets/img/zapas/nikephp.png" alt="img5" /></p>
+
+<p>Aquí solo tenemos un listado de las zapatillas.</p>
+
+<p><img src="/secnotes/assets/img/zapas/testimonial.png" alt="img6" /></p>
+
+<p>En esta solo un par de testimonios.. que consideraré para mejorar mis habilidades de hackeo…</p>
+
+<p><img src="/secnotes/assets/img/zapas/login.png" alt="img7" /></p>
+
+<p>y finalmente el logín. Este parece simple, pero tiene un script que nos ayudará a acceder al servidor.</p>
+
+<p><img src="/secnotes/assets/img/zapas/script.png" alt="img8" /></p>
+
+<p>Voy a explicar la parte importante del script encontrado.</p>
+
+<p><code class="language-plaintext highlighter-rouge">document.getElementById("loginForm").addEventListener("submit", function(event) {
+    event.preventDefault();</code></p>
+
+<p>Esta función “escucha” cuando queremos enviar el formulario de inicio de sesión, y evita que la página se recargue de forma convencional. En su lugar, el script toma el control total de los datos.</p>
+
+<p><code class="language-plaintext highlighter-rouge">var username = document.getElementById("username").value;
+var password = document.getElementById("password").value;</code></p>
+
+<p>En este apartado, el script captura el texto que escribimos en las cajas de usuario y contraseña. El fallo aquí es que no existe validación. Cualquier cadena de texto se almacena en estas variables (incluyendo comandos)</p>
+
+<p><code class="language-plaintext highlighter-rouge">xhr.open("GET", "run_command.php?username=" + encodeURIComponent(username) + "&amp;password=" + encodeURIComponent(password), true);
+xhr.send();</code></p>
+
+<p>Aquí el script envía una solicitud GET al archivo <strong>run_command.php</strong>, pasa el contenido de username y password directamente a la URL. Como consecuencia el servidor es vulnerable a <strong>Command Injection</strong></p>
+
+<p>Sabiendo todo esto, debemos validar si funciona de verdad. Bastará con escribir un comando en la caja de contraseña y verificar si el servidor lo ejecuta.</p>
+
+<p><img src="/secnotes/assets/img/zapas/commandinjection.png" alt="img9" /></p>
+
+<p>Aquí ejecutamos el comando <code class="language-plaintext highlighter-rouge">id</code> y efectivamente el servidor nos devuelve el resultado. Ahora lo intentaremos con una reverse shell para ganar el acceso.</p>
+
+<p><img src="/secnotes/assets/img/zapas/reverse-shell.png" alt="img10" /></p>
+
+<p>y ganamos el acceso. En este paso lo primero que debemos hacer es buscar usuarios válidos en el sistema.</p>
+
+<p><img src="/secnotes/assets/img/zapas/usuarios.png" alt="img11" /></p>
+
+<p>Para trabajar mas cómodos realizaremos un tratamiento de la shell para ganar estabilidad y funcionalidad.</p>
+
+<p>para esto:</p>
+
+<p><code class="language-plaintext highlighter-rouge">python3 -c 'import pty; pty.spawn("/bin/bash")'</code> (Engañamos al sistema para que crea que hay un usuario real interactuando con la terminal, permitiendo comandos como <code class="language-plaintext highlighter-rouge">sudo</code>)</p>
+
+<p>suspendemos con ctrl+z, y ejecutamos <code class="language-plaintext highlighter-rouge">stty raw -echo; fg</code>. Con esto configuramos nuestra máquina para que pase cada pulsación de tecla directamente a la red, sin procesarla directamente. Esto permite que señales como Ctrl+C o el TAB lleguen a la terminal de la víctima.</p>
+
+<p>y finalmente <code class="language-plaintext highlighter-rouge">export TERM=xterm-256color</code> Con esto permitimos que la terminal tenga colores y que aplicaciones de texto utilicen toda la pantalla.</p>
+
+<p>despues lanzar <code class="language-plaintext highlighter-rouge">reset</code> en la terminal ya tendremos la terminal operativa.</p>
+
+<p>Navegando por los directorios de los usuarios que encontramos, vemos una nota de uno de ellos.</p>
+
+<p><img src="/secnotes/assets/img/zapas/nota.png" alt="img12" /></p>
+
+<p>En el directorio del usuario <strong>proadida</strong> encontramos la user flag, pero no tenenos los permisos suficientes para leerlos.</p>
+
+<p>También encontramos un archivo muy importante en el directorio <em>/opt</em>. Iniciamos un servidor local en la víctima y nos transferiremos el archivo a nuestra máquina para poder trabajar en él.</p>
+
+<p><img src="/secnotes/assets/img/zapas/http-server.png" alt="img13" /></p>
+
+<p>Al intentar descomprimir el archivos que transferimos desde la máquina víctima este nos pide una contraseña. Suerte que hemos visto el procedimiento necesario para crackearla con <strong>JohnTheRipper</strong> en laboratorios recientes.</p>
+
+<p><img src="/secnotes/assets/img/zapas/crackzip.png" alt="img14" /></p>
+
+<p><img src="/secnotes/assets/img/zapas/jhon-the-ripper.png" alt="img15" /></p>
+
+<p>Ya tenemos la contraseña del archivo , procedemos a descomprimir y ver que nos encontramos.</p>
+
+<p><img src="/secnotes/assets/img/zapas/unzip.png" alt="img15" /></p>
+
+<p>Contraseña del usuario <strong>pronike</strong> obtenida…</p>
+
+<p><img src="/secnotes/assets/img/zapas/pronike.png" alt="img16" /></p>
+
+<p>Gracias al tratamiento de la shell pudimos cancelar el servidor local y cambiar de usuario sin perder la reverse shell.</p>
+
+<p>Luego de un rato navegando por los directorios de este usuario no encontramos nada más. Así que verificamos si extiste algún permiso mal configurado para explotar.</p>
+
+<p><img src="/secnotes/assets/img/zapas/apt.png" alt="img17" /></p>
+
+<p>Tenemos disponible <strong>apt</strong> pero no como usuario root, sino que como el usuario <strong>proadidas</strong>. Según <strong>GTFObins</strong></p>
+
+<p><img src="/secnotes/assets/img/zapas/gtfobins.png" alt="img18" /></p>
+
+<p>Luego de una larga investigación y lectura, encontramos que la manera de hacer el movimiento lateral explotando este binario es con el comando:</p>
+
+<p><code class="language-plaintext highlighter-rouge">sudo -u proadidas /usr/bin/apt changelog apt</code></p>
+
+<p>luego debemos ejecutar <code class="language-plaintext highlighter-rouge">!/bin/bash</code></p>
+
+<blockquote>
+  <p>El alma de este blog es enseñar que hace cada comando, no solo copiar y pegar. Así que a continuación de explicación del paso anterior.</p>
+</blockquote>
+
+<p>El binario <em>/usr/bin/apt</em> tiene sub comandos diseñados para mostrar grandes cantidades de texto como <strong>changelog</strong></p>
+
+<p>Cuando solicitamos un changelog, <strong>apt</strong> invoca automáticamente un programa paginador (comunmente <em>less</em>) para facilitar la lectura.
+Debido a que apt se lanza con <em>sudo -u proadidas</em>, el paginador herera esos privilegios. Si el paginador permite la ejecución de comandos externos, podemos escapar de él hacia una shell.</p>
+
+<p>Una vez dentro del visor de texto, se aprovechó la funcionalidad de <em>less</em> para ejecutar comandos del sistema anteponiendo el simbolo <strong>!</strong></p>
+
+<p>Como resultado el paginador generó un proceso hijo de bash con el UID de proadidas, obteniendo así una shell de este usuario.</p>
+
+<p><img src="/secnotes/assets/img/zapas/aproadidas.png" alt="img19" /></p>
+
+<p>Ahora hacemos el mismo procedimiento con este usuario, no encontramos nada en sus directorios y revisando los permisos encontramos que podemos lanzar aws como usuario root.</p>
+
+<p><img src="/secnotes/assets/img/zapas/aws.png" alt="img20" /></p>
+
+<p>Aquí el procedimiento es igual al usuario anterior. aprovecharemos el paginador para realizar la escala de privilegios</p>
+
+<p><img src="/secnotes/assets/img/zapas/escalada1.png" alt="img22" /></p>
+
+<p><img src="/secnotes/assets/img/zapas/escalada2.png" alt="img23" /></p>
+
+<p>y al ejecutar <code class="language-plaintext highlighter-rouge">!/bin/bash</code> ganamos acceso como el usuario root.</p>
+
+<p><img src="/secnotes/assets/img/zapas/root.png" alt="img24" /></p>
+
+<p><img src="/secnotes/assets/img/zapas/flags.png" alt="img25" /></p>
+
+<p><em>archivo sudoers</em></p>
+
+<p><img src="/secnotes/assets/img/zapas/sudoers.png" alt="img26" /></p>
+
+
+            </div>
+        </main>
+    </div>
+
+</body>
+</html>

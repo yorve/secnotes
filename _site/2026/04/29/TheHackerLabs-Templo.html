@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-G8V2DW9MZ5');
+</script>
+
+    <title>Templo - Hackerlabs - Linux | SecNotes</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --sidebar-bg: #0d1117;
+            --text: #c9d1d9;
+            --accent: #00ff41;
+            --border: #30363d;
+        }
+
+        body { 
+            background: var(--bg); 
+            color: var(--text); 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            margin: 0; 
+            display: flex;
+        }
+        .content-area {
+    flex: 1;
+    padding: 40px 5%;    /* Padding en porcentaje para que se ajuste al dividir pantalla */
+    max-width: 900px;
+    box-sizing: border-box;
+}
+@media (max-width: 900px) { /* Si la ventana mide menos de 900px (como en tu captura) */
+    .main-wrapper { 
+        flex-direction: column; 
+    }
+    .sidebar { 
+        width: 100%; 
+        max-width: 100%;
+        height: auto; 
+        position: relative; 
+        border-right: none; 
+        border-bottom: 1px solid var(--border); 
+        padding: 20px;
+    }
+    .content-area { 
+        padding: 30px 20px; 
+    }
+}
+        /* Contenedor Principal */
+        .main-wrapper {
+            display: flex;
+            width: 100%;
+            min-height: 100vh;
+        }
+
+        /* SIDEBAR IZQUIERDA FIJA */
+        .sidebar {
+    width: 20%;          /* En lugar de px fijos, usamos un porcentaje */
+    min-width: 200px;    /* Pero que no sea más pequeña que esto para que se lea */
+    max-width: 260px;    /* Ni más grande que esto en pantallas gigantes */
+    height: 100vh;
+    background: var(--sidebar-bg);
+    border-right: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    padding: 30px 15px;  /* Reduje un poco el padding lateral */
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    z-index: 100;
+}
+
+        .sidebar-logo img {
+            width: 70px;
+            border-radius: 50%;
+            margin-bottom: 35px;
+            border: 2px solid var(--border);
+        }
+
+        .sidebar-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            margin-bottom: auto;
+        }
+
+        .side-link {
+            text-decoration: none;
+            color: #8b949e;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: 0.3s;
+        }
+
+        .side-link i { width: 20px; text-align: center; }
+        .side-link:hover { color: var(--accent); transform: translateX(5px); }
+
+        .sidebar-social { margin-top: 40px; }
+        .sidebar-social p { font-size: 0.7rem; color: #444; letter-spacing: 1px; margin-bottom: 15px; font-weight: bold; }
+        
+        .sidebar-social a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: #8b949e;
+            font-size: 0.85rem;
+            margin-bottom: 12px;
+            transition: 0.3s;
+        }
+
+        .sidebar-social a:hover { color: #fff; }
+
+        .sidebar-footer {
+            font-size: 0.75rem;
+            color: #333;
+            margin-top: 20px;
+        }
+
+        /* ÁREA DE CONTENIDO (POST) */
+        .content-area {
+            flex: 1;
+            padding: 60px 80px;
+            max-width: 900px;
+        }
+
+        .back-link {
+            text-decoration: none;
+            color: var(--accent);
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        h1 { 
+            color: #fff; 
+            font-size: 2.2rem;
+            margin: 0 0 10px 0;
+        }
+
+        .post-meta {
+            font-size: 0.9rem;
+            color: #555;
+            margin-bottom: 30px;
+        }
+
+        hr { border: 0; border-top: 1px solid var(--border); margin: 30px 0; }
+
+        /* Imágenes de los writeups */
+        .content-area img { 
+            max-width: 100%; 
+            height: auto; 
+            border-radius: 6px; 
+            border: 1px solid var(--border);
+            margin: 25px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+        }
+
+        /* Estilo para código/terminal */
+        code { background: #161b22; padding: 2px 6px; border-radius: 4px; font-family: monospace; color: #ff7b72; }
+        pre { background: #161b22; padding: 20px; border-radius: 8px; border: 1px solid var(--border); overflow-x: auto; }
+
+        /* Responsivo */
+        @media (max-width: 1100px) {
+            body { flex-direction: column; }
+            .sidebar { width: 100%; height: auto; position: relative; border-right: none; border-bottom: 1px solid var(--border); }
+            .content-area { padding: 40px 15px; }
+        }
+        pre {
+    background: #0d1117 !important;
+    border: 1px solid #30363d;
+    padding: 15px;
+    border-radius: 8px;
+    position: relative;
+}
+pre::before {
+    content: "root@yorve:~#";
+    display: block;
+    color: #8b949e;
+    font-size: 0.7rem;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #222;
+}
+    </style>
+</head>
+<body>
+
+    <div class="main-wrapper">
+        <aside class="sidebar">
+            <div class="sidebar-content">
+                <a href="/secnotes/" class="sidebar-logo">
+                    <img src="/secnotes/ico.jpg" alt="Logo">
+                </a>
+                
+                <nav class="sidebar-nav">
+                    <a href="/secnotes/" class="side-link"><i class="fas fa-home"></i> Inicio</a>
+                    <a href="/secnotes/tags" class="side-link"><i class="fas fa-tags"></i> Etiquetas</a>
+                    <a href="https://github.com/yorve/Auto-Recon" target="_blank" class="side-link"><i class="fas fa-terminal"></i> Auto-Recon</a>
+                </nav>
+
+                <div class="sidebar-social">
+                    <p>Contacto</p>
+                    <a href="https://github.com/yorve" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+                    <a href="https://linkedin.com/in/yonathan-rivera-velozo" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                    <a href="mailto:yorve.csec@gmail.com"><i class="fas fa-envelope"></i> Email</a>
+                    <a href="https://buymeacoffee.com/yorve" target="_blank" class="donate-btn">
+
+    <i class="fas fa-coffee"></i> Apoya el contenido de SecNotes </a>
+                </div>
+                
+                <div class="sidebar-footer">
+                    2026 © Yorve CSEC
+                </div>
+            </div>
+        </aside>
+
+        <main class="content-area">
+            <a href="/secnotes/" class="back-link">← Volver al inicio</a>
+            <h1>Templo - Hackerlabs - Linux</h1>
+            <div class="post-meta">
+                29/04/2026 • SecNotes 2.0
+            </div>
+            <hr>
+            
+            <div class="markdown-content">
+                <p><img src="/secnotes/assets/img/templo/banner.png" alt="banner" /></p>
+
+<p>En este laboratorio, exploraremos cómo un parámetro de inclusión de archivos (LFI) aparentemente inofensivo puede ser la llave maestra para extraer el código fuente del servidor mediante PHP Wrappers. El análisis del código nos revelará un mecanismo de ofuscación basado en ROT13 diseñado para ocultar archivos subidos, el cual saltaremos para obtener ejecución remota de comandos (RCE).</p>
+
+<p>Comenzamos con la fase de reconocimiento inicial con nuestra herramienta <strong>Auto_recon</strong> (Disponible en mi perfil)</p>
+
+<p><img src="/secnotes/assets/img/templo/reconocimiento.png" alt="img1" /></p>
+
+<p><img src="/secnotes/assets/img/templo/reconocimiento_servicios.png" alt="img2" /></p>
+
+<p><img src="/secnotes/assets/img/templo/reconocimiento_directorios.png" alt="img3" /></p>
+
+<p>Podemos detectar que tenemos servicio <strong>SSH</strong> y <strong>WEB</strong> disponibles, ya que no tenemos ningún nombre de usuario o pista disponible para el servicio SSH, centraremos la recopilación de información sobre el servicio web. En el escaneo de directorios encontramos un par de rutas que podrían darnos datos de interés.</p>
+
+<p><img src="/secnotes/assets/img/templo/web.png" alt="img4" /></p>
+
+<p>Revisando los directorios web encontrados en la fase de reconocimiento, encontramos que en la ruta  <em>/wow/</em> tenemos una pista que nos podría servir a futuro</p>
+
+<p><img src="/secnotes/assets/img/templo/wow.png" alt="img5" /></p>
+
+<p><img src="/secnotes/assets/img/templo/opt.png" alt="img6" /></p>
+
+<p>No hay nada mas de interés en el resto de directorios web, sin embargo nos llama la atención un texto en particular de la página principal…</p>
+
+<p><img src="/secnotes/assets/img/templo/namari.png" alt="img7" /></p>
+
+<p><strong>NAMARI</strong> podría ser un nombre de usuario, ruta, contraseña o algo que nos sea de utilidad..</p>
+
+<p>Efectivamente, NAMARI era una ruta que nos envía a una página donde nos permiten subir archivos</p>
+
+<p><img src="/secnotes/assets/img/templo/web-namari.png" alt="img8" /></p>
+
+<p>Al subir el archivo aparentemente no tenemos respuesta, pero si podemos ver algo interesante..</p>
+
+<p><img src="/secnotes/assets/img/templo/lfi.png" alt="img9" /></p>
+
+<p>Tenemos <em>index.php?page=</em> con este parámetro podemos sospechar que el servidor es vulnerable a LFI, pero no podemos confirmar si no probamos…</p>
+
+<p><img src="/secnotes/assets/img/templo/lfi1.png" alt="img10" /></p>
+
+<p>Éxito! tenemos un usuario válido llamado <strong>rodgar</strong>, lo guardaremos para después.</p>
+
+<p>Luego de intentar de leer el archivo <strong>index.php</strong> notamos que la página entra en un bucle, no podemos ver el código fuente porque el servidor ejecuta el PHP en lugar de mostrarlo. Después mu mucha investigación e intentos llegamos a una solución llamada <strong>PHP WRAPPER</strong> esta es básicamente una técnica para evadir la ejecución del servidor.</p>
+
+<p><code class="language-plaintext highlighter-rouge">php://filter/convert.base64-encode/resource=index.php</code></p>
+
+<p>que hace esto??</p>
+
+<p>php://filter : Es un flujo de acceso que permite aplicar filtros a un archivo.
+convert.base64-encode : Obliga al servidor a convertír el código PHP en una cadena de texto Base64.</p>
+
+<p>El truco es que al estar codificado, el motor de PHP no reconoce las etiquetas <em>&lt;?php</em> y no las ejecuta. El servidor nos entrega el archivo (index.php) como si fuera texto plano.</p>
+
+<p>https://blog.deephacking.tech/en/posts/exploiting-php-wrappers/</p>
+
+<p><img src="/secnotes/assets/img/templo/phpwrapper.png" alt="img11" /></p>
+
+<p><img src="/secnotes/assets/img/templo/wrapper.png" alt="img12" /></p>
+
+<p>Ya que tenemos el texto codificado en Base64, nos queda decodificarlo y ver que encontramos.</p>
+
+<p><img src="/secnotes/assets/img/templo/decode.png" alt="img13" /></p>
+
+<p><img src="/secnotes/assets/img/templo/index.png" alt="img14" /></p>
+
+<p>Al leer el archivo podemos ver varias cosas. El servidor envía los archivos que subimos a la ruta <em>/uploads</em> ($target_dir = “uploads/”;) 
+Extrae el nombre y la extensión original de los archivos que subimos.</p>
+
+<p>$rot13_encoded_name = str_rot13($file_name_without_extension);  El servidor aplica un cifrado ROT13 al nombre del archivo.
+Se reconstruye el nombre con el cifrado ROT13 + la extensión original
+Mueve el archivo a la ruta especificada</p>
+
+<p>el último bloque (<em>$sile = $_GET[‘page’];</em>) es peligroso, ya que toma cualquier valor que pongamos en la url después de <strong>?page=</strong>.
+<em>include($file);</em>. esta función en PHP no solo lee los archivos, sino que ejecuta cualquier código PHP que encuentre dentro de ellos, sin importar la extensión de los archivos.</p>
+
+<p>Sabiendo esto, vamos a validad si funciona.. Para esto nos crearemos un archivo .php con el siguiente código:</p>
+
+<p><code class="language-plaintext highlighter-rouge">&lt;?php system($_GET['cmd']); ?&gt;</code></p>
+
+<p><img src="/secnotes/assets/img/templo/test.png" alt="img15" /></p>
+
+<p>hacemos la conversión para saber el nombre del archivo.</p>
+
+<p><img src="/secnotes/assets/img/templo/rot13.png" alt="img16" /></p>
+
+<p><img src="/secnotes/assets/img/templo/command.png" alt="img17" /></p>
+
+<p>Tenemos resultado, nuestro siguiente paso será subir una reverse Shell y conectarnos al servidor con el mismo procedimiento anterior.</p>
+
+<p>https://www.revshells.com/  (la vieja confiable)</p>
+
+<p><img src="/secnotes/assets/img/templo/reverseshell.png" alt="img18" /></p>
+
+<p><img src="/secnotes/assets/img/templo/reverse_shell.png" alt="img19" /></p>
+
+<p>ya tenemos conexión al servidor. Ahora nuestro primer paso es hacer el tratamiento de la terminal.</p>
+
+<p><code class="language-plaintext highlighter-rouge">python3 -c 'import pty; pty.spawn("/bin/bash")'</code></p>
+
+<p>luego ctrl + z</p>
+
+<p><code class="language-plaintext highlighter-rouge">stty raw -echo; fg</code></p>
+
+<p>(si la terminal no se ve presionar enter otra vez)
+ y reiniciamos la terminal</p>
+
+<p><code class="language-plaintext highlighter-rouge">reset xterm</code></p>
+
+<p>y los últimos para exportar las variables de entorno</p>
+
+<p><code class="language-plaintext highlighter-rouge">export TERM=xterm</code></p>
+
+<p><code class="language-plaintext highlighter-rouge">export SHELL=bash</code></p>
+
+<p>Ahora podemos continuar.. vamos a ir directamente por la pista que encontramos en un inicio en la ruta <em>/opt</em>, ya que con el usuario actual (www-data) no tenemos ningún privilegio.</p>
+
+<p><img src="/secnotes/assets/img/templo/opt.png" alt="img20" /></p>
+
+<p>En este directorio nos encontramos un archivo .zip, dado que no tenemos la herramientas necesarias en el servidor, vamos a iniciar un servidor aprovechando python3 y lo descargaremos en nuestra máquina atacante.</p>
+
+<p><img src="/secnotes/assets/img/templo/http.server.png" alt="img21" /></p>
+
+<p>Ya en nuestra máquina intentamos descomprimir el archivo, pero este nos pide una contraseña. Así que le dejaremos la tarea a <strong>john the ripper</strong>.</p>
+
+<p>Primero extraemos el hash del archivo comprimido.</p>
+
+<p><img src="/secnotes/assets/img/templo/hash.png" alt="img22" /></p>
+
+<p>Luego le pasamos el hash y un diccionario para que intente descifrar la contraseña.</p>
+
+<p><img src="/secnotes/assets/img/templo/john.png" alt="img23" /></p>
+
+<p>Con la contraseña descifrada podemos extraer el archivo para ver su contenido.</p>
+
+<p><img src="/secnotes/assets/img/templo/contraseña.png" alt="img24" /></p>
+
+<p>podemos ver un archivo llamado <strong>Rodgar.txt</strong> con un texto que pareciera ser una contraseña. El siguiente paso será probar si es válida.</p>
+
+<p><img src="/secnotes/assets/img/templo/rodgar.png" alt="img25" /></p>
+
+<p>Efectivamente era la contraseña de este usuario.</p>
+
+<p><img src="/secnotes/assets/img/templo/userflag.png" alt="img26" /></p>
+
+<p>y como era de esperar, nos encontramos la flag de usuario en su directorio. Seguimos con las comprobaciones básicas del usuario Rodgar, y sorpresa.. no tenemos nada en nuestra primera comprobación.</p>
+
+<p><img src="/secnotes/assets/img/templo/perm.png" alt="img27" /></p>
+
+<p>Pero… al revisar algunos datos de este, podemos ver que pertenece a un grupo en particular.</p>
+
+<p><img src="/secnotes/assets/img/templo/id.png" alt="img28" /></p>
+
+<p>Con una investigación rápida podemos ver lo siguiente…</p>
+
+<p><img src="/secnotes/assets/img/templo/lxd.png" alt="img29" /></p>
+
+<p>Entonces nuestra escalada de privilegios será por medio de este grupo (al parecer)</p>
+
+<p>En la web nos encontramos con el procedimiento para realizar la escalada mediante un contenedor.</p>
+
+<p>Esta técnica es común en entornos donde se utilizan contenedores para desarrollo o microservicios. Se basa en una confianza excesiva en los usuarios que pertenecen al grupo <strong>lxd</strong> o <strong>lxc</strong></p>
+
+<p>LXC es un gestor de contenedores (parecido a Docker, pero basado en el sistema operativo completo) Para que funcione, el servicio de LXD debe correr con privilegios de root en la máquina host. Cuando un usuario es ingresado al grupo lxd, le está dando permiso para hablar directamente con el demonio de LXD. El problema es que este no restringe lo que puede hacer un usuario con un contenedor. La escalada no ocurre por un bug, sino por una funcionalidad mal utilizada.</p>
+
+<p>La lógica es la siguiente:</p>
+
+<p>1.- Contenedor privilegiado: Se crea un contenedor con la bandera <em>security.privileged=true</em>. Esto hace que el usuario root dentro del contendor sea el mismo root de la máquina real.</p>
+
+<p>2.- El dispositivo de disco: LXD permite añadir dispositivos a los contenedores. Añadimos el disco duro completo de la víctima (<em>source=/</em>) y le decimos que lo montara en una carpeta interna del contenedor (<em>path=/mnt/root</em>).</p>
+
+<p>3.- El salto: Al entrar el contenedor creado, seremos root. Como el disco de la víctima está montado ahí, podremos entrar a la ruta <em>/mnt/root/etc/shadow</em> y cambiar contraseñas, o en nuestro caso buscar la root flag.</p>
+
+<p>https://medium.com/@mstrbgn/privilege-escalation-using-lxd-lxc-group-assignment-to-a-user-a-security-misconfiguration-a4892f611d6f</p>
+
+<p>Seguimos los pasos señalados y ya tenemos acceso como usuario root dentro del contenedor</p>
+
+<p><img src="/secnotes/assets/img/templo/contenedor-lxc.png" alt="img30" /></p>
+
+<p>Ahora nos falta el último paso que, en nuestro caso, es buscar la flag del usuario root</p>
+
+<p><img src="/secnotes/assets/img/templo/root.png" alt="img31" /></p>
+
+
+            </div>
+        </main>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,5 @@
+title: SecNotes
+description: Writeups de hacking ético.
+baseurl: "/secnotes" 
+url: "https://yorve.github.io"
+theme: null 

@@ -1,0 +1,118 @@
+I">"<p>Para iniciar la fase de reconocimiento utilizaré un script que escribí en bash que realiza un escaneo de puertos, servicios, directorios web y algunas vulnerabilidades conocidas de manera automatica. Este script lo utilizo en laboratorios con el fin de ganar algo de tiempo de este proceso.
+pueden encontrarlo en mi perfil de GitHub.</p>
+
+<p><img src="/secnotes/assets/img/pkgpoison/escaneo.png" alt="img1" /></p>
+
+<p><img src="/secnotes/assets/img/pkgpoison/dir.png" alt="img2" /></p>
+
+<p>Al entrar al servicio web nos encontramos con una imagen, que al inspeccionar no encontramos información útil</p>
+
+<p><img src="/secnotes/assets/img/pkgpoison/web1.png" alt="img3" /></p>
+
+<p><img src="/secnotes/assets/img/pkgpoison/web2.png" alt="img4" /></p>
+
+<p>El escaneo de directorios web nos muestra una ruta hacia /notes, y que al acceder a ella podemos ver un archivo .txt</p>
+
+<p><img src="/secnotes/assets/img/pkgpoison/notes1.png" alt="img5" /></p>
+
+<p>Este archivo nos muestra un mensaje diciendo que el usuario “dev” debe cambiar sus credenciales. Adicionalmente podriamos considerar un usuario llamado admin…</p>
+
+<p><img src="/secnotes/assets/img/pkgpoison/notes2.png" alt="img6" /></p>
+
+<p>Teniendo estas credenciales intentamos ingresar por el servicio ssh, pero no tenemos éxito. Si tenemos un nombre de usuario, así que utilizamos la herramienta <strong>hydra</strong> para intentar descifrar la contraseña del usuario <strong>“dev”</strong></p>
+
+<p><img src="/secnotes/assets/img/pkgpoison/hydra.png" alt="img7" /></p>
+
+<p>Luego de este ataque obtenemos sus credenciales.</p>
+
+<p><img src="/secnotes/assets/img/pkgpoison/ssh.png" alt="img8" /></p>
+
+<p>Una vez dentro del sistema con este usuario, procedemos con la búsqueda de permisos o aplicaciones mal configuradas con el fin de encontrar algún vector de ataque de escalada de privilegios. Sin embargo no encontramos nada..</p>
+
+<p>Al no encontrar nada útil, buscamos en los directorios a los que tenemos acceso con este usuario, y finalmente, en la ruta de /opt, encontramos algo de interés…
+en el directorio “<strong>pycache</strong>” es donde Python guarda automaticamente los archivos compilados (secret.cpython-38-pyc). Cuando ejecutamos un programa en python, el intérprete no lee el código fuente (.py) directamente cada vez. Para ir mas rápido, este lo compila a un lenguaje intermedio llamado Bytecode.</p>
+
+<p>Un archivo .py es el código que nosotros escribimos (legible para humanos)</p>
+
+<p>Un archivo .pyc es el código compilado (legible para máquinas)</p>
+
+<p>Al leer el archivos encontramos algo de texto que no es muy legible, es por esto que utilizamos <code class="language-plaintext highlighter-rouge">strings</code> para que nos extraiga texto legible, es por esto que nos mostró las credenciales.</p>
+
+<p><img src="/secnotes/assets/img/pkgpoison/admin.png" alt="img9" /></p>
+
+<p>una vez dentro con el nuevo usuario admin, veremos si tenemos un mayor alcance</p>
+
+<p><img src="/secnotes/assets/img/pkgpoison/admin1.png" alt="img10" /></p>
+
+<p>Aquí nos encontramos con permisos para ejecutar pip3 install</p>
+
+<p>En linux, el archivo  /etc/sudoers define que puede hacer cada usuario, El usuario actual (admin) tiene permisos para ejecutar pip3 como root sin necesidad de una contraseña, la vulnerabilidad está en que pip3 no solo descarga archivos, tambien ejecuta códigos para instalar paquetes.</p>
+
+<p>Entonces.. cuando pip3 instala un paquete, busca un archivo llamado setup.py. Este archivo es un script de Python que se ejecuta automáticamente durante el proceso de instalación para configurar el paquete.</p>
+
+<p>Al ejecutar pip3 install con sudo, el script setup.py se ejecuta con privilegios de root.</p>
+
+<p>Como pip3 install permite instalar paquetes desde directorios locales que contengan un archivo setup.py, así que vamos a crear uno en el directorio /tmp que cambie los permisos de /bin/bash a SUID al momento de intentar “instalarse”.</p>
+
+<p><strong>**</strong>Gereramos este código con ayuda de la IA<strong>**</strong>*</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">cat</span> <span class="o">&lt;&lt;</span> <span class="n">EOF</span> <span class="o">&gt;</span> <span class="n">setup</span><span class="p">.</span><span class="n">py</span>
+<span class="kn">from</span> <span class="nn">setuptools</span> <span class="kn">import</span> <span class="n">setup</span>
+<span class="kn">from</span> <span class="nn">setuptools.command.install</span> <span class="kn">import</span> <span class="n">install</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="k">class</span> <span class="nc">PreInstall</span><span class="p">(</span><span class="n">install</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Aquí inyectamos el comando que nos hará root
+</span>        <span class="n">os</span><span class="p">.</span><span class="n">system</span><span class="p">(</span><span class="s">"chmod u+s /bin/bash"</span><span class="p">)</span>
+        <span class="n">install</span><span class="p">.</span><span class="n">run</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">"poison"</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="s">"1.0"</span><span class="p">,</span> <span class="n">cmdclass</span><span class="o">=</span><span class="p">{</span><span class="s">'install'</span><span class="p">:</span> <span class="n">PreInstall</span><span class="p">})</span>
+<span class="n">EOF</span>
+</code></pre></div></div>
+
+<p>vamos a explicar este script</p>
+
+<p>« EOF: le indica a la Shell que todo lo que se escriba a continuación es parte del archivo, hasta que se escriba la palabra EOF (End Of File) solo en una linea.
+setup.py: Redirige todo ese bloque de texto para crear el archivo llamado setup.py
+from setuptools import setup: La función estándar para definir paquetes en Python.
+from setuptools.command.install import install: Importamos la clase que gestiona el proceso de instalación.</p>
+
+<p>Aquí viene la clase maliciosa…</p>
+
+<p>Creamos una clase (class PreInstall (install)) que hereda de la clase original de instalación.
+def run (self): Le decimos a Python: Antes de hacer la instalación normal, ejecuta lo que yo te diga.
+os.system(“chmod u+s /bin/bash”): Esta es el payload. Ejecuta un comando a nivel del sistema que asigna el bit SUID a bash</p>
+
+<p>Activación</p>
+
+<p>setup(name=”poison”, …, cmdclass={‘install’: PreInstall}) 
+cmdclass: aqui le decimos a setup que, en lugar de usar la función de instalacion normal, use nuestra clase PreInstall</p>
+
+<p>La ejecución</p>
+
+<p><code class="language-plaintext highlighter-rouge">sudo /usr/bin/pip3 install .</code></p>
+
+<p>pip3 busca un paquete en el directorio actual (.)
+encuentra setup.py
+Como es una instalación, ejecuta el método run() de la clase que creamos
+Como pip3 se lanzó con sudo, el comando chmod u+s /bin/bash se ejecuta con permisos de root.</p>
+
+<p>Resultado</p>
+
+<p><code class="language-plaintext highlighter-rouge">bash -p</code></p>
+
+<p>Si ejecutamos bash que tienen el bit SUID, el mismo detrecta que el usuario real (admin) no es el dueño (root) y suelta los privilegios por seguridad.
+pero al usar -p (persist) forzamos a la shell a mantener el privilegio  del dueño del archivo. Como el dueño es root, obtenemos una shell con sus permisos</p>
+
+<p>EN resumen, utilizamos un archivo lamado setup.py malicioso para abusar de la funcionalidad de instalación de paquetes de Python, que al ejecutar pip3 con privilegios de sudo, el script de configuración agrego el bit de SUID a bash, permitiendo una escalada de privilegios persistente mediante el comando bash -p</p>
+
+<p><img src="/secnotes/assets/img/pkgpoison/root.png" alt="img11" /></p>
+
+<hr />
+<h3 id="-te-sirvió-el-write-up">☕ ¿Te sirvió el Write-up?</h3>
+<p>Si este contenido te ayudó a rootear la máquina o a aprender algo nuevo, ¡puedes invitarme un café! Todo el apoyo se va directo a mejorar el blog y seguir subiendo retos de <strong>DockerLabs</strong>.</p>
+
+<p><a href="https://www.buymeacoffee.com/yorve"><img src="https://img.buymeacoffee.com/button-api/?text=Invítame un café&amp;emoji=☕&amp;slug=TU_USUARIO&amp;button_colour=FFDD00&amp;font_colour=000000&amp;font_family=Cookie&amp;outline_colour=000000&amp;coffee_colour=ffffff" alt="Invitame un café" /></a></p>
+
+:ET

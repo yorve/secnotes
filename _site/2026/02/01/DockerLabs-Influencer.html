@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-G8V2DW9MZ5');
+</script>
+
+    <title>Influencer - Dockerlabs - Linux - Fácil | SecNotes</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --sidebar-bg: #0d1117;
+            --text: #c9d1d9;
+            --accent: #00ff41;
+            --border: #30363d;
+        }
+
+        body { 
+            background: var(--bg); 
+            color: var(--text); 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            margin: 0; 
+            display: flex;
+        }
+        .content-area {
+    flex: 1;
+    padding: 40px 5%;    /* Padding en porcentaje para que se ajuste al dividir pantalla */
+    max-width: 900px;
+    box-sizing: border-box;
+}
+@media (max-width: 900px) { /* Si la ventana mide menos de 900px (como en tu captura) */
+    .main-wrapper { 
+        flex-direction: column; 
+    }
+    .sidebar { 
+        width: 100%; 
+        max-width: 100%;
+        height: auto; 
+        position: relative; 
+        border-right: none; 
+        border-bottom: 1px solid var(--border); 
+        padding: 20px;
+    }
+    .content-area { 
+        padding: 30px 20px; 
+    }
+}
+        /* Contenedor Principal */
+        .main-wrapper {
+            display: flex;
+            width: 100%;
+            min-height: 100vh;
+        }
+
+        /* SIDEBAR IZQUIERDA FIJA */
+        .sidebar {
+    width: 20%;          /* En lugar de px fijos, usamos un porcentaje */
+    min-width: 200px;    /* Pero que no sea más pequeña que esto para que se lea */
+    max-width: 260px;    /* Ni más grande que esto en pantallas gigantes */
+    height: 100vh;
+    background: var(--sidebar-bg);
+    border-right: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    padding: 30px 15px;  /* Reduje un poco el padding lateral */
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    z-index: 100;
+}
+
+        .sidebar-logo img {
+            width: 70px;
+            border-radius: 50%;
+            margin-bottom: 35px;
+            border: 2px solid var(--border);
+        }
+
+        .sidebar-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            margin-bottom: auto;
+        }
+
+        .side-link {
+            text-decoration: none;
+            color: #8b949e;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: 0.3s;
+        }
+
+        .side-link i { width: 20px; text-align: center; }
+        .side-link:hover { color: var(--accent); transform: translateX(5px); }
+
+        .sidebar-social { margin-top: 40px; }
+        .sidebar-social p { font-size: 0.7rem; color: #444; letter-spacing: 1px; margin-bottom: 15px; font-weight: bold; }
+        
+        .sidebar-social a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: #8b949e;
+            font-size: 0.85rem;
+            margin-bottom: 12px;
+            transition: 0.3s;
+        }
+
+        .sidebar-social a:hover { color: #fff; }
+
+        .sidebar-footer {
+            font-size: 0.75rem;
+            color: #333;
+            margin-top: 20px;
+        }
+
+        /* ÁREA DE CONTENIDO (POST) */
+        .content-area {
+            flex: 1;
+            padding: 60px 80px;
+            max-width: 900px;
+        }
+
+        .back-link {
+            text-decoration: none;
+            color: var(--accent);
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        h1 { 
+            color: #fff; 
+            font-size: 2.2rem;
+            margin: 0 0 10px 0;
+        }
+
+        .post-meta {
+            font-size: 0.9rem;
+            color: #555;
+            margin-bottom: 30px;
+        }
+
+        hr { border: 0; border-top: 1px solid var(--border); margin: 30px 0; }
+
+        /* Imágenes de los writeups */
+        .content-area img { 
+            max-width: 100%; 
+            height: auto; 
+            border-radius: 6px; 
+            border: 1px solid var(--border);
+            margin: 25px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+        }
+
+        /* Estilo para código/terminal */
+        code { background: #161b22; padding: 2px 6px; border-radius: 4px; font-family: monospace; color: #ff7b72; }
+        pre { background: #161b22; padding: 20px; border-radius: 8px; border: 1px solid var(--border); overflow-x: auto; }
+
+        /* Responsivo */
+        @media (max-width: 1100px) {
+            body { flex-direction: column; }
+            .sidebar { width: 100%; height: auto; position: relative; border-right: none; border-bottom: 1px solid var(--border); }
+            .content-area { padding: 40px 15px; }
+        }
+        pre {
+    background: #0d1117 !important;
+    border: 1px solid #30363d;
+    padding: 15px;
+    border-radius: 8px;
+    position: relative;
+}
+pre::before {
+    content: "root@yorve:~#";
+    display: block;
+    color: #8b949e;
+    font-size: 0.7rem;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #222;
+}
+    </style>
+</head>
+<body>
+
+    <div class="main-wrapper">
+        <aside class="sidebar">
+            <div class="sidebar-content">
+                <a href="/secnotes/" class="sidebar-logo">
+                    <img src="/secnotes/ico.jpg" alt="Logo">
+                </a>
+                
+                <nav class="sidebar-nav">
+                    <a href="/secnotes/" class="side-link"><i class="fas fa-home"></i> Inicio</a>
+                    <a href="/secnotes/tags" class="side-link"><i class="fas fa-tags"></i> Etiquetas</a>
+                    <a href="https://github.com/yorve/Auto-Recon" target="_blank" class="side-link"><i class="fas fa-terminal"></i> Auto-Recon</a>
+                </nav>
+
+                <div class="sidebar-social">
+                    <p>Contacto</p>
+                    <a href="https://github.com/yorve" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+                    <a href="https://linkedin.com/in/yonathan-rivera-velozo" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                    <a href="mailto:yorve.csec@gmail.com"><i class="fas fa-envelope"></i> Email</a>
+                    <a href="https://buymeacoffee.com/yorve" target="_blank" class="donate-btn">
+
+    <i class="fas fa-coffee"></i> Apoya el contenido de SecNotes </a>
+                </div>
+                
+                <div class="sidebar-footer">
+                    2026 © Yorve CSEC
+                </div>
+            </div>
+        </aside>
+
+        <main class="content-area">
+            <a href="/secnotes/" class="back-link">← Volver al inicio</a>
+            <h1>Influencer - Dockerlabs - Linux - Fácil</h1>
+            <div class="post-meta">
+                01/02/2026 • SecNotes 2.0
+            </div>
+            <hr>
+            
+            <div class="markdown-content">
+                <p><img src="/secnotes/assets/img/influencer/1.png" alt="img1" /></p>
+
+<p>En este laboratio pondremos a prueba los ataques de fuerza bruta contra distintos servicios.</p>
+
+<p>Para la fase de reconocimiento, utilizaremos un script que arme para estos labotarios.</p>
+
+<blockquote>
+  <p>https://github.com/yorve/Auto-Recon</p>
+</blockquote>
+
+<p>Este nos ayudará para automatizar la fase de reconocimientos de puertos, servicios, escaneo de directorios web y otros.</p>
+
+<p><img src="/secnotes/assets/img/influencer/objetivo.png" alt="img1" /></p>
+
+<p>Ingresamos los datos solicitados, Esta herramienta creará un directorio de trabajo, en el cual se exportarán los datos encontrados.</p>
+
+<p><img src="/secnotes/assets/img/influencer/script.png" alt="img2" /></p>
+
+<p>La primera etapa nos muestra un escaneo de puertos y servicios detectados.</p>
+
+<p><img src="/secnotes/assets/img/influencer/servicios.png" alt="img3" /></p>
+
+<p>La segunda etapa nos muestra información sobre el servicio web</p>
+
+<p><img src="/secnotes/assets/img/influencer/web.png" alt="img4" /></p>
+
+<p>Una vez finalizado, el resultado nos muestra información por donde empezar.
+Vemos que el servicio web contiene <em>401 Unauthorized</em>, Esto nos indica que el objetivo tiene un mecanismo de autenticación y que el servidor responde correctamente.
+<em>WWW-Authenticate: Basic</em>, indica que el usuario y contraseña se envían en <code class="language-plaintext highlighter-rouge">Authorization: Basic base64(user:pass)</code>, no existe hash ni tokens, esto lo hace vulnerable a ataques de fuerza bruta.</p>
+
+<p><img src="/secnotes/assets/img/influencer/directorios.png" alt="img5" /></p>
+
+<p>El escaneo de directorios no se inicio, esto ocurre por que el objetivo pide pasar la primera autenticación para seguir.</p>
+
+<p><img src="/secnotes/assets/img/influencer/web1.png" alt="img6" /></p>
+
+<p>efectivamente al ingresar por el navegador, este nos pide igresar las credenciales al acceder.</p>
+
+<p><img src="/secnotes/assets/img/influencer/curlget.png" alt="img7" /></p>
+
+<p>Al inspeccionar la página con la herramienta curl, se confirma que el sitio utiliza HTTP Basic Authentication.
+Este mecanismo no corresponde a un formulario HTML, sino que a una autenticación a nivel de protocolo HTTP, donde el navegador incluye las credenciales en la cabecera.</p>
+
+<p><em>Authorization: Basic base64(usuario:contraseña)</em></p>
+
+<p>La autenticación HTTP Bascis es independiente del método HTTP utilizado (GET o POST). En este caso, el acceso inicial al recurso protegido se realiza mediante peticiones GET, razón por la cual el servidor responde con el código 401 Unauthorized cuando no se incluyen credenciales válidas.</p>
+
+<p>Ya con los datos anteriores, vamos a intentar un ataque de fuerza bruta con la herramienta hydra.</p>
+
+<p><img src="/secnotes/assets/img/influencer/fuerzabruta1.png" alt="img8" /></p>
+
+<p>Utilizamos el argumento -C (combo) y el diccionario de usuarios y contraseña que contengan el formato <em>user:pass</em> (admin:admin, root:root, etc)
+Obtenemos las credenciales del usuario httpadmin.</p>
+
+<p><img src="/secnotes/assets/img/influencer/login1.png" alt="img9" /></p>
+
+<p>Una vez ingresadas las credenciales encontradas, no tenemos nada (aparentemente), pero esto nos da pie para realizar un escaneo de directorios con la herramienta gobuster utilizando las credenciales obtenidas en el ataque de fuerza bruta.</p>
+
+<p><img src="/secnotes/assets/img/influencer/gobuster1.png" alt="img10" /></p>
+
+<p>En este escaneo encontramos una ruta a /login.php, aquí nos encontramos con otro panel de login.</p>
+
+<p><img src="/secnotes/assets/img/influencer/login2.png" alt="img11" /></p>
+
+<p>Tenemos una doble autenticacion encadenada. Esto significa que primero se debe pasar la primera barrera (Basic Auth) y pasar por la segunda.</p>
+
+<p><img src="/secnotes/assets/img/influencer/login3.png" alt="img12" /></p>
+
+<p>Utilizamos nuevamente gobuster para hacer la misma verificación anterior, esta vez debemos utilizar las credenciales encontradas para pasar la primera barrera y luego hacer la petición por método POST con credenciales de prueba y así ver la respuesta que entrega el servidor.
+en este caso el mensaje de <em>Credenciales Incorrectas</em>.</p>
+
+<p><img src="/secnotes/assets/img/influencer/login4.png" alt="img13" /></p>
+
+<p>Entonces, el formulario tiene método POST, el servidor procesa estos parámetros y devuelve un mensaje de error dependiendo del contenido envíado, y el POST funciona solo despues de pasar al Basic Auth.
+vamos a realizar otro ataque de fuerza bruta, ahora sobre el segundo login.</p>
+
+<p><img src="/secnotes/assets/img/influencer/fuerzabruta2.png" alt="img14" /></p>
+
+<p>Aqui utilizamos hydra con el usuario <em>admin</em> (corazonada) con el diccionario <em>Rockyou</em>, el método <em>http-post-form</em> para indicarle que es método POST, ya que los parámetros van en el cuerpo del request.
+y la cadena <code class="language-plaintext highlighter-rouge">/login.php:username=^USER^&amp;password=^PASS^:H=Authorization: Basic aHR0cGFkbWluOmZodHRwYWRtaW4=:F=Credenciales incorrectas.</code></p>
+
+<p><code class="language-plaintext highlighter-rouge">H=Authorization: Basic aHR0cGFkbWluOmZodHRwYWRtaW4=</code>   Este valor son las credenciales en base64 (lo mismo que hace el request)</p>
+
+<p>Esto es por que hydra se autentica contra el primer login (primera barrera), así podemos llegar al segundo login.
+El ataque se basó en la detección del mensaje de error “Credenciales incorrectas”, permitiendo identificar credenciales válidas cuando ese mensaje no aparecía en la respuesta.</p>
+
+<p>Ahora tenemos las credenciales del usuario admin</p>
+
+<p><img src="/secnotes/assets/img/influencer/usuario.png" alt="img15" /></p>
+
+<p>al ingresar estas credenciales solo nos muestra un mensaje y un usuario. Ahora nuestro enfoque será en el servicio SSH.
+Utilizaremos hydra nuevamente con este nuevo usuario.</p>
+
+<p><img src="/secnotes/assets/img/influencer/ssh.png" alt="img16" /></p>
+
+<p>Obtenemos la contraseña para este nuevo usuario.</p>
+
+<p>Con la sesion de este usuario activa, buscamos distintas formas para escalar privilegios, pero este usuario no tenia permisos suficientes para hacer algo..</p>
+
+<p><img src="/secnotes/assets/img/influencer/ssh1.png" alt="img17" /></p>
+
+<p><img src="/secnotes/assets/img/influencer/ssh2.png" alt="img18" /></p>
+
+<p>ya que tenemos disponible scp, vamos a pasar de nuestra máquina atacante el script de LinEnum para escanear alguna vulnerabilidad.</p>
+
+<p><img src="/secnotes/assets/img/influencer/ssh3.png" alt="img19" /></p>
+
+<p>pero, esta no nos ayudó a completar nuestro objetivo. Buscando mas información nos encontramos con un script que nos permitirá realizar un ataque de fuerza bruta interno contra el usuario root.</p>
+
+<blockquote>
+  <p>https://github.com/D1se0/suBruteforce/blob/main/suBruteforceBash/suBruteforce.sh</p>
+</blockquote>
+
+<p>copiamos el código y nos creamos el script en la máquina víctima, y con la herramienta scp nos pasamos el diccionario rockyou a la máquina víctima.</p>
+
+<p><img src="/secnotes/assets/img/influencer/ssh4.png" alt="img20" /></p>
+
+<p>y al ejecutarlo nos dará la contraseña de root</p>
+
+<p><img src="/secnotes/assets/img/influencer/root.png" alt="img21" /></p>
+
+<p>y podemos cambiarnos al usuario root</p>
+
+<p><img src="/secnotes/assets/img/influencer/root1.png" alt="img22" /></p>
+
+<p>En un entorno real, los ataques de fuerza bruta locales contra el binario su no suelen ser viables debido a las protecciones implementadas por PAM.
+Sin embargo, en este laboratorio, dichas protecciones han sido debilitadas intencionadamente, permitiendo la automatización de intentos contra el usuario root.
+Aprovechando esta configuración insegura, fue posible realizar un ataque de fuerza bruta interno y obtener la contraseña del usuario root.</p>
+
+<p>☕ ¿Te sirvió el Write-up?
+Si este contenido te ayudó a rootear la máquina o a aprender algo nuevo, ¡puedes invitarme un café! Todo el apoyo se va directo a mejorar el blog y seguir subiendo retos de DockerLabs.</p>
+
+<p><img src="https://img.buymeacoffee.com/button-api/?text=Invítame un café&amp;emoji=☕&amp;slug=TU_USUARIO&amp;button_colour=FFDD00&amp;font_colour=000000&amp;font_family=Cookie&amp;outline_colour=000000&amp;coffee_colour=ffffff" alt="Invitame un café" /></p>
+
+
+            </div>
+        </main>
+    </div>
+
+</body>
+</html>

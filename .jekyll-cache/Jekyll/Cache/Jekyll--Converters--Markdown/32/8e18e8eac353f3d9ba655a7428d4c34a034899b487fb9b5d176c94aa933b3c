@@ -1,0 +1,64 @@
+I"�<p>Cybersploit 2 es una máquina de tipo Boot2Root diseñada para poner a prueba habilidades de enumeración, explotación y escalada de privilegios en un entorno controlado.</p>
+
+<p>Nuestro primer paso será identificar la máquina objetivo en la red. Con el comando <code class="language-plaintext highlighter-rouge">ip a</code> nos mostrará nuestra ip, y desde ahí iniciaremos la búsqueda de la máquina objetivo.
+Utilizaremos el comando <code class="language-plaintext highlighter-rouge">nmap &lt;ip&gt;/24</code> para hacer un escaneo a toda la red.</p>
+
+<p><img src="/secnotes/assets/img/cybersploit2/1.png" alt="img1" /></p>
+
+<p>Luego del escaneo encontramos el siguiente host.</p>
+
+<p><img src="/secnotes/assets/img/cybersploit2/2.png" alt="img2" /></p>
+
+<p>Ya identificada la ip de la máquina objetivo, iniciaremos un reconocimiento a estos puertos y sus versiones de servicios.</p>
+
+<p><img src="/secnotes/assets/img/cybersploit2/3.png" alt="img3" /></p>
+
+<p>Este escaneo nos entregó información que podríamos utilizar para encontrar vulnerabilidades del sistema operativo.
+Ya que tenemos el puerto 80 abierto, revisaremos el contenido del servicio web.</p>
+
+<p><img src="/secnotes/assets/img/cybersploit2/4.png" alt="img4" /></p>
+
+<p>La página nos muestra tres columnas con datos (username y password) y hay una en particular con caracteres extraños. Vamos a copiarlos y en la página <strong>cyberchef</strong> intentaremos de descifrarlos.</p>
+
+<p><img src="/secnotes/assets/img/cybersploit2/5.png" alt="img5" /></p>
+
+<p>Al inspeccionar la página podemos ver una pista.</p>
+
+<p><img src="/secnotes/assets/img/cybersploit2/6.png" alt="img6" /></p>
+
+<p>Teniendo estas credenciales, intentaremos iniciar sesión por el servicio ssh (puerto 22) con el usuario <em>shailendra</em> y la contraseña <em>cybersploit1</em></p>
+
+<p><img src="/secnotes/assets/img/cybersploit2/7.png" alt="img7" /></p>
+
+<p>Al listar los archivos encontramos con <strong>hint.txt</strong>, y que al leerlo nos da como pista <strong>Docker</strong>. Podemos suponer que esta máquina está montada sobre esta plataforma.</p>
+
+<p><img src="/secnotes/assets/img/cybersploit2/8.png" alt="img8" /></p>
+
+<p>Esto podemos confirmarlo con el comando <code class="language-plaintext highlighter-rouge">ps aux | grep dockerd</code></p>
+
+<p><img src="/secnotes/assets/img/cybersploit2/9.png" alt="img9" /></p>
+
+<p>*este comando no es 100% infalible para detectar Docker, es un buen primer indicador.</p>
+
+<p>https://gtfobins.github.io/gtfobins/docker/</p>
+
+<p>Buscando en la red podemos ver que existe una forma de escalar privilegios cuando se trabaja con contenedores de Docker, para hacer esto podemos usar el comando:</p>
+
+<p><code class="language-plaintext highlighter-rouge">docker run -v /:/mnt --rm -it alpine chroot /mnt sh</code></p>
+
+<p>El propósito de ejecutar este comando es obtener una Shell como un usuario root dentro del contenedor, permitiendo la modificación directa de los archivos críticos del sistema.</p>
+
+<p>Ejecutamos el comando y obtenemos una sesión como root</p>
+
+<p><img src="/secnotes/assets/img/cybersploit2/10.png" alt="img10" /></p>
+
+<p>Accedemos a la carpeta root, listamos y obtendremos la flag.</p>
+
+<p><img src="/secnotes/assets/img/cybersploit2/11.png" alt="img11" /></p>
+
+<p>☕ ¿Te sirvió el Write-up?
+Si este contenido te ayudó a rootear la máquina o a aprender algo nuevo, ¡puedes invitarme un café! Todo el apoyo se va directo a mejorar el blog y seguir subiendo retos de DockerLabs.</p>
+
+<p><img src="https://img.buymeacoffee.com/button-api/?text=Invítame un café&amp;emoji=☕&amp;slug=TU_USUARIO&amp;button_colour=FFDD00&amp;font_colour=000000&amp;font_family=Cookie&amp;outline_colour=000000&amp;coffee_colour=ffffff" alt="Invitame un café" /></p>
+
+:ET

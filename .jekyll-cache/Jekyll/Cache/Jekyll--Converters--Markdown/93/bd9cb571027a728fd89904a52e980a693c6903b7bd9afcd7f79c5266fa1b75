@@ -1,0 +1,91 @@
+I"V<p>“Resolución de Patria Querida: Explotación de un Local File Inclusion (LFI) en index.php para descubrir credenciales ocultas y escalada de privilegios mediante el abuso del bit SUID en Python 3.8.”</p>
+
+<p>Como ya es costumbre iniciaremos la fase de reconocimiento con el script <strong>Auto-Recon</strong> (Disponible en mi perfil) el cúal nos ayudará con los escaneos iniciales de los objetivos de manera automatizada.</p>
+
+<p><img src="/secnotes/assets/img/patriaquerida/inicio.png" alt="img1" /></p>
+
+<p><img src="/secnotes/assets/img/patriaquerida/inicio1.png" alt="img2" /></p>
+
+<p>Los resultados nos muestra que tenemos servicio SSH y WEB. Sabemos que sin un usuario almenos no podemos hacer nada sobre el servicio SSH. En el servicio web tenemos una ruta a <em>index.html</em> y <em>index.php</em></p>
+
+<p><img src="/secnotes/assets/img/patriaquerida/web1.png" alt="img3" /></p>
+
+<p>Al ingresar a <em>/index.html</em> no tenemos nada, solo la página de inicio de Ubuntu.</p>
+
+<p><img src="/secnotes/assets/img/patriaquerida/web1.png" alt="img3" /></p>
+
+<p>La ruta a <em>/index.php</em> nos muestra una pista..</p>
+
+<p><img src="/secnotes/assets/img/patriaquerida/web2.png" alt="img4" /></p>
+
+<p>tenemos una nueva ruta hacia <em>/var/www/html/.hidden_pass</em>.</p>
+
+<p>Aquí tenemos algo importante.. la pista nos dice que no olvidemos leer el archivo oculto en la ruta señalada. Eso nos indica que el servidor puede ser vulnerable a LFI. Esta vulnerabilidad nace de una mala validación de las entradas del usuario. El servidor utiliza una funcion (como <em>include()</em> en PHP) para cargar contenido. y que no limpia el parámetro que recibe la ruta de los archivos.
+Entonces el archivo index.php utiliza una variable llamada <em>page</em> para determinar que contenido mostrar. El problema es que el servidor confía en los que el usuario escribe despues del signo <em>=</em>. En lugar de recibir un nombre de sección (como contacto o inicio), el servidor acepta rutas del sistema de archivos.</p>
+
+<p>Como sabemos que el servidor utiliza <em>page</em>?</p>
+
+<p><img src="/secnotes/assets/img/patriaquerida/nikto.png" alt="img5" /></p>
+
+<p>Nuestro script automatizado nos dijo. <strong>Nikto</strong> realiza fuzzing de paranetros comunes, ya que tiene una base de datos con miles de nombre de variables que suelen ser vulnerables. 
+por otra parte nos dice que el servidor es vulnerable a file traversal, permitiendo que los atacantes puedan ver archivos en el host.</p>
+
+<p><code class="language-plaintext highlighter-rouge">/index.php?page=../../../../../../../../../../etc/passwd</code></p>
+
+<p>cada <em>../</em> le dice al sistema que suba un nivel en la jeranquía de directorios. Al poner muchos nos aseguramos de llegar a la raiz (/) para luego dirigirse a carpetas sensibles como <em>/etc/</em> o <em>/var/</em></p>
+
+<p>tambien nos facilita la ruta hacia un archivo del servidor.</p>
+
+<p><img src="/secnotes/assets/img/patriaquerida/nikto2.png" alt="img6" /></p>
+
+<p>Juntamos toda la información. Tenemos dos usuarios <strong>pinguino</strong> y <strong>mario</strong>, además la ruta hacia el achivo <em>.hidden_pass</em> nos entrega un texto <strong>balu</strong></p>
+
+<p><img src="/secnotes/assets/img/patriaquerida/web3.png" alt="img7" /></p>
+
+<p>El siguiente paso será comprobar si <strong>balu</strong> es una contraseña.</p>
+
+<p><img src="/secnotes/assets/img/patriaquerida/ssh.png" alt="img8" /></p>
+
+<p>Efectivamente era, y ganamos el acceso por ssh al servidor. Sin embargo y como era de esperar el usuario <strong>pinguino</strong> no tiene permisos de sudo. Así que seguiremos con la búsqueda de permisos especiales.</p>
+
+<p><code class="language-plaintext highlighter-rouge">find / -perm -4000 -type f 2&gt;/dev/null</code></p>
+
+<p><img src="/secnotes/assets/img/patriaquerida/ssh.png" alt="img9" /></p>
+
+<p>Ya tenemos asegurada la escalada de privilegios. Como vimos en un laboratorio anterior, contamos con el SUID de Python. Esto quiere decir que podemos covertirnos en usuario root gracias a los permisos heredados de python.</p>
+
+<p>pero antes… buscando en los directorios, nos encontramos un archivo .txt con una nota…</p>
+
+<p><img src="/secnotes/assets/img/patriaquerida/mario.png" alt="img10" /></p>
+
+<p>repetimos procedimientos y tenemos la misma info..</p>
+
+<p><img src="/secnotes/assets/img/patriaquerida/mario1.png" alt="img11" /></p>
+
+<p>A lo que vinimos…</p>
+
+<p><code class="language-plaintext highlighter-rouge">/usr/bin/python3.8 -c 'import os; os.execl("/bin/sh", "sh", "-p")'</code></p>
+
+<p>Vamos a desglozar el comando.</p>
+
+<p><code class="language-plaintext highlighter-rouge">/usr/bin/python3.8</code> - Aquí llamamos a la ruta absoluta del binario que contramos con find. Al tener el bit <strong>SUID</strong> activo, este archivo se ejecuta con los privilegios del dueño (root)</p>
+
+<p><code class="language-plaintext highlighter-rouge">-c</code> - le indica a python que el codigo que se ejecute entre comillas debe ejecutarse inmediatamente como un comando.</p>
+
+<p><code class="language-plaintext highlighter-rouge">os.execl("/bin/sh", "sh", "-p")</code> - Aqui esta la magia</p>
+
+<p>os.execl - reemplaza el proceso actual por un nuevo proceso</p>
+
+<p>“/bin/sh” - es la ruta del ejecutable que queremos lanzar</p>
+
+<p>“sh” - en el nombre del proceso</p>
+
+<p>“-p” - Privileged mode - el le ordena a la shell no descartar los permisos heredados del SUID, permitiendo mantener la identidad de root</p>
+
+<p><img src="/secnotes/assets/img/patriaquerida/root.png" alt="img12" /></p>
+
+<p>Les comparto el laboratorio donde explicamos los permisos heredados.</p>
+
+<p>https://yorve.github.io/secnotes/DockerLabs-PingCTF/</p>
+
+:ET

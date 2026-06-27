@@ -1,0 +1,293 @@
+[
+  
+    {
+      "title"    : "Metasploitable 2 - Hardening Servicio WEB",
+      "category" : "",
+      "tags"     : "Vuln, Linux, Hardening, web",
+      "url"      : "/secnotes/2026/06/25/Hardening-Metasploitable2-ServicioWEB.html",
+      "date"     : "25/06/2026",
+      "img"      : "/secnotes/assets/img/metasploitable2/banner.png",
+      "excerpt"  : "Este es un nuevo proyecto de Hardening para el laboratorio Metasploitable2. Este laboratorio es conocido por tener múltiples vulnerabilidades que..."
+    },
+  
+    {
+      "title"    : "Metasploitable 2 - Hardening Servicio DNS - BIND 9.4.2",
+      "category" : "",
+      "tags"     : "Vuln, Linux, Hardening, DNS, BIND 9.4.2, root",
+      "url"      : "/secnotes/2026/06/23/Hardening-Metasploitable2-DNS.html",
+      "date"     : "23/06/2026",
+      "img"      : "/secnotes/assets/img/metasploitable2/banner.png",
+      "excerpt"  : "Este es un nuevo proyecto de Hardening para el laboratorio Metasploitable2. Este laboratorio es conocido por tener múltiples vulnerabilidades que..."
+    },
+  
+    {
+      "title"    : "Metasploitable 2 - Hardening Servicio SMTP",
+      "category" : "",
+      "tags"     : "Vuln, Linux, Hardening, SMTP, Enumerate, root",
+      "url"      : "/secnotes/2026/06/23/Hardening-Metasploitable2-SMTP.html",
+      "date"     : "23/06/2026",
+      "img"      : "/secnotes/assets/img/metasploitable2/banner.png",
+      "excerpt"  : "Este es un nuevo proyecto de Hardening para el laboratorio Metasploitable2. Este laboratorio es conocido por tener múltiples vulnerabilidades que..."
+    },
+  
+    {
+      "title"    : "Metasploitable 2 - Hardening Servicio Telnet",
+      "category" : "",
+      "tags"     : "Vuln, Linux, Hardening, Telnet, root",
+      "url"      : "/secnotes/2026/06/22/Hardening-Metasploitable2-Telnet.html",
+      "date"     : "22/06/2026",
+      "img"      : "/secnotes/assets/img/metasploitable2/banner.png",
+      "excerpt"  : "Este es un nuevo proyecto de Hardening para el laboratorio Metasploitable2. Este es conocido por tener múltiples vulnerabilidades que como..."
+    },
+  
+    {
+      "title"    : "Metasploitable 2 - Hardening Servicio FTP",
+      "category" : "",
+      "tags"     : "Vuln, Linux, Hardening, FTP, Backdoor, root",
+      "url"      : "/secnotes/2026/06/21/Hardening-Metasploitable2.html",
+      "date"     : "21/06/2026",
+      "img"      : "/secnotes/assets/img/metasploitable2/banner.png",
+      "excerpt"  : "Este es un nuevo proyecto de Hardening para el laboratorio Metasploitable2. Este es conocido por tener múltiples vulnerabilidades que como..."
+    },
+  
+    {
+      "title"    : "Santa Logs - Hackerlabs - Windows",
+      "category" : "",
+      "tags"     : "Logs, Visor de Eventos, Windows, BlueTeam",
+      "url"      : "/secnotes/2026/06/12/TheHackerLabs-SantaLogs.html",
+      "date"     : "12/06/2026",
+      "img"      : "/secnotes/assets/img/santa/banner.png",
+      "excerpt"  : "Nuevo reto de Blue Team!Hoy nos toca ensuciarnos las manos con el Visor de Eventos de Windows resolviendo Santa Logs..."
+    },
+  
+    {
+      "title"    : "La Corporación - Hackerlabs",
+      "category" : "",
+      "tags"     : "Wireshark, BlueTeam, CVE-2021-41773, SSH, FTP",
+      "url"      : "/secnotes/2026/06/11/TheHackerLabs-LaCorporacion.html",
+      "date"     : "11/06/2026",
+      "img"      : "/secnotes/assets/img/corporacion/banner.png",
+      "excerpt"  : "Hoy toca auditoría de red con La Corporación, un laboratorio diseñado para entrenar el ojo del Blue Team.Nos han entregado..."
+    },
+  
+    {
+      "title"    : "ZapasGuapas - Hackerlabs - Linux",
+      "category" : "",
+      "tags"     : "Command Injection, RCE, Sudo, Abuse Of Functionality, APT, AWS-CLI, Netcat, stty, Linux, GTFObins, Shell Escape",
+      "url"      : "/secnotes/2026/05/13/TheHackerLabs-ZapasGuapas.html",
+      "date"     : "13/05/2026",
+      "img"      : "/secnotes/assets/img/zapas/banner.png",
+      "excerpt"  : "Este laboratorio pone a prueba nuestra capacidad para identificar vulnerabilidades web y explotar configuraciones inseguras en el sistema operativo Linux...."
+    },
+  
+    {
+      "title"    : "Fruits - HackerLabs - Linux",
+      "category" : "",
+      "tags"     : "Linux, Enumeration, Web, LFI, SUID, ffuf, hydra, GTFObins",
+      "url"      : "/secnotes/2026/04/30/TheHackerLabs-Fruits.html",
+      "date"     : "30/04/2026",
+      "img"      : "/secnotes/assets/img/fruits/banner.png",
+      "excerpt"  : "El compromiso de la máquina Fruits destaca la importancia de la enumeración de parámetros y el análisis de binarios con..."
+    },
+  
+    {
+      "title"    : "Templo - Hackerlabs - Linux",
+      "category" : "",
+      "tags"     : "HackerLabs, Linux, Enumeration, LFI, PHP-Wrappers, RCE, ROT13, Zip-Cracking, JohnTheRipper, LXC, LXD, Container-Escape",
+      "url"      : "/secnotes/2026/04/29/TheHackerLabs-Templo.html",
+      "date"     : "29/04/2026",
+      "img"      : "/secnotes/assets/img/templo/banner.png",
+      "excerpt"  : "En este laboratorio, exploraremos cómo un parámetro de inclusión de archivos (LFI) aparentemente inofensivo puede ser la llave maestra para..."
+    },
+  
+    {
+      "title"    : "Mortadela - Hackerlabs - Linux ",
+      "category" : "",
+      "tags"     : "Hackerlabs, Writeup, Linux, SQLi, WPScan, JohnTheRipper, KeePass, Memory Forensics, CVE-2023-32784, PrivEsc",
+      "url"      : "/secnotes/2026/04/16/TheHackerLabs-Mortadela.html",
+      "date"     : "16/04/2026",
+      "img"      : "/secnotes/assets/img/mortadela/banner.png",
+      "excerpt"  : "En este laboratorio nos enfrentamos a un escenario de post-explotación avanzado. Tras obtener acceso inicial y recolectar archivos confidenciales, el..."
+    },
+  
+    {
+      "title"    : "Walking Dead - Dockerlabs - Linux - Fácil",
+      "category" : "",
+      "tags"     : "DockerLabs, Linux, RCE, WebShell, SUID, Python, PrivEsc, TTY-Stabilization",
+      "url"      : "/secnotes/2026/03/08/DockerLabs-Walking-Dead.html",
+      "date"     : "08/03/2026",
+      "img"      : "/secnotes/assets/img/walkingdead/1.png",
+      "excerpt"  : "Walking Dead (DockerLabs): Explotación de Web Shell oculta y escalada de privilegios mediante abuso de Python 3.8 con bit SUID.Como..."
+    },
+  
+    {
+      "title"    : "Patria Querida - Dockerlabs - Linux - Fácil",
+      "category" : "",
+      "tags"     : "DockerLabs, Linux, LFI, SUDI, SSH, Python, Enumeration, Path-Traversal, Web-Security, PrivEsc",
+      "url"      : "/secnotes/2026/02/28/DockerLabs-PatriaQuerida.html",
+      "date"     : "28/02/2026",
+      "img"      : "/secnotes/assets/img/patriaquerida/1.png",
+      "excerpt"  : "“Resolución de Patria Querida: Explotación de un Local File Inclusion (LFI) en index.php para descubrir credenciales ocultas y escalada de..."
+    },
+  
+    {
+      "title"    : "PKG Poison - Dockerlabs - Linux - Fácil",
+      "category" : "",
+      "tags"     : "DockerLabs, Linux, SUID, Python",
+      "url"      : "/secnotes/2026/02/22/DockerLabs-PKG-POISON.html",
+      "date"     : "22/02/2026",
+      "img"      : "/secnotes/assets/img/pkgpoison/1.png",
+      "excerpt"  : "Para iniciar la fase de reconocimiento utilizaré un script que escribí en bash que realiza un escaneo de puertos, servicios,..."
+    },
+  
+    {
+      "title"    : "Ping CTF - Dockelabs - Linux - Fácil",
+      "category" : "",
+      "tags"     : "DockerLabs, Linux, ICMP, Command Injection, RCE",
+      "url"      : "/secnotes/2026/02/14/DockerLabs-PingCTF.html",
+      "date"     : "14/02/2026",
+      "img"      : "/secnotes/assets/img/ping/1.png",
+      "excerpt"  : "Para la fase de reconocimiento inicial utilicé un script que diseñé que me permite el escaneo de puertos, servicios, directorios..."
+    },
+  
+    {
+      "title"    : "Influencer - Dockerlabs - Linux - Fácil",
+      "category" : "",
+      "tags"     : "DockerLabs, Linux, Web, Information Leakage, PrivEsc",
+      "url"      : "/secnotes/2026/02/01/DockerLabs-Influencer.html",
+      "date"     : "01/02/2026",
+      "img"      : "/secnotes/assets/img/influencer/1.png",
+      "excerpt"  : "En este laboratio pondremos a prueba los ataques de fuerza bruta contra distintos servicios.Para la fase de reconocimiento, utilizaremos un..."
+    },
+  
+    {
+      "title"    : "Deloitte - CyberAcademy - Linux - CTF",
+      "category" : "",
+      "tags"     : "CyberAcademy, Networking, PrivEsc",
+      "url"      : "/secnotes/2025/12/14/CyberAcademy-Deloitte.html",
+      "date"     : "14/12/2025",
+      "img"      : "/secnotes/assets/img/deloitte2/banner.png",
+      "excerpt"  : "Deloitte es un laboratio práctico donde nuestro objetivo será aprovechar las vulnerabilidades encontradas en el servidor y encontrar 10 flags.Escaneo..."
+    },
+  
+    {
+      "title"    : "Trust - Dockerlabs - Linux - Fácil",
+      "category" : "",
+      "tags"     : "DockerLabs, Linux, SSH, Brute Force, SUID",
+      "url"      : "/secnotes/2025/09/28/DockerLabs-Trust.html",
+      "date"     : "28/09/2025",
+      "img"      : "/secnotes/assets/img/trust/banner.png",
+      "excerpt"  : "La máquina Trust de DockerLabs es un desafío de nivel muy fácil diseñado para practicar habilidades básicas de enumeración y..."
+    },
+  
+    {
+      "title"    : "FirstHacking – TheHackerLabs - Linux - Fácil",
+      "category" : "",
+      "tags"     : "DockerLabs, Linux, Nmap, FTP",
+      "url"      : "/secnotes/2025/09/09/DockerLabs-FirstHacking.html",
+      "date"     : "09/09/2025",
+      "img"      : "/secnotes/assets/img/firsthacking/banner.png",
+      "excerpt"  : "La máquina First Hacking es un laboratorio básico de Docker Labs que sirve como punto de partida en el mundo..."
+    },
+  
+    {
+      "title"    : "TpRoot - Dockerlabs - Linux - Fácil",
+      "category" : "",
+      "tags"     : "DockerLabs, Linux, SUID, PrivEsc",
+      "url"      : "/secnotes/2025/08/24/DockerLabs-TpRoot.html",
+      "date"     : "24/08/2025",
+      "img"      : "/secnotes/assets/img/tproot/banner.png",
+      "excerpt"  : "TProot es una máquina Linux de nivel fácil en DockerLabs que nos permite practicar enumeración básica y explotación de vulnerabilidades..."
+    },
+  
+    {
+      "title"    : "Vacaciones - Dockerlabs - Linux - Fácil",
+      "category" : "",
+      "tags"     : "DockerLabs, Linux, Enumeration, Sudo",
+      "url"      : "/secnotes/2025/08/21/DockerLabs-Vacaciones.html",
+      "date"     : "21/08/2025",
+      "img"      : "/secnotes/assets/img/vacaciones/vacaciones.png",
+      "excerpt"  : "La máquina Vacaciones de DockerLabs es un laboratorio de dificultad baja orientada a practicar técnicas básicas de enumeración, explotación y..."
+    },
+  
+    {
+      "title"    : "Obsession - Dockerlabs - Linux - Fácil",
+      "category" : "",
+      "tags"     : "DockerLabs, Linux, Web, Fuzzing",
+      "url"      : "/secnotes/2025/08/16/DockerLabs-Obsession.html",
+      "date"     : "16/08/2025",
+      "img"      : "/secnotes/assets/img/obssesion/1.png",
+      "excerpt"  : "En este laboratorio nos enfrentamos a un reto de nivel fácil, orientado a poner en práctica técnicas básicas de enumeración,..."
+    },
+  
+    {
+      "title"    : "Grillo – TheHackerLabs - Linux - Fácil",
+      "category" : "",
+      "tags"     : "The Hackers Labs, Linux, Web, Abuse Of Functionality",
+      "url"      : "/secnotes/2025/07/26/THL-Grillo.html",
+      "date"     : "26/07/2025",
+      "img"      : "/secnotes/assets/img/grillo/banner.png",
+      "excerpt"  : "Esta es una máquina Linux de nivel facil, diseñada para fortalecer la enumeración de aplicación web: Exploración de contenido web..."
+    },
+  
+    {
+      "title"    : "Deloitte – CyberAcademy - Linux",
+      "category" : "",
+      "tags"     : "",
+      "url"      : "/secnotes/2025/07/17/CyberAcademy-Deloitte.html",
+      "date"     : "17/07/2025",
+      "img"      : "/secnotes/assets/img/deloitte/banner.png",
+      "excerpt"  : "Deloitte es una máquina CTF Linux en la que tenemos que encontrar las 10 Flags ocultas.Reconocimientoidentificación la máquina en la..."
+    },
+  
+    {
+      "title"    : "CyberSploit2 – VULNHUB - Linux - Fácil",
+      "category" : "",
+      "tags"     : "VulnHub, Linux, Hash Cracking, PrivEsc",
+      "url"      : "/secnotes/2025/07/16/VulnHub-CyberSploit2.html",
+      "date"     : "16/07/2025",
+      "img"      : "/secnotes/assets/img/cybersploit2/banner.png",
+      "excerpt"  : "Cybersploit 2 es una máquina de tipo Boot2Root diseñada para poner a prueba habilidades de enumeración, explotación y escalada de..."
+    },
+  
+    {
+      "title"    : "CyberSploit1 – VULNHUB - Linux - Fácil",
+      "category" : "",
+      "tags"     : "VulnHub, Linux, Enumeration, robots.txt",
+      "url"      : "/secnotes/2025/07/14/VulnHub-CyberSploit.html",
+      "date"     : "14/07/2025",
+      "img"      : "/secnotes/assets/img/cybersploit/banner.png",
+      "excerpt"  : "Cybersploit es una máquina de tipo CTF diseñada para reforzar conocimientos en pentesting web, enumeración y explotación básica. Inspirada en..."
+    },
+  
+    {
+      "title"    : "Mr Robot – THM - Linux - Media/Fácil",
+      "category" : "",
+      "tags"     : "TryHackMe, Linux, Web, BruteForce, PrivEsc",
+      "url"      : "/secnotes/2025/07/12/THM-Mr.Robot.html",
+      "date"     : "12/07/2025",
+      "img"      : "/secnotes/assets/img/mr_robot/banner.png",
+      "excerpt"  : "Mr. Robot es una máquina inspirada en la serie del mismo nombre. Está clasificada como de dificultad fácil-media y es..."
+    },
+  
+    {
+      "title"    : "Optimum – HTB - Windows",
+      "category" : "",
+      "tags"     : "HackTheBox, Windows, RCE, Metasploit",
+      "url"      : "/secnotes/2025/07/11/HTB-Optimum.html",
+      "date"     : "11/07/2025",
+      "img"      : "/secnotes/assets/img/optimun/banner.png",
+      "excerpt"  : "Optimum es una máquina para principiantes que se centra principalmente en la enumeración de servicios con exploits conocidos. Ambos exploits..."
+    },
+  
+    {
+      "title"    : "Return – HTB - Windows (A.D)",
+      "category" : "",
+      "tags"     : "HackTheBox, Windows, Web Enumeration, Service Manipulation",
+      "url"      : "/secnotes/2025/07/11/HTB-Return.html",
+      "date"     : "11/07/2025",
+      "img"      : "/secnotes/assets/img/return/return.png",
+      "excerpt"  : "Return es una máquina Windows (Active Directory), enfocada en explotar vulnerabilidades comunes en entornos AD, como LDAP inseguro, abuso de..."
+    }
+  
+]

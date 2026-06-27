@@ -1,0 +1,124 @@
+I"�<p>En este laboratorio nos enfrentamos a un escenario de post-explotación avanzado. Tras obtener acceso inicial y recolectar archivos confidenciales, el desafío se centró en la exfiltración de datos protegidos por una base de datos KeePass y un contenedor ZIP cifrado</p>
+
+<p>Empezamos con la fase de reconocimiento, y como hemos visto en los laboratorios anteriores, utilizaremos la herramienta Auto-recon para realizar los escaneos de forma automatizada.</p>
+
+<p><img src="/secnotes/assets/img/mortadela/reconocimiento.png" alt="img1" /></p>
+
+<p><img src="/secnotes/assets/img/mortadela/reconocimiento2.png" alt="img2" /></p>
+
+<p><img src="/secnotes/assets/img/mortadela/reconocimiento3.png" alt="img3" /></p>
+
+<p>Adicionalmente vamos a hacer un escaneo de directorios web</p>
+
+<p><img src="/secnotes/assets/img/mortadela/gobuster.png" alt="img4" /></p>
+
+<p>Podemoss observar que tenemos WordPress en él, así que utilizaremos la herramienta wpscan para obtener más información y enumerar usuarios válidos.</p>
+
+<p><code class="language-plaintext highlighter-rouge">wpscan --url &lt;host&gt;/wordpress --enumerate u</code></p>
+
+<p>Con este comando wpscan utiliza ataques pasivos y activos contra la esctructura de WordPress. Así puede recopilar información útil.</p>
+
+<p><img src="/secnotes/assets/img/mortadela/wpscan .png" alt="img5" /></p>
+
+<p><img src="/secnotes/assets/img/mortadela/wp-user.png" alt="img6" /></p>
+
+<p>Encontramos un usuario llamado <em>mortadela</em></p>
+
+<p>Luego de realizar múltiples intentos de ataques de diccionario contra WordPress y sql con el usuario <strong>mortadela</strong> no pudimos dar con la contraseña, sin embargo, con la herramienta hydra pudimos dar con ella para el usuario <strong>root</strong> de la base de datos sql</p>
+
+<p><img src="/secnotes/assets/img/mortadela/hydra-root.png" alt="img7" /></p>
+
+<p>Con estas credenciales de la base de datos sql, el siguiente paso es ingresar y buscar información de interés.</p>
+
+<p><img src="/secnotes/assets/img/mortadela/sql.png" alt="img8" /></p>
+
+<p>Una vez dentro, listamos la base de datos, y aquí nos encontramos dos datos interesantes.</p>
+
+<p><img src="/secnotes/assets/img/mortadela/databases.png" alt="img9" /></p>
+
+<p>La primera, el usuario de wordpress y su hash. (podría servirnos para después)</p>
+
+<p><img src="/secnotes/assets/img/mortadela/sqlwpuser.png" alt="img10" /></p>
+
+<p>La segunda en la db <strong>confidencial</strong>, nos encontramos unas credenciales del usuario <strong>mortadela</strong>.</p>
+
+<p><img src="/secnotes/assets/img/mortadela/confidencial.png" alt="img11" /></p>
+
+<p><img src="/secnotes/assets/img/mortadela/user .png" alt="img12" /></p>
+
+<p>Con estas credenciales probaremos entrar via ssh a la máquina víctima.</p>
+
+<p><img src="/secnotes/assets/img/mortadela/ssh.png" alt="img13" /></p>
+
+<p>Obtenemos un acceso exitoso, estando aquí deberemos buscar información de interés.</p>
+
+<p>listamos y encontramos la flag de usuario</p>
+
+<p><img src="/secnotes/assets/img/mortadela/user-flag.png" alt="img14" /></p>
+
+<p>Buscando en los directorios, en la ruta <em>/opt</em> nos encontramos con un archivo llamado <strong>muyconfidencial.zip</strong>, primeramente intentamos descomprimir el archivo, pero nos pide una contraseña para decomprimir.</p>
+
+<p><img src="/secnotes/assets/img/mortadela/unzip.png" alt="img15" /></p>
+
+<p>En el resto de directorios no encontramos nada de interés. Así que nuestra meta sera crackear la contraseña de este archivo comprimido. Para lograrlo utilizaremos la herramienta <strong>John The Ripper</strong>.</p>
+
+<p>Pero antes de esto deberemos obtener el archivo zipeado a nuestra máquina atacante, ya que tendremos mayor control solo herramientas necesarias para trabajar con el archivo. Como sabemos, en la máquina víctima tenemos disponible Python3, iniciaremos un servidor y nos transferiremos el archivo a nuestra máquina mediante <strong>wget</strong></p>
+
+<p><img src="/secnotes/assets/img/mortadela/wget.png" alt="img16" /></p>
+
+<p>Ya con el arcivo en nuestro poder vamos a utilizar <strong>zip2john</strong> para extraer el hash y romperlo con john. Para esto:</p>
+
+<p><code class="language-plaintext highlighter-rouge">zip2john muyconfidencial.zip &gt; hashzip</code></p>
+
+<p><strong>zip2john</strong> es una herramienta de john the ripper diseñada para extraer el hash de la clave de cifrado de un archivo <strong>PKZIP</strong>. Lo que hace es leer la cabecera del archivo compimido y lo transforma en un formato que John pueda entender.
+con el redireccionamiento “&gt; hashzip”, guardamos esa firma criptográfica en un archivo para poder procesarlo.</p>
+
+<p>ahora con john vamos a romper el hash del arcvhivo zip</p>
+
+<p><code class="language-plaintext highlighter-rouge">john --wordlist=&lt;rockyou&gt;</code></p>
+
+<p><img src="/secnotes/assets/img/mortadela/crackeozip.png" alt="img17" /></p>
+
+<p>El resultado nos dio <strong>pinkgirl</strong>, con esta contraseña ya podemos aplicar <strong>unzip</strong> sobre el archivo y conocer su contenido.</p>
+
+<p><img src="/secnotes/assets/img/mortadela/zip.png" alt="img18" /></p>
+
+<p>Vemos que tenemos el archivo llamado <strong>Database.kdbx</strong>, para ver el contenido de esta base de datos debemos utilizar la herramienta <strong>Keepasxc</strong>.</p>
+
+<p><img src="/secnotes/assets/img/mortadela/keepass.png" alt="img19" /></p>
+
+<p><img src="/secnotes/assets/img/mortadela/keepass1.png" alt="img20" /></p>
+
+<p>no es sorpresa que al abrir esta base de datos nos soliciten una contraseña para acceder…</p>
+
+<p>Dentro del archivo comprimido existe otro archivo llamado <strong>KeePass.DMP</strong>, este corresponde al volcado de memoria (memory dump) del proceso de KeePass. Buscando vulnerabilidades, nos encontramos con la <strong>CVE-2023-32784</strong>  que nos dice que existe un fallo de seguridad que permite recuperar la contraseña maestra en texto plano (a exepción del primer caracter) debido a que KeePass dejaba residuos de las cajas de texto en la memoria RAM del sistema. Aunque la base de datos .kdbx esté cifrada con AES, si tenemos acceso a un volcado de memoria de cuando la base de datos estaba abierta o en uso, podemos reconstruir la llave maestra analizando los artefactos ded las cadenas de caracteeres.</p>
+
+<p>con la herramienta keepassdumper vamos a ver este archivo de volcado de memoria.</p>
+
+<p><img src="/secnotes/assets/img/mortadela/keepassdumper.png" alt="img21" /></p>
+
+<p><img src="/secnotes/assets/img/mortadela/keepassdumper1.png" alt="img22" /></p>
+
+<p><img src="/secnotes/assets/img/mortadela/bd.png" alt="img23" /></p>
+
+<p><strong>KeePass-Password-Dumper</strong></p>
+
+<p>Este es un script que automatiza la búsqueda de patrones especificos en archivos .dmp. El script escanea el volcado de memoria en busca de secuencias de caracteres que coincidan con la estructura de entrada de KeePass.</p>
+
+<p>Como observamos en el resultado, el script nos entregó una cadena con caracteres confirmados. Pero debido a como funciona la vulnerabilidad, el primer carácter no se puede recuperar automáticamente, por lo que debemos deducirlo. luego de varios intentos dimos que este carácter era una M</p>
+
+<p><img src="/secnotes/assets/img/mortadela/bd.png" alt="img24" /></p>
+
+<p>En la base de datos, tenemos unas credenciales de un usuario root</p>
+
+<p><img src="/secnotes/assets/img/mortadela/root.png" alt="img25" /></p>
+
+<p>con esto solo nos queda probar estas credenciales en el servicio ssh</p>
+
+<p><img src="/secnotes/assets/img/mortadela/acceso-root.png" alt="img26" /></p>
+
+<blockquote>
+  <p>https://labs.thehackerslabs.com/machines/59</p>
+</blockquote>
+
+:ET

@@ -1,0 +1,74 @@
+I"�<p><img src="/secnotes/assets/img/metasploitable2/banner.png" alt="BANNER" /></p>
+
+<p>Este es un nuevo proyecto de <strong>Hardening</strong> para el laboratorio <strong>Metasploitable2</strong>. Este es conocido por tener múltiples vulnerabilidades que como atacante podemos sacar provecho y comprometer la máquina. Pero esta vez nos pondrémos en los zapatos del equipo defensivo y aplicaremos configuraciones correctas para volver Metasploitable 2 una máquina segura.</p>
+
+<p>Los objetivos del proyecto serán:</p>
+<ul>
+  <li>reducir la superficie de ataque.</li>
+  <li>Corregir fallas de configuración</li>
+  <li>Implementar contramedidas.</li>
+  <li>Validar la postura de seguridad.</li>
+</ul>
+
+<p>Metodología:</p>
+<ul>
+  <li>Inspección y validación de la vulnerabilidad.</li>
+  <li>Remediación (Hardening)</li>
+  <li>Validación de seguridad.</li>
+</ul>
+
+<p>Esta máquina tiene multiples puertos y vulnerabilidades habilitados. Es por eso que iremos resolviendolas por servicios por separado.</p>
+
+<h1 id="ftp---vsftpd-explotación-de-backdoor">FTP - vsftpd Explotación de Backdoor</h1>
+
+<p>El primer servicio que encontramos es el de FTP en el puerto 21. Este tiene habilitado el acceso anonimo, lo que nos indica que podemos acceder a el con el usuario <code class="language-plaintext highlighter-rouge">anonymous</code> y sin contraseña. Con este acceso podemos navegar por algunos directorios y recopilar información en el servidor.</p>
+
+<p><img src="/secnotes/assets/img/metasploitable2/20260619161350.png" alt="FTP" /></p>
+
+<p>Esta versión del servicio tiene un backdoor particular. Cuando se introduce un usuario acompañado de una carita feliz <code class="language-plaintext highlighter-rouge">:)</code> el servicio automáticamente abre una shell interactiva en el puerto 6200.</p>
+
+<p>nos conectamos con netcat al puerto 6200</p>
+
+<p><code class="language-plaintext highlighter-rouge">nc -nv 192.168.1.37 6200</code></p>
+
+<p>y obtenemos una shell root</p>
+
+<p><img src="/secnotes/assets/img/metasploitable2/20260619164414.png" alt="FTP1" />
+como ya tenemos una sesión como root, usamos el comando <code class="language-plaintext highlighter-rouge">passwd root</code> y cambiamos la contraseña por la que nosotros queramos y asi tener control total de esta máquina.</p>
+
+<p><img src="/secnotes/assets/img/metasploitable2/20260619203004.png" alt="FTP2" /></p>
+
+<p>Al intentar una conexión por ssh, esta nos mostrará un error debido a que la versiones modernas de Kali Linux tiene desactivado por defecto los algoritmos de intercambio de claves antiguos. (ssh-rsa y ssh-dss) por motivos de seguridad, ya que hoy en día se consideran vulnerables.</p>
+
+<p>Para saltarnos esta restricción de seguridad temporalmente de forma manual y forzar la conexión lanzaremos el siguiente comando.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedKeyTypes=+ssh-rsa root@IP-DE-METASPLOITABLE
+</code></pre></div></div>
+
+<p>Ahora que tenemos acceso como root a la máquina, nuestro primer paso será eliminar el backdoor del puerto 21 que nos permitió entrar. Como metasploitable2 es un laboratorio antiguo, no podemos actualizar paquetes de forma normal desde internet, así que tenemos dos opciones:</p>
+
+<ul>
+  <li><strong>Desactivar el servicio por completo (Mitigación rápida).</strong></li>
+  <li><strong>Reemplazarlo por una alternativa segura</strong>.</li>
+</ul>
+
+<p>Si no es necesario un servidor FTP, la mejor práctica es reducir la superficie de ataque apagándolo.
+En Linux, lo correcto para transferir archivos de forma segura es usar <strong>SFTP</strong> (que funciona protegido dentro de <strong>SSH</strong> en el puerto 22) y desinstalar el protocolo FTP inseguro.</p>
+
+<p>Luego de un poco de investigación descubrimos que en esta máquina, el servicio esta gestionado por <code class="language-plaintext highlighter-rouge">xinetd</code>. Dentro del directorio de configuración <code class="language-plaintext highlighter-rouge">/etc/xinetd.d/</code> encontramos el archivo del servicio FTP, que suele llamarse <code class="language-plaintext highlighter-rouge">proftpd</code>, <code class="language-plaintext highlighter-rouge">vsftpd</code> o <code class="language-plaintext highlighter-rouge">ftp</code>.</p>
+
+<p><strong>Modificación del archivo</strong></p>
+
+<p>Abrimos el archivo de configuración y cambiamos el valor de <code class="language-plaintext highlighter-rouge">disable</code> de <code class="language-plaintext highlighter-rouge">no</code> a  <code class="language-plaintext highlighter-rouge">yes</code></p>
+
+<p><img src="/secnotes/assets/img/metasploitable2/20260619211627.png" alt="FTP3" /></p>
+
+<p>Luego reiniciamos el servicio de xinetd para aplicar los cambios.</p>
+
+<p><code class="language-plaintext highlighter-rouge">/etc/init.d/xinetd restart</code></p>
+
+<p>Intentamos la conexión a FTP desde nuestra máquina atacante.</p>
+
+<p><img src="/secnotes/assets/img/metasploitable2/20260619211901.png" alt="FTP4" /></p>
+
+:ET

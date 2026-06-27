@@ -1,0 +1,152 @@
+I""0<p><img src="/secnotes/assets/img/metasploitable2/banner.png" alt="banner" /></p>
+
+<p>Este es un nuevo proyecto de Hardening para el laboratorio Metasploitable2. Este laboratorio es conocido por tener múltiples vulnerabilidades que como atacante podemos sacar provecho y comprometer la máquina. Pero esta vez nos pondrémos en los zapatos del equipo defensivo y aplicaremos configuraciones correctas para volver Metasploitable 2 una máquina segura.</p>
+
+<p><strong>Los objetivos del proyecto serán:</strong></p>
+
+<ul>
+  <li>Reducir la superficie de ataque.</li>
+  <li>Corregir fallas de configuración.</li>
+  <li>Implementar contramedidas.</li>
+  <li>Validar la postura de seguridad.</li>
+</ul>
+
+<p><strong>Metodología:</strong></p>
+
+<ul>
+  <li>Inspección y validación de la vulnerabilidad. Remediación (Hardening).</li>
+  <li>Validación de seguridad.</li>
+  <li>Esta máquina tiene multiples puertos y vulnerabilidades habilitados.</li>
+  <li>Es por eso que iremos resolviendolas por servicios por separado.</li>
+</ul>
+
+<p><img src="/secnotes/assets/img/metasploitable2/20260619161605.png" alt="DNS" /></p>
+
+<p>En este puerto corre el servicio de DNS (Domain Name System), específicamente la versión <code class="language-plaintext highlighter-rouge">ISC BIND versión 9.4.2</code>.</p>
+
+<p>Como ya sabemos, el servicio de DNS es el encargado de traducir nombres de dominio a direcciones IP. En esta versión de BIND podemos encontrar vulnerabilidades graves, como una denegación de servicios (DoS) conocida como <strong>TKEY Cache Poisoning</strong> (CVE-2009-0696) y a nivel de configuración, la exposición a ataques de <strong>Amplificación de DNS</strong> debido a que permite consultas recursivas abiertas a cualquiera.</p>
+
+<ul>
+  <li><strong>Vulnerabilidad de Ejecución Remota / Dos (CVE-2009-0696):</strong> Este se debe a un error en el procesamiento de requerimientos en la sección <strong>TKEY</strong> que permite a un atacante enviar un paquete malformado y hacer que el servidor DNS colapse de inmediato.</li>
+  <li><strong>Configuración de Consulta Recursiva Abierta (Open Resolver):</strong> El servidor acepta resolver peticiones de dominios de internet externos para cualquier IP que se le pregunte. Esto permite que los atacantes usen nuestra máquina como vector para ataques DDOS de amplificiación de DNS hacia terceros.</li>
+</ul>
+
+<p>La vulnerabilidad <strong>Open Resolver</strong> es una de las fallas de configuración más peligrosas debido al impacto que puede generar, no solo en el servidor de la víctima, sino que también a terceras personas en internet.</p>
+
+<p>A un atacante no le interesa heredar la máquina víctima, sino que usar la potencia de la red como un “arma” de destrucción masiva contra otra víctima.</p>
+
+<p>Esta puede afectar principalmente de tres maneras:</p>
+
+<ul>
+  <li><strong>Participación Involuntaria de Ataques DDOS (Amplificación):</strong> Esta es la consecuencia principal. Un atacante spoofea (suplanta) su propia dirección IP, haciéndose pasar por la IP de la víctima real (por ejemplo, el servidor web de un banco). Después. le envía miles de consultas DNS a la máquina víctima pidiendo registros muy pesados (como la transferencia de zona o registros).
+    <ul>
+      <li><strong>El efecto de amplificación:</strong> La petición del atacante mide apenas 40 bytes, pero la respuesta que genera el servidor DNS mal configurado puede medir 4000 bytes (100 veces más grande).</li>
+      <li>El servidor le enviará esa gigantesca respuesta a la víctima real. Al multiplicar esto por miles de consultas simultáneas, la máquina ayudaría a <strong>saturar por completo el ancho de banda de la víctima</strong>, haciendo caer sus servicios corporativos.</li>
+    </ul>
+  </li>
+  <li><strong>Degradación del Rendimiento Local y Consumo de Recursos:</strong> Mientras el servidor DNS está ocupado resolviendo consultas recursivas para todo el mundo en internet y enviando respuestas masivas clonadas:
+    <ul>
+      <li>La memoria RAM y la CPU de la máquina víctima estará al 100%</li>
+      <li>El ancho de banda de la misma red se saturará por completo, provocando lentitud externa en los servicios legítimos de la empresa (Se notaría que el “Internet” no funciona).</li>
+    </ul>
+  </li>
+  <li><strong>Daños a la Reputación IP y Listas Negras (Blacklisting)</strong>: Como el servidor está enviando ráfagas de tráfico basura a otras empresas, los sistemas de defensa perimetral del mundo detectarán que la IP de la víctima está lanzando un ataque informático.
+    <ul>
+      <li>La dirección IP pública será reportada automáticamente a organismos internacionales y caerá en listas negras globales.</li>
+      <li>La consecuencia será que los servidores de correo de los clientes legítimos empezarán a rechazar los correos electrónicos de la empresa víctima, considerándolos como SPAM o tráfico malicioso, aislando digitalmente a la organización.</li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="evidencias">Evidencias</h1>
+
+<p>para evidenciar este fallo de configuración, utilizaremos la herramienta nativa de Kali Linux <code class="language-plaintext highlighter-rouge">dig</code>. Esta es una herramienta que se utiliza para realizar consultas a los servidores DNS, es el equivalente a preguntarle directamente a una libreta de direcciones de internet como llegar a un lugar o qué información tiene guardada sobre un dominio.</p>
+
+<p>A diferencia de comandos más sencillos como <code class="language-plaintext highlighter-rouge">ping</code> o <code class="language-plaintext highlighter-rouge">nslookup</code>, <code class="language-plaintext highlighter-rouge">dig</code> devuelve las respuestas completas y crudas del servidor, tal y como este lo procesa.</p>
+
+<p><img src="/secnotes/assets/img/metasploitable2/39f203efc0976490623cbdb325f8e18f_MD5.jpg" alt="DNS" /></p>
+
+<p>Al utilizar el simbolo <code class="language-plaintext highlighter-rouge">@</code> le decimos a <code class="language-plaintext highlighter-rouge">dig</code> que no realice la solicitud a internet normal, sino que vaya directamente al servidor DNS que esta corriendo en esa IP y oblígalo a responder. Al recibir una respuesta sobre GOOGLE, podemos saber que ese DNS está mal configurado por que esta trabajando para extraños.</p>
+
+<h1 id="hardening">Hardening</h1>
+
+<p>Dado a que el servidor DNS empresarial interno solo debe responder a clientes autorizados de la propia red local, la estrategia consistirá en <strong>restringir la recursividad</strong> y securizar las directivas del archivo de configuración global.</p>
+
+<h2 id="ubicación-del-archivo-de-configuración-de-bind">Ubicación del archivo de configuración de BIND</h2>
+
+<p>El archivo principal donde guardan las configuraciones de BIND se encuentran comúnmente en la ruta <em>/etc/bind/</em> y el archivo es <em>named.conf.options</em></p>
+
+<p><img src="/secnotes/assets/img/metasploitable2/44e875ef4da302c64c801466f4387045_MD5.jpg" alt="DNS" /></p>
+
+<p>Con nuestro editor de texto, vamos a agregar un bloque de configuración.</p>
+
+<p>Debajo de <em>directory “/var/cache/bind”;</em> vamos a agregar:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    allow-query { 127.0.0.1; 192.168.0.1/24; };
+    allow-recursion { 127.0.0.1; 192.168.1.0/24; };
+    allow-transfer { none; };
+    version "Not Disclosed";
+</code></pre></div></div>
+
+<p><strong>Estas reglas dicen lo siguiente:</strong></p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">allow-query {127.0.0.1; 192.168.1.0/24; }</code> Permitir consultas desde; Regula quién tiene derecho a preguntarle al servidor por dominios que él mismo administra. (sus propias zonas DNS locales). Cualquier máquina externa en internet que intente escanear o consultar los nombres de dominio locales será rechazada inmediatamente. Evita que un atacante mapee la infraestructura interna de la empresa.</li>
+  <li><code class="language-plaintext highlighter-rouge">allow-recursion { 127.0.0.1; 192.168.1.0/24; }</code> Permitir recursividad desde; Esta es la línea que destruye la vulnerabilidad de <strong>Open Resolver</strong>. La recursividad es el permiso que tiene el servidor para salir a internet a buscar la IP de una página que él no conoce, para luego dársela al cliente que se la pidió. Si el atacante le pide buscar una página en internet, el servidor verá que la IP solicitante no está en la lista de permitidos y arrojará el <code class="language-plaintext highlighter-rouge">status: REFUSED</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">allow-transfer { none; }</code> Permitir transferencia de zona a…; La transferencia de zona (<code class="language-plaintext highlighter-rouge">AXFR</code>) es un comando que usan los servidores DNS esclavos para clonar toda la base de datos de un servidor principal de un solo golpe. Al configurarlo en <code class="language-plaintext highlighter-rouge">none</code>, evitamos que un atacante ejecute un comando como <code class="language-plaintext highlighter-rouge">dig axfr @IP-DEL-SERVIDOR</code> y se descargue de forma gratuita la lista completa de todos los servidores, subdominios, IPs y servicios de la empresa.</li>
+  <li><code class="language-plaintext highlighter-rouge">version "Not Disclosed"</code> Versión no revelada, por defecto si un atacante le pregunta a BIND por su versión usando un comando de texto, el servidor responde orgullosamente: <strong>“SOY ISC BIND 9.4.2”</strong>, al poner esta directiva alteramos el banner informativo del servicio. Ahora si un atacante quiere ver la versión, el servidor responderá literalmente con el texto <code class="language-plaintext highlighter-rouge">Not Disclosed</code> (O lo que pongamos entre las comillas). Esto frena el reconocimiento del atacante, ya que al no saber la versión de este, no podrá buscar exploits específicos para lanzar contra la víctima.</li>
+</ul>
+
+<p>Ya tenemos las reglas en el archivo de configuración.</p>
+
+<p><img src="/secnotes/assets/img/metasploitable2/ec89ce5860a609ccfa6bdcc83a17bddd_MD5.jpg" alt="DNS" /></p>
+
+<p>Reiniciamos el servicio para aplicar los cambios.</p>
+
+<p><code class="language-plaintext highlighter-rouge">/etc/init.d/bind9 restart</code></p>
+
+<p><img src="/secnotes/assets/img/metasploitable2/511d39b4d876e6caaa79924f5a28fd3b_MD5.jpg" alt="DNS" /></p>
+
+<p>Ahora al intentar hacer la solicitud desde nuestra máquina atacante el servidor nos rechazará de inmediato y veremos el mensaje de <code class="language-plaintext highlighter-rouge">status: REFUSED</code>, que está deshabilitada la recursión.</p>
+
+<p><img src="/secnotes/assets/img/metasploitable2/415f0774b5fdb6bd9134cc7eaff7ac05_MD5.jpg" alt="DNS" /></p>
+
+<p><img src="/secnotes/assets/img/metasploitable2/79ef80800fb129b48274a0824405de38_MD5.jpg" alt="DNS" /></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Puerto/servicio</th>
+      <th>Estado inicial</th>
+      <th>Estado actual</th>
+      <th>acción de Hardening</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>21 - FTP</td>
+      <td>Abierto <code class="language-plaintext highlighter-rouge">vsftpd 2.3.4</code></td>
+      <td>Cerrado</td>
+      <td>Servicio deshabilitado en <code class="language-plaintext highlighter-rouge">xinetd</code></td>
+    </tr>
+    <tr>
+      <td>23 - Telnet</td>
+      <td>Abierto (Acceso en texto plano)</td>
+      <td>Cerrado</td>
+      <td>Línea comentada con <code class="language-plaintext highlighter-rouge">#</code> en <code class="language-plaintext highlighter-rouge">inetd.conf</code> y memoria purgada.</td>
+    </tr>
+    <tr>
+      <td>25 - SMTP</td>
+      <td>Enumeración de usuarios <code class="language-plaintext highlighter-rouge">VRFY</code></td>
+      <td>Blindado</td>
+      <td>Directiva <code class="language-plaintext highlighter-rouge">disable_vrfy_command = yes</code> en Postfix</td>
+    </tr>
+    <tr>
+      <td>53 - DNS</td>
+      <td>Versión expuesta <code class="language-plaintext highlighter-rouge">BIND 9.4.2</code></td>
+      <td>Blindado y Ofuscado</td>
+      <td>ACLs restrictivas y ocultamiento de banner con <code class="language-plaintext highlighter-rouge">version</code></td>
+    </tr>
+  </tbody>
+</table>
+:ET

@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-G8V2DW9MZ5');
+</script>
+
+    <title>Obsession - Dockerlabs - Linux - Fácil | SecNotes</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --sidebar-bg: #0d1117;
+            --text: #c9d1d9;
+            --accent: #00ff41;
+            --border: #30363d;
+        }
+
+        body { 
+            background: var(--bg); 
+            color: var(--text); 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            margin: 0; 
+            display: flex;
+        }
+        .content-area {
+    flex: 1;
+    padding: 40px 5%;    /* Padding en porcentaje para que se ajuste al dividir pantalla */
+    max-width: 900px;
+    box-sizing: border-box;
+}
+@media (max-width: 900px) { /* Si la ventana mide menos de 900px (como en tu captura) */
+    .main-wrapper { 
+        flex-direction: column; 
+    }
+    .sidebar { 
+        width: 100%; 
+        max-width: 100%;
+        height: auto; 
+        position: relative; 
+        border-right: none; 
+        border-bottom: 1px solid var(--border); 
+        padding: 20px;
+    }
+    .content-area { 
+        padding: 30px 20px; 
+    }
+}
+        /* Contenedor Principal */
+        .main-wrapper {
+            display: flex;
+            width: 100%;
+            min-height: 100vh;
+        }
+
+        /* SIDEBAR IZQUIERDA FIJA */
+        .sidebar {
+    width: 20%;          /* En lugar de px fijos, usamos un porcentaje */
+    min-width: 200px;    /* Pero que no sea más pequeña que esto para que se lea */
+    max-width: 260px;    /* Ni más grande que esto en pantallas gigantes */
+    height: 100vh;
+    background: var(--sidebar-bg);
+    border-right: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    padding: 30px 15px;  /* Reduje un poco el padding lateral */
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    z-index: 100;
+}
+
+        .sidebar-logo img {
+            width: 70px;
+            border-radius: 50%;
+            margin-bottom: 35px;
+            border: 2px solid var(--border);
+        }
+
+        .sidebar-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            margin-bottom: auto;
+        }
+
+        .side-link {
+            text-decoration: none;
+            color: #8b949e;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: 0.3s;
+        }
+
+        .side-link i { width: 20px; text-align: center; }
+        .side-link:hover { color: var(--accent); transform: translateX(5px); }
+
+        .sidebar-social { margin-top: 40px; }
+        .sidebar-social p { font-size: 0.7rem; color: #444; letter-spacing: 1px; margin-bottom: 15px; font-weight: bold; }
+        
+        .sidebar-social a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: #8b949e;
+            font-size: 0.85rem;
+            margin-bottom: 12px;
+            transition: 0.3s;
+        }
+
+        .sidebar-social a:hover { color: #fff; }
+
+        .sidebar-footer {
+            font-size: 0.75rem;
+            color: #333;
+            margin-top: 20px;
+        }
+
+        /* ÁREA DE CONTENIDO (POST) */
+        .content-area {
+            flex: 1;
+            padding: 60px 80px;
+            max-width: 900px;
+        }
+
+        .back-link {
+            text-decoration: none;
+            color: var(--accent);
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        h1 { 
+            color: #fff; 
+            font-size: 2.2rem;
+            margin: 0 0 10px 0;
+        }
+
+        .post-meta {
+            font-size: 0.9rem;
+            color: #555;
+            margin-bottom: 30px;
+        }
+
+        hr { border: 0; border-top: 1px solid var(--border); margin: 30px 0; }
+
+        /* Imágenes de los writeups */
+        .content-area img { 
+            max-width: 100%; 
+            height: auto; 
+            border-radius: 6px; 
+            border: 1px solid var(--border);
+            margin: 25px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+        }
+
+        /* Estilo para código/terminal */
+        code { background: #161b22; padding: 2px 6px; border-radius: 4px; font-family: monospace; color: #ff7b72; }
+        pre { background: #161b22; padding: 20px; border-radius: 8px; border: 1px solid var(--border); overflow-x: auto; }
+
+        /* Responsivo */
+        @media (max-width: 1100px) {
+            body { flex-direction: column; }
+            .sidebar { width: 100%; height: auto; position: relative; border-right: none; border-bottom: 1px solid var(--border); }
+            .content-area { padding: 40px 15px; }
+        }
+        pre {
+    background: #0d1117 !important;
+    border: 1px solid #30363d;
+    padding: 15px;
+    border-radius: 8px;
+    position: relative;
+}
+pre::before {
+    content: "root@yorve:~#";
+    display: block;
+    color: #8b949e;
+    font-size: 0.7rem;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #222;
+}
+    </style>
+</head>
+<body>
+
+    <div class="main-wrapper">
+        <aside class="sidebar">
+            <div class="sidebar-content">
+                <a href="/secnotes/" class="sidebar-logo">
+                    <img src="/secnotes/ico.jpg" alt="Logo">
+                </a>
+                
+                <nav class="sidebar-nav">
+                    <a href="/secnotes/" class="side-link"><i class="fas fa-home"></i> Inicio</a>
+                    <a href="/secnotes/tags" class="side-link"><i class="fas fa-tags"></i> Etiquetas</a>
+                    <a href="https://github.com/yorve/Auto-Recon" target="_blank" class="side-link"><i class="fas fa-terminal"></i> Auto-Recon</a>
+                </nav>
+
+                <div class="sidebar-social">
+                    <p>Contacto</p>
+                    <a href="https://github.com/yorve" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+                    <a href="https://linkedin.com/in/yonathan-rivera-velozo" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                    <a href="mailto:yorve.csec@gmail.com"><i class="fas fa-envelope"></i> Email</a>
+                    <a href="https://buymeacoffee.com/yorve" target="_blank" class="donate-btn">
+
+    <i class="fas fa-coffee"></i> Apoya el contenido de SecNotes </a>
+                </div>
+                
+                <div class="sidebar-footer">
+                    2026 © Yorve CSEC
+                </div>
+            </div>
+        </aside>
+
+        <main class="content-area">
+            <a href="/secnotes/" class="back-link">← Volver al inicio</a>
+            <h1>Obsession - Dockerlabs - Linux - Fácil</h1>
+            <div class="post-meta">
+                16/08/2025 • SecNotes 2.0
+            </div>
+            <hr>
+            
+            <div class="markdown-content">
+                <p>En este laboratorio nos enfrentamos a un reto de nivel fácil, orientado a poner en práctica técnicas básicas de enumeración, explotación y escalada de privilegios en un entorno Linux.</p>
+
+<p>El objetivo consiste en descubrir servicios expuestos, identificar usuarios válidos y obtener acceso inicial a la máquina mediante un ataque de diccionario. Posteriormente, aprovecharemos configuraciones de sudo que permiten la ejecución de programas como root para lograr la elevación de privilegios y, finalmente, acceder a los archivos más sensibles del sistema</p>
+
+<p><strong>Enumeración</strong></p>
+
+<p>Comenzamos con un escaneo a los puertos de la máquina objetivo, con el fin de enumerar sus servicios dispoibles.</p>
+
+<p><img src="/secnotes/assets/img/obssesion/2.png" alt="img2" /></p>
+
+<p>Seguimos con un escaneo a las versiones de los servicios encontrados y verificaricamos si existe alguna vulnerabilidad conocida de ellos.</p>
+
+<p><img src="/secnotes/assets/img/obssesion/3.png" alt="img3" /></p>
+
+<p>En el servicio FTP tenemos acceso como <em>Anonymous</em>, esto significa que podemos ingresar a los directorios de la máquina sin necesidad de credenciales. Además nos lista dos archivos .txt 
+Una vez dentro de la máquina utilizaremos el comando <code class="language-plaintext highlighter-rouge">get</code> para descargarnos en nuestra máquina los archivos listados.</p>
+
+<p><img src="/secnotes/assets/img/obssesion/4.png" alt="img4" /></p>
+
+<p>Vemos el archivo chat-gonza.txt</p>
+
+<p><img src="/secnotes/assets/img/obssesion/5.png" alt="img5" /></p>
+
+<p>Y el archivo pendientes.txt</p>
+
+<p><img src="/secnotes/assets/img/obssesion/6.png" alt="img6" /></p>
+
+<p>Aquí podemos obtener dos posibles usuarios llamados <em>Gonza</em>  y <em>Russoski</em>.</p>
+
+<p>Revisamos si en el servicio web existe algo de interés, al inspeccionar y ver el código fuente no encontramos nada de interés, así que realizaremos un escaneo con <strong>Gobuster</strong> en busca de algún directorio existente.</p>
+
+<p><img src="/secnotes/assets/img/obssesion/7.png" alt="img7" /></p>
+
+<p><img src="/secnotes/assets/img/obssesion/8.png" alt="img8" /></p>
+
+<p>Efectivamente nos encontramos dos rutas en donde podríamos encontrar información de valor.
+En la primera ruta <em>/important</em> nos encontramos con un archivo .md, estos son archivos de texto en formato markdown, normalmente se usas para escribir documentos fáciles de leer en texto plano y se pueden convertir a HTML u otros formatos.</p>
+
+<p><img src="/secnotes/assets/img/obssesion/9.png" alt="img9" /></p>
+
+<p><img src="/secnotes/assets/img/obssesion/10.png" alt="img10" /></p>
+
+<p>En la ruta <em>/backup</em>, encontramos un archivo de texto que nos confirma que un usuario válido es russoski</p>
+
+<p><img src="/secnotes/assets/img/obssesion/11.png" alt="img11" /></p>
+
+<p><img src="/secnotes/assets/img/obssesion/12.png" alt="img12" /></p>
+
+<p><strong>Explotación</strong></p>
+
+<p>Ya tenemos un usuario válido y el servicio SSH disponible. Como no conocemos la contraseña podemos hacer un ataque de diccionario. Para este caso utilizaremos el diccionario rockyou</p>
+
+<p><img src="/secnotes/assets/img/obssesion/13.png" alt="img13" /></p>
+
+<p><strong>Desglose del comando</strong></p>
+
+<p><code class="language-plaintext highlighter-rouge">172.17.0.2</code> -  la IP de la máquina objetivo.</p>
+
+<p><code class="language-plaintext highlighter-rouge">ssh</code> -  servicio al que atacar.</p>
+
+<p><code class="language-plaintext highlighter-rouge">-l russoski</code> - usuario fijo al que Hydra intentará entrar.</p>
+
+<p><code class="language-plaintext highlighter-rouge">-P /usr/share/wordlists/rockyou.txt</code> - diccionario de contraseñas</p>
+
+<p><code class="language-plaintext highlighter-rouge">-t 64</code> - número de hilos simultáneos (64 intentos paralelos. Esto realiza el ataque más rápido, pero más ruidoso)</p>
+
+<p><img src="/secnotes/assets/img/obssesion/14.png" alt="img14" /></p>
+
+<p>Con el diccionario usuario encontramos la contraseña del usuario. 
+Ya tenemos las credenciales, ahora podremos acceder por el servicio SSH a la máquina objetivo.</p>
+
+<p><img src="/secnotes/assets/img/obssesion/15.png" alt="img15" /></p>
+
+<p>Navegando por los directorios no encontramos nada de interés. Solo un script de Python que nos genera una contraseñas.</p>
+
+<p><img src="/secnotes/assets/img/obssesion/16.png" alt="img16" /></p>
+
+<p>Al ejecutar el script nos genera una contraseña.</p>
+
+<p><img src="/secnotes/assets/img/obssesion/17.png" alt="img17" /></p>
+
+<p><strong>Elevación de privilegios</strong></p>
+
+<p>Ya que no tenemos acceso al directorio root con el usuario <em>russoski</em>, veremos que podemos ejecutar. Para esto utilizaremos el comando <code class="language-plaintext highlighter-rouge">sudo -l</code></p>
+
+<p><img src="/secnotes/assets/img/obssesion/18.png" alt="img18" /></p>
+
+<p>Esto nos indica que podemos usar vim con permisos de root sin necesidad de ingresar una contraseña.
+Vim es un editor de texto avanzado (como nano, joe, Emacs, etc)
+En <strong>gtfobins</strong> encontramos que podemos elevar privilegios con un comando.</p>
+
+<p><img src="/secnotes/assets/img/obssesion/19.png" alt="img19" /></p>
+
+<p><img src="/secnotes/assets/img/obssesion/20.png" alt="img20" /></p>
+
+<p>Ejecutamos el primer comando (a) y obtenemos acceso como root</p>
+
+<p><img src="/secnotes/assets/img/obssesion/21.png" alt="img21" /></p>
+
+<p>Ahora solo navegamos por los directorios en búsqueda del famoso video.</p>
+
+<p><img src="/secnotes/assets/img/obssesion/22.png" alt="img22" /></p>
+
+<p><img src="/secnotes/assets/img/obssesion/23.png" alt="img23" /></p>
+
+<p>:heart_eyes:</p>
+
+<p>☕ ¿Te sirvió el Write-up?
+Si este contenido te ayudó a rootear la máquina o a aprender algo nuevo, ¡puedes invitarme un café! Todo el apoyo se va directo a mejorar el blog y seguir subiendo retos de DockerLabs.</p>
+
+<p><img src="https://img.buymeacoffee.com/button-api/?text=Invítame un café&amp;emoji=☕&amp;slug=TU_USUARIO&amp;button_colour=FFDD00&amp;font_colour=000000&amp;font_family=Cookie&amp;outline_colour=000000&amp;coffee_colour=ffffff" alt="Invitame un café" /></p>
+
+
+            </div>
+        </main>
+    </div>
+
+</body>
+</html>

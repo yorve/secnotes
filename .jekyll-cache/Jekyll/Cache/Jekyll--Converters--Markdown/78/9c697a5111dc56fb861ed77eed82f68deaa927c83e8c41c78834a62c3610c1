@@ -1,0 +1,79 @@
+I"<p>La máquina Trust de DockerLabs es un desafío de nivel muy fácil diseñado para practicar habilidades básicas de enumeración y elevación de privilegios. 
+el objetivo es obtener acceso inicial mediante enumeración web sencilla y fuerza bruta, para luego escalar a root explotando configuraciones comunes como permisos sudo o binarios SUID. 
+Ideal para principiantes, esta máquina fomenta el aprendizaje de técnicas esenciales en un entorno Debian.</p>
+
+<p><strong>Enumeración</strong></p>
+
+<p>Comenzamos con un escaneo activo con nmap para identificar los puertos y servicios de la máquina objetivo, seguido con la enumeración de la versión de estos servicios y si existe alguna vulnerabilidad conocida de estas versiones</p>
+
+<p><img src="/secnotes/assets/img/trust/1.png" alt="img1" /></p>
+
+<p><img src="/secnotes/assets/img/trust/2.png" alt="img2" /></p>
+
+<p>Al acceder al servicio web (puerto 80) este nos mostrará la página por defecto de Apache</p>
+
+<p><img src="/secnotes/assets/img/trust/3.png" alt="img3" /></p>
+
+<p>Si inspeccionamos la página no encontraremos comentarios ni nada de interés.</p>
+
+<p>Seguimos con la busqueda con <code class="language-plaintext highlighter-rouge">searchsploit</code> de sploits conocidos para estas versiones.</p>
+
+<p><img src="/secnotes/assets/img/trust/4.png" alt="img4" /></p>
+
+<p>ya que no tenemos nada, continuaremos con un escaneo básico de directorios con la herramienta <code class="language-plaintext highlighter-rouge">dirb</code>sobre el servicio web.</p>
+
+<p><img src="/secnotes/assets/img/trust/5.png" alt="img5" /></p>
+
+<p>Este escaneo no nos encontró nada de información.</p>
+
+<p>Ya que las pruebas de enumeración básicas no nos muestra información, harémos un escaneo más especifico al servicio web, nos centraremos en escanear este, ya que para acceder por SSH necesitamos almenos un usuario.
+Utilizaremos la herramienta <code class="language-plaintext highlighter-rouge">gobuster</code> con el argumento <code class="language-plaintext highlighter-rouge">-x php, html, txt</code> para que realice una búsqueda de estas extensiones.</p>
+
+<p><img src="/secnotes/assets/img/trust/6.png" alt="img6" /></p>
+
+<p>Con este escaneo tenemos éxito, encontramos la ruta <em>/index.html</em> y <em>/secret.php</em></p>
+
+<p>al acceder al segundo nos encontramos con lo siguiente</p>
+
+<p><img src="/secnotes/assets/img/trust/7.png" alt="img7" /></p>
+
+<p>Esta simple página nos da un dato valioso. Un posible usuario llamado <em>mario</em>, ya con este intentaremos descubrir la contraseña con la herramienta <code class="language-plaintext highlighter-rouge">hydra</code></p>
+
+<p><strong>Explotación</strong></p>
+
+<p>con el comando:</p>
+
+<p><code class="language-plaintext highlighter-rouge">hydra -l mario -p /usr/share/wordlist/rockyou.txt 172.18.0.2 ssh -t 64 -I</code></p>
+
+<p>le indicaremos quye utilizaremos el diccionario <em>rockyou</em> para descubrir la contraseña de <em>mario</em> por el servicio <em>ssh</em>. El argumento -t 64 es para que hydra intente hasta 64 conexiones a la vez al servicio.
+(esto lo realizamos solo en laboratios en favor del tiempo, ya que un escaneo con ese parametro en un entorno real lo detectarían de inmetiado)</p>
+
+<p><img src="/secnotes/assets/img/trust/8.png" alt="img8" /></p>
+
+<p>Este ataque resutó exitoso, descubriendo que la contraseña de <strong>mario</strong> es <strong>chocolate</strong>. Ahora podremos acceder porshh con estas credenciales.</p>
+
+<p><img src="/secnotes/assets/img/trust/9.png" alt="img9" /></p>
+
+<p>Ya dentro de la máquina de mario, debemos verificar si podemos ajecutar alguna herramienta como root sin necesidad de ingresar una contraseña.
+Para esto utilizamos el comando <code class="language-plaintext highlighter-rouge">sudo -l</code></p>
+
+<p><img src="/secnotes/assets/img/trust/10.png" alt="img10" /></p>
+
+<p>Este nos indica que podemos ejecutar vim con permisos elevados</p>
+
+<p><strong>Eleveción de Privilegios</strong></p>
+
+<p>Sabiendo esto, buscaremos en la página https://gtfobins.github.io/ , aquí buscaremos la herramienta que podemos ejecutar. Al buscar por vim, encontramos que al ejecutar un comando podemos abrir una shell como root</p>
+
+<p><img src="/secnotes/assets/img/trust/11.png" alt="img11" /></p>
+
+<p>al ejecutarla obtendremos la shell</p>
+
+<p><img src="/secnotes/assets/img/trust/12.png" alt="img12" /></p>
+
+<p>☕ ¿Te sirvió el Write-up?
+Si este contenido te ayudó a rootear la máquina o a aprender algo nuevo, ¡puedes invitarme un café! Todo el apoyo se va directo a mejorar el blog y seguir subiendo retos de DockerLabs.</p>
+
+<p><img src="https://img.buymeacoffee.com/button-api/?text=Invítame un café&amp;emoji=☕&amp;slug=TU_USUARIO&amp;button_colour=FFDD00&amp;font_colour=000000&amp;font_family=Cookie&amp;outline_colour=000000&amp;coffee_colour=ffffff" alt="Invitame un café" /></p>
+
+:ET

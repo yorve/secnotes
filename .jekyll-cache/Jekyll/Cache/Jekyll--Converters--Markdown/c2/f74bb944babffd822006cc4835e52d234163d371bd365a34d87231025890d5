@@ -1,0 +1,135 @@
+I"� <p><img src="/secnotes/assets/img/influencer/1.png" alt="img1" /></p>
+
+<p>En este laboratio pondremos a prueba los ataques de fuerza bruta contra distintos servicios.</p>
+
+<p>Para la fase de reconocimiento, utilizaremos un script que arme para estos labotarios.</p>
+
+<blockquote>
+  <p>https://github.com/yorve/Auto-Recon</p>
+</blockquote>
+
+<p>Este nos ayudará para automatizar la fase de reconocimientos de puertos, servicios, escaneo de directorios web y otros.</p>
+
+<p><img src="/secnotes/assets/img/influencer/objetivo.png" alt="img1" /></p>
+
+<p>Ingresamos los datos solicitados, Esta herramienta creará un directorio de trabajo, en el cual se exportarán los datos encontrados.</p>
+
+<p><img src="/secnotes/assets/img/influencer/script.png" alt="img2" /></p>
+
+<p>La primera etapa nos muestra un escaneo de puertos y servicios detectados.</p>
+
+<p><img src="/secnotes/assets/img/influencer/servicios.png" alt="img3" /></p>
+
+<p>La segunda etapa nos muestra información sobre el servicio web</p>
+
+<p><img src="/secnotes/assets/img/influencer/web.png" alt="img4" /></p>
+
+<p>Una vez finalizado, el resultado nos muestra información por donde empezar.
+Vemos que el servicio web contiene <em>401 Unauthorized</em>, Esto nos indica que el objetivo tiene un mecanismo de autenticación y que el servidor responde correctamente.
+<em>WWW-Authenticate: Basic</em>, indica que el usuario y contraseña se envían en <code class="language-plaintext highlighter-rouge">Authorization: Basic base64(user:pass)</code>, no existe hash ni tokens, esto lo hace vulnerable a ataques de fuerza bruta.</p>
+
+<p><img src="/secnotes/assets/img/influencer/directorios.png" alt="img5" /></p>
+
+<p>El escaneo de directorios no se inicio, esto ocurre por que el objetivo pide pasar la primera autenticación para seguir.</p>
+
+<p><img src="/secnotes/assets/img/influencer/web1.png" alt="img6" /></p>
+
+<p>efectivamente al ingresar por el navegador, este nos pide igresar las credenciales al acceder.</p>
+
+<p><img src="/secnotes/assets/img/influencer/curlget.png" alt="img7" /></p>
+
+<p>Al inspeccionar la página con la herramienta curl, se confirma que el sitio utiliza HTTP Basic Authentication.
+Este mecanismo no corresponde a un formulario HTML, sino que a una autenticación a nivel de protocolo HTTP, donde el navegador incluye las credenciales en la cabecera.</p>
+
+<p><em>Authorization: Basic base64(usuario:contraseña)</em></p>
+
+<p>La autenticación HTTP Bascis es independiente del método HTTP utilizado (GET o POST). En este caso, el acceso inicial al recurso protegido se realiza mediante peticiones GET, razón por la cual el servidor responde con el código 401 Unauthorized cuando no se incluyen credenciales válidas.</p>
+
+<p>Ya con los datos anteriores, vamos a intentar un ataque de fuerza bruta con la herramienta hydra.</p>
+
+<p><img src="/secnotes/assets/img/influencer/fuerzabruta1.png" alt="img8" /></p>
+
+<p>Utilizamos el argumento -C (combo) y el diccionario de usuarios y contraseña que contengan el formato <em>user:pass</em> (admin:admin, root:root, etc)
+Obtenemos las credenciales del usuario httpadmin.</p>
+
+<p><img src="/secnotes/assets/img/influencer/login1.png" alt="img9" /></p>
+
+<p>Una vez ingresadas las credenciales encontradas, no tenemos nada (aparentemente), pero esto nos da pie para realizar un escaneo de directorios con la herramienta gobuster utilizando las credenciales obtenidas en el ataque de fuerza bruta.</p>
+
+<p><img src="/secnotes/assets/img/influencer/gobuster1.png" alt="img10" /></p>
+
+<p>En este escaneo encontramos una ruta a /login.php, aquí nos encontramos con otro panel de login.</p>
+
+<p><img src="/secnotes/assets/img/influencer/login2.png" alt="img11" /></p>
+
+<p>Tenemos una doble autenticacion encadenada. Esto significa que primero se debe pasar la primera barrera (Basic Auth) y pasar por la segunda.</p>
+
+<p><img src="/secnotes/assets/img/influencer/login3.png" alt="img12" /></p>
+
+<p>Utilizamos nuevamente gobuster para hacer la misma verificación anterior, esta vez debemos utilizar las credenciales encontradas para pasar la primera barrera y luego hacer la petición por método POST con credenciales de prueba y así ver la respuesta que entrega el servidor.
+en este caso el mensaje de <em>Credenciales Incorrectas</em>.</p>
+
+<p><img src="/secnotes/assets/img/influencer/login4.png" alt="img13" /></p>
+
+<p>Entonces, el formulario tiene método POST, el servidor procesa estos parámetros y devuelve un mensaje de error dependiendo del contenido envíado, y el POST funciona solo despues de pasar al Basic Auth.
+vamos a realizar otro ataque de fuerza bruta, ahora sobre el segundo login.</p>
+
+<p><img src="/secnotes/assets/img/influencer/fuerzabruta2.png" alt="img14" /></p>
+
+<p>Aqui utilizamos hydra con el usuario <em>admin</em> (corazonada) con el diccionario <em>Rockyou</em>, el método <em>http-post-form</em> para indicarle que es método POST, ya que los parámetros van en el cuerpo del request.
+y la cadena <code class="language-plaintext highlighter-rouge">/login.php:username=^USER^&amp;password=^PASS^:H=Authorization: Basic aHR0cGFkbWluOmZodHRwYWRtaW4=:F=Credenciales incorrectas.</code></p>
+
+<p><code class="language-plaintext highlighter-rouge">H=Authorization: Basic aHR0cGFkbWluOmZodHRwYWRtaW4=</code>   Este valor son las credenciales en base64 (lo mismo que hace el request)</p>
+
+<p>Esto es por que hydra se autentica contra el primer login (primera barrera), así podemos llegar al segundo login.
+El ataque se basó en la detección del mensaje de error “Credenciales incorrectas”, permitiendo identificar credenciales válidas cuando ese mensaje no aparecía en la respuesta.</p>
+
+<p>Ahora tenemos las credenciales del usuario admin</p>
+
+<p><img src="/secnotes/assets/img/influencer/usuario.png" alt="img15" /></p>
+
+<p>al ingresar estas credenciales solo nos muestra un mensaje y un usuario. Ahora nuestro enfoque será en el servicio SSH.
+Utilizaremos hydra nuevamente con este nuevo usuario.</p>
+
+<p><img src="/secnotes/assets/img/influencer/ssh.png" alt="img16" /></p>
+
+<p>Obtenemos la contraseña para este nuevo usuario.</p>
+
+<p>Con la sesion de este usuario activa, buscamos distintas formas para escalar privilegios, pero este usuario no tenia permisos suficientes para hacer algo..</p>
+
+<p><img src="/secnotes/assets/img/influencer/ssh1.png" alt="img17" /></p>
+
+<p><img src="/secnotes/assets/img/influencer/ssh2.png" alt="img18" /></p>
+
+<p>ya que tenemos disponible scp, vamos a pasar de nuestra máquina atacante el script de LinEnum para escanear alguna vulnerabilidad.</p>
+
+<p><img src="/secnotes/assets/img/influencer/ssh3.png" alt="img19" /></p>
+
+<p>pero, esta no nos ayudó a completar nuestro objetivo. Buscando mas información nos encontramos con un script que nos permitirá realizar un ataque de fuerza bruta interno contra el usuario root.</p>
+
+<blockquote>
+  <p>https://github.com/D1se0/suBruteforce/blob/main/suBruteforceBash/suBruteforce.sh</p>
+</blockquote>
+
+<p>copiamos el código y nos creamos el script en la máquina víctima, y con la herramienta scp nos pasamos el diccionario rockyou a la máquina víctima.</p>
+
+<p><img src="/secnotes/assets/img/influencer/ssh4.png" alt="img20" /></p>
+
+<p>y al ejecutarlo nos dará la contraseña de root</p>
+
+<p><img src="/secnotes/assets/img/influencer/root.png" alt="img21" /></p>
+
+<p>y podemos cambiarnos al usuario root</p>
+
+<p><img src="/secnotes/assets/img/influencer/root1.png" alt="img22" /></p>
+
+<p>En un entorno real, los ataques de fuerza bruta locales contra el binario su no suelen ser viables debido a las protecciones implementadas por PAM.
+Sin embargo, en este laboratorio, dichas protecciones han sido debilitadas intencionadamente, permitiendo la automatización de intentos contra el usuario root.
+Aprovechando esta configuración insegura, fue posible realizar un ataque de fuerza bruta interno y obtener la contraseña del usuario root.</p>
+
+<p>☕ ¿Te sirvió el Write-up?
+Si este contenido te ayudó a rootear la máquina o a aprender algo nuevo, ¡puedes invitarme un café! Todo el apoyo se va directo a mejorar el blog y seguir subiendo retos de DockerLabs.</p>
+
+<p><img src="https://img.buymeacoffee.com/button-api/?text=Invítame un café&amp;emoji=☕&amp;slug=TU_USUARIO&amp;button_colour=FFDD00&amp;font_colour=000000&amp;font_family=Cookie&amp;outline_colour=000000&amp;coffee_colour=ffffff" alt="Invitame un café" /></p>
+
+:ET

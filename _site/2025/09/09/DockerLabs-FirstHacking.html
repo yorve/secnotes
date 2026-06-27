@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-G8V2DW9MZ5');
+</script>
+
+    <title>FirstHacking – TheHackerLabs - Linux - Fácil | SecNotes</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --sidebar-bg: #0d1117;
+            --text: #c9d1d9;
+            --accent: #00ff41;
+            --border: #30363d;
+        }
+
+        body { 
+            background: var(--bg); 
+            color: var(--text); 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            margin: 0; 
+            display: flex;
+        }
+        .content-area {
+    flex: 1;
+    padding: 40px 5%;    /* Padding en porcentaje para que se ajuste al dividir pantalla */
+    max-width: 900px;
+    box-sizing: border-box;
+}
+@media (max-width: 900px) { /* Si la ventana mide menos de 900px (como en tu captura) */
+    .main-wrapper { 
+        flex-direction: column; 
+    }
+    .sidebar { 
+        width: 100%; 
+        max-width: 100%;
+        height: auto; 
+        position: relative; 
+        border-right: none; 
+        border-bottom: 1px solid var(--border); 
+        padding: 20px;
+    }
+    .content-area { 
+        padding: 30px 20px; 
+    }
+}
+        /* Contenedor Principal */
+        .main-wrapper {
+            display: flex;
+            width: 100%;
+            min-height: 100vh;
+        }
+
+        /* SIDEBAR IZQUIERDA FIJA */
+        .sidebar {
+    width: 20%;          /* En lugar de px fijos, usamos un porcentaje */
+    min-width: 200px;    /* Pero que no sea más pequeña que esto para que se lea */
+    max-width: 260px;    /* Ni más grande que esto en pantallas gigantes */
+    height: 100vh;
+    background: var(--sidebar-bg);
+    border-right: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    padding: 30px 15px;  /* Reduje un poco el padding lateral */
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    z-index: 100;
+}
+
+        .sidebar-logo img {
+            width: 70px;
+            border-radius: 50%;
+            margin-bottom: 35px;
+            border: 2px solid var(--border);
+        }
+
+        .sidebar-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            margin-bottom: auto;
+        }
+
+        .side-link {
+            text-decoration: none;
+            color: #8b949e;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: 0.3s;
+        }
+
+        .side-link i { width: 20px; text-align: center; }
+        .side-link:hover { color: var(--accent); transform: translateX(5px); }
+
+        .sidebar-social { margin-top: 40px; }
+        .sidebar-social p { font-size: 0.7rem; color: #444; letter-spacing: 1px; margin-bottom: 15px; font-weight: bold; }
+        
+        .sidebar-social a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: #8b949e;
+            font-size: 0.85rem;
+            margin-bottom: 12px;
+            transition: 0.3s;
+        }
+
+        .sidebar-social a:hover { color: #fff; }
+
+        .sidebar-footer {
+            font-size: 0.75rem;
+            color: #333;
+            margin-top: 20px;
+        }
+
+        /* ÁREA DE CONTENIDO (POST) */
+        .content-area {
+            flex: 1;
+            padding: 60px 80px;
+            max-width: 900px;
+        }
+
+        .back-link {
+            text-decoration: none;
+            color: var(--accent);
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        h1 { 
+            color: #fff; 
+            font-size: 2.2rem;
+            margin: 0 0 10px 0;
+        }
+
+        .post-meta {
+            font-size: 0.9rem;
+            color: #555;
+            margin-bottom: 30px;
+        }
+
+        hr { border: 0; border-top: 1px solid var(--border); margin: 30px 0; }
+
+        /* Imágenes de los writeups */
+        .content-area img { 
+            max-width: 100%; 
+            height: auto; 
+            border-radius: 6px; 
+            border: 1px solid var(--border);
+            margin: 25px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+        }
+
+        /* Estilo para código/terminal */
+        code { background: #161b22; padding: 2px 6px; border-radius: 4px; font-family: monospace; color: #ff7b72; }
+        pre { background: #161b22; padding: 20px; border-radius: 8px; border: 1px solid var(--border); overflow-x: auto; }
+
+        /* Responsivo */
+        @media (max-width: 1100px) {
+            body { flex-direction: column; }
+            .sidebar { width: 100%; height: auto; position: relative; border-right: none; border-bottom: 1px solid var(--border); }
+            .content-area { padding: 40px 15px; }
+        }
+        pre {
+    background: #0d1117 !important;
+    border: 1px solid #30363d;
+    padding: 15px;
+    border-radius: 8px;
+    position: relative;
+}
+pre::before {
+    content: "root@yorve:~#";
+    display: block;
+    color: #8b949e;
+    font-size: 0.7rem;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #222;
+}
+    </style>
+</head>
+<body>
+
+    <div class="main-wrapper">
+        <aside class="sidebar">
+            <div class="sidebar-content">
+                <a href="/secnotes/" class="sidebar-logo">
+                    <img src="/secnotes/ico.jpg" alt="Logo">
+                </a>
+                
+                <nav class="sidebar-nav">
+                    <a href="/secnotes/" class="side-link"><i class="fas fa-home"></i> Inicio</a>
+                    <a href="/secnotes/tags" class="side-link"><i class="fas fa-tags"></i> Etiquetas</a>
+                    <a href="https://github.com/yorve/Auto-Recon" target="_blank" class="side-link"><i class="fas fa-terminal"></i> Auto-Recon</a>
+                </nav>
+
+                <div class="sidebar-social">
+                    <p>Contacto</p>
+                    <a href="https://github.com/yorve" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+                    <a href="https://linkedin.com/in/yonathan-rivera-velozo" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                    <a href="mailto:yorve.csec@gmail.com"><i class="fas fa-envelope"></i> Email</a>
+                    <a href="https://buymeacoffee.com/yorve" target="_blank" class="donate-btn">
+
+    <i class="fas fa-coffee"></i> Apoya el contenido de SecNotes </a>
+                </div>
+                
+                <div class="sidebar-footer">
+                    2026 © Yorve CSEC
+                </div>
+            </div>
+        </aside>
+
+        <main class="content-area">
+            <a href="/secnotes/" class="back-link">← Volver al inicio</a>
+            <h1>FirstHacking – TheHackerLabs - Linux - Fácil</h1>
+            <div class="post-meta">
+                09/09/2025 • SecNotes 2.0
+            </div>
+            <hr>
+            
+            <div class="markdown-content">
+                <p><img src="/secnotes/assets/img/firsthacking/banner.png" alt="img12" /></p>
+
+<p>La máquina First Hacking es un laboratorio básico de Docker Labs que sirve como punto de partida en el mundo del pentesting.
+El objetivo principal es detectar y aprovechar la vulnerabilidad para conseguir acceso al sistema.
+Esta práctica ayuda a entender cómo un servicio desactualizado puede convertirse en una puerta de entrada para un atacante y muestra la importancia de mantener los sistemas siempre actualizados.</p>
+
+<p><strong>Reconocimiento</strong></p>
+
+<p>Empezamos con la fase de reconocimiento, para descubrir que puertos y servicios tiene disponible el objetivo.</p>
+
+<p><img src="/secnotes/assets/img/firsthacking/1.png" alt="img1" /></p>
+
+<p>Este escaneo nos mostró que el objetivo cuenta con el puerto 21 (FTP) abierto. Continuamos con verificar que versión del servicio corre en el.</p>
+
+<p><img src="/secnotes/assets/img/firsthacking/2.png" alt="img2" /></p>
+
+<p>Esta revisión nos muestra que tiene la ver <em>vsftpd 2.3.4</em></p>
+
+<p>Con la herramienta <em>searchsploit</em> buscaremos si existe alguna vulnerabilidad sobre este servicio.</p>
+
+<p><img src="/secnotes/assets/img/firsthacking/3.png" alt="img3" /></p>
+
+<p>Esta busqueda nos mostró que existe un <em>Backdoor Command Execution</em>.
+Esta es una tecnica de ejecución de comandos a través de una puerta trasera, se utiliza para tomar el control de un sistema informático de forma oculta.</p>
+
+<p><strong>Cómo funciona?</strong></p>
+
+<p>El atacante introduce un código malicioso o un programa en un sistema. Esta código actua como una puerta trasera que permite al atacante acceder al sistema cuando quiera.</p>
+
+<p><strong>Ejecucion de comandos</strong></p>
+
+<p>Una vez que el atacante tiene acceso a través del backdoor, puede enviar comandos al sistema. Por ejemplo, podría ordenar que se borren archivos, se robe información o se instalen más programas maliciosos.</p>
+
+<p>Todo esto ocurre sin que el usuario o administrador del sistema se dé cuenta, ya que el backdoor está diseñado para ser secreto.</p>
+
+<p>Ya que tenemos un exploit para esta versión, lo vamos a descargar en nuestra máquina.</p>
+
+<p><img src="/secnotes/assets/img/firsthacking/4.png" alt="img4" /></p>
+
+<p>Al revisar de que se trata el script podemos ver que exporta las librerias de <em>Telnet</em>, este es un problema, ya que las versiones actuales de Python ya no traen estas librerías.</p>
+
+<p><img src="/secnotes/assets/img/firsthacking/11.png" alt="img11" /></p>
+
+<p>Una opcion válida para poder ejecutar este script es posible ejecutar una versión de python que contenga estas librerias. 
+Para esto debemos crear un entorno virtual de python con siguientes comandos:</p>
+
+<p><code class="language-plaintext highlighter-rouge">python3 -m venv ~/venv</code></p>
+
+<p>y lo activamos con:</p>
+
+<p><code class="language-plaintext highlighter-rouge">source ~/venv/bin/activate</code></p>
+
+<p><img src="/secnotes/assets/img/firsthacking/5.png" alt="img5" /></p>
+
+<p><img src="/secnotes/assets/img/firsthacking/6.png" alt="img6" /></p>
+
+<p>con esto creamos un entorno virtual lo que nos permitirá trabajar con las librerías de python sin interferir con las librerías que tenemos en nuestro sistema base.</p>
+
+<p>Ahora debemos ejecutar python con la version que nos permita usar las librerías de Telnet</p>
+
+<p><code class="language-plaintext highlighter-rouge">sudo docker run -it --rm -v "$PWD":/work -w /work python:3.11 bash</code></p>
+
+<p>Este comando nos ejecutará python en su version 3.11</p>
+
+<p><img src="/secnotes/assets/img/firsthacking/7.png" alt="img7" /></p>
+
+<p>Solo nos queda ejecutar el script descargado y ganaremos acceso como root</p>
+
+<p><img src="/secnotes/assets/img/firsthacking/8.png" alt="img8" /></p>
+
+<p>Otra alternativa es usar <em>Metasploit</em></p>
+
+<p>Aquí debemos buscar la version del servicio y seleccionar el módulo adecuado.</p>
+
+<p><img src="/secnotes/assets/img/firsthacking/9.png" alt="img9" /></p>
+
+<p>Una vez seleccionado, configuramos con los datos requeridos y ejecutamos.</p>
+
+<p><img src="/secnotes/assets/img/firsthacking/10.png" alt="img10" /></p>
+
+<p>☕ ¿Te sirvió el Write-up?
+Si este contenido te ayudó a rootear la máquina o a aprender algo nuevo, ¡puedes invitarme un café! Todo el apoyo se va directo a mejorar el blog y seguir subiendo retos de DockerLabs.</p>
+
+<p><img src="https://img.buymeacoffee.com/button-api/?text=Invítame un café&amp;emoji=☕&amp;slug=TU_USUARIO&amp;button_colour=FFDD00&amp;font_colour=000000&amp;font_family=Cookie&amp;outline_colour=000000&amp;coffee_colour=ffffff" alt="Invitame un café" /></p>
+
+
+            </div>
+        </main>
+    </div>
+
+</body>
+</html>

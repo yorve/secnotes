@@ -1,0 +1,49 @@
+I"Q<p>TProot es una máquina Linux de nivel fácil en DockerLabs que nos permite practicar enumeración básica y explotación de vulnerabilidades conocidas.</p>
+
+<p><strong>Enumeración</strong></p>
+
+<p>Comenzamos con un reconocimiento de la máquina objetivo.</p>
+
+<p><img src="/secnotes/assets/img/tproot/1.png" alt="img1" /></p>
+
+<p><img src="/secnotes/assets/img/tproot/2.png" alt="img2" /></p>
+
+<p>Con la herramienta <strong>searchsploit</strong> veremos si existe alguna vulnerabilidad sobre el servicio <em>vsdtpd 2.3.4</em></p>
+
+<p><img src="/secnotes/assets/img/tproot/3.png" alt="img3" /></p>
+
+<p>Encontramos un script de ejecución de comandos a través de una puerta trasera (backdoor). Esto se ejecuta conectándonos a un servicio aparentemente legitimo (FTP, HTTP, etc), enviamos un trigger (Usuario especial, header, token, etc) el servicio abre un puerto oculto o devuelve una shell, y al conectarnos a ese puerto podemos ejecutar comandos.</p>
+
+<p>Esta corresponde a la vulnerabilidad CVE-2011-2523. En Exploit database encontramos un script para comprometer este servicio.</p>
+
+<p><img src="/secnotes/assets/img/tproot/4.png" alt="img4" /></p>
+
+<p>Para ejecutarlo vamos a crear un entorno aislado con Python3</p>
+
+<p><img src="/secnotes/assets/img/tproot/5.png" alt="img5" /></p>
+
+<p>Esto sirve para poder instalar paquetes independientes en el sistema sin comprometer las librerías de nuestro Kali. Es útil para trabajar con distintas versiones de las librerías.</p>
+
+<p>Ejecutamos el script que descargamos pero nos da un error. Indica que no tenemos la librería de telnet en nuestro sistema, esto pasó por que la versión actual de Python (3.13.5) elimino estas librerias que traía por defecto.</p>
+
+<p><img src="/secnotes/assets/img/tproot/6.png" alt="img6" /></p>
+
+<p><img src="/secnotes/assets/img/tproot/7.png" alt="img7" /></p>
+
+<p>con el siguiente comando podemos ejecutar directamente la versión 3.11.13 de Python desde un contenedor de docker en nuestro entorno aislado</p>
+
+<p><code class="language-plaintext highlighter-rouge">docker run -it --rm -v "$PWD":/work -w /work python:3.11 bash
+python3 –version</code></p>
+
+<p><img src="/secnotes/assets/img/tproot/8.png" alt="img8" /></p>
+
+<p>Al ejecutar el script obtendremos automaticamente una shell como usuario root en la máquina víctima.</p>
+
+<p><img src="/secnotes/assets/img/tproot/12.png" alt="img12" /></p>
+
+<p>☕ ¿Te sirvió el Write-up?
+Si este contenido te ayudó a rootear la máquina o a aprender algo nuevo, ¡puedes invitarme un café! Todo el apoyo se va directo a mejorar el blog y seguir subiendo retos de DockerLabs.</p>
+
+<p><img src="https://img.buymeacoffee.com/button-api/?text=Invítame un café&amp;emoji=☕&amp;slug=TU_USUARIO&amp;button_colour=FFDD00&amp;font_colour=000000&amp;font_family=Cookie&amp;outline_colour=000000&amp;coffee_colour=ffffff" alt="Invitame un café" /></p>
+
+:ET
