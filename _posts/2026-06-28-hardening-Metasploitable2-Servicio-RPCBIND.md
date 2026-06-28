@@ -5,9 +5,8 @@ date: 2026-06-28
 img: /assets/img/metasploitable2/banner.png
 tags: [Linux, Hardening, RCPBIND, Mountd]
 ---
-[banner](/secnotes/assets/img/metasploitable2/banner.png)
 
-[1](/secnotes/assets/img/metasploitable2/20260619161725.png)
+![banner](/secnotes/assets/img/metasploitable2/banner.png)
 
 
 Este es un nuevo proyecto de Hardening para el laboratorio Metasploitable2. Este laboratorio es conocido por tener múltiples vulnerabilidades que como atacante podemos sacar provecho y comprometer la máquina. Pero esta vez nos pondrémos en los zapatos del equipo defensivo y aplicaremos configuraciones correctas para volver Metasploitable 2 una máquina segura.
@@ -38,6 +37,8 @@ Este es un nuevo proyecto de Hardening para el laboratorio Metasploitable2. Este
 | 80     | HTTP     |Blindado|
 
 # 111 - rcpbind #
+
+![1](/secnotes/assets/img/metasploitable2/20260619161725.png)
 
 El puerto 111 (TCP / UPD) está reservado para **rcpbind** (anteriormente conocido como `portmap`). Su función principal es asignar servicios RPC (Llamada de Procedimientos Remotos) a los puertos dinámicos correctos. Cuando un cliente necesita conectarse a un servicio como NFS (Network File System), le pregunta a `rpcbind` en qué puerto exacto está escuchando dicho servicio.
 
