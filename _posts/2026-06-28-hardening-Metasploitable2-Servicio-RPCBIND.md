@@ -9,16 +9,7 @@ tags: [Linux, Hardening, RCPBIND, Mountd]
 
 [1](/secnotes/assets/img/metasploitable2/20260619161725.png)
 
-Resumen del estado de la máquina
 
-| Puerto | Servicio | Estado |
-| ------ | -------- | ------ |
-| 21     | FTP      | Cerrado|
-| 22     | SSH      |        |
-| 23     | Telnet   | Cerrado|
-| 25     | SMTP     |Blindado|
-| 53     | DNS      |Blindado|
-| 80     | HTTP     |Blindado|
 Este es un nuevo proyecto de Hardening para el laboratorio Metasploitable2. Este laboratorio es conocido por tener múltiples vulnerabilidades que como atacante podemos sacar provecho y comprometer la máquina. Pero esta vez nos pondrémos en los zapatos del equipo defensivo y aplicaremos configuraciones correctas para volver Metasploitable 2 una máquina segura.
 
 **Los objetivos del proyecto serán:**
@@ -34,6 +25,17 @@ Este es un nuevo proyecto de Hardening para el laboratorio Metasploitable2. Este
 - Validación de seguridad.
 - Esta máquina tiene múltiples puertos y vulnerabilidades habilitados.
 - Es por eso que iremos resolviéndolas por servicios por separado.
+
+  Resumen del estado de la máquina
+
+| Puerto | Servicio | Estado |
+| ------ | -------- | ------ |
+| 21     | FTP      | Cerrado|
+| 22     | SSH      |        |
+| 23     | Telnet   | Cerrado|
+| 25     | SMTP     |Blindado|
+| 53     | DNS      |Blindado|
+| 80     | HTTP     |Blindado|
 
 # 111 - rcpbind #
 
