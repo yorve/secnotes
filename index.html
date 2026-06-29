@@ -361,6 +361,45 @@ layout: null
             font-size: 1.1rem;
             /* El icono un pelín más grande que el texto */
         }
+
+        /* --- Estilos Personalizados para las Tablas de Hardening --- */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.95em;
+    background-color: #161b22; /* Fondo oscuro de la tabla */
+    border: 1px solid #30363d;
+}
+
+table th {
+    background-color: #1f242c !important; /* Encabezado un poco más claro */
+    color: var(--accent) !important;       /* Tu verde neón para los títulos */
+    padding: 12px;
+    text-align: left;
+    border-bottom: 2px solid #30363d;
+}
+
+table td {
+    padding: 12px;
+    border-bottom: 1px solid #30363d;
+    color: #c9d1d9; /* Texto gris claro tipo consola */
+}
+
+/* Efecto cebra: alterna filas oscuras y más claras */
+table tr:nth-child(even) {
+    background-color: #0d1117; 
+}
+
+/* Estilo para las etiquetas de código inline dentro de la tabla */
+table code {
+    background-color: #21262d !important;
+    color: #ff7b72 !important; /* Color rojizo para destacar comandos/versiones */
+    padding: 2px 6px !important;
+    border-radius: 4px;
+    font-family: monospace;
+}
     </style>
 </head>
 
