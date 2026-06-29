@@ -3,8 +3,9 @@ layout: post
 title: "Metasploitable 2 - Hardening Servicio Samba"
 date: 2026-06-29
 img: /assets/img/metasploitable2/banner.png
-tags: [Vuln, Linux, Hardening, Samba, root, ]
+tags: [Vuln, Linux, Hardening, Samba, root]
 ---
+
 Este es un nuevo proyecto de Hardening para el laboratorio **Metasploitable2**. Este laboratorio es conocido por tener múltiples vulnerabilidades que como atacante podemos sacar provecho y comprometer la máquina. Pero esta vez nos pondrémos en los zapatos del equipo defensivo y aplicaremos configuraciones correctas para volver Metasploitable 2 una máquina segura.
 
 **Los objetivos del proyecto serán:**
