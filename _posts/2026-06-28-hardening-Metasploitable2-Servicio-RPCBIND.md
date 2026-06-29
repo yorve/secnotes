@@ -121,3 +121,14 @@ Ahora desde nuestra máquina atacante no tendremos acceso a este servicio.
 
 Dado a que parchamos NFS y restringimos el montaje a localhost, el puerto 111 ya no cumple con ninguna función útil hacia el exterior. En un buen trabajo de hardening, el servicio que no se usa debería apagarse... Pero.. para que hacer las cosas fáciles si  podemos hacerlas difíciles... 😉
 
+## Estado de la máquina ##
+
+| Puerto | Servicio | Estado Inicial                                     | Estado Actual                         | Acción de Hardening                                                                                                                  |
+| ------ | -------- | -------------------------------------------------- | ------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| 21     | FTP      | Abierto `vsftdp 2.3.4` (Acceso anónimo)            | Cerrado                               | Servicio deshabilitado en `xinetd`                                                                                                   |
+| 22     | SSH      | Abierto                                            | Usado para gestionar Metasploitable 2 |                                                                                                                                      |
+| 23     | Telnet   | Abierto (acceso en texto plano)                    | Cerrado                               | Línea comentada en `inet.conf` y memoria purgada                                                                                     |
+| 25     | SMTP     | Abierto (Enumeración de usuarios `vrfy`)           | Bllindado                             | Directiva `disable_vrfy_command = yes`.                                                                                              |
+| 53     | DNS      | Abierto (Versión expuesta `bind 9.4.2`)            | Blindado y Ofuscado                   | ACLs restrictivas y ocultamiento de banner con `version`.                                                                            |
+| 80     | HTTP     | Abierto (Cargado con aplicaciones web vulnerables) | Blindado                              | Aplicación de configuraciones de seguridad (Ocultar banner, desactivar listado de directorios, deshabilitar métodos HTTP inseguros). |
+| 111    | RCPBIND  | Abierto (`portmap` y `nfs` Vulnerables)            | Blindado                              | Aplicación de configuraciones de seguridad sobre NFS y controlar el acceso por Red con TPC Wrappers.                                 |
