@@ -24,7 +24,7 @@ Este es un nuevo proyecto de Hardening para el laboratorio **Metasploitable2**. 
 
   # 139 - Netbios-ssn / Samba 3.0.20 #
 
-![](5dc25849a4e4c2d87b177df5288677de_MD5.jpg)
+![](/secnotes/assets/img/metasploitable2/5dc25849a4e4c2d87b177df5288677de_MD5.jpg)
 
 Podemos ver que el en puerto 139 la máquina objetivo corre el servicio de `samba 3.0.20`. Este servicio tiene una vulnerabilidad asociada a **CVE-2007-2447**. El fallo ocurre porque Samba no sanitiza correctamente los nombres de usuarios que se le envían al iniciar sesión, permitiendo inyectar comandos a través de caracteres especiales si hay un script de mapeo activo.
 
@@ -94,7 +94,7 @@ Al leer que empieza con `/=` y tiene comillas invertidas, la consola de Metasplo
 
 El sistema operativo de la víctima ejecuta una terminal con los privilegios de quien ejecutó el servicio (Samba corre con privilegios de root), recibimos una shell de `root` en Netcat que teníamos en escucha.
 
-![](a3183d6be749a41352570907a46771e4_MD5.jpg)
+![](/secnotes/assets/img/metasploitable2/a3183d6be749a41352570907a46771e4_MD5.jpg)
 
 Ahora que tenemos una shell como root, al igual que los casos anteriores, tenemos control total de la víctima.
 
@@ -116,19 +116,19 @@ En este archivo añadimos las directivas para denegar todo el tráfico externo p
 
 Ya que estamos en el archivo de configuración, vamos a ocultar el banner con la versión de Samba, así mitigaremos el reconocimiento pasivo.
 
-![](4df21b475c01f0b204612865ec7f9759_MD5.jpg)
+![](/secnotes/assets/img/metasploitable2/4df21b475c01f0b204612865ec7f9759_MD5.jpg)
 
-![](8b1745a45acfd05e0c3bfaea39fccc59_MD5.jpg)
+![](/secnotes/assets/img/metasploitable2/8b1745a45acfd05e0c3bfaea39fccc59_MD5.jpg)
 
 Reiniciamos el servicio de Samba para aplicar los cambios.
 
 `sudo /etc/init.d/samba restart`
 
-![](3f59be42735f6ac3c54a933c05cf9386_MD5.jpg)
+![](/secnotes/assets/img/metasploitable2/3f59be42735f6ac3c54a933c05cf9386_MD5.jpg)
 
-![](0170c0ca3b4c97453215a107ae4a5cb1_MD5.jpg)
+![](/secnotes/assets/img/metasploitable2/0170c0ca3b4c97453215a107ae4a5cb1_MD5.jpg)
 
-![](08da2a6acf61bfd34e77487cb3e50f1e_MD5.jpg)
+![](/secnotes/assets/img/metasploitable2/08da2a6acf61bfd34e77487cb3e50f1e_MD5.jpg)
 
 Con estas medidas ya no tenemos acceso por medio del script que escribimos en python, ni de forma manual con `smbclient`.  
 
