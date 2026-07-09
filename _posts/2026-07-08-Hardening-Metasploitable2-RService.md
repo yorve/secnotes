@@ -24,6 +24,8 @@ Este es un nuevo proyecto de Hardening para el laboratorio **Metasploitable2**. 
   
 [](/secnotes/assets/img/metasploitable2/banner.png)
 
+# Puerto 512 - EXEC
+
 Este es un protocolo de la suite de servicios heredados de Unix (R-Services). Este permite a un usuario ejecutar de forma remota un comando de la consola en una máquina servidora desde un cliente externo, sin necesidad de iniciar una sesión interactiva completa (como lo haríamos con Telnet o SSH.)
 
 Cuando el cliente envía un nombre de usuario, una contraseña y el comando que desea ejecutar, el demonio `rexecd`, en el servidor valida las credenciales y, si son correctas levanta una shell interna, ejecuta el comando y le devuelve el resultado en texto plano al cliente.
