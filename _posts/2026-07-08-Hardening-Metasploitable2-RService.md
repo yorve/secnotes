@@ -5,23 +5,23 @@ date: 2026-07-08
 img: /assets/img/metasploitable2/banner.png
 tags: [Vuln, Linux, Hardening, root, EXEC, RLOGIND, RSHD]
 ---
-Este es un nuevo proyecto de Hardening para el laboratorio Metasploitable2. Este laboratorio es conocido por tener múltiples vulnerabilidades que como atacante podemos sacar provecho y comprometer la máquina. Pero esta vez nos pondrémos en los zapatos del equipo defensivo y aplicaremos configuraciones correctas para volver Metasploitable 2 una máquina segura.
+Este es un nuevo proyecto de Hardening para el laboratorio **Metasploitable2**. Este laboratorio es conocido por tener múltiples vulnerabilidades que como atacante podemos sacar provecho y comprometer la máquina. Pero esta vez nos pondrémos en los zapatos del equipo defensivo y aplicaremos configuraciones correctas para volver Metasploitable 2 una máquina segura.
 
 **Los objetivos del proyecto serán:**
 
-  -Reducir la superficie de ataque.
-  -Corregir fallas de configuración.
-  -Implementar contramedidas.
-  -Validar la postura de seguridad.
+* Reducir la superficie de ataque.
+* Corregir fallas de configuración.
+* Implementar contramedidas.
+* Validar la postura de seguridad.
 
 **Metodología:**
 
-  -Inspección y validación de la vulnerabilidad. Remediación (Hardening).
-  -Validación de seguridad.
-  -Esta máquina tiene múltiples puertos y vulnerabilidades habilitados.
-  -Es por eso que iremos resolviéndolas por servicios por separado.
-  -Este puerto está asociado al servicio `exec` mediante el binario `netjit-sh rexecd`.
+* Inspección y validación de la vulnerabilidad. Remediación (Hardening).
+* Validación de seguridad.
+* Esta máquina tiene múltiples puertos y vulnerabilidades habilitados.
+* Es por eso que iremos resolviéndolas por servicios por separado.
 
+  
 [](secnotes/assets/img/metasploitable2/banner.png)
 
 Este es un protocolo de la suite de servicios heredados de Unix (R-Services). Este permite a un usuario ejecutar de forma remota un comando de la consola en una máquina servidora desde un cliente externo, sin necesidad de iniciar una sesión interactiva completa (como lo haríamos con Telnet o SSH.)
