@@ -85,7 +85,8 @@ y luego de reiniciar los servicios ya no tendremos desde nuestra máquina atacan
 
 Con estos procedimientos, la suite completa de los R-Services ha sido erradicada del servidor de forma definitiva, forzando a que cualquier interacción legítima de administración se haga obligatoriamente cifrada por el puerto 22 (SSH).
 
+                                                                                                               
+---------------------------------------------------------------------------------------------------------------------------------------------------------
 | 512 | EXEC    | Abierto (Protocolo obsoleto sin cifrar)                                             | Cerrado | Línea comentada en `/etc/inetd.conf` |
-| --- | ------- | ----------------------------------------------------------------------------------- | ------- | ------------------------------------ |
 | 513 | RLOGIND | Abierto (Autenticación laxa eludible mediante abuso de directivas en `hosts.equiv`) | Cerrado | Línea comentada en `/etc/inetd.conf` |
 | 514 | RSHD    | Abierto (Ejecución remota de comandos en texto plano sin mecanismos de cifrado)     | Cerrado | Línea comentada en `/etc/inetd.conf` |
