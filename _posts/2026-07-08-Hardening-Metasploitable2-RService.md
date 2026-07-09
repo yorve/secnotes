@@ -9,18 +9,18 @@ Este es un nuevo proyecto de Hardening para el laboratorio Metasploitable2. Este
 
 **Los objetivos del proyecto serán:**
 
--Reducir la superficie de ataque.
--Corregir fallas de configuración.
--Implementar contramedidas.
--Validar la postura de seguridad.
+  -Reducir la superficie de ataque.
+  -Corregir fallas de configuración.
+  -Implementar contramedidas.
+  -Validar la postura de seguridad.
 
 **Metodología:**
 
--Inspección y validación de la vulnerabilidad. Remediación (Hardening).
--Validación de seguridad.
--Esta máquina tiene múltiples puertos y vulnerabilidades habilitados.
--Es por eso que iremos resolviéndolas por servicios por separado.
--Este puerto está asociado al servicio `exec` mediante el binario `netjit-sh rexecd`.
+  -Inspección y validación de la vulnerabilidad. Remediación (Hardening).
+  -Validación de seguridad.
+  -Esta máquina tiene múltiples puertos y vulnerabilidades habilitados.
+  -Es por eso que iremos resolviéndolas por servicios por separado.
+  -Este puerto está asociado al servicio `exec` mediante el binario `netjit-sh rexecd`.
 
 [](secnotes/assets/img/metasploitable2/banner.png)
 
