@@ -1,0 +1,44 @@
+---
+layout: null
+---
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metasploitable 2 | SecNotes</title>
+    <link rel="icon" type="image/png" href="{{ site.baseurl }}/logo.png">
+    <style>
+        :root { --bg: #0a0a0a; --card: #141414; --text: #c9d1d9; --accent: #00ff41; --border: #222; }
+        body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; margin: 0; display: flex; justify-content: center; }
+        .container { width: 100%; max-width: 900px; padding: 60px 20px; }
+        h1 { color: #fff; border-bottom: 1px solid var(--border); padding-bottom: 10px; font-family: monospace; }
+        .back-link { text-decoration: none; color: var(--accent); display: inline-block; margin-bottom: 20px; }
+        
+        .project-desc { color: #8b949e; margin-bottom: 40px; font-size: 0.95rem; }
+        .post-list { margin-top: 30px; }
+        .post-item { display: block; text-decoration: none; color: var(--text); padding: 15px 0; border-bottom: 1px solid #1a1a1a; transition: 0.2s; }
+        .post-item:hover { padding-left: 10px; color: #fff; border-bottom-color: var(--accent); }
+        .post-date { color: #555; font-size: 0.9rem; margin-right: 15px; font-family: monospace; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="{{ site.baseurl }}/" class="back-link">← Volver al inicio</a>
+        <h1>>_ PROYECTO: HARDENING METASPLOITABLE 2</h1>
+        <p class="project-desc">Índice completo de auditorías, análisis de vulnerabilidades y procesos de fortificación aplicados paso a paso sobre el entorno Metasploitable 2.</p>
+
+        <div class="post-list">
+            {% assign posts_sorted = site.posts | reverse %}
+            {% for post in posts_sorted %}
+                {% if post.tags contains "Metasploitable 2" %}
+                    <a href="{{ post.url | relative_url }}" class="post-item">
+                        <span class="post-date">[{{ post.date | date: "%d/%m/%Y" }}]</span>
+                        {{ post.title }}
+                    </a>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
