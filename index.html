@@ -410,26 +410,46 @@ layout: null
         <!-- LISTA COMPLETA DE POSTS (Se oculta dinámicamente al buscar) -->
         <div class="post-list" id="all-posts-list">
             {% for post in site.posts %}
-            {% unless post.tags contains "Metasploitable 2" %}
-            <a href="{{ post.url | relative_url }}" class="post-card">
-                <div class="post-banner">
-                    {% if post.img %}
-                    <img src="{{ post.img | relative_url }}" alt="{{ post.title }}">
-                    {% else %}
-                    <img src="{{ site.baseurl }}/logo.png" style="opacity: 0.2; object-fit: contain;">
+                {% assign show_post = true %}
+                
+                {% if post.tags %}
+                    {% if post.tags contains "Metasploitable 2" %}
+                        {% assign show_post = false %}
                     {% endif %}
-                </div>
+                {% endif %}
 
-                <div class="post-info">
-                    <h2>{{ post.title }}</h2>
-                    <p>{{ post.content | strip_html | truncatewords: 20 }}</p>
-
-                    {% if post.tags %}
-                    <div class="post-tags">
-                        {% for tag in post.tags %}
-                        <span class="tag">{{ tag }}</span>
-                        {% endfor %}
+                {% if show_post %}
+                <a href="{{ post.url | relative_url }}" class="post-card">
+                    <div class="post-banner">
+                        {% if post.img %}
+                        <img src="{{ post.img | relative_url }}" alt="{{ post.title }}">
+                        {% else %}
+                        <img src="{{ site.baseurl }}/logo.png" style="opacity: 0.2; object-fit: contain;">
+                        {% endif %}
                     </div>
+
+                    <div class="post-info">
+                        <h2>{{ post.title }}</h2>
+                        <p>{{ post.content | strip_html | truncatewords: 20 }}</p>
+
+                        {% if post.tags %}
+                        <div class="post-tags">
+                            {% for tag in post.tags %}
+                            <span class="tag">{{ tag }}</span>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+
+                        <div class="post-meta">
+                            {{ post.date | date: "%d/%m/%Y" }} •
+                            {% capture words %}{{ post.content | number_of_words }}{% endcapture %}
+                            {{ words | plus: 250 | divided_by: 250 }} min lectura
+                        </div>
+                    </div>
+                </a>
+                {% endif %}
+            {% endfor %}
+        </div>
                     {% endif %}
 
                     <div class="post-meta">
