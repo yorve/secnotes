@@ -3,7 +3,7 @@ layout: post
 title: "Metasploitable 2 - Hardening Servicio Telnet"
 date: 2026-06-22
 img: /assets/img/metasploitable2/banner.png
-tags: [Vuln, Linux, Hardening, Telnet, root, ]
+tags: [Vuln, Linux, Hardening, Telnet, root, Metasploitable 2]
 ---
 ![Banner]({{ site.baseurl }}/assets/img/metasploitable2/banner.png)
 
