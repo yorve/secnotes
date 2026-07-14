@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Metasploitable 2 - Hardening Servicio Samba"
+title: "Metasploitable 2 - Hardening Samba"
 date: 2026-06-29
 img: /assets/img/metasploitable2/banner.png
 tags: [Vuln, Linux, Hardening, Samba, root, Metasploitable 2]
