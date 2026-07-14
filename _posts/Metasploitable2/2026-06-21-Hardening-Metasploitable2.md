@@ -3,7 +3,7 @@ layout: post
 title: "Metasploitable 2 - Hardening Servicio FTP"
 date: 2026-06-21
 img: /assets/img/metasploitable2/banner.png
-tags: [Vuln, Linux, Hardening, FTP, Backdoor, root, ]
+tags: [Vuln, Linux, Hardening, FTP, Backdoor, root, Metasploitable 2]
 ---
 ![BANNER]({{ site.baseurl }}/assets/img/metasploitable2/banner.png)
 
