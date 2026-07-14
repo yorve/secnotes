@@ -53,7 +53,7 @@ Para conectarse al servicio debemos usar el siguiente formato.
 
 ![img10]({{ site.baseurl }}/assets/img/cybersploit/10.png)
  
-Luego de intentos fallidos con contraseñas básicas (admin, root, etc) y al no tener más información intentamos ingresar la flag como contraseña `cybersploit{youtube.com/c/cybersploit`.
+Luego de intentos fallidos con contraseñas básicas (admin, root, etc) y al no tener más información intentamos ingresar la flag como contraseña `cybersploit{youtube.com/c/cybersploit}`.
 
 ![img11]({{ site.baseurl }}/assets/img/cybersploit/11.png)
  
