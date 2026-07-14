@@ -3,7 +3,7 @@ layout: post
 title: "Metasploitable 2 - Hardening Servicio DNS - BIND 9.4.2"
 date: 2026-06-23 21:00:00 -05000
 img: /assets/img/metasploitable2/banner.png
-tags: [Vuln, Linux, Hardening, DNS, BIND 9.4.2, root, ]
+tags: [Vuln, Linux, Hardening, DNS, BIND 9.4.2, root, Metasploitable 2 ]
 ---
 ![banner]({{ site.baseurl }}/assets/img/metasploitable2/banner.png)
 
