@@ -31,11 +31,14 @@ layout: null
         <div class="post-list">
             {% assign posts_sorted = site.posts | reverse %}
             {% for post in posts_sorted %}
-                {% if post.tags contains "Metasploitable 2" %}
-                    <a href="{{ post.url | relative_url }}" class="post-item">
-                        <span class="post-date">[{{ post.date | date: "%d/%m/%Y" }}]</span>
-                        {{ post.title }}
-                    </a>
+                <!-- Primero verificamos si el post tiene etiquetas creadas -->
+                {% if post.tags %}
+                    {% if post.tags contains "Metasploitable 2" %}
+                        <a href="{{ post.url | relative_url }}" class="post-item">
+                            <span class="post-date">[{{ post.date | date: "%d/%m/%Y" }}]</span>
+                            {{ post.title }}
+                        </a>
+                    {% endif %}
                 {% endif %}
             {% endfor %}
         </div>
