@@ -3,7 +3,7 @@ layout: post
 title: "Metasploitable 2 - Hardening Servicio WEB"
 date: 2026-06-25
 img: /assets/img/metasploitable2/banner.png
-tags: [Vuln, Linux, Hardening, web,]
+tags: [Vuln, Linux, Hardening, web, Metasploitable 2]
 ---
 ![banner]({{ site.baseurl }}/assets/img/metasploitable2/banner.png)
 
