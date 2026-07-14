@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Metasploitable 2 - Hardening Servicio FTP"
+title: "Metasploitable 2 - Hardening FTP"
 date: 2026-06-21
 img: /assets/img/metasploitable2/banner.png
 tags: [Vuln, Linux, Hardening, FTP, Backdoor, root, Metasploitable 2]
