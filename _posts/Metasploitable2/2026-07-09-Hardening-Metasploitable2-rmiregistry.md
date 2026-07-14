@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Metasploitable 2 - Hardening Servicio RMIREGISTRY"
+title: "Metasploitable 2 - Hardening Servicio rmiregistry"
 date: 2026-07-09
 img: /assets/img/metasploitable2/banner.png
 tags: [Vuln, Linux, Hardening, rmiregistry, CVE-2011-3556, Backdoor, root, Metasploitable 2 ]
