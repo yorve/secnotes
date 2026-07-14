@@ -3,7 +3,7 @@ layout: post
 title: "Metasploitable 2 - Hardening Servicio RCPBIND"
 date: 2026-06-28
 img: /assets/img/metasploitable2/banner.png
-tags: [Linux, Hardening, RCPBIND, Mountd]
+tags: [Linux, Hardening, RCPBIND, Mountd, Metasploitable 2]
 ---
 
 ![banner](/secnotes/assets/img/metasploitable2/banner.png)
