@@ -6,8 +6,6 @@ img: /assets/img/metasploitable2/banner.png
 tags: [Vuln, Linux, Hardening, mysql, root, Metasploitable 2 ]
 ---
 
-assets/img/metasploitable2/3306
-
 
 Este puerto contiene el canal de comunicación predeterminado que utiliza el motor de bases de datos **MySQL** para establecer conexiones  de red. Permite que las aplicaciones, interfaces y herramientas externas se comuniquen con el servidor para leer, escribir y administrar datos.
 
