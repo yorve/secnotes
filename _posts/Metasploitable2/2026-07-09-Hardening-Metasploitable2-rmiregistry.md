@@ -26,8 +26,7 @@ El servicio `rmiregistry` pertenece a una implementación antigua. Aunque el pro
 
 Para dar de baja este puerto de forma definitiva, vamos a localizar el proceso de Java.
 
-[Open: Pasted image 20260709184121.png](16b52e7df55d7b507323fe490967e4eb_MD5.jpg)
-![/secnotes/](16b52e7df55d7b507323fe490967e4eb_MD5.jpg)
+![](/secnotes/assets/img/metasploitable2/1099/16b52e7df55d7b507323fe490967e4eb_MD5.jpg)
 
 Luego terminaremos el proceso.
 
@@ -37,12 +36,12 @@ y removemos el servicio del arranque del sistema.
 
 `sudo update-rc.d -f rmiregistry remove`
 
-[Open: Pasted image 20260709184312.png](7b6bbdd4de9b3a5f71a32a4ef5fbaebc_MD5.jpg)
-![](7b6bbdd4de9b3a5f71a32a4ef5fbaebc_MD5.jpg)
+
+![](/secnotes/assets/img/metasploitable2/1099/7b6bbdd4de9b3a5f71a32a4ef5fbaebc_MD5.jpg)
 
 Al matar el proceso (`kill -9`) liberamos el puerto de inmediato en la memoria, y al removerlo con `update-rc.d`, le quitamos el permiso de arrancar solo cuando la máquina se encienda.
 
 Con esto completado, al escanear desde una máquina atacante, veremos que el puerto se encuentra cerrado.
 
-[Open: Pasted image 20260709184445.png](f648c8459742e92f3ecc6a2db20222d0_MD5.jpg)
-![](f648c8459742e92f3ecc6a2db20222d0_MD5.jpg)
+
+![](/secnotes/assets/img/metasploitable2/1099/f648c8459742e92f3ecc6a2db20222d0_MD5.jpg)
