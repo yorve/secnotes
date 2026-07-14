@@ -410,6 +410,7 @@ layout: null
         <!-- LISTA COMPLETA DE POSTS (Se oculta dinámicamente al buscar) -->
         <div class="post-list" id="all-posts-list">
             {% for post in site.posts %}
+            {% unless post.tags contains "Metasploitable 2" %}
             <a href="{{ post.url | relative_url }}" class="post-card">
                 <div class="post-banner">
                     {% if post.img %}
@@ -429,6 +430,18 @@ layout: null
                         <span class="tag">{{ tag }}</span>
                         {% endfor %}
                     </div>
+                    {% endif %}
+
+                    <div class="post-meta">
+                        {{ post.date | date: "%d/%m/%Y" }} •
+                        {% capture words %}{{ post.content | number_of_words }}{% endcapture %}
+                        {{ words | plus: 250 | divided_by: 250 }} min lectura
+                    </div>
+                </div>
+            </a>
+            {% endunless %}
+            {% endfor %}
+        </div>
                     {% endif %}
 
                     <div class="post-meta">
