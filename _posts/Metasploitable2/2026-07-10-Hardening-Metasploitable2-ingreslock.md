@@ -42,7 +42,7 @@ Al presionar Enter, pueden ocurrir 3 cosas que nos dirán a que nos enfrentamos.
 
 Sabiendo esto, vamos a aplicarlo.
 
-![](/secnotes/assets/img/1524/d58acbe52ae2773427c4c20e375edb36_MD5.jpg)
+![](/secnotes/assets/img/metasploitable2/1524/d58acbe52ae2773427c4c20e375edb36_MD5.jpg)
 
 _no mas preguntas señor juez..._
 
@@ -50,12 +50,12 @@ _no mas preguntas señor juez..._
 
 Para eliminar este backdoor procedemos a cerrar el puerto y así  mitigar esta vulnerabilidad. Nos vamos a nuestro archivo `inetd.conf` y comentamos la línea con el servicio expuesto.
 
-![](/secnotes/assets/img/1524/309a30c09ac25d7c4ba337320974a485_MD5.jpg)
+![](/secnotes/assets/img/metasploitable2/1524/309a30c09ac25d7c4ba337320974a485_MD5.jpg)
 
 reiniciamos el servicio y ya no tendremos acceso desde la máquina atacante.
 
-![](/secnotes/assets/img/1524/34c6e298fe8fcfe35ff7426491134dcb_MD5.jpg)
+![](/secnotes/assets/img/metasploitable2/1524/34c6e298fe8fcfe35ff7426491134dcb_MD5.jpg)
 
-![](/secnotes/assets/img/1524/f09c0f2f255e51599ca705ef84809516_MD5.jpg)
+![](/secnotes/assets/img/metasploitable2/1524/f09c0f2f255e51599ca705ef84809516_MD5.jpg)
 
 
