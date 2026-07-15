@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: metasploitable2-post
 title: "Metasploitable 2 - Hardening rpc.statd"
 date: 2026-07-14 09:40:00 -0400  # 
 img: /assets/img/metasploitable2/banner.png
