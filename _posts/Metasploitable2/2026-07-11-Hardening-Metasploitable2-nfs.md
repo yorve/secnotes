@@ -1,6 +1,6 @@
 ---
 layout: metasploitable2-post
-title: "Metasploitable 2 - Hardening nfs"
+title: "nfs"
 date: 2026-07-11
 img: /assets/img/metasploitable2/banner.png
 tags: [Vuln, Linux, Hardening, Metasploitable 2, root, NFS ]
