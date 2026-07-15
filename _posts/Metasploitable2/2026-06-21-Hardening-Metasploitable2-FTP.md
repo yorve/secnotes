@@ -1,5 +1,5 @@
 ---
-layout: metasploitable-post
+layout: metasploitable2-post
 title: "Metasploitable 2 - Hardening FTP"
 date: 2026-06-21
 img: /assets/img/metasploitable2/banner.png
