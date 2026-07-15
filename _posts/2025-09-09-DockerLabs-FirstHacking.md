@@ -3,7 +3,7 @@ layout: post
 title: "FirstHacking – TheHackerLabs - Linux - Fácil"
 date: 2025-09-09
 img: /assets/img/firsthacking/banner.png
-tags: [DockerLabs, Linux, Nmap, FTP]
+tags: [DockerLabs, Linux, FTP]
 ---
 
 ![img12]({{ site.baseurl }}/assets/img/firsthacking/banner.png)
