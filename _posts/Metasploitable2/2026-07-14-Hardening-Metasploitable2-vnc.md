@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Metasploitable 2 - Servicio X (Parte 1)"
+title: "Metasploitable 2 - Hardening vnc"
 date: 2026-07-14 09:10:00 -0400  # 
 img: /assets/img/metasploitable2/banner.png
 tags: [Metasploitable 2]
