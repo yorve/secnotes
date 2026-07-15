@@ -259,7 +259,11 @@ table code {
         </aside>
 
         <main class="content-area">
-            <a href="{{ site.baseurl }}/" class="back-link">← Volver al inicio</a>
+            {% if page.tags contains "Metasploitable 2" %}
+    <a href="{{ site.baseurl }}/metasploitable" class="volver" style="color: var(--accent); text-decoration: none;">← Volver al proyecto</a>
+{% else %}
+    <a href="{{ site.baseurl }}/" class="volver" style="color: var(--accent); text-decoration: none;">← Volver al inicio</a>
+{% endif %}
             <h1>{{ page.title }}</h1>
             <div class="post-meta">
                 {{ page.date | date: "%d/%m/%Y" }} • SecNotes 2.0
