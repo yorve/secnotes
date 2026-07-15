@@ -1,5 +1,5 @@
 ---
-layout: metasploitable-post
+layout: post
 title: "Metasploitable 2 - Hardening RCPBIND"
 date: 2026-06-28
 img: /assets/img/metasploitable2/banner.png
