@@ -1,5 +1,5 @@
 ---
-layout: metasploitable-post
+layout: metasploitable2-post
 title: "Metasploitable 2 - Hardening DNS - BIND 9.4.2"
 date: 2026-06-23 21:00:00 -0400
 img: /assets/img/metasploitable2/banner.png
