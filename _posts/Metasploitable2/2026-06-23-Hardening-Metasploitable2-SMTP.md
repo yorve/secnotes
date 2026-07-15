@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: metasploitable-post
 title: "Metasploitable 2 - Hardening SMTP"
 date: 2026-06-23 10:00:00 -0400
 img: /assets/img/metasploitable2/banner.png
