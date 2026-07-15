@@ -3,7 +3,7 @@ layout: post
 title: "Vacaciones - Dockerlabs - Linux - Fácil"
 date: 2025-08-21
 img: /assets/img/vacaciones/vacaciones.png
-tags: [DockerLabs, Linux, Enumeration, Sudo]
+tags: [DockerLabs, Linux, Enumeration]
 ---
 ![img1]({{ site.baseurl }}/assets/img/vacaciones/vacaciones.png)
 
