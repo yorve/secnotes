@@ -9,35 +9,192 @@ layout: null
     <title>Metasploitable 2 | SecNotes</title>
     <link rel="icon" type="image/png" href="{{ site.baseurl }}/logo.png">
     <style>
-        :root { --bg: #0a0a0a; --card: #141414; --text: #c9d1d9; --accent: #00ff41; --border: #222; }
-        body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; margin: 0; display: flex; justify-content: center; }
-        .container { width: 100%; max-width: 900px; padding: 60px 20px; }
-        h1 { color: #fff; border-bottom: 1px solid var(--border); padding-bottom: 10px; font-family: monospace; }
-        .back-link { text-decoration: none; color: var(--accent); display: inline-block; margin-bottom: 20px; }
+        :root { 
+            --bg: #0a0a0a; 
+            --card: #111111; 
+            --card-hover: #161616;
+            --text: #c9d1d9; 
+            --text-dim: #8b949e;
+            --accent: #00ff41; 
+            --border: #222; 
+        }
+        body { 
+            background: var(--bg); 
+            color: var(--text); 
+            font-family: 'Segoe UI', -apple-system, sans-serif; 
+            margin: 0; 
+            display: flex; 
+            justify-content: center; 
+        }
+        .container { 
+            width: 100%; 
+            max-width: 900px; 
+            padding: 60px 20px; 
+        }
         
-        .project-desc { color: #8b949e; margin-bottom: 40px; font-size: 0.95rem; }
-        .post-list { margin-top: 30px; }
-        .post-item { display: block; text-decoration: none; color: var(--text); padding: 15px 0; border-bottom: 1px solid #1a1a1a; transition: 0.2s; }
-        .post-item:hover { padding-left: 10px; color: #fff; border-bottom-color: var(--accent); }
-        .post-date { color: #555; font-size: 0.9rem; margin-right: 15px; font-family: monospace; }
+        /* Navegación y Cabecera */
+        .back-link { 
+            text-decoration: none; 
+            color: var(--accent); 
+            display: inline-block; 
+            margin-bottom: 30px; 
+            font-family: monospace;
+            font-size: 0.95rem;
+            transition: 0.2s;
+        }
+        .back-link:hover {
+            text-shadow: 0 0 8px var(--accent);
+        }
+        h1 { 
+            color: #fff; 
+            border-bottom: 1px solid var(--border); 
+            padding-bottom: 15px; 
+            font-family: monospace; 
+            font-size: 2rem;
+            margin-top: 0;
+        }
+        
+        /* Sección de Introducción */
+        .project-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 25px;
+            margin-bottom: 40px;
+        }
+        .project-desc { 
+            color: var(--text-dim); 
+            line-height: 1.6;
+            margin: 0 0 20px 0; 
+            font-size: 1rem; 
+        }
+        .meta-stats {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .stat-badge {
+            background: #1f1f1f;
+            border: 1px solid #333;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-family: monospace;
+            color: #fff;
+        }
+        .stat-badge span {
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        /* Títulos de sección */
+        h2 {
+            color: #fff;
+            font-family: monospace;
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        h2::after {
+            content: "";
+            flex-grow: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        /* Lista de auditorías estilo Terminal */
+        .post-list { 
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .post-item { 
+            display: flex; 
+            align-items: center;
+            text-decoration: none; 
+            color: var(--text); 
+            padding: 18px 20px; 
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            transition: all 0.25s ease; 
+        }
+        .post-item:hover { 
+            transform: translateY(-2px);
+            border-color: var(--accent); 
+            box-shadow: 0 4px 12px rgba(0, 255, 65, 0.05);
+            background: var(--card-hover);
+        }
+        .post-index {
+            color: var(--accent);
+            font-family: monospace;
+            font-weight: bold;
+            margin-right: 15px;
+            min-width: 30px;
+        }
+        .post-details {
+            flex-grow: 1;
+        }
+        .post-title {
+            color: #fff;
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        .post-date { 
+            color: var(--text-dim); 
+            font-size: 0.85rem; 
+            font-family: monospace; 
+        }
+        .read-icon {
+            color: var(--accent);
+            font-family: monospace;
+            font-size: 1.1rem;
+            transition: 0.2s;
+        }
+        .post-item:hover .read-icon {
+            transform: translateX(4px);
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <a href="{{ site.baseurl }}/" class="back-link">← Volver al inicio</a>
+        <a href="{{ site.baseurl }}/" class="back-link">← [cd ..] Volver al inicio</a>
+        
         <h1>>_ PROYECTO: HARDENING METASPLOITABLE 2</h1>
-        <p class="project-desc">Índice completo de auditorías, análisis de vulnerabilidades y procesos de fortificación aplicados paso a paso sobre el entorno Metasploitable 2.</p>
+        
+        <div class="project-card">
+            <p class="project-desc">
+                Metasploitable 2 es un entorno deliberadamente vulnerable diseñado para pruebas de seguridad. Sin embargo, en esta serie cambiamos los roles corporativos tradicionales: asumimos el papel de administradores defensivos (Blue Team) para analizar los vectores de ataque, documentar las debilidades y aplicar procesos rigurosos de fortificación (hardening) servicio por servicio.
+            </p>
+            <div class="meta-stats">
+                <div class="stat-badge">Objetivo: <span>Fortificación Completa</span></div>
+                <div class="stat-badge">Enfoque: <span>Defensivo (Blue Team)</span></div>
+                <div class="stat-badge">Servicios auditados: <span>10 / 10</span></div>
+            </div>
+        </div>
+
+        <h2>// ÍNDICE DE AUDITORÍAS Y SOLUCIONES</h2>
 
         <div class="post-list">
             {% assign posts_sorted = site.posts | reverse %}
+            {% assign counter = 1 %}
             {% for post in posts_sorted %}
-                <!-- Primero verificamos si el post tiene etiquetas creadas -->
                 {% if post.tags %}
                     {% if post.tags contains "Metasploitable 2" %}
                         <a href="{{ post.url | relative_url }}" class="post-item">
-                            <span class="post-date">[{{ post.date | date: "%d/%m/%Y" }}]</span>
-                            {{ post.title }}
+                            <span class="post-index">
+                                {% if counter < 10 %}0{% endif %}{{ counter }}.
+                            </span>
+                            <div class="post-details">
+                                <div class="post-title">{{ post.title }}</div>
+                                <span class="post-date">Publicado el {{ post.date | date: "%d/%m/%Y" }}</span>
+                            </div>
+                            <span class="read-icon">-></span>
                         </a>
+                        {% assign counter = counter | plus: 1 %}
                     {% endif %}
                 {% endif %}
             {% endfor %}
