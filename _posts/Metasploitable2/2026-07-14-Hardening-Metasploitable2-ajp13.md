@@ -1,6 +1,6 @@
 ---
 layout: metasploitable2-post
-title: "Metasploitable 2 - Hardening ajp13"
+title: "ajp13"
 date: 2026-07-14 09:25:00 -0400  # 
 img: /assets/img/metasploitable2/banner.png
 tags: [Metasploitable 2, ajp13, CVE-2020-1938]
