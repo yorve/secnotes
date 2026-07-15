@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Metasploitable 2 - Hardening X11"
-date: 2026-07-14 09:15:00 -0400  # 
+date: 2026-07-14 09:15:00 -0400  
 img: /assets/img/metasploitable2/banner.png
 tags: [Metasploitable 2, X11]
 ---
