@@ -1,6 +1,6 @@
 ---
 layout: metasploitable2-post
-title: "Metasploitable 2 - Hardening RCPBIND"
+title: "RCPBIND"
 date: 2026-06-28
 img: /assets/img/metasploitable2/banner.png
 tags: [Linux, Hardening, RCPBIND, Mountd, Metasploitable 2]
