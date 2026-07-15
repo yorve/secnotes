@@ -1,0 +1,137 @@
+---
+layout: post
+---
+
+<!-- Renderiza primero el contenido del post normal -->
+<div class="post-content">
+  {{ content }}
+</div>
+
+<hr style="border: 0; border-top: 1px solid #222; margin: 40px 0 20px 0;">
+
+<!-- Sección de navegación de la serie Metasploitable 2 -->
+<div class="series-navigation">
+  {% assign series_posts = site.posts | where_exp:"item", "item.tags contains 'Metasploitable 2'" | reverse %}
+  {% assign prev_post = nil %}
+  {% assign next_post = nil %}
+  
+  {% for sp in series_posts %}
+    {% if sp.url == page.url %}
+      {% assign current_index = forloop.index0 %}
+      {% assign prev_index = current_index | minus: 1 %}
+      {% assign next_index = current_index | plus: 1 %}
+      
+      {% if prev_index >= 0 %}
+        {% assign prev_post = series_posts[prev_index] %}
+      {% endif %}
+      
+      {% if next_index < series_posts.size %}
+        {% assign next_post = series_posts[next_index] %}
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+
+  <div class="nav-buttons">
+    {% if prev_post %}
+      <a href="{{ prev_post.url | relative_url }}" class="nav-btn prev">
+        <span class="btn-arrow">«</span> 
+        <div class="btn-text">
+          <span class="btn-label">ANTERIOR</span>
+          <span class="btn-title">{{ prev_post.title | truncate: 30 }}</span>
+        </div>
+      </a>
+    {% else %}
+      <div class="nav-btn-placeholder"></div>
+    {% endif %}
+
+    <a href="{{ site.baseurl }}/metasploitable" class="nav-btn index-btn" title="Volver al índice del proyecto">
+      <span class="blink-prompt">></span> ÍNDICE
+    </a>
+
+    {% if next_post %}
+      <a href="{{ next_post.url | relative_url }}" class="nav-btn next">
+        <div class="btn-text" style="text-align: right;">
+          <span class="btn-label">SIGUIENTE</span>
+          <span class="btn-title">{{ next_post.title | truncate: 30 }}</span>
+        </div>
+        <span class="btn-arrow">»</span>
+      </a>
+    {% else %}
+      <div class="nav-btn-placeholder"></div>
+    {% endif %}
+  </div>
+</div>
+
+<style>
+  .series-navigation {
+    margin-top: 30px;
+    font-family: monospace;
+  }
+  .nav-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+  }
+  .nav-btn {
+    display: flex;
+    align-items: center;
+    background: #111;
+    border: 1px solid #222;
+    padding: 10px 15px;
+    border-radius: 6px;
+    text-decoration: none;
+    color: #c9d1d9;
+    transition: all 0.2s ease;
+    flex: 1;
+    max-width: 45%;
+  }
+  .nav-btn:hover {
+    border-color: #00ff41;
+    box-shadow: 0 0 10px rgba(0, 255, 65, 0.1);
+  }
+  .index-btn {
+    justify-content: center;
+    max-width: fit-content;
+    font-weight: bold;
+    color: #00ff41;
+    border-style: dashed;
+  }
+  .btn-arrow {
+    font-size: 1.5rem;
+    color: #00ff41;
+  }
+  .prev .btn-arrow { margin-right: 12px; }
+  .next .btn-arrow { margin-left: 12px; }
+  
+  .btn-text {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .btn-label {
+    font-size: 0.75rem;
+    color: #8b949e;
+  }
+  .btn-title {
+    font-size: 0.85rem;
+    color: #fff;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+  .nav-btn-placeholder {
+    flex: 1;
+    max-width: 45%;
+  }
+  @media (max-width: 600px) {
+    .nav-buttons {
+      flex-direction: column;
+    }
+    .nav-btn, .nav-btn-placeholder {
+      max-width: 100%;
+      width: 100%;
+    }
+    .index-btn { order: 3; }
+  }
+</style>
