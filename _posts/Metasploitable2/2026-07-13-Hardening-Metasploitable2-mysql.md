@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: metasploitable2-post
 title: "Metasploitable 2 - Hardening MySQL"
 date: 2026-07-13
 img: /assets/img/metasploitable2/banner.png
