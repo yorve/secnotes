@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Metasploitable 2 - Hardening RServices Suite"
+title: "RServices Suite"
 date: 2026-07-08
 img: /assets/img/metasploitable2/banner.png
 tags: [Vuln, Linux, Hardening, root, EXEC, RLOGIND, RSHD, Metasploitable 2]
