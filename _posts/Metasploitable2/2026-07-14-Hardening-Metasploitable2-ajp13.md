@@ -15,7 +15,7 @@ En lugar de usar HTTP normal, que es texto plano y consume más recursos procesa
 
 ## Reconocimiento 
 
-![](/sectnotes/assets/img/metasploitable2/8009/f5755cf85c0b424ad110497512185dde_MD5.jpg)
+![](/secnotes/assets/img/metasploitable2/8009/f5755cf85c0b424ad110497512185dde_MD5.jpg)
 
 Las versiones antiguas de Tomcat es que el conector AJP tiene una confianza ciega en quien se conecta. Esto da lugar a una vulnerabilidad famosa llamada **Ghostcat** y está asociada al **CVE-2020-1938.**
 
@@ -37,11 +37,11 @@ editamos el archivo
 
 y buscamos la sección que define el conector AJP en el puerto 8009
 
-![](/sectnotes/assets/img/metasploitable2/8009/69c6a55ce1bb04080e53fa783566a9d1_MD5.jpg)
+![](/secnotes/assets/img/metasploitable2/8009/69c6a55ce1bb04080e53fa783566a9d1_MD5.jpg)
 
 que hicimos:
 
-![](/sectnotes/assets/img/metasploitable2/8009/3f347f7efad7150aebeda205dfdbe34d_MD5.jpg)
+![](/secnotes/assets/img/metasploitable2/8009/3f347f7efad7150aebeda205dfdbe34d_MD5.jpg)
 
 quitamos el comentario (-->) de la primera línea y lo movimos al final.
 
@@ -49,6 +49,6 @@ luego reiniciamos el servicio para que aplique el cambio
 
 `/etc/init.d/tomcat5.5 restart`
 
-![](/sectnotes/assets/img/metasploitable2/8009/75b5406f99939912308beabb35d252df_MD5.jpg)
+![](/secnotes/assets/img/metasploitable2/8009/75b5406f99939912308beabb35d252df_MD5.jpg)
 
-![](/sectnotes/assets/img/metasploitable2/8009/60cb4dcc33cb78025b78f591be5a5d03_MD5.jpg)
+![](/secnotes/assets/img/metasploitable2/8009/60cb4dcc33cb78025b78f591be5a5d03_MD5.jpg)
