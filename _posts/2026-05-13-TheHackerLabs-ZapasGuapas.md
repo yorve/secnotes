@@ -3,7 +3,7 @@ layout: post
 title: "ZapasGuapas - Hackerlabs - Linux"
 date: 2026-05-13
 img: /assets/img/zapas/banner.png
-tags: [Command Injection, RCE, Sudo, Abuse Of Functionality, APT, AWS-CLI, stty, Linux, GTFObins, Shell Escape]
+tags: [Command Injection, RCE, APT, AWS-CLI, stty, Linux, GTFObins, Shell Escape]
 ---
 ![banner]({{ site.baseurl }}/assets/img/zapas/banner.png)
 
