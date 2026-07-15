@@ -1,6 +1,6 @@
 ---
 layout: metasploitable2-post
-title: "Metasploitable 2 - Hardening Ingreslock"
+title: "Ingreslock"
 date: 2026-07-10
 img: /assets/img/metasploitable2/banner.png
 tags: [Vuln, Linux, Hardening, FTP, Backdoor, root, Metasploitable 2]
