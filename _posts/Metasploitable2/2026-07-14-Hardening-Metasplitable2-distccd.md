@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Metasploitable 2 - Hardening distccd"
-date: 2026-07-14
+date: 2026-07-14 09:00:00 -0400
 img: /assets/img/metasploitable2/banner.png
 tags: [Vuln, Linux, Hardening, distccd, C, C++, root, Metasploitable 2 ]
 ---
