@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Metasploitable 2 - Hardening irc / irc-u"
+title: "Metasploitable 2 - Hardening irc - irc-u"
 date: 2026-07-14 09:20:00 -0400  
 img: /assets/img/metasploitable2/banner.png
 tags: [Metasploitable 2, irc, irc-u, CVE-2010-2075]
