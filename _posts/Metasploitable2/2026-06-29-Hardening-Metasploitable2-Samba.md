@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: metasploitable2-post
 title: "Metasploitable 2 - Hardening Samba"
 date: 2026-06-29
 img: /assets/img/metasploitable2/banner.png
