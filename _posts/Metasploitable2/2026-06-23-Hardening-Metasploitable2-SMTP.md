@@ -1,6 +1,6 @@
 ---
 layout: metasploitable2-post
-title: "Metasploitable 2 - Hardening SMTP"
+title: "SMTP"
 date: 2026-06-23 10:00:00 -0400
 img: /assets/img/metasploitable2/banner.png
 tags: [Vuln, Linux, Hardening, SMTP, Enumerate, root, Metasploitable 2 ]
