@@ -1,6 +1,6 @@
 ---
 layout: metasploitable2-post
-title: "Metasploitable 2 - Hardening Telnet"
+title: "Telnet"
 date: 2026-06-22
 img: /assets/img/metasploitable2/banner.png
 tags: [Vuln, Linux, Hardening, Telnet, root, Metasploitable 2]
