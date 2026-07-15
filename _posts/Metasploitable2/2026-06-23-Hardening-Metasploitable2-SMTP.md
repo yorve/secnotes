@@ -3,7 +3,7 @@ layout: metasploitable2-post
 title: "SMTP"
 date: 2026-06-23 10:00:00 -0400
 img: /assets/img/metasploitable2/banner.png
-tags: [Vuln, Linux, Hardening, SMTP, Enumerate, root, Metasploitable 2 ]
+tags: [Vuln, Linux, Hardening, SMTP, Enumeration, root, Metasploitable 2 ]
 ---
 
 ![banner]({{ site.baseurl }}/assets/img/metasploitable2/banner.png)
