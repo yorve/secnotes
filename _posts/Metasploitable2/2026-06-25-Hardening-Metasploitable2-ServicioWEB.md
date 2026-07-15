@@ -1,6 +1,6 @@
 ---
 layout: metasploitable2-post
-title: "Metasploitable 2 - Hardening WEB"
+title: "WEB"
 date: 2026-06-25
 img: /assets/img/metasploitable2/banner.png
 tags: [Vuln, Linux, Hardening, web, Metasploitable 2]
