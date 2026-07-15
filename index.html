@@ -371,7 +371,27 @@ layout: null
             font-size: 1.1rem;
             /* El icono un pelín más grande que el texto */
         }
+/* Color amarillo destacado para el proyecto */
+.project-highlight {
+    color: #ffd700 !important; /* Amarillo oro hacker */
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
 
+/* Forzamos que su cursor parpadeante también sea amarillo */
+.project-highlight .blink-prompt {
+    color: #ffd700 !important;
+}
+
+/* Efecto hover (al pasar el mouse por encima) */
+.project-highlight:hover {
+    color: #ffffff !important; /* Cambia a blanco al pasar el mouse */
+    text-shadow: 0 0 8px rgba(255, 215, 0, 0.6); /* Agrega un sutil brillo neón amarillo */
+}
+
+.project-highlight:hover .blink-prompt {
+    color: #ffffff !important;
+}
     </style>
 </head>
 
