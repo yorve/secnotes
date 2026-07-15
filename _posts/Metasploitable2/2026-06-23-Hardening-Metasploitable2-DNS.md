@@ -1,7 +1,7 @@
 ---
-layout: post
+layout: metasploitable-post
 title: "Metasploitable 2 - Hardening DNS - BIND 9.4.2"
-date: 2026-06-23 21:00:00 -05000
+date: 2026-06-23 21:00:00 -0400
 img: /assets/img/metasploitable2/banner.png
 tags: [Vuln, Linux, Hardening, DNS, BIND 9.4.2, root, Metasploitable 2 ]
 ---
