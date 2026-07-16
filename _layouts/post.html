@@ -11,19 +11,20 @@ layout: null
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
-    <!-- Metadata para LinkedIn (Open Graph) -->
+    <!-- Metadata para LinkedIn (Open Graph) - Corregido Absoluto -->
     <meta property="og:type" content="article" />
     <meta property="og:title" content="{{ page.title }} | SecNotes" />
     <meta property="og:description" content="{{ content | strip_html | truncatewords: 25 }}" />
-    <meta property="og:url" content="{{ site.url }}{{ site.baseurl }}{{ page.url }}" />
+    <meta property="og:url" content="https://yorve.github.io/secnotes{{ page.url }}" />
     <meta property="og:site_name" content="SecNotes" />
+    
     {% if page.img %}
-    <meta property="og:image" content="{{ site.url }}{{ site.baseurl }}{{ page.img }}" />
+    <meta property="og:image" content="https://yorve.github.io/secnotes{{ page.img }}" />
     {% else %}
-    <meta property="og:image" content="{{ site.url }}{{ site.baseurl }}/ico.jpg" />
+    <meta property="og:image" content="https://yorve.github.io/secnotes/ico.jpg" />
     {% endif %}
     <meta name="twitter:card" content="summary_large_image" />
-
+    
     <style>
         :root {
             --bg: #0a0a0a;
