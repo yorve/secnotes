@@ -1,9 +1,7 @@
----
-layout: null
----
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% include google-analytics.html %}
@@ -11,14 +9,17 @@ layout: null
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
-    <!-- METADATOS ORIGINALES (SÍ FUNCIONAN) -->
+    <!-- METADATOS SEGUROS (Evitan URLs rotas si olvidas una barra '/') -->
     <meta property="og:type" content="article" />
     <meta property="og:title" content="{{ page.title }} | SecNotes" />
-    <meta property="og:description" content="{{ content | strip_html | truncatewords: 25 }}" />
-    <meta property="og:url" content="{{ site.url }}{{ site.baseurl }}{{ page.url }}" />
     <meta property="og:site_name" content="SecNotes" />
+    <meta property="og:url" content="{{ page.url | absolute_url }}" />
     
-    <meta property="og:image" content="{{ site.url }}{{ site.baseurl }}{{ page.img }}" />
+    <!-- Evita que códigos extraños o CSS del contenido rompan la descripción de la tarjeta -->
+    <meta property="og:description" content="Documentación técnica y writeups de ciberseguridad por Yorve CSEC." />
+    
+    <!-- Si el post tiene 'img' en el front matter, la convierte en URL absoluta perfecta. Si no, usa tu logo 'ico.jpg' -->
+    <meta property="og:image" content="{% if page.img %}{{ page.img | absolute_url }}{% else %}{{ '/ico.jpg' | absolute_url }}{% endif %}" />
     <meta name="twitter:card" content="summary_large_image" />
     
     <style>
@@ -28,17 +29,6 @@ layout: null
             --text: #c9d1d9;
             --accent: #00ff41;
             --border: #30363d;
-            --title: #ffffff;
-        }
-
-        /* --- Variables para el Modo Claro --- */
-        [data-theme="light"] {
-            --bg: #f4f4f5;
-            --sidebar-bg: #ffffff;
-            --text: #1f2328;
-            --title: #0a0a0a;
-            --border: #d0d7de;
-            --accent: #00801b; 
         }
 
         body { 
@@ -47,9 +37,30 @@ layout: null
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
             margin: 0; 
             display: flex;
-            transition: background 0.3s ease, color 0.3s ease;
         }
-
+        .content-area {
+    flex: 1;
+    padding: 40px 5%;    /* Padding en porcentaje para que se ajuste al dividir pantalla */
+    max-width: 900px;
+    box-sizing: border-box;
+}
+@media (max-width: 900px) { /* Si la ventana mide menos de 900px (como en tu captura) */
+    .main-wrapper { 
+        flex-direction: column; 
+    }
+    .sidebar { 
+        width: 100%; 
+        max-width: 100%;
+        height: auto; 
+        position: relative; 
+        border-right: none; 
+        border-bottom: 1px solid var(--border); 
+        padding: 20px;
+    }
+    .content-area { 
+        padding: 30px 20px; 
+    }
+}
         /* Contenedor Principal */
         .main-wrapper {
             display: flex;
@@ -59,20 +70,20 @@ layout: null
 
         /* SIDEBAR IZQUIERDA FIJA */
         .sidebar {
-            width: 260px;
-            flex-shrink: 0;
-            height: 100vh;
-            background: var(--sidebar-bg);
-            border-right: 1px solid var(--border);
-            position: sticky;
-            top: 0;
-            padding: 30px 20px;
-            box-sizing: border-box;
-            display: flex;
-            flex-direction: column;
-            z-index: 100;
-            transition: background 0.3s ease, border-color 0.3s ease;
-        }
+    width: 20%;          /* En lugar de px fijos, usamos un porcentaje */
+    min-width: 200px;    /* Pero que no sea más pequeña que esto para que se lea */
+    max-width: 260px;    /* Ni más grande que esto en pantallas gigantes */
+    height: 100vh;
+    background: var(--sidebar-bg);
+    border-right: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    padding: 30px 15px;  /* Reduje un poco el padding lateral */
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    z-index: 100;
+}
 
         .sidebar-logo img {
             width: 70px;
@@ -101,36 +112,8 @@ layout: null
         .side-link i { width: 20px; text-align: center; }
         .side-link:hover { color: var(--accent); transform: translateX(5px); }
 
-        /* Estilo para el botón de cambio de modo en el sidebar */
-        .theme-toggle-container {
-            margin-top: 15px;
-            width: 100%;
-        }
-
-        .theme-btn-custom {
-            background: transparent !important;
-            border: 1px solid var(--border) !important;
-            border-radius: 6px !important;
-            cursor: pointer;
-            padding: 8px 12px !important;
-            color: var(--text) !important;
-            font-family: monospace;
-            font-size: 0.85rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            width: 100%;
-            box-sizing: border-box;
-            transition: all 0.3s ease;
-        }
-
-        .theme-btn-custom:hover {
-            color: var(--accent) !important;
-            border-color: var(--accent) !important;
-        }
-
         .sidebar-social { margin-top: 40px; }
-        .sidebar-social p { font-size: 0.7rem; color: var(--text) !important; opacity: 0.6; letter-spacing: 1px; margin-bottom: 15px; font-weight: bold; }
+        .sidebar-social p { font-size: 0.7rem; color: #444; letter-spacing: 1px; margin-bottom: 15px; font-weight: bold; }
         
         .sidebar-social a {
             display: flex;
@@ -143,44 +126,33 @@ layout: null
             transition: 0.3s;
         }
 
-        .sidebar-social a:hover { color: var(--accent); }
+        .sidebar-social a:hover { color: #fff; }
 
         .sidebar-footer {
             font-size: 0.75rem;
-            color: #555;
+            color: #333;
             margin-top: 20px;
         }
 
         /* ÁREA DE CONTENIDO (POST) */
         .content-area {
-            flex-grow: 1;
+            flex: 1;
             padding: 60px 80px;
             max-width: 900px;
-            box-sizing: border-box;
-            transition: background 0.3s ease;
         }
 
-        .back-link, .volver {
+        .back-link {
             text-decoration: none;
             color: var(--accent);
             font-size: 0.9rem;
             display: inline-block;
             margin-bottom: 20px;
-            transition: 0.2s;
-        }
-        .back-link:hover, .volver:hover {
-            text-shadow: 0 0 8px var(--accent);
         }
 
         h1 { 
-            color: var(--title) !important; 
+            color: #fff; 
             font-size: 2.2rem;
             margin: 0 0 10px 0;
-            font-family: 'Courier New', Courier, monospace;
-        }
-
-        h2, h3 {
-            color: var(--title) !important;
         }
 
         .post-meta {
@@ -203,81 +175,70 @@ layout: null
 
         /* Estilo para código/terminal */
         code { background: #161b22; padding: 2px 6px; border-radius: 4px; font-family: monospace; color: #ff7b72; }
-        pre { background: #0d1117 !important; border: 1px solid var(--border); padding: 15px; border-radius: 8px; position: relative; overflow-x: auto; }
+        pre { background: #161b22; padding: 20px; border-radius: 8px; border: 1px solid var(--border); overflow-x: auto; }
 
-        /* Consola interactiva (Solo para comandos de terminal) */
-        pre.terminal::before {
-            content: "root@yorve:~#";
-            display: block;
-            color: #8b949e;
-            font-size: 0.7rem;
-            margin-bottom: 10px;
-            border-bottom: 1px solid #222;
-            font-family: monospace;
-        }
-
-        /* --- Estilos Personalizados para las Tablas de Hardening --- */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 0.95em;
-            background-color: #161b22;
-            border: 1px solid var(--border);
-        }
-
-        table th {
-            background-color: #1f242c !important;
-            color: #ffffff !important;
-            padding: 12px;
-            text-align: left;
-            border-bottom: 2px solid var(--border);
-        }
-
-        table td {
-            padding: 12px;
-            border-bottom: 1px solid var(--border);
-            color: #c9d1d9;
-        }
-
-        table tr:nth-child(even) {
-            background-color: #0d1117; 
-        }
-
-        table code {
-            background-color: #21262d !important;
-            color: #ff7b72 !important;
-            padding: 2px 6px !important;
-            border-radius: 4px;
-            font-family: monospace;
-        }
-
-        /* RESPONSIVO INTEGRADO */
-        @media (max-width: 992px) {
+        /* Responsivo */
+        @media (max-width: 1100px) {
             body { flex-direction: column; }
-            .main-wrapper { flex-direction: column; }
-            .sidebar { 
-                width: 100%; 
-                max-width: 100%; 
-                height: auto; 
-                position: relative; 
-                border-right: none; 
-                border-bottom: 1px solid var(--border); 
-                padding: 20px;
-            }
-            .content-area { 
-                padding: 40px 20px; 
-            }
+            .sidebar { width: 100%; height: auto; position: relative; border-right: none; border-bottom: 1px solid var(--border); }
+            .content-area { padding: 40px 15px; }
         }
+        pre {
+    background: #0d1117 !important;
+    border: 1px solid #30363d;
+    padding: 15px;
+    border-radius: 8px;
+    position: relative;
+}
+pre::before {
+    content: "root@yorve:~#";
+    display: block;
+    color: #8b949e;
+    font-size: 0.7rem;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #222;
+}
+        /* --- Estilos Personalizados para las Tablas de Hardening --- */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.95em;
+    background-color: #161b22; /* Fondo oscuro de la tabla */
+    border: 1px solid #30363d;
+}
+
+table th {
+    background-color: #1f242c !important; /* Encabezado un poco más claro */
+    color: #ffffff !important;       /* Tu verde neón para los títulos */
+    padding: 12px;
+    text-align: left;
+    border-bottom: 2px solid #30363d;
+}
+
+table td {
+    padding: 12px;
+    border-bottom: 1px solid #30363d;
+    color: #c9d1d9; /* Texto gris claro tipo consola */
+}
+
+/* Efecto cebra: alterna filas oscuras y más claras */
+table tr:nth-child(even) {
+    background-color: #0d1117; 
+}
+
+/* Estilo para las etiquetas de código inline dentro de la tabla */
+table code {
+    background-color: #21262d !important;
+    color: #ff7b72 !important; /* Color rojizo para destacar comandos/versiones */
+    padding: 2px 6px !important;
+    border-radius: 4px;
+    font-family: monospace;
+}
     </style>
 </head>
 <body>
-
-    <!-- BARRA DE PROGRESO INTEGRADA -->
-    <div class="progress-container" style="position: fixed; top: 0; left: 0; width: 100%; height: 4px; z-index: 999; background: transparent;">
-        <div id="scroll-bar" style="height: 100%; width: 0%; background: var(--accent); transition: width 0.1s ease-out;"></div>
-    </div>
 
     <div class="main-wrapper">
         <aside class="sidebar">
@@ -288,18 +249,11 @@ layout: null
                 
                 <nav class="sidebar-nav">
                     <a href="{{ site.baseurl }}/" class="side-link"><i class="fas fa-home"></i> Inicio</a>
-                    <a href="{{ site.baseurl }}/metasploitable2" class="side-link" style="color: #ffd700;">
-                        <i class="fas fa-shield-alt" style="color: #ffd700;"></i> Hardening Metasploitable2
-                    </a>
+                   <a href="{{ site.baseurl }}/metasploitable2" class="side-link" target="_blank">
+    <i class="fas fa-shield-alt"></i> Hardening Metasploitable2
+</a>
                     <a href="{{ site.baseurl }}/tags" class="side-link"><i class="fas fa-tags"></i> Etiquetas</a>
                     <a href="https://github.com/yorve/Auto-Recon" target="_blank" class="side-link"><i class="fas fa-terminal"></i> Auto-Recon</a>
-                    
-                    <!-- BOTÓN DEL MODO CLARO/OSCURO SANEADO -->
-                    <div class="theme-toggle-container">
-                        <button id="theme-toggle" class="theme-btn-custom" aria-label="Cambiar modo de color">
-                            <i class="fas fa-sun" id="theme-icon"></i> <span id="theme-text">Modo Oscuro</span>
-                        </button>
-                    </div>
                 </nav>
 
                 <div class="sidebar-social">
@@ -307,9 +261,9 @@ layout: null
                     <a href="https://github.com/yorve" target="_blank"><i class="fab fa-github"></i> GitHub</a>
                     <a href="https://linkedin.com/in/yonathan-rivera-velozo" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
                     <a href="mailto:yorve.csec@gmail.com"><i class="fas fa-envelope"></i> Email</a>
-                    <a href="https://buymeacoffee.com/yorve" target="_blank" class="side-link" style="margin-top: 15px;">
-                        <i class="fas fa-coffee"></i> Apoya SecNotes
-                    </a>
+                    <a href="https://buymeacoffee.com/yorve" target="_blank" class="donate-btn">
+
+    <i class="fas fa-coffee"></i> Apoya el contenido de SecNotes </a>
                 </div>
                 
                 <div class="sidebar-footer">
@@ -320,11 +274,10 @@ layout: null
 
         <main class="content-area">
             {% if page.tags contains "Metasploitable 2" %}
-                <a href="{{ site.baseurl }}/metasploitable2" class="volver">← Volver al proyecto</a>
-            {% else %}
-                <a href="{{ site.baseurl }}/" class="volver">← Volver al inicio</a>
-            {% endif %}
-
+    <a href="{{ site.baseurl }}/metasploitable2" class="volver" style="color: var(--accent); text-decoration: none;">← Volver al proyecto</a>
+{% else %}
+    <a href="{{ site.baseurl }}/" class="volver" style="color: var(--accent); text-decoration: none;">← Volver al inicio</a>
+{% endif %}
             <h1>{{ page.title }}</h1>
             <div class="post-meta">
                 {{ page.date | date: "%d/%m/%Y" }} • SecNotes 2.0
@@ -337,93 +290,5 @@ layout: null
         </main>
     </div>
 
-    <!-- SCRIPTS DE COMPORTAMIENTO (TEMA, COPIAR CÓDIGO Y SCROLL) -->
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            // --- 1. Lógica del Tema Claro/Oscuro ---
-            const themeToggle = document.getElementById('theme-toggle');
-            const themeIcon = document.getElementById('theme-icon');
-            const themeText = document.getElementById('theme-text');
-            
-            function applyTheme(theme) {
-                if (theme === 'light') {
-                    document.documentElement.setAttribute('data-theme', 'light');
-                    if (themeIcon) themeIcon.className = 'fas fa-sun';
-                    if (themeText) themeText.textContent = 'Modo Claro';
-                } else {
-                    document.documentElement.setAttribute('data-theme', 'dark');
-                    if (themeIcon) themeIcon.className = 'fas fa-moon';
-                    if (themeText) themeText.textContent = 'Modo Oscuro';
-                }
-            }
-
-            const currentTheme = localStorage.getItem('theme') || 'dark';
-            applyTheme(currentTheme);
-
-            if (themeToggle) {
-                themeToggle.addEventListener('click', () => {
-                    let theme = document.documentElement.getAttribute('data-theme');
-                    if (theme === 'dark') {
-                        applyTheme('light');
-                        localStorage.setItem('theme', 'light');
-                    } else {
-                        applyTheme('dark');
-                        localStorage.setItem('theme', 'dark');
-                    }
-                });
-            }
-
-            // --- 2. Lógica del Botón de Copiar Código ---
-            const blocks = document.querySelectorAll("pre");
-            blocks.forEach((block) => {
-                block.style.position = "relative";
-                const button = document.createElement("button");
-                button.className = "copy-code-btn";
-                button.innerHTML = '<i class="far fa-copy"></i>';
-                button.setAttribute("aria-label", "Copiar código");
-
-                Object.assign(button.style, {
-                    position: "absolute",
-                    top: "10px",
-                    right: "10px",
-                    background: "rgba(33, 38, 45, 0.8)",
-                    border: "1px solid var(--border)",
-                    borderRadius: "4px",
-                    color: "var(--text)",
-                    cursor: "pointer",
-                    padding: "5px 8px",
-                    fontSize: "0.8rem",
-                    transition: "0.2s all",
-                    zIndex: "10"
-                });
-
-                block.appendChild(button);
-
-                button.addEventListener("click", function() {
-                    const code = block.querySelector("code") ? block.querySelector("code").innerText : block.innerText;
-                    // Limpia el prompt de terminal al copiar el comando
-                    const cleanCode = code.replace(/^root@yorve:~#\s*/gm, "");
-                    
-                    navigator.clipboard.writeText(cleanCode).then(() => {
-                        button.innerHTML = '<i class="fas fa-check" style="color: var(--accent);"></i>';
-                        button.style.borderColor = "var(--accent)";
-                        setTimeout(() => {
-                            button.innerHTML = '<i class="far fa-copy"></i>';
-                            button.style.borderColor = "var(--border)";
-                        }, 2000);
-                    });
-                });
-            });
-
-            // --- 3. Lógica de la Barra de Progreso ---
-            window.addEventListener("scroll", function() {
-                const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-                const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-                const scrolled = (winScroll / height) * 100;
-                const bar = document.getElementById("scroll-bar");
-                if (bar) bar.style.width = scrolled + "%";
-            });
-        });
-    </script>
 </body>
 </html>
