@@ -11,10 +11,13 @@ layout: null
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
-    <!-- Metadata para LinkedIn (Open Graph) - Volver al Estado Estable -->
+   <!-- Metadata para LinkedIn (Open Graph) - Auto-descripción Segura -->
     <meta property="og:type" content="article" />
     <meta property="og:title" content="{{ page.title }} | SecNotes" />
-    <meta property="og:description" content="{{ content | strip_html | truncatewords: 25 }}" />
+    
+    <!-- Limpia HTML, saltos de línea, caracteres especiales de código y trunca a 150 caracteres -->
+    <meta property="og:description" content="{{ content | strip_html | strip_newlines | escape | truncate: 150 }}" />
+    
     <meta property="og:url" content="https://yorve.github.io/secnotes{{ page.url }}" />
     <meta property="og:site_name" content="SecNotes" />
     
