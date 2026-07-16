@@ -11,7 +11,7 @@ layout: null
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
-    <!-- Volvemos a la configuración inicial que SÍ funcionaba -->
+    <!-- METADATOS ORIGINALES (SÍ FUNCIONAN) -->
     <meta property="og:type" content="article" />
     <meta property="og:title" content="{{ page.title }} | SecNotes" />
     <meta property="og:description" content="{{ content | strip_html | truncatewords: 25 }}" />
@@ -21,16 +21,6 @@ layout: null
     <meta property="og:image" content="{{ site.url }}{{ site.baseurl }}{{ page.img }}" />
     <meta name="twitter:card" content="summary_large_image" />
     
-    <style>
-        :root {
-            --bg: #0a0a0a;
-            --sidebar-bg: #0d1117;
-            --text: #c9d1d9;
-            --accent: #00ff41;
-            --border: #30363d;
-            --title: #ffffff;
-        }
-        /* ... El resto de tus estilos CSS se queda exactamente igual ... */
     <style>
         :root {
             --bg: #0a0a0a;
@@ -263,7 +253,7 @@ layout: null
             font-family: monospace;
         }
 
-        /* RESPONSIVO INTEGRADO (Unificado a un solo breakpoint de 992px) */
+        /* RESPONSIVO INTEGRADO */
         @media (max-width: 992px) {
             body { flex-direction: column; }
             .main-wrapper { flex-direction: column; }
@@ -284,7 +274,7 @@ layout: null
 </head>
 <body>
 
-    <!-- Barra de progreso fija arriba de la pantalla -->
+    <!-- BARRA DE PROGRESO INTEGRADA -->
     <div class="progress-container" style="position: fixed; top: 0; left: 0; width: 100%; height: 4px; z-index: 999; background: transparent;">
         <div id="scroll-bar" style="height: 100%; width: 0%; background: var(--accent); transition: width 0.1s ease-out;"></div>
     </div>
@@ -347,7 +337,7 @@ layout: null
         </main>
     </div>
 
-    <!-- SCRIPT DE INICIALIZACIÓN, SELECCIÓN DE TEMA, BOTÓN DE COPIAR Y BARRA DE PROGRESO -->
+    <!-- SCRIPTS DE COMPORTAMIENTO (TEMA, COPIAR CÓDIGO Y SCROLL) -->
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             // --- 1. Lógica del Tema Claro/Oscuro ---
