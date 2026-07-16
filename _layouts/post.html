@@ -18,6 +18,17 @@ layout: null
             --text: #c9d1d9;
             --accent: #00ff41;
             --border: #30363d;
+            --title: #ffffff;
+        }
+
+        /* --- Variables para el Modo Claro --- */
+        [data-theme="light"] {
+            --bg: #f4f4f5;
+            --sidebar-bg: #ffffff;
+            --text: #1f2328;
+            --title: #0a0a0a;
+            --border: #d0d7de;
+            --accent: #00801b; 
         }
 
         body { 
@@ -26,6 +37,7 @@ layout: null
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
             margin: 0; 
             display: flex;
+            transition: background 0.3s ease, color 0.3s ease;
         }
 
         /* Contenedor Principal */
@@ -37,19 +49,19 @@ layout: null
 
         /* SIDEBAR IZQUIERDA FIJA */
         .sidebar {
-            width: 20%;
-            min-width: 200px;
-            max-width: 260px;
+            width: 260px;
+            flex-shrink: 0;
             height: 100vh;
             background: var(--sidebar-bg);
             border-right: 1px solid var(--border);
             position: sticky;
             top: 0;
-            padding: 30px 15px;
+            padding: 30px 20px;
             box-sizing: border-box;
             display: flex;
             flex-direction: column;
             z-index: 100;
+            transition: background 0.3s ease, border-color 0.3s ease;
         }
 
         .sidebar-logo img {
@@ -79,8 +91,36 @@ layout: null
         .side-link i { width: 20px; text-align: center; }
         .side-link:hover { color: var(--accent); transform: translateX(5px); }
 
+        /* Estilo para el botón de cambio de modo en el sidebar */
+        .theme-toggle-container {
+            margin-top: 15px;
+            width: 100%;
+        }
+
+        .theme-btn-custom {
+            background: transparent !important;
+            border: 1px solid var(--border) !important;
+            border-radius: 6px !important;
+            cursor: pointer;
+            padding: 8px 12px !important;
+            color: var(--text) !important;
+            font-family: monospace;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            width: 100%;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+
+        .theme-btn-custom:hover {
+            color: var(--accent) !important;
+            border-color: var(--accent) !important;
+        }
+
         .sidebar-social { margin-top: 40px; }
-        .sidebar-social p { font-size: 0.7rem; color: #444; letter-spacing: 1px; margin-bottom: 15px; font-weight: bold; }
+        .sidebar-social p { font-size: 0.7rem; color: var(--text) !important; opacity: 0.6; letter-spacing: 1px; margin-bottom: 15px; font-weight: bold; }
         
         .sidebar-social a {
             display: flex;
@@ -93,20 +133,21 @@ layout: null
             transition: 0.3s;
         }
 
-        .sidebar-social a:hover { color: #fff; }
+        .sidebar-social a:hover { color: var(--accent); }
 
         .sidebar-footer {
             font-size: 0.75rem;
-            color: #333;
+            color: #555;
             margin-top: 20px;
         }
 
         /* ÁREA DE CONTENIDO (POST) */
         .content-area {
-            flex: 1;
+            flex-grow: 1;
             padding: 60px 80px;
             max-width: 900px;
             box-sizing: border-box;
+            transition: background 0.3s ease;
         }
 
         .back-link, .volver {
@@ -122,10 +163,14 @@ layout: null
         }
 
         h1 { 
-            color: #fff; 
+            color: var(--title) !important; 
             font-size: 2.2rem;
             margin: 0 0 10px 0;
             font-family: 'Courier New', Courier, monospace;
+        }
+
+        h2, h3 {
+            color: var(--title) !important;
         }
 
         .post-meta {
@@ -215,83 +260,6 @@ layout: null
                 padding: 40px 20px; 
             }
         }
-
-       /* --- Variables para el Modo Claro --- */
-[data-theme="light"] {
-    --bg: #f4f4f5;
-    --sidebar-bg: #ffffff;
-    --text: #1f2328;
-    --title: #0a0a0a; /* Esto pintará de negro tu h1 */
-    --border: #d0d7de;
-    --accent: #00801b; 
-}
-
-/* Estilo súper limpio para el botón (sin fondos extraños) */
-.theme-btn-custom {
-    background: transparent !important;
-    border: 1px solid var(--border) !important;
-    border-radius: 6px !important;
-    cursor: pointer;
-    padding: 8px 12px !important;
-    color: var(--text) !important;
-    font-family: monospace;
-    font-size: 0.85rem;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    width: 100%;
-    box-sizing: border-box;
-    transition: all 0.3s ease;
-}
-
-.theme-btn-custom:hover {
-    color: var(--accent) !important;
-    border-color: var(--accent) !important;
-}
-
-/* Asegurar que los títulos usen variables y no color blanco estático */
-h1, h2, h3 {
-    color: var(--title) !important;
-}
-.sidebar-social p {
-    color: var(--text) !important;
-    opacity: 0.6;
-}
-}
-
-/* Estilos específicos para el botón de modo */
-.theme-btn {
-    background: none;
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    cursor: pointer;
-    padding: 8px 12px;
-    color: #8b949e;
-    font-size: 0.85rem;
-    font-family: monospace;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    width: 100%; /* Que ocupe el ancho del sidebar de forma limpia */
-    box-sizing: border-box;
-    transition: all 0.3s ease;
-}
-
-[data-theme="light"] .theme-btn {
-    color: #1f2328;
-}
-
-.theme-btn:hover {
-    color: var(--accent) !important;
-    border-color: var(--accent);
-}
-/* Transición suave al cambiar de modo */
-body {
-    transition: background 0.3s ease, color 0.3s ease;
-}
-.post-card, #search-input, .main-nav {
-    transition: background 0.3s ease, border-color 0.3s ease;
-}
     </style>
 </head>
 <body>
@@ -306,17 +274,17 @@ body {
                 <nav class="sidebar-nav">
                     <a href="{{ site.baseurl }}/" class="side-link"><i class="fas fa-home"></i> Inicio</a>
                     <a href="{{ site.baseurl }}/metasploitable2" class="side-link" style="color: #ffd700;">
-                        <i class="fas fa-shield-alt" style="color: #ffd700;"></i> Hardening Metasploitable2</a>
+                        <i class="fas fa-shield-alt" style="color: #ffd700;"></i> Hardening Metasploitable2
+                    </a>
                     <a href="{{ site.baseurl }}/tags" class="side-link"><i class="fas fa-tags"></i> Etiquetas</a>
                     <a href="https://github.com/yorve/Auto-Recon" target="_blank" class="side-link"><i class="fas fa-terminal"></i> Auto-Recon</a>
-                   <div class="theme-toggle-container" style="padding: 10px 0; margin-bottom: 20px;">
-    <button id="theme-toggle" class="theme-btn-custom" aria-label="Cambiar modo de color">
-        <i class="fas fa-sun" id="theme-icon"></i> <span id="theme-text">Modo Oscuro</span>
-    </button>
-</div>
-    </button>
-</div>
-        </button>
+                    
+                    <!-- BOTÓN DEL MODO CLARO/OSCURO SANEADO -->
+                    <div class="theme-toggle-container">
+                        <button id="theme-toggle" class="theme-btn-custom" aria-label="Cambiar modo de color">
+                            <i class="fas fa-sun" id="theme-icon"></i> <span id="theme-text">Modo Oscuro</span>
+                        </button>
+                    </div>
                 </nav>
 
                 <div class="sidebar-social">
@@ -336,7 +304,6 @@ body {
         </aside>
 
         <main class="content-area">
-            <!-- Corregido el botón superior dinámico para apuntar a /metasploitable sin el "2" final -->
             {% if page.tags contains "Metasploitable 2" %}
                 <a href="{{ site.baseurl }}/metasploitable2" class="volver">← Volver al proyecto</a>
             {% else %}
@@ -354,37 +321,38 @@ body {
             </div>
         </main>
     </div>
+
+    <!-- SCRIPT DE INICIALIZACIÓN Y SELECCIÓN DE TEMA -->
     <script>
-    const themeToggle = document.getElementById('theme-toggle');
-    const themeIcon = document.getElementById('theme-icon');
-    const themeText = document.getElementById('theme-text');
-    
-    function applyTheme(theme) {
-        if (theme === 'light') {
-            document.documentElement.setAttribute('data-theme', 'light');
-            themeIcon.className = 'fas fa-moon';
-            if (themeText) themeText.textContent = 'Modo Claro';
-        } else {
-            document.documentElement.setAttribute('data-theme', 'dark');
-            themeIcon.className = 'fas fa-sun';
-            if (themeText) themeText.textContent = 'Modo Oscuro';
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        const themeText = document.getElementById('theme-text');
+        
+        function applyTheme(theme) {
+            if (theme === 'light') {
+                document.documentElement.setAttribute('data-theme', 'light');
+                if (themeIcon) themeIcon.className = 'fas fa-moon';
+                if (themeText) themeText.textContent = 'Modo Claro';
+            } else {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                if (themeIcon) themeIcon.className = 'fas fa-sun';
+                if (themeText) themeText.textContent = 'Modo Oscuro';
+            }
         }
-    }
 
-    const currentTheme = localStorage.getItem('theme') || 'dark';
-    applyTheme(currentTheme);
+        const currentTheme = localStorage.getItem('theme') || 'dark';
+        applyTheme(currentTheme);
 
-    themeToggle.addEventListener('click', () => {
-        let theme = document.documentElement.getAttribute('data-theme');
-        if (theme === 'dark') {
-            applyTheme('light');
-            localStorage.setItem('theme', 'light');
-        } else {
-            applyTheme('dark');
-            localStorage.setItem('theme', 'dark');
-        }
-    });
-</script>
-
+        themeToggle.addEventListener('click', () => {
+            let theme = document.documentElement.getAttribute('data-theme');
+            if (theme === 'dark') {
+                applyTheme('light');
+                localStorage.setItem('theme', 'light');
+            } else {
+                applyTheme('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+    </script>
 </body>
 </html>
