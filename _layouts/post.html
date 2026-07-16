@@ -19,11 +19,10 @@ layout: null
     <meta property="og:site_name" content="SecNotes" />
     
     {% if page.img %}
-    <meta property="og:image" content="{{ page.img | absolute_url }}" />
+    <meta property="og:image" content="https://yorve.github.io{{ page.img }}" />
     {% else %}
-    <meta property="og:image" content="{{ '/ico.jpg' | absolute_url }}" />
+    <meta property="og:image" content="https://yorve.github.io/secnotes/ico.jpg" />
     {% endif %}
-    <meta name="twitter:card" content="summary_large_image" />
     
     <style>
         :root {
