@@ -219,7 +219,7 @@ La posterior creación de estos archivos vacíos mediante `touch` en la máquina
 
 ![](/secnotes/assets/img/vulnhub/earth/Pasted image 20260715181128.png)
 
-![](/secnotes/assets/img/vulnhub/earth/Pasted image 20260715181251.png|489)
+![](/secnotes/assets/img/vulnhub/earth/Pasted image 20260715181251.png)
 
 Ahora al ejecutar el binario, este se ejecuta sin problemas y nos cambia la contraseña a `Earth`
 
@@ -227,4 +227,4 @@ Ahora al ejecutar el binario, este se ejecuta sin problemas y nos cambia la cont
 
 Con este nuevo dato cambiamos al usuario `root` y así obtenemos el control total de la máquina. 
 
-![[Pasted image 20260715181720.png]]
+![](/secnotes/assets/img/vulnhub/earth/Pasted image 20260715181720.png)
