@@ -5,7 +5,8 @@ date: 2026-07-15
 img: assets/img/vulnhub/earth/banner.png
 tags: [VulnHub, Linux, Enumeration, GDB, SUID ]
 ---
-![](/secnotes/assets/img/vulnhub/earth/banner.png)
+En esta ocasión vamos a documentar el paso a paso para comprometer por completo Earth, un laboratorio de las manos de VulnHub muy entretenida de la serie The Planets.
+
 
 - IP víctima = 192.168.192.162
   
