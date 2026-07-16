@@ -11,6 +11,19 @@ layout: null
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
+    <!-- Metadata para LinkedIn (Open Graph) -->
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="{{ page.title }} | SecNotes" />
+    <meta property="og:description" content="{{ content | strip_html | truncatewords: 25 }}" />
+    <meta property="og:url" content="{{ site.url }}{{ site.baseurl }}{{ page.url }}" />
+    <meta property="og:site_name" content="SecNotes" />
+    {% if page.img %}
+    <meta property="og:image" content="{{ site.url }}{{ site.baseurl }}{{ page.img }}" />
+    {% else %}
+    <meta property="og:image" content="{{ site.url }}{{ site.baseurl }}/ico.jpg" />
+    {% endif %}
+    <meta name="twitter:card" content="summary_large_image" />
+
     <style>
         :root {
             --bg: #0a0a0a;
@@ -264,6 +277,11 @@ layout: null
 </head>
 <body>
 
+    <!-- Barra de progreso fija arriba de la pantalla -->
+    <div class="progress-container" style="position: fixed; top: 0; left: 0; width: 100%; height: 4px; z-index: 999; background: transparent;">
+        <div id="scroll-bar" style="height: 100%; width: 0%; background: var(--accent); transition: width 0.1s ease-out;"></div>
+    </div>
+
     <div class="main-wrapper">
         <aside class="sidebar">
             <div class="sidebar-content">
@@ -322,39 +340,92 @@ layout: null
         </main>
     </div>
 
-    <!-- SCRIPT DE INICIALIZACIÓN Y SELECCIÓN DE TEMA -->
-    <!-- SCRIPT DE INICIALIZACIÓN Y SELECCIÓN DE TEMA CORREGIDO -->
+    <!-- SCRIPT DE INICIALIZACIÓN, SELECCIÓN DE TEMA, BOTÓN DE COPIAR Y BARRA DE PROGRESO -->
     <script>
-        const themeToggle = document.getElementById('theme-toggle');
-        const themeIcon = document.getElementById('theme-icon');
-        const themeText = document.getElementById('theme-text');
-        
-        function applyTheme(theme) {
-            if (theme === 'light') {
-                document.documentElement.setAttribute('data-theme', 'light');
-                // Modo Claro activo -> El botón muestra un Sol para volver al Oscuro
-                if (themeIcon) themeIcon.className = 'fas fa-sun';
-                if (themeText) themeText.textContent = 'Modo Claro';
-            } else {
-                document.documentElement.setAttribute('data-theme', 'dark');
-                // Modo Oscuro activo -> El botón muestra una Luna para cambiar al Claro
-                if (themeIcon) themeIcon.className = 'fas fa-moon';
-                if (themeText) themeText.textContent = 'Modo Oscuro';
+        document.addEventListener("DOMContentLoaded", function() {
+            // --- 1. Lógica del Tema Claro/Oscuro ---
+            const themeToggle = document.getElementById('theme-toggle');
+            const themeIcon = document.getElementById('theme-icon');
+            const themeText = document.getElementById('theme-text');
+            
+            function applyTheme(theme) {
+                if (theme === 'light') {
+                    document.documentElement.setAttribute('data-theme', 'light');
+                    if (themeIcon) themeIcon.className = 'fas fa-sun';
+                    if (themeText) themeText.textContent = 'Modo Claro';
+                } else {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                    if (themeIcon) themeIcon.className = 'fas fa-moon';
+                    if (themeText) themeText.textContent = 'Modo Oscuro';
+                }
             }
-        }
 
-        const currentTheme = localStorage.getItem('theme') || 'dark';
-        applyTheme(currentTheme);
+            const currentTheme = localStorage.getItem('theme') || 'dark';
+            applyTheme(currentTheme);
 
-        themeToggle.addEventListener('click', () => {
-            let theme = document.documentElement.getAttribute('data-theme');
-            if (theme === 'dark') {
-                applyTheme('light');
-                localStorage.setItem('theme', 'light');
-            } else {
-                applyTheme('dark');
-                localStorage.setItem('theme', 'dark');
+            if (themeToggle) {
+                themeToggle.addEventListener('click', () => {
+                    let theme = document.documentElement.getAttribute('data-theme');
+                    if (theme === 'dark') {
+                        applyTheme('light');
+                        localStorage.setItem('theme', 'light');
+                    } else {
+                        applyTheme('dark');
+                        localStorage.setItem('theme', 'dark');
+                    }
+                });
             }
+
+            // --- 2. Lógica del Botón de Copiar Código ---
+            const blocks = document.querySelectorAll("pre");
+            blocks.forEach((block) => {
+                block.style.position = "relative";
+                const button = document.createElement("button");
+                button.className = "copy-code-btn";
+                button.innerHTML = '<i class="far fa-copy"></i>';
+                button.setAttribute("aria-label", "Copiar código");
+
+                Object.assign(button.style, {
+                    position: "absolute",
+                    top: "10px",
+                    right: "10px",
+                    background: "rgba(33, 38, 45, 0.8)",
+                    border: "1px solid var(--border)",
+                    borderRadius: "4px",
+                    color: "var(--text)",
+                    cursor: "pointer",
+                    padding: "5px 8px",
+                    fontSize: "0.8rem",
+                    transition: "0.2s all",
+                    zIndex: "10"
+                });
+
+                block.appendChild(button);
+
+                button.addEventListener("click", function() {
+                    const code = block.querySelector("code") ? block.querySelector("code").innerText : block.innerText;
+                    // Limpia el prompt de terminal al copiar el comando
+                    const cleanCode = code.replace(/^root@yorve:~#\s*/gm, "");
+                    
+                    navigator.clipboard.writeText(cleanCode).then(() => {
+                        button.innerHTML = '<i class="fas fa-check" style="color: var(--accent);"></i>';
+                        button.style.borderColor = "var(--accent)";
+                        setTimeout(() => {
+                            button.innerHTML = '<i class="far fa-copy"></i>';
+                            button.style.borderColor = "var(--border)";
+                        }, 2000);
+                    });
+                });
+            });
+
+            // --- 3. Lógica de la Barra de Progreso ---
+            window.addEventListener("scroll", function() {
+                const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrolled = (winScroll / height) * 100;
+                const bar = document.getElementById("scroll-bar");
+                if (bar) bar.style.width = scrolled + "%";
+            });
         });
     </script>
 </body>
