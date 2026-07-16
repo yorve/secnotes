@@ -6,6 +6,7 @@ layout: null
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% include google-analytics.html %}
     <title>Metasploitable 2 | SecNotes</title>
     <link rel="icon" type="image/png" href="{{ site.baseurl }}/logo.png">
     <style>
@@ -15,7 +16,8 @@ layout: null
             --card-hover: #161616;
             --text: #c9d1d9; 
             --text-dim: #8b949e;
-            --accent: #00ff41; 
+            --accent: #ffd700; /* Amarillo destacado del proyecto */
+            --green: #00ff41;  /* Tu verde neón corporativo */
             --border: #222; 
         }
         body { 
@@ -35,7 +37,7 @@ layout: null
         /* Navegación y Cabecera */
         .back-link { 
             text-decoration: none; 
-            color: var(--accent); 
+            color: var(--green); 
             display: inline-block; 
             margin-bottom: 30px; 
             font-family: monospace;
@@ -43,7 +45,7 @@ layout: null
             transition: 0.2s;
         }
         .back-link:hover {
-            text-shadow: 0 0 8px var(--accent);
+            text-shadow: 0 0 8px var(--green);
         }
         h1 { 
             color: #fff; 
@@ -124,7 +126,7 @@ layout: null
         .post-item:hover { 
             transform: translateY(-2px);
             border-color: var(--accent); 
-            box-shadow: 0 4px 12px rgba(0, 255, 65, 0.05);
+            box-shadow: 0 4px 12px rgba(255, 215, 0, 0.05);
             background: var(--card-hover);
         }
         .post-index {
@@ -160,6 +162,10 @@ layout: null
     </style>
 </head>
 <body>
+    <!-- Capturamos y contamos dinámicamente los posts del laboratorio -->
+    {% assign series_posts = site.posts | where_exp:"item", "item.tags contains 'Metasploitable 2'" %}
+    {% assign total_audits = series_posts.size %}
+
     <div class="container">
         <a href="{{ site.baseurl }}/" class="back-link">← [cd ..] Volver al inicio</a>
         
@@ -172,7 +178,8 @@ layout: null
             <div class="meta-stats">
                 <div class="stat-badge">Objetivo: <span>Fortificación Completa</span></div>
                 <div class="stat-badge">Enfoque: <span>Defensivo (Blue Team)</span></div>
-                <div class="stat-badge">Servicios auditados: <span>22 / 22</span></div>
+                <!-- Aquí se inyecta dinámicamente la cantidad real de tus guías -->
+                <div class="stat-badge">Servicios auditados: <span>{{ total_audits }} / 22</span></div>
             </div>
         </div>
 
