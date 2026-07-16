@@ -239,21 +239,26 @@ layout: null
     border: 1px solid var(--border);
     border-radius: 6px;
     cursor: pointer;
-    padding: 4px 10px;
-    color: var(--text);
-    font-size: 0.95rem;
+    padding: 8px 12px;
+    color: #8b949e;
+    font-size: 0.85rem;
+    font-family: monospace;
     display: inline-flex;
     align-items: center;
-    justify-content: center;
+    gap: 8px;
+    width: 100%; /* Que ocupe el ancho del sidebar de forma limpia */
+    box-sizing: border-box;
     transition: all 0.3s ease;
 }
 
-.theme-btn:hover {
-    color: var(--accent);
-    border-color: var(--accent);
-    box-shadow: 0 0 8px rgba(0, 255, 65, 0.15);
+[data-theme="light"] .theme-btn {
+    color: #1f2328;
 }
 
+.theme-btn:hover {
+    color: var(--accent) !important;
+    border-color: var(--accent);
+}
 /* Transición suave al cambiar de modo */
 body {
     transition: background 0.3s ease, color 0.3s ease;
