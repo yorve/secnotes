@@ -329,30 +329,30 @@ body {
     <script>
     const themeToggle = document.getElementById('theme-toggle');
     const themeIcon = document.getElementById('theme-icon');
+    const themeText = document.getElementById('theme-text');
     
-    // Obtener la preferencia guardada en el navegador
-    const currentTheme = localStorage.getItem('theme');
-    
-    // Aplicar el tema guardado al cargar la página
-    if (currentTheme === 'light') {
-        document.documentElement.setAttribute('data-theme', 'light');
-        themeIcon.className = 'fas fa-moon'; // Cambia el icono a Luna si está en claro
-    } else {
-        document.documentElement.setAttribute('data-theme', 'dark');
-        themeIcon.className = 'fas fa-sun'; // Mantiene Sol si está en oscuro
-    }
-
-    // Escuchar el clic en el botón
-    themeToggle.addEventListener('click', () => {
-        let theme = document.documentElement.getAttribute('data-theme');
-        
-        if (theme === 'dark') {
+    function applyTheme(theme) {
+        if (theme === 'light') {
             document.documentElement.setAttribute('data-theme', 'light');
             themeIcon.className = 'fas fa-moon';
-            localStorage.setItem('theme', 'light');
+            if (themeText) themeText.textContent = 'Modo Claro';
         } else {
             document.documentElement.setAttribute('data-theme', 'dark');
             themeIcon.className = 'fas fa-sun';
+            if (themeText) themeText.textContent = 'Modo Oscuro';
+        }
+    }
+
+    const currentTheme = localStorage.getItem('theme') || 'dark';
+    applyTheme(currentTheme);
+
+    themeToggle.addEventListener('click', () => {
+        let theme = document.documentElement.getAttribute('data-theme');
+        if (theme === 'dark') {
+            applyTheme('light');
+            localStorage.setItem('theme', 'light');
+        } else {
+            applyTheme('dark');
             localStorage.setItem('theme', 'dark');
         }
     });
