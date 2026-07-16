@@ -393,37 +393,7 @@ layout: null
     color: #ffffff !important;
 }
 
- /* --- Variables para el Modo Claro --- */
-[data-theme="light"] {
-    --bg: #f4f4f5;
-    --card: #ffffff;
-    --text: #1f2328;
-    --title: #0a0a0a;
-    --border: #d0d7de;
-    /* Mantenemos tu verde neón pero con mejor contraste para fondo claro */
-    --accent: #00801b; 
-}
-
-/* Estilos específicos para el botón de modo */
-.theme-btn {
-    background: none;
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    cursor: pointer;
-    padding: 4px 10px;
-    color: var(--text);
-    font-size: 0.95rem;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
-}
-
-.theme-btn:hover {
-    color: var(--accent);
-    border-color: var(--accent);
-    box-shadow: 0 0 8px rgba(0, 255, 65, 0.15);
-}
+ 
 
 /* Transición suave al cambiar de modo */
 body {
@@ -431,7 +401,40 @@ body {
 }
 .post-card, #search-input, .main-nav {
     transition: background 0.3s ease, border-color 0.3s ease;
-}       
+}     
+        /* Variables de modo claro para la Home */
+[data-theme="light"] {
+    --bg: #f4f4f5;
+    --card: #ffffff;
+    --text: #1f2328;
+    --title: #0a0a0a;
+    --border: #d0d7de;
+    --accent: #00801b; 
+}
+
+/* Estilo para el botón tipo engranaje/icono en el menú superior */
+.theme-btn-nav {
+    background: transparent !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 6px;
+    cursor: pointer;
+    padding: 6px 12px;
+    color: var(--text);
+    font-size: 0.95rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+.theme-btn-nav:hover {
+    color: var(--accent) !important;
+    border-color: var(--accent) !important;
+}
+
+/* Forzar títulos de la Home a usar variables */
+h1, h2, .post-info h2 {
+    color: var(--title) !important;
+}
     </style>
 </head>
 
@@ -456,9 +459,9 @@ body {
                     <a href="{{ site.baseurl }}/tags" class="nav-item">Etiquetas</a>
                     <a href="https://github.com/yorve/Auto-Recon" target="_blank" class="nav-item">Auto-Recon</a>
               <!-- Botón Modo Oscuro -->
-                    <button id="theme-toggle" class="nav-item theme-btn" aria-label="Cambiar modo de color">
-            <i class="fas fa-sun" id="theme-icon"></i>
-        </button>
+                    <button id="theme-toggle" class="theme-btn-nav" aria-label="Cambiar modo de color">
+    <i class="fas fa-sun" id="theme-icon"></i>
+</button>
                 </div>
 
                 <div class="contact-me">
