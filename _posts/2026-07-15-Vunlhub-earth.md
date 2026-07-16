@@ -2,7 +2,7 @@
 layout: post
 title: "The Planets - Earth - Vulnhub"
 date: 2026-07-15
-img: /assets/img/vulnhun/earth/banner
+img: /assets/img/vulnhub/earth/banner
 tags: [VulnHub, Linux, Enumeration, GDB, SUID ]
 ---
 
