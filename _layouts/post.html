@@ -219,12 +219,18 @@ layout: null
         /* --- Variables para el Modo Claro --- */
 [data-theme="light"] {
     --bg: #f4f4f5;
-    --card: #ffffff;
+    --sidebar-bg: #ffffff; /* El sidebar en modo claro se ve brutal en blanco */
     --text: #1f2328;
-    --title: #0a0a0a;
+    --title: #0a0a0a; /* Cambia el color del título principal a oscuro */
     --border: #d0d7de;
-    /* Mantenemos tu verde neón pero con mejor contraste para fondo claro */
     --accent: #00801b; 
+}
+    h1 { 
+    color: var(--title) !important; /* Cambiamos '#fff' fijo por la variable */
+    font-size: 2.2rem;
+    margin: 0 0 10px 0;
+    font-family: 'Courier New', Courier, monospace;
+}
 }
 
 /* Estilos específicos para el botón de modo */
