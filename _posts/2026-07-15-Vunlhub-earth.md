@@ -11,8 +11,6 @@ tags: [VulnHub, Linux, Enumeration, GDB, SUID ]
   
 - IP atacante =192.168.192.139
 
-# Vulnhub - The Planets: Earth
-
 [Descarga Ova](https://www.vulnhub.com/entry/the-planets-earth,755/)
 
 Comenzamos con la fase de reconocimiento,  descubrimos los siguientes puertos:
