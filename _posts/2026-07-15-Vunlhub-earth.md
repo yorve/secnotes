@@ -2,10 +2,10 @@
 layout: post
 title: "Vulnhub / The Planets - Earth"
 date: 2026-07-15
-img: /assets/img/vulnhub/earth/banner.png
+img: /secnotes/assets/img/vulnhub/earth/banner.png
 tags: [VulnHub, Linux, Enumeration, GDB, SUID ]
 ---
-
+![](/secnotes/assets/img/vulnhub/earth/banner.png)
 
 - IP víctima = 192.168.192.162
   
