@@ -1,7 +1,9 @@
+---
+layout: null
+---
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% include google-analytics.html %}
@@ -29,6 +31,23 @@
             --text: #c9d1d9;
             --accent: #00ff41;
             --border: #30363d;
+            --title: #ffffff;
+            --table-header: #1f242c;
+            --table-zebra: #0d1117;
+            --table-bg: #161b22;
+        }
+
+        /* --- Variables para el Modo Claro --- */
+        [data-theme="light"] {
+            --bg: #f4f4f5;
+            --sidebar-bg: #ffffff;
+            --text: #1f2328;
+            --accent: #00801b; 
+            --border: #d0d7de;
+            --title: #0a0a0a;
+            --table-header: #e1e4e8;
+            --table-zebra: #f6f8fa;
+            --table-bg: #ffffff;
         }
 
         body { 
@@ -37,30 +56,35 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
             margin: 0; 
             display: flex;
+            transition: background 0.3s ease, color 0.3s ease;
         }
+
         .content-area {
-    flex: 1;
-    padding: 40px 5%;    /* Padding en porcentaje para que se ajuste al dividir pantalla */
-    max-width: 900px;
-    box-sizing: border-box;
-}
-@media (max-width: 900px) { /* Si la ventana mide menos de 900px (como en tu captura) */
-    .main-wrapper { 
-        flex-direction: column; 
-    }
-    .sidebar { 
-        width: 100%; 
-        max-width: 100%;
-        height: auto; 
-        position: relative; 
-        border-right: none; 
-        border-bottom: 1px solid var(--border); 
-        padding: 20px;
-    }
-    .content-area { 
-        padding: 30px 20px; 
-    }
-}
+            flex: 1;
+            padding: 40px 5%;    /* Padding en porcentaje para que se ajuste al dividir pantalla */
+            max-width: 900px;
+            box-sizing: border-box;
+            transition: background 0.3s ease;
+        }
+
+        @media (max-width: 900px) { /* Si la ventana mide menos de 900px (como en tu captura) */
+            .main-wrapper { 
+                flex-direction: column; 
+            }
+            .sidebar { 
+                width: 100%; 
+                max-width: 100%;
+                height: auto; 
+                position: relative; 
+                border-right: none; 
+                border-bottom: 1px solid var(--border); 
+                padding: 20px;
+            }
+            .content-area { 
+                padding: 30px 20px; 
+            }
+        }
+
         /* Contenedor Principal */
         .main-wrapper {
             display: flex;
@@ -70,20 +94,21 @@
 
         /* SIDEBAR IZQUIERDA FIJA */
         .sidebar {
-    width: 20%;          /* En lugar de px fijos, usamos un porcentaje */
-    min-width: 200px;    /* Pero que no sea más pequeña que esto para que se lea */
-    max-width: 260px;    /* Ni más grande que esto en pantallas gigantes */
-    height: 100vh;
-    background: var(--sidebar-bg);
-    border-right: 1px solid var(--border);
-    position: sticky;
-    top: 0;
-    padding: 30px 15px;  /* Reduje un poco el padding lateral */
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    z-index: 100;
-}
+            width: 20%;          /* En lugar de px fijos, usamos un porcentaje */
+            min-width: 200px;    /* Pero que no sea más pequeña que esto para que se lea */
+            max-width: 260px;    /* Ni más grande que esto en pantallas gigantes */
+            height: 100vh;
+            background: var(--sidebar-bg);
+            border-right: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            padding: 30px 15px;  /* Reduje un poco el padding lateral */
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            z-index: 100;
+            transition: background 0.3s ease, border-color 0.3s ease;
+        }
 
         .sidebar-logo img {
             width: 70px;
@@ -112,8 +137,36 @@
         .side-link i { width: 20px; text-align: center; }
         .side-link:hover { color: var(--accent); transform: translateX(5px); }
 
+        /* Estilos del Switcher de Tema en el Sidebar */
+        .theme-toggle-container {
+            margin-top: 15px;
+            width: 100%;
+        }
+
+        .theme-btn-custom {
+            background: transparent !important;
+            border: 1px solid var(--border) !important;
+            border-radius: 6px !important;
+            cursor: pointer;
+            padding: 8px 12px !important;
+            color: var(--text) !important;
+            font-family: monospace;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            width: 100%;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+
+        .theme-btn-custom:hover {
+            color: var(--accent) !important;
+            border-color: var(--accent) !important;
+        }
+
         .sidebar-social { margin-top: 40px; }
-        .sidebar-social p { font-size: 0.7rem; color: #444; letter-spacing: 1px; margin-bottom: 15px; font-weight: bold; }
+        .sidebar-social p { font-size: 0.7rem; color: var(--text); opacity: 0.6; letter-spacing: 1px; margin-bottom: 15px; font-weight: bold; }
         
         .sidebar-social a {
             display: flex;
@@ -126,11 +179,11 @@
             transition: 0.3s;
         }
 
-        .sidebar-social a:hover { color: #fff; }
+        .sidebar-social a:hover { color: var(--accent); }
 
         .sidebar-footer {
             font-size: 0.75rem;
-            color: #333;
+            color: #555;
             margin-top: 20px;
         }
 
@@ -141,18 +194,27 @@
             max-width: 900px;
         }
 
-        .back-link {
+        .back-link, .volver {
             text-decoration: none;
             color: var(--accent);
             font-size: 0.9rem;
             display: inline-block;
             margin-bottom: 20px;
+            transition: 0.2s;
+        }
+        .back-link:hover, .volver:hover {
+            text-shadow: 0 0 8px var(--accent);
         }
 
         h1 { 
-            color: #fff; 
+            color: var(--title); 
             font-size: 2.2rem;
             margin: 0 0 10px 0;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        h2, h3 {
+            color: var(--title);
         }
 
         .post-meta {
@@ -174,8 +236,8 @@
         }
 
         /* Estilo para código/terminal */
-        code { background: #161b22; padding: 2px 6px; border-radius: 4px; font-family: monospace; color: #ff7b72; }
-        pre { background: #161b22; padding: 20px; border-radius: 8px; border: 1px solid var(--border); overflow-x: auto; }
+        code { background: var(--table-bg); padding: 2px 6px; border-radius: 4px; font-family: monospace; color: #ff7b72; }
+        pre { background: #0d1117 !important; border: 1px solid var(--border); padding: 15px; border-radius: 8px; position: relative; overflow-x: auto; }
 
         /* Responsivo */
         @media (max-width: 1100px) {
@@ -183,62 +245,62 @@
             .sidebar { width: 100%; height: auto; position: relative; border-right: none; border-bottom: 1px solid var(--border); }
             .content-area { padding: 40px 15px; }
         }
-        pre {
-    background: #0d1117 !important;
-    border: 1px solid #30363d;
-    padding: 15px;
-    border-radius: 8px;
-    position: relative;
-}
-pre::before {
-    content: "root@yorve:~#";
-    display: block;
-    color: #8b949e;
-    font-size: 0.7rem;
-    margin-bottom: 10px;
-    border-bottom: 1px solid #222;
-}
+
+        pre::before {
+            content: "root@yorve:~#";
+            display: block;
+            color: #8b949e;
+            font-size: 0.7rem;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #222;
+        }
+
         /* --- Estilos Personalizados para las Tablas de Hardening --- */
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 20px 0;
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 0.95em;
-    background-color: #161b22; /* Fondo oscuro de la tabla */
-    border: 1px solid #30363d;
-}
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.95em;
+            background-color: var(--table-bg); /* Fondo dinámico */
+            border: 1px solid var(--border);
+        }
 
-table th {
-    background-color: #1f242c !important; /* Encabezado un poco más claro */
-    color: #ffffff !important;       /* Tu verde neón para los títulos */
-    padding: 12px;
-    text-align: left;
-    border-bottom: 2px solid #30363d;
-}
+        table th {
+            background-color: var(--table-header) !important; /* Encabezado dinámico */
+            color: var(--title) !important;       
+            padding: 12px;
+            text-align: left;
+            border-bottom: 2px solid var(--border);
+        }
 
-table td {
-    padding: 12px;
-    border-bottom: 1px solid #30363d;
-    color: #c9d1d9; /* Texto gris claro tipo consola */
-}
+        table td {
+            padding: 12px;
+            border-bottom: 1px solid var(--border);
+            color: var(--text); /* Texto dinámico */
+        }
 
-/* Efecto cebra: alterna filas oscuras y más claras */
-table tr:nth-child(even) {
-    background-color: #0d1117; 
-}
+        /* Efecto cebra dinámico */
+        table tr:nth-child(even) {
+            background-color: var(--table-zebra); 
+        }
 
-/* Estilo para las etiquetas de código inline dentro de la tabla */
-table code {
-    background-color: #21262d !important;
-    color: #ff7b72 !important; /* Color rojizo para destacar comandos/versiones */
-    padding: 2px 6px !important;
-    border-radius: 4px;
-    font-family: monospace;
-}
+        /* Estilo para las etiquetas de código inline dentro de la tabla */
+        table code {
+            background-color: var(--border) !important;
+            color: #ff7b72 !important; 
+            padding: 2px 6px !important;
+            border-radius: 4px;
+            font-family: monospace;
+        }
     </style>
 </head>
 <body>
+
+    <!-- BARRA DE PROGRESO DE LECTURA -->
+    <div class="progress-container" style="position: fixed; top: 0; left: 0; width: 100%; height: 4px; z-index: 999; background: transparent;">
+        <div id="scroll-bar" style="height: 100%; width: 0%; background: var(--accent); transition: width 0.1s ease-out;"></div>
+    </div>
 
     <div class="main-wrapper">
         <aside class="sidebar">
@@ -249,11 +311,18 @@ table code {
                 
                 <nav class="sidebar-nav">
                     <a href="{{ site.baseurl }}/" class="side-link"><i class="fas fa-home"></i> Inicio</a>
-                   <a href="{{ site.baseurl }}/metasploitable2" class="side-link" target="_blank">
-    <i class="fas fa-shield-alt"></i> Hardening Metasploitable2
-</a>
+                    <a href="{{ site.baseurl }}/metasploitable2" class="side-link" target="_blank">
+                        <i class="fas fa-shield-alt"></i> Hardening Metasploitable2
+                    </a>
                     <a href="{{ site.baseurl }}/tags" class="side-link"><i class="fas fa-tags"></i> Etiquetas</a>
                     <a href="https://github.com/yorve/Auto-Recon" target="_blank" class="side-link"><i class="fas fa-terminal"></i> Auto-Recon</a>
+                    
+                    <!-- BOTÓN DEL CAMBIO DE MODO INTEGRADO -->
+                    <div class="theme-toggle-container">
+                        <button id="theme-toggle" class="theme-btn-custom" aria-label="Cambiar modo de color">
+                            <i class="fas fa-sun" id="theme-icon"></i> <span id="theme-text">Modo Oscuro</span>
+                        </button>
+                    </div>
                 </nav>
 
                 <div class="sidebar-social">
@@ -261,9 +330,9 @@ table code {
                     <a href="https://github.com/yorve" target="_blank"><i class="fab fa-github"></i> GitHub</a>
                     <a href="https://linkedin.com/in/yonathan-rivera-velozo" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
                     <a href="mailto:yorve.csec@gmail.com"><i class="fas fa-envelope"></i> Email</a>
-                    <a href="https://buymeacoffee.com/yorve" target="_blank" class="donate-btn">
-
-    <i class="fas fa-coffee"></i> Apoya el contenido de SecNotes </a>
+                    <a href="https://buymeacoffee.com/yorve" target="_blank" class="side-link" style="margin-top: 15px; text-decoration: none;">
+                        <i class="fas fa-coffee"></i> Apoya el contenido de SecNotes
+                    </a>
                 </div>
                 
                 <div class="sidebar-footer">
@@ -274,10 +343,10 @@ table code {
 
         <main class="content-area">
             {% if page.tags contains "Metasploitable 2" %}
-    <a href="{{ site.baseurl }}/metasploitable2" class="volver" style="color: var(--accent); text-decoration: none;">← Volver al proyecto</a>
-{% else %}
-    <a href="{{ site.baseurl }}/" class="volver" style="color: var(--accent); text-decoration: none;">← Volver al inicio</a>
-{% endif %}
+                <a href="{{ site.baseurl }}/metasploitable2" class="volver" style="color: var(--accent); text-decoration: none;">← Volver al proyecto</a>
+            {% else %}
+                <a href="{{ site.baseurl }}/" class="volver" style="color: var(--accent); text-decoration: none;">← Volver al inicio</a>
+            {% endif %}
             <h1>{{ page.title }}</h1>
             <div class="post-meta">
                 {{ page.date | date: "%d/%m/%Y" }} • SecNotes 2.0
@@ -290,5 +359,51 @@ table code {
         </main>
     </div>
 
+    <!-- SCRIPTS DE COMPORTAMIENTO (TEMA Y BARRA DE PROGRESO) -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // --- 1. Lógica del Tema Claro/Oscuro ---
+            const themeToggle = document.getElementById('theme-toggle');
+            const themeIcon = document.getElementById('theme-icon');
+            const themeText = document.getElementById('theme-text');
+            
+            function applyTheme(theme) {
+                if (theme === 'light') {
+                    document.documentElement.setAttribute('data-theme', 'light');
+                    if (themeIcon) themeIcon.className = 'fas fa-sun';
+                    if (themeText) themeText.textContent = 'Modo Claro';
+                } else {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                    if (themeIcon) themeIcon.className = 'fas fa-moon';
+                    if (themeText) themeText.textContent = 'Modo Oscuro';
+                }
+            }
+
+            const currentTheme = localStorage.getItem('theme') || 'dark';
+            applyTheme(currentTheme);
+
+            if (themeToggle) {
+                themeToggle.addEventListener('click', () => {
+                    let theme = document.documentElement.getAttribute('data-theme');
+                    if (theme === 'dark') {
+                        applyTheme('light');
+                        localStorage.setItem('theme', 'light');
+                    } else {
+                        applyTheme('dark');
+                        localStorage.setItem('theme', 'dark');
+                    }
+                });
+            }
+
+            // --- 2. Lógica de la Barra de Progreso ---
+            window.addEventListener("scroll", function() {
+                const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrolled = (winScroll / height) * 100;
+                const bar = document.getElementById("scroll-bar");
+                if (bar) bar.style.width = scrolled + "%";
+            });
+        });
+    </script>
 </body>
 </html>
