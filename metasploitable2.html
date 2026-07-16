@@ -9,6 +9,7 @@ layout: null
     {% include google-analytics.html %}
     <title>Metasploitable 2 | SecNotes</title>
     <link rel="icon" type="image/png" href="{{ site.baseurl }}/logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root { 
             --bg: #0a0a0a; 
@@ -19,7 +20,22 @@ layout: null
             --accent: #ffd700; /* Amarillo destacado del proyecto */
             --green: #00ff41;  /* Tu verde neón corporativo */
             --border: #222; 
+            --title: #ffffff;
         }
+
+        /* --- Variables para el Modo Claro --- */
+        [data-theme="light"] {
+            --bg: #f4f4f5;
+            --card: #ffffff;
+            --card-hover: #eaeaea;
+            --text: #1f2328;
+            --text-dim: #4b5563;
+            --accent: #b8860b; /* Un dorado más oscuro para contraste en fondo claro */
+            --green: #00801b;  /* Verde oscuro de alta legibilidad */
+            --border: #d0d7de;
+            --title: #0a0a0a;
+        }
+
         body { 
             background: var(--bg); 
             color: var(--text); 
@@ -27,6 +43,7 @@ layout: null
             margin: 0; 
             display: flex; 
             justify-content: center; 
+            transition: background 0.3s ease, color 0.3s ease;
         }
         .container { 
             width: 100%; 
@@ -34,12 +51,18 @@ layout: null
             padding: 60px 20px; 
         }
         
+        /* Contenedor Cabecera (Alinear botón e inicio) */
+        .header-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
         /* Navegación y Cabecera */
         .back-link { 
             text-decoration: none; 
             color: var(--green); 
-            display: inline-block; 
-            margin-bottom: 30px; 
             font-family: monospace;
             font-size: 0.95rem;
             transition: 0.2s;
@@ -47,13 +70,34 @@ layout: null
         .back-link:hover {
             text-shadow: 0 0 8px var(--green);
         }
+
+        /* Botón de cambio de modo en Metasploitable */
+        .theme-btn-nav {
+            background: transparent !important;
+            border: 1px solid var(--border) !important;
+            border-radius: 6px;
+            cursor: pointer;
+            padding: 6px 12px;
+            color: var(--text);
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        .theme-btn-nav:hover {
+            color: var(--green) !important;
+            border-color: var(--green) !important;
+        }
+
         h1 { 
-            color: #fff; 
+            color: var(--title) !important; 
             border-bottom: 1px solid var(--border); 
             padding-bottom: 15px; 
             font-family: monospace; 
             font-size: 2rem;
             margin-top: 0;
+            transition: border-color 0.3s;
         }
         
         /* Sección de Introducción */
@@ -63,6 +107,7 @@ layout: null
             border-radius: 6px;
             padding: 25px;
             margin-bottom: 40px;
+            transition: background 0.3s, border-color 0.3s;
         }
         .project-desc { 
             color: var(--text-dim); 
@@ -76,13 +121,14 @@ layout: null
             flex-wrap: wrap;
         }
         .stat-badge {
-            background: #1f1f1f;
-            border: 1px solid #333;
+            background: var(--card-hover);
+            border: 1px solid var(--border);
             padding: 6px 12px;
             border-radius: 4px;
             font-size: 0.85rem;
             font-family: monospace;
-            color: #fff;
+            color: var(--title);
+            transition: background 0.3s, border-color 0.3s;
         }
         .stat-badge span {
             color: var(--accent);
@@ -91,7 +137,7 @@ layout: null
 
         /* Títulos de sección */
         h2 {
-            color: #fff;
+            color: var(--title) !important;
             font-family: monospace;
             font-size: 1.3rem;
             margin-bottom: 20px;
@@ -104,6 +150,7 @@ layout: null
             flex-grow: 1;
             height: 1px;
             background: var(--border);
+            transition: background 0.3s;
         }
 
         /* Lista de auditorías estilo Terminal */
@@ -140,7 +187,7 @@ layout: null
             flex-grow: 1;
         }
         .post-title {
-            color: #fff;
+            color: var(--title);
             font-size: 1.05rem;
             font-weight: 600;
             margin-bottom: 4px;
@@ -167,7 +214,14 @@ layout: null
     {% assign total_audits = series_posts.size %}
 
     <div class="container">
-        <a href="{{ site.baseurl }}/" class="back-link">← [cd ..] Volver al inicio</a>
+        <!-- Cabecera reorganizada para incluir el botón en un contenedor Flex -->
+        <div class="header-nav">
+            <a href="{{ site.baseurl }}/" class="back-link">← [cd ..] Volver al inicio</a>
+            
+            <button id="theme-toggle" class="theme-btn-nav" aria-label="Cambiar modo de color">
+                <i class="fas fa-moon" id="theme-icon"></i>
+            </button>
+        </div>
         
         <h1>>_ PROYECTO: HARDENING METASPLOITABLE 2</h1>
         
@@ -178,7 +232,6 @@ layout: null
             <div class="meta-stats">
                 <div class="stat-badge">Objetivo: <span>Fortificación Completa</span></div>
                 <div class="stat-badge">Enfoque: <span>Defensivo (Blue Team)</span></div>
-                <!-- Aquí se inyecta dinámicamente la cantidad real de tus guías -->
                 <div class="stat-badge">Servicios auditados: <span>{{ total_audits }} / 22</span></div>
             </div>
         </div>
@@ -207,5 +260,35 @@ layout: null
             {% endfor %}
         </div>
     </div>
+
+    <!-- SCRIPT DE SINCRONIZACIÓN CORREGIDO (LUNA PARA OSCURO / SOL PARA CLARO) -->
+    <script>
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        
+        function applyTheme(theme) {
+            if (theme === 'light') {
+                document.documentElement.setAttribute('data-theme', 'light');
+                if (themeIcon) themeIcon.className = 'fas fa-sun';
+            } else {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                if (themeIcon) themeIcon.className = 'fas fa-moon';
+            }
+        }
+
+        const currentTheme = localStorage.getItem('theme') || 'dark';
+        applyTheme(currentTheme);
+
+        themeToggle.addEventListener('click', () => {
+            let theme = document.documentElement.getAttribute('data-theme');
+            if (theme === 'dark') {
+                applyTheme('light');
+                localStorage.setItem('theme', 'light');
+            } else {
+                applyTheme('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+    </script>
 </body>
 </html>
