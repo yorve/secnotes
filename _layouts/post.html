@@ -6,19 +6,31 @@ layout: null
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% include google-analytics.html %}
     <title>{{ page.title }} | SecNotes</title>
-    
-    <!-- Metadata básica de Open Graph para Redes Sociales -->
-    <meta property="og:type" content="article" />
-    <meta property="og:title" content="{{ page.title }} | SecNotes" />
-    <meta property="og:description" content="Apuntes y laboratorios de Pentesting, Hardening y Ciberseguridad por Yorve CSEC." />
-    <meta property="og:url" content="https://yorve.github.io/secnotes{{ page.url }}" />
-    <meta property="og:site_name" content="SecNotes" />
-    <meta property="og:image" content="https://yorve.github.io/secnotes/ico.jpg" />
-    <meta name="twitter:card" content="summary_large_image" />
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
+    <!-- Volvemos a la configuración inicial que SÍ funcionaba -->
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="{{ page.title }} | SecNotes" />
+    <meta property="og:description" content="{{ content | strip_html | truncatewords: 25 }}" />
+    <meta property="og:url" content="{{ site.url }}{{ site.baseurl }}{{ page.url }}" />
+    <meta property="og:site_name" content="SecNotes" />
+    
+    <meta property="og:image" content="{{ site.url }}{{ site.baseurl }}{{ page.img }}" />
+    <meta name="twitter:card" content="summary_large_image" />
+    
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --sidebar-bg: #0d1117;
+            --text: #c9d1d9;
+            --accent: #00ff41;
+            --border: #30363d;
+            --title: #ffffff;
+        }
+        /* ... El resto de tus estilos CSS se queda exactamente igual ... */
     <style>
         :root {
             --bg: #0a0a0a;
