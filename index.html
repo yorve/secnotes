@@ -392,6 +392,46 @@ layout: null
 .project-highlight:hover .blink-prompt {
     color: #ffffff !important;
 }
+
+ /* --- Variables para el Modo Claro --- */
+[data-theme="light"] {
+    --bg: #f4f4f5;
+    --card: #ffffff;
+    --text: #1f2328;
+    --title: #0a0a0a;
+    --border: #d0d7de;
+    /* Mantenemos tu verde neón pero con mejor contraste para fondo claro */
+    --accent: #00801b; 
+}
+
+/* Estilos específicos para el botón de modo */
+.theme-btn {
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    cursor: pointer;
+    padding: 4px 10px;
+    color: var(--text);
+    font-size: 0.95rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.theme-btn:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+    box-shadow: 0 0 8px rgba(0, 255, 65, 0.15);
+}
+
+/* Transición suave al cambiar de modo */
+body {
+    transition: background 0.3s ease, color 0.3s ease;
+}
+.post-card, #search-input, .main-nav {
+    transition: background 0.3s ease, border-color 0.3s ease;
+}       
     </style>
 </head>
 
@@ -523,7 +563,40 @@ layout: null
             allPostsList.style.display = 'none';
         }
     });
+
+    <script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeIcon = document.getElementById('theme-icon');
+    
+    // Obtener la preferencia guardada en el navegador
+    const currentTheme = localStorage.getItem('theme');
+    
+    // Aplicar el tema guardado al cargar la página
+    if (currentTheme === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+        themeIcon.className = 'fas fa-moon'; // Cambia el icono a Luna si está en claro
+    } else {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        themeIcon.className = 'fas fa-sun'; // Mantiene Sol si está en oscuro
+    }
+
+    // Escuchar el clic en el botón
+    themeToggle.addEventListener('click', () => {
+        let theme = document.documentElement.getAttribute('data-theme');
+        
+        if (theme === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'light');
+            themeIcon.className = 'fas fa-moon';
+            localStorage.setItem('theme', 'light');
+        } else {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            themeIcon.className = 'fas fa-sun';
+            localStorage.setItem('theme', 'dark');
+        }
+    });
 </script>
+</script>
+    
 </body>
 
 </html>
