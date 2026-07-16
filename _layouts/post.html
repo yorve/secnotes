@@ -1,3 +1,6 @@
+---
+layout: null
+---
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -24,29 +27,7 @@
             margin: 0; 
             display: flex;
         }
-        .content-area {
-    flex: 1;
-    padding: 40px 5%;    /* Padding en porcentaje para que se ajuste al dividir pantalla */
-    max-width: 900px;
-    box-sizing: border-box;
-}
-@media (max-width: 900px) { /* Si la ventana mide menos de 900px (como en tu captura) */
-    .main-wrapper { 
-        flex-direction: column; 
-    }
-    .sidebar { 
-        width: 100%; 
-        max-width: 100%;
-        height: auto; 
-        position: relative; 
-        border-right: none; 
-        border-bottom: 1px solid var(--border); 
-        padding: 20px;
-    }
-    .content-area { 
-        padding: 30px 20px; 
-    }
-}
+
         /* Contenedor Principal */
         .main-wrapper {
             display: flex;
@@ -56,20 +37,20 @@
 
         /* SIDEBAR IZQUIERDA FIJA */
         .sidebar {
-    width: 20%;          /* En lugar de px fijos, usamos un porcentaje */
-    min-width: 200px;    /* Pero que no sea más pequeña que esto para que se lea */
-    max-width: 260px;    /* Ni más grande que esto en pantallas gigantes */
-    height: 100vh;
-    background: var(--sidebar-bg);
-    border-right: 1px solid var(--border);
-    position: sticky;
-    top: 0;
-    padding: 30px 15px;  /* Reduje un poco el padding lateral */
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    z-index: 100;
-}
+            width: 20%;
+            min-width: 200px;
+            max-width: 260px;
+            height: 100vh;
+            background: var(--sidebar-bg);
+            border-right: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            padding: 30px 15px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            z-index: 100;
+        }
 
         .sidebar-logo img {
             width: 70px;
@@ -125,20 +106,26 @@
             flex: 1;
             padding: 60px 80px;
             max-width: 900px;
+            box-sizing: border-box;
         }
 
-        .back-link {
+        .back-link, .volver {
             text-decoration: none;
             color: var(--accent);
             font-size: 0.9rem;
             display: inline-block;
             margin-bottom: 20px;
+            transition: 0.2s;
+        }
+        .back-link:hover, .volver:hover {
+            text-shadow: 0 0 8px var(--accent);
         }
 
         h1 { 
             color: #fff; 
             font-size: 2.2rem;
             margin: 0 0 10px 0;
+            font-family: 'Courier New', Courier, monospace;
         }
 
         .post-meta {
@@ -161,67 +148,73 @@
 
         /* Estilo para código/terminal */
         code { background: #161b22; padding: 2px 6px; border-radius: 4px; font-family: monospace; color: #ff7b72; }
-        pre { background: #161b22; padding: 20px; border-radius: 8px; border: 1px solid var(--border); overflow-x: auto; }
+        pre { background: #0d1117 !important; border: 1px solid var(--border); padding: 15px; border-radius: 8px; position: relative; overflow-x: auto; }
 
-        /* Responsivo */
-        @media (max-width: 1100px) {
-            body { flex-direction: column; }
-            .sidebar { width: 100%; height: auto; position: relative; border-right: none; border-bottom: 1px solid var(--border); }
-            .content-area { padding: 40px 15px; }
+        /* Consola interactiva (Solo para comandos de terminal) */
+        pre.terminal::before {
+            content: "root@yorve:~#";
+            display: block;
+            color: #8b949e;
+            font-size: 0.7rem;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #222;
+            font-family: monospace;
         }
-        pre {
-    background: #0d1117 !important;
-    border: 1px solid #30363d;
-    padding: 15px;
-    border-radius: 8px;
-    position: relative;
-}
-pre::before {
-    content: "root@yorve:~#";
-    display: block;
-    color: #8b949e;
-    font-size: 0.7rem;
-    margin-bottom: 10px;
-    border-bottom: 1px solid #222;
-}
+
         /* --- Estilos Personalizados para las Tablas de Hardening --- */
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 20px 0;
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 0.95em;
-    background-color: #161b22; /* Fondo oscuro de la tabla */
-    border: 1px solid #30363d;
-}
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.95em;
+            background-color: #161b22;
+            border: 1px solid var(--border);
+        }
 
-table th {
-    background-color: #1f242c !important; /* Encabezado un poco más claro */
-    color: #ffffff !important;       /* Tu verde neón para los títulos */
-    padding: 12px;
-    text-align: left;
-    border-bottom: 2px solid #30363d;
-}
+        table th {
+            background-color: #1f242c !important;
+            color: #ffffff !important;
+            padding: 12px;
+            text-align: left;
+            border-bottom: 2px solid var(--border);
+        }
 
-table td {
-    padding: 12px;
-    border-bottom: 1px solid #30363d;
-    color: #c9d1d9; /* Texto gris claro tipo consola */
-}
+        table td {
+            padding: 12px;
+            border-bottom: 1px solid var(--border);
+            color: #c9d1d9;
+        }
 
-/* Efecto cebra: alterna filas oscuras y más claras */
-table tr:nth-child(even) {
-    background-color: #0d1117; 
-}
+        table tr:nth-child(even) {
+            background-color: #0d1117; 
+        }
 
-/* Estilo para las etiquetas de código inline dentro de la tabla */
-table code {
-    background-color: #21262d !important;
-    color: #ff7b72 !important; /* Color rojizo para destacar comandos/versiones */
-    padding: 2px 6px !important;
-    border-radius: 4px;
-    font-family: monospace;
-}
+        table code {
+            background-color: #21262d !important;
+            color: #ff7b72 !important;
+            padding: 2px 6px !important;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+
+        /* RESPONSIVO INTEGRADO (Unificado a un solo breakpoint de 992px) */
+        @media (max-width: 992px) {
+            body { flex-direction: column; }
+            .main-wrapper { flex-direction: column; }
+            .sidebar { 
+                width: 100%; 
+                max-width: 100%; 
+                height: auto; 
+                position: relative; 
+                border-right: none; 
+                border-bottom: 1px solid var(--border); 
+                padding: 20px;
+            }
+            .content-area { 
+                padding: 40px 20px; 
+            }
+        }
     </style>
 </head>
 <body>
@@ -235,9 +228,10 @@ table code {
                 
                 <nav class="sidebar-nav">
                     <a href="{{ site.baseurl }}/" class="side-link"><i class="fas fa-home"></i> Inicio</a>
-                   <a href="{{ site.baseurl }}/metasploitable2" class="side-link" target="_blank">
-    <i class="fas fa-shield-alt"></i> Hardening Metasploitable2
-</a>
+                    <!-- Corregido href a /metasploitable (sin el "2" al final para evitar error 404) -->
+                    <a href="{{ site.baseurl }}/metasploitable" class="side-link" style="color: #ffd700;">
+                        <i class="fas fa-shield-alt" style="color: #ffd700;"></i> Hardening Metasploitable2
+                    </a>
                     <a href="{{ site.baseurl }}/tags" class="side-link"><i class="fas fa-tags"></i> Etiquetas</a>
                     <a href="https://github.com/yorve/Auto-Recon" target="_blank" class="side-link"><i class="fas fa-terminal"></i> Auto-Recon</a>
                 </nav>
@@ -247,9 +241,9 @@ table code {
                     <a href="https://github.com/yorve" target="_blank"><i class="fab fa-github"></i> GitHub</a>
                     <a href="https://linkedin.com/in/yonathan-rivera-velozo" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
                     <a href="mailto:yorve.csec@gmail.com"><i class="fas fa-envelope"></i> Email</a>
-                    <a href="https://buymeacoffee.com/yorve" target="_blank" class="donate-btn">
-
-    <i class="fas fa-coffee"></i> Apoya el contenido de SecNotes </a>
+                    <a href="https://buymeacoffee.com/yorve" target="_blank" class="side-link" style="margin-top: 15px;">
+                        <i class="fas fa-coffee"></i> Apoya SecNotes
+                    </a>
                 </div>
                 
                 <div class="sidebar-footer">
@@ -259,11 +253,13 @@ table code {
         </aside>
 
         <main class="content-area">
+            <!-- Corregido el botón superior dinámico para apuntar a /metasploitable sin el "2" final -->
             {% if page.tags contains "Metasploitable 2" %}
-    <a href="{{ site.baseurl }}/metasploitable2" class="volver" style="color: var(--accent); text-decoration: none;">← Volver al proyecto</a>
-{% else %}
-    <a href="{{ site.baseurl }}/" class="volver" style="color: var(--accent); text-decoration: none;">← Volver al inicio</a>
-{% endif %}
+                <a href="{{ site.baseurl }}/metasploitable" class="volver">← Volver al proyecto</a>
+            {% else %}
+                <a href="{{ site.baseurl }}/" class="volver">← Volver al inicio</a>
+            {% endif %}
+
             <h1>{{ page.title }}</h1>
             <div class="post-meta">
                 {{ page.date | date: "%d/%m/%Y" }} • SecNotes 2.0
