@@ -216,20 +216,46 @@ layout: null
             }
         }
 
-        /* --- Variables para el Modo Claro --- */
+       /* --- Variables para el Modo Claro --- */
 [data-theme="light"] {
     --bg: #f4f4f5;
-    --sidebar-bg: #ffffff; /* El sidebar en modo claro se ve brutal en blanco */
+    --sidebar-bg: #ffffff;
     --text: #1f2328;
-    --title: #0a0a0a; /* Cambia el color del título principal a oscuro */
+    --title: #0a0a0a; /* Esto pintará de negro tu h1 */
     --border: #d0d7de;
     --accent: #00801b; 
 }
-    h1 { 
-    color: var(--title) !important; /* Cambiamos '#fff' fijo por la variable */
-    font-size: 2.2rem;
-    margin: 0 0 10px 0;
-    font-family: 'Courier New', Courier, monospace;
+
+/* Estilo súper limpio para el botón (sin fondos extraños) */
+.theme-btn-custom {
+    background: transparent !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 6px !important;
+    cursor: pointer;
+    padding: 8px 12px !important;
+    color: var(--text) !important;
+    font-family: monospace;
+    font-size: 0.85rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+}
+
+.theme-btn-custom:hover {
+    color: var(--accent) !important;
+    border-color: var(--accent) !important;
+}
+
+/* Asegurar que los títulos usen variables y no color blanco estático */
+h1, h2, h3 {
+    color: var(--title) !important;
+}
+.sidebar-social p {
+    color: var(--text) !important;
+    opacity: 0.6;
 }
 }
 
@@ -284,8 +310,10 @@ body {
                     <a href="{{ site.baseurl }}/tags" class="side-link"><i class="fas fa-tags"></i> Etiquetas</a>
                     <a href="https://github.com/yorve/Auto-Recon" target="_blank" class="side-link"><i class="fas fa-terminal"></i> Auto-Recon</a>
                    <div class="theme-toggle-container" style="padding: 10px 0; margin-bottom: 20px;">
-    <button id="theme-toggle" class="theme-btn" aria-label="Cambiar modo de color">
+    <button id="theme-toggle" class="theme-btn-custom" aria-label="Cambiar modo de color">
         <i class="fas fa-sun" id="theme-icon"></i> <span id="theme-text">Modo Oscuro</span>
+    </button>
+</div>
     </button>
 </div>
         </button>
