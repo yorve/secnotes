@@ -11,18 +11,16 @@ layout: null
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
-    <!-- Metadata para LinkedIn (Open Graph) - Solución Nativa Jekyll -->
+    <!-- Metadata para LinkedIn (Open Graph) - Volver al Estado Estable -->
     <meta property="og:type" content="article" />
     <meta property="og:title" content="{{ page.title }} | SecNotes" />
     <meta property="og:description" content="{{ content | strip_html | truncatewords: 25 }}" />
-    <meta property="og:url" content="{{ page.url | absolute_url }}" />
+    <meta property="og:url" content="https://yorve.github.io/secnotes{{ page.url }}" />
     <meta property="og:site_name" content="SecNotes" />
     
-    {% if page.img %}
-    <meta property="og:image" content="https://yorve.github.io{{ page.img }}" />
-    {% else %}
+    <!-- Forzamos el uso del logo estable para evitar problemas de ruta -->
     <meta property="og:image" content="https://yorve.github.io/secnotes/ico.jpg" />
-    {% endif %}
+    <meta name="twitter:card" content="summary_large_image" />
     
     <style>
         :root {
