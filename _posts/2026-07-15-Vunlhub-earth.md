@@ -2,17 +2,18 @@
 layout: post
 title: "The Planets - Earth - Vulnhub"
 date: 2026-07-15
-img: assets/img/vulnhub/earth/banner
+img: assets/img/vulnhub/earth/banner.png
 tags: [VulnHub, Linux, Enumeration, GDB, SUID ]
 ---
 
 
-IP víctima = 192.168.192.162
-IP atacante =192.168.192.139
+- IP víctima = 192.168.192.162
+  
+- IP atacante =192.168.192.139
 
 # Vulnhub - The Planets: Earth
 
-![Descarga Ova](https://www.vulnhub.com/entry/the-planets-earth,755/)
+[Descarga Ova](https://www.vulnhub.com/entry/the-planets-earth,755/)
 
 Comenzamos con la fase de reconocimiento,  descubrimos los siguientes puertos:
 - 22 SSH
