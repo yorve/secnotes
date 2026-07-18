@@ -45,11 +45,11 @@ SMB         192.168.192.166 445    MICROCHOFT       [*] Windows 7 Home Basic 760
 
 Y el resultado fue información de interés:
 
-	- `Windows 7 Home Basic 7601 Service Pack 1 x64`: Estamos frente a un sistema operativo obsoleto y propenso a exploits de vulnerabilidades públicas.
+- `Windows 7 Home Basic 7601 Service Pack 1 x64`: Estamos frente a un sistema operativo obsoleto y propenso a exploits de vulnerabilidades públicas.
 
-	- `SMBv1: True`: Protocolo obsoleto y vulnerable
+- `SMBv1: True`: Protocolo obsoleto y vulnerable
 
-	- `singning: False`: El firmado de SMB esta desactivado. Esto nos permitiría ataques de retransmisión (SMB Relay)
+- `singning: False`: El firmado de SMB esta desactivado. Esto nos permitiría ataques de retransmisión (SMB Relay)
 
 ### Vector de ataque.
 
