@@ -3,7 +3,7 @@ layout: post
 title: "Microchoft - The Hacker Labs - Windows"
 date: 2026-07-17
 img: /assets/img/windows/microchoft/banner.png
-tags: [VulnHub, Linux, Enumeration, Robots, Easy]
+tags: [Windows, Enumeration, Robots, MS17-010, EternalBlue]
 ---
 
 
