@@ -3,7 +3,7 @@ layout: post
 title: "Grillo – TheHackerLabs - Linux"
 date: 2025-07-26
 img: /assets/img/grillo/banner.png
-tags: [Hackers Labs, Linux, Web]
+tags: [HackersLabs, Linux, Web]
 ---
 ![img1]({{ site.baseurl }}/assets/img/grillo/banner.png)
 
