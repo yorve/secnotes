@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "PKG Poison - Dockerlabs - Linux - Fácil"
+title: "PKG Poison - Dockerlabs - Linux"
 date: 2026-02-22
 img: /assets/img/pkgpoison/1.png
 tags: [DockerLabs, Linux, SUID, Python]
