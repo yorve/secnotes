@@ -3,7 +3,7 @@ layout: post
 title: "Microchoft - The Hacker Labs - Windows"
 date: 2026-07-17
 img: /assets/img/windows/microchoft/banner.png
-tags: [Windows, Enumeration, Robots, MS17-010, EternalBlue]
+tags: [Windows, Enumeration, Robots.txt, MS17-010]
 ---
 
 
