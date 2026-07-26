@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "Grillo – TheHackerLabs - Linux - Fácil"
+title: "Grillo – TheHackerLabs - Linux"
 date: 2025-07-26
 img: /assets/img/grillo/banner.png
-tags: [The Hackers Labs, Linux, Web, Abuse Of Functionality]
+tags: [Hackers Labs, Linux, Web]
 ---
 ![img1]({{ site.baseurl }}/assets/img/grillo/banner.png)
 
