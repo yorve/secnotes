@@ -3,7 +3,7 @@ layout: post
 title: "La Corporación - Hackerlabs"
 date: 2026-06-11
 img: /assets/img/corporacion/banner.png
-tags: [Wireshark, BlueTeam, CVE-2021-41773, HackerLabs]
+tags: [Wireshark, BlueTeam, CVE-2021-41773, HackerLabs, logs]
 ---
 ![banner]({{ site.baseurl }}/assets/img/corporacion/banner.png)
 
