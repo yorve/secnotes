@@ -3,7 +3,7 @@ layout: post
 title: "Santa Logs - Hackerlabs - Windows"
 date: 2026-06-12
 img: /assets/img/santa/banner.png
-tags: [Logs, Visor de Eventos, Windows, BlueTeam]
+tags: [logs, Visor de Eventos, Windows, BlueTeam]
 ---
 
 ![banner]({{ site.baseurl }}/assets/img/santa/banner.png)
