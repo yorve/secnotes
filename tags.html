@@ -1,201 +1,142 @@
 ---
-layout: null
+layout: post
+title: "Etiquetas y Temas"
 ---
-<!DOCTYPE html>
-<html lang="es">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Etiquetas | SecNotes</title>
-    <link rel="icon" type="image/png" href="{{ site.baseurl }}/logo.png">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        :root {
-            --bg: #0a0a0a;
-            --card: #141414;
-            --text: #c9d1d9;
-            --accent: #00ff41;
-            --border: #222;
-        }
+<style>
+  /* --- Contenedor de la Nube de Tags --- */
+  .tags-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 40px;
+    padding: 20px;
+    background: var(--sidebar-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+  }
 
-        body {
-            background: var(--bg);
-            color: var(--text);
-            font-family: 'Segoe UI', sans-serif;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-        }
+  .tag-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    color: var(--text);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-family: monospace;
+    transition: all 0.2s ease-in-out;
+  }
 
-        .container {
-            width: 100%;
-            max-width: 900px;
-            padding: 60px 20px;
-        }
+  .tag-badge:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 255, 65, 0.15);
+  }
 
-        h1 {
-            color: #fff;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 10px;
-            margin-bottom: 30px;
-        }
+  .tag-count {
+    background: var(--border);
+    color: var(--title);
+    font-size: 0.75rem;
+    padding: 2px 7px;
+    border-radius: 10px;
+    font-weight: bold;
+  }
 
-        .back-link {
-            text-decoration: none;
-            color: var(--accent);
-            display: inline-block;
-            margin-bottom: 20px;
-        }
+  /* --- Listado de Posts por Tag --- */
+  .tag-section {
+    margin-bottom: 35px;
+    scroll-margin-top: 20px; /* Margen para cuando se hace click en el ancla */
+  }
 
-        /* Títulos de Categorías */
-        .category-title {
-            color: #fff;
-            font-family: monospace;
-            font-size: 1.1rem;
-            margin-top: 30px;
-            margin-bottom: 15px;
-            border-bottom: 1px dashed var(--border);
-            padding-bottom: 5px;
-        }
+  .tag-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1.4rem;
+    color: var(--accent);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 8px;
+    margin-bottom: 15px;
+  }
 
-        /* Contenedores de bloques de etiquetas */
-        .tag-cloud {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            margin-bottom: 25px;
-        }
+  .tag-post-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
 
-        .tag-btn {
-            background: var(--card);
-            border: 1px solid var(--border);
-            color: var(--text);
-            padding: 6px 14px;
-            border-radius: 5px;
-            text-decoration: none;
-            transition: 0.3s;
-            font-family: monospace;
-            font-size: 0.9rem;
-        }
+  .tag-post-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 12px;
+    border-radius: 6px;
+    transition: background 0.2s ease;
+  }
 
-        .tag-btn:hover {
-            border-color: var(--accent);
-            color: var(--accent);
-            box-shadow: 0 0 8px rgba(0, 255, 65, 0.15);
-        }
+  .tag-post-item:hover {
+    background: var(--sidebar-bg);
+  }
 
-        /* Secciones por tag */
-        .tag-section {
-            margin-top: 50px;
-        }
+  .tag-post-link {
+    color: var(--text);
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: color 0.2s ease;
+  }
 
-        .tag-title {
-            color: var(--accent);
-            font-family: monospace;
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-            border-left: 4px solid var(--accent);
-            padding-left: 15px;
-        }
+  .tag-post-link:hover {
+    color: var(--accent);
+  }
 
-        .post-item {
-            display: block;
-            text-decoration: none;
-            color: var(--text);
-            padding: 10px 0;
-            border-bottom: 1px solid #1a1a1a;
-            transition: 0.2s;
-        }
+  .tag-post-date {
+    font-size: 0.8rem;
+    color: #8b949e;
+    font-family: monospace;
+  }
+</style>
 
-        .post-item:hover {
-            padding-left: 10px;
-            color: #fff;
-            border-bottom-color: var(--accent);
-        }
+<!-- NUBE DE ETIQUETAS (CLICKEABLES) -->
+<div class="tags-cloud">
+  {% for tag in site.tags %}
+    {% assign tag_name = tag[0] %}
+    {% assign posts_count = tag[1] | size %}
+    <a href="#{{ tag_name | slugify }}" class="tag-badge">
+      <i class="fas fa-tag" style="font-size: 0.75rem;"></i>
+      <span>{{ tag_name }}</span>
+      <span class="tag-count">{{ posts_count }}</span>
+    </a>
+  {% endfor %}
+</div>
 
-        .post-date {
-            color: #555;
-            font-size: 0.8rem;
-            margin-right: 10px;
-        }
-    </style>
-</head>
-
-<body>
-    <div class="container">
-        <a href="{{ site.baseurl }}/" class="back-link">← Volver al inicio</a>
-        <h1>Explorar por Etiquetas</h1>
-
-        {% assign sorted_tags = site.tags | sort %}
-
-        <!-- 1. CATEGORÍA: PLATAFORMAS -->
-        <div class="category-title">[#] PLATAFORMAS</div>
-        <div class="tag-cloud">
-            {% for tag in sorted_tags %}
-            {% assign t = tag[0] %}
-            {% if t == "DockerLabs" or t == "HackTheBox" or t == "TryHackMe" or t == "VulnHub" or t == "HackerLabs" or t
-            == "CyberAcademy" or t == "TheHackersLabs" %}
-            <a href="#{{ t | slugify }}" class="tag-btn">{{ t }} ({{ tag[1].size }})</a>
-            {% endif %}
-            {% endfor %}
-        </div>
-
-        <!-- 2. CATEGORÍA: ENTORNOS / OS -->
-        <div class="category-title">[#] SISTEMAS OPERATIVOS Y ENTORNOS</div>
-        <div class="tag-cloud">
-            {% for tag in sorted_tags %}
-            {% assign t = tag[0] %}
-            {% if t == "Linux" or t == "Windows" or t == "LXC" or t == "LXD" or t == "Container-Escape" or t ==
-            "AWS-CLI" %}
-            <a href="#{{ t | slugify }}" class="tag-btn">{{ t }} ({{ tag[1].size }})</a>
-            {% endif %}
-            {% endfor %}
-        </div>
-
-        <!-- 3. CATEGORÍA: DEFENSA (BLUE TEAM) -->
-        <div class="category-title">[#] DEFENSIVE SECURITY (BLUE TEAM)</div>
-        <div class="tag-cloud">
-            {% for tag in sorted_tags %}
-            {% assign t = tag[0] %}
-            {% if t == "BlueTeam" or t == "Hardening" or t == "Logs" or t == "Visor de Eventos" or t ==
-            "MemoryForensics" or t == "Networking" %}
-            <a href="#{{ t | slugify }}" class="tag-btn">{{ t }} ({{ tag[1].size }})</a>
-            {% endif %}
-            {% endfor %}
-        </div>
-
-        <!-- 4. CATEGORÍA: OFENSIVA (RED TEAM) -->
-        <div class="category-title">[#] VULNERABILIDADES Y EXPLOTACIÓN (RED TEAM)</div>
-        <div class="tag-cloud">
-            {% for tag in sorted_tags %}
-            {% assign t = tag[0] %}
-            <!-- Excluimos a mano todo lo clasificado arriba + las dificultades para dejar solo técnicas -->
-            {% unless t == "DockerLabs" or t == "HackTheBox" or t == "TryHackMe" or t == "VulnHub" or t == "HackerLabs"
-            or t == "CyberAcademy" or t == "TheHackersLabs" or t == "Linux" or t == "Windows" or t == "LXC" or t ==
-            "LXD" or t == "Container-Escape" or t == "AWS-CLI" or t == "BlueTeam" or t == "Hardening" or t == "Logs" or
-            t == "Visor de Eventos" or t == "MemoryForensics" or t == "Networking" or t == "Easy" or t == "Medium" or t
-            == "Fácil" or t == "Media/Fácil" %}
-            <a href="#{{ t | slugify }}" class="tag-btn">{{ t }} ({{ tag[1].size }})</a>
-            {% endunless %}
-            {% endfor %}
-        </div>
-
-        <hr style="border: 0; border-top: 1px solid var(--border); margin-top: 50px;">
-
-        <!-- SECCIONES DE POSTS FILTRADOS (Se mantiene tu misma lógica funcional) -->
-        {% for tag in sorted_tags %}
-        <section class="tag-section" id="{{ tag[0] | slugify }}">
-            <div class="tag-title">> {{ tag[0] }}</div>
-            {% for post in tag[1] %}
-            <a href="{{ post.url | relative_url }}" class="post-item">
-                <span class="post-date">{{ post.date | date: "%d/%m/%Y" }}</span>
-                {{ post.title }}
+<!-- LISTADO DETALLADO POR CADA ETIQUETA -->
+<div class="tags-wrapper">
+  {% for tag in site.tags %}
+    {% assign tag_name = tag[0] %}
+    {% assign posts = tag[1] %}
+    
+    <div class="tag-section" id="{{ tag_name | slugify }}">
+      <h2 class="tag-header">
+        <i class="fas fa-hashtag"></i> {{ tag_name }}
+      </h2>
+      
+      <ul class="tag-post-list">
+        {% for post in posts %}
+          <li class="tag-post-item">
+            <a href="{{ post.url | relative_url }}" class="tag-post-link">
+              <i class="fas fa-chevron-right" style="font-size: 0.7rem; color: var(--accent); margin-right: 8px;"></i>
+              {{ post.title }}
             </a>
-            {% endfor %}
-        </section>
+            <span class="tag-post-date">{{ post.date | date: "%d/%m/%Y" }}</span>
+          </li>
         {% endfor %}
+      </ul>
     </div>
-</body>
-
-</html>
+  {% endfor %}
+</div>
