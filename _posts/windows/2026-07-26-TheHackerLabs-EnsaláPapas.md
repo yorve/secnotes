@@ -16,13 +16,13 @@ OS: Windows
 
 # Reconocimiento
 
-Usamos la herramienta **Auto-Recon** para automatizar esta fase y obtener información de interés.
+Para esta fase utilizaremos nuestra herramienta **Auto-Recon** (ahora escrita en Python) para automatizar esta fase y obtener un panorama general del objertivo.
 
 ![](/secnotes/assets/img/windows/ensala/Pasted image 20260725211518.png)
 ![](/secnotes/assets/img/windows/ensala/Pasted image 20260725211555.png)
 ![](/secnotes/assets/img/windows/ensala/Pasted image 20260725211622.png)
 
-Como vimos anteriormente, los puertos **Microsoft Windows RPC**, son puertos dinámicos del sistema.
+Como vimos anteriormente, los puertos **Microsoft Windows RPC**, corresponden a puertos dinámicos del sistema.
 
 Muestra superficie de ataque se centrará en los puertos:
 
@@ -35,7 +35,7 @@ Primero intentamos sobre el servicio SMB con `smbclient`
 
 ![](/secnotes/assets/img/windows/ensala/Pasted image 20260725212943.png)
 
-Pero el servidor nos indica que a pesar de permite la autenticación anónima, ningún recurso es compartido para un usuario son privilegios. 
+El servidor nos indica que a pesar de permite la autenticación anónima, ningún recurso es compartido para un usuario son privilegios. 
 
 Ya que no pudimos obtener información sobre este servicio, saltaremos al servicio web. Para esto realizaremos un escaneo de directorios más profundo con `gobuster`
 
@@ -92,7 +92,7 @@ Como dato, también encontramos un comentario sobre el código fuente.
 ![](/secnotes/assets/img/windows/ensala/Pasted image 20260725223930.png)
 ![](/secnotes/assets/img/windows/ensala/Pasted image 20260725223952.png)
 
-Podemos ver que esta ruta nos lleva a un archivo inexistente llamado web.config u luego de investigar un poco en la red, encontramos información por parte de `hacktriks` que nos puede servir.
+Podemos ver que esta ruta nos lleva a un archivo inexistente llamado web.config u luego de investigar un poco en la red, encontramos información por parte de `hacktricks` que nos puede servir.
 
 [ISS - Internet Information Service](https://hacktricks.wiki/es/network-services-pentesting/pentesting-web/iis-internet-information-services.html)
 
