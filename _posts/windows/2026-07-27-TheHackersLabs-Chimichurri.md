@@ -9,6 +9,7 @@ tags: [Windows, AD, crackmapexec, kerbrute, winrm, evil-winrm, JuicyPotato, CVE-
  ![](/secnotes/assets/img/windows/chimichurri/banner.png)
 
 Sistema operativo: Windows Active Directory.
+
 Plataforma: The Hackers Labs.
 
 En este laboratorio analizaremos el compromiso completo de la máquina Chimichurri. Comenzaremos explorando la interfaz CLI de una versión vulnerable de Jenkins para extraer credenciales en texto plano, continuaremos estableciendo una sesión interactiva por PowerShell sobre WinRM y concluiremos explotando privilegios de suplantación de tokens (SeImpersonatePrivilege) para escalar hasta SYSTEM y tomar el control del dominio chimichurri.thl.
