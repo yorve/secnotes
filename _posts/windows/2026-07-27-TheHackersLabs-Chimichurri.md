@@ -3,12 +3,13 @@ layout: post
 title: "Chimichurri - Hackerslabs - Windows AD"
 date: 2026-07-27
 img: /assets/img/windows/chimichurri/banner.png
-tags: [VulnHub, Linux, Enumeration, Robots, Easy]
+tags: [Windows, AD, crackmapexec, kerbrute, JuicyPotato, CVE-2024-23897]
 ---
+
  ![](/secnotes/assets/img/windows/chimichurri/banner.png)
 
-Sistema operativo: Windows Active Directory
-Plataforma: The Hackers Labs
+Sistema operativo: Windows Active Directory.
+Plataforma: The Hackers Labs.
 
 # Reconocimiento
 
