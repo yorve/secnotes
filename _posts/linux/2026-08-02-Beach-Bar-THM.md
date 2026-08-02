@@ -108,7 +108,6 @@ def main():
 if __name__ == "__main__":
     main()
 ```
-
 Vemos que el script estaba diseñado para recibir obligadamente un argumento llamado `--stream-pass`
 
 `parser.add_argument("--stream-pass", required=True, help="stream backend password")`
