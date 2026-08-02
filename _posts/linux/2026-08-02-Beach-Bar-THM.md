@@ -125,12 +125,12 @@ descubrimos que el script se estaba ejecutando y vemos que alguien programó el 
 
 `root 610 ... python /opt/beach-bar/jukeboxd/jukeboxd.py --stream-pass SunsetSpritz2024! --bitrate 320k`
 
-### En resumen###
+### En resumen ###
 
 El script definía qué parámetros necesitaba el programa para funcionar.
 El proceso del sistema operativo reveló el valor real de esos parámetros por que el script se ejecutaba de manera insegura exponiendo sus argumentos a cualquier usuario local.
 
-## Como corregir esto en un entorno real?##
+## Como corregir esto en un entorno real? ##
 
 1. **Gestión de secretos:** Nunca pasar contraseñas por argumentos de CLI. Deben cargarse desde variables de entorno o archivos de configuración con permisos restringidos (`chmod 600`).
 2. **Restricciones de** `/proc`: Montar `/proc` con la opción `hidepid=2` en el servidor para evitar que usuarios sin privilegios vean procesos de otros usuarios.
