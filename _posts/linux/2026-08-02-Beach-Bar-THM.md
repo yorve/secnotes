@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Beach Bar - TryHackMe - Linux"
-date: 2026-08-002
+date: 2026-08-02
 img: /assets/img/beachbar/banner.png
 tags: [Linux, TryHackMe, yml, ps aux, ]
 ---
