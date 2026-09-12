@@ -10,28 +10,28 @@ En esta laboratorio abordaremos la solución de la máquina Showtime en Dockerla
 
 Iniciamos con el escaneo inicial con nuestra herramienta **Auto Recon** para automatizar los escaneos básicos de puertos, servicios, directorios.
 
-![](Pasted%20image%2020260911202634.png)![](Pasted%20image%2020260911202718.png)
-![](Pasted%20image%2020260911202735.png)![](Pasted%20image%2020260911202753.png)
+![](/secnotes/assets/img/linux/showtime/Pasted%20image%2020260911202634.png)![](Pasted%20image%2020260911202718.png)
+![](/secnotes/assets/img/linux/showtime/Pasted%20image%2020260911202735.png)![](Pasted%20image%2020260911202753.png)
 
 Nuestra herramienta nos encontró el servicio SSH y WEB activos, sabemos que sin credenciales no podemos hacer nada en el servicio SSH, así que iremos por el servicio WEB.
 
-![](Pasted%20image%2020260911202905.png)
+![](/secnotes/assets/img/linux/showtime/Pasted%20image%2020260911202905.png)
 
 La página web no nos muestra mayor información, verificamos el código fuente de esta sin encontrar información de interés. Solo tenemos acceso a un panel de login.
 
-![](Pasted%20image%2020260911203056.png)
+![](/secnotes/assets/img/linux/showtime/Pasted%20image%2020260911203056.png)
 
 Intentamos acceder con credenciales conocidas sin tener éxito en el inicio de sesión.
 
-![](Pasted%20image%2020260911203156.png)
+![](/secnotes/assets/img/linux/showtime/Pasted%20image%2020260911203156.png)
 
 Luego de varios intentos, seguimos probando si el servidor es vulnerable a inyección SQL. Para ello interceptamos la petición de inicio de sesión con BurpSuite y en el campo de usuario inyectamos el código malicioso `'OR 1=1 -- -`
 
-![](Pasted%20image%2020260911203950.png)
-![](Pasted%20image%2020260911204117.png)
+![](/secnotes/assets/img/linux/showtime/Pasted%20image%2020260911203950.png)
+![](/secnotes/assets/img/linux/showtime/Pasted%20image%2020260911204117.png)
 Así al enviar la solicitud obtenemos acceso al servidor y confirmamos que el formulario es vulnerable a SQL Injection (Aythentication Bypass).
 
-![](Pasted%20image%2020260911204207.png)
+![]/secnotes/assets/img/linux/showtime/(Pasted%20image%2020260911204207.png)
 
 Hasta ahora solo engañamos a la consulta para que nos devuelva un registro válido (habitualmente el primero de la tabla), Entonces utilizaremos **sqlmap** para exprimir la vulnerabilidad mucho mas allá.
 
@@ -46,7 +46,7 @@ sqlmap -u "http://172.17.0.2/login_page/home.php" --forms --dbs --batch
 `--batch` = Activa la ejecución no interactiva. Omite cualquier pregunta de confirmación en consola.
 
 
-![](Pasted%20image%2020260911205804.png)![](Pasted%20image%2020260911205809.png)![](Pasted%20image%2020260911205821.png)
+![](/secnotes/assets/img/linux/showtime/Pasted%20image%2020260911205804.png)![](Pasted%20image%2020260911205809.png)![](Pasted%20image%2020260911205821.png)
 
 Como resultado, nos muestra las base de datos:
  - information_schema
@@ -64,7 +64,7 @@ sqlmap -u "http://172.17.0.2/login_page/index.php" --forms --batch -D users --ta
 aquí agregamos `-D users` para especificar la base de datos objetivo sobre la que operaremos, y `--tables` para listar unicamente los nombres de las tablas que existen dentro de esa base de datos (`users`).
 
 
-![](Pasted%20image%2020260911210250.png)
+![](/secnotes/assets/img/linux/showtime/Pasted%20image%2020260911210250.png)
 
 Ahora debemos ver el contenido de la tabla.
 
@@ -74,7 +74,7 @@ sqlmap -u "http://172.17.0.2/login_page/index.php" --forms --batch -D users -T u
 
 agregamos esta vez `-T usuarios` para especificar la tabla llamada usuarios dentro de esa db, y `--dump` para descargar y mostrar únicamente las filas y columnas de esa tabla especificada.
 
-![](Pasted%20image%2020260911210549.png)
+![](/secnotes/assets/img/linux/showtime/Pasted%20image%2020260911210549.png)
 
 Con esto ya tenemos las credenciales de 3 usuarios.
 
@@ -82,7 +82,7 @@ Con esto ya tenemos las credenciales de 3 usuarios.
 
 Ya que tenemos usuarios, vamos a validarlos conectándonos en la página web con las credenciales encontradas.
 
-![](Pasted%20image%2020260911210907.png)
+![](/secnotes/assets/img/linux/showtime/Pasted%20image%2020260911210907.png)
 
 obtenemos acceso a un nuevo panel de administración con las credenciales del usuario `joe`. Aquí nos deja ejecutar comandos de python, para validar esto, vamos a ejecutar el comando `id` mediante la sintaxis:
 
@@ -91,14 +91,14 @@ import os
 os.system("COMANDO")
 ```
 
-![](Pasted%20image%2020260911211120.png)
-![](Pasted%20image%2020260911211059.png)
+![](/secnotes/assets/img/linux/showtime/Pasted%20image%2020260911211120.png)
+![](/secnotes/assets/img/linux/showtime/Pasted%20image%2020260911211059.png)
 
 también validamos si tenemos bash en el servidor para ejecutar una reverse shell con el comando `which bash`
 
-![](Pasted%20image%2020260911211423.png)
+![](/secnotes/assets/img/linux/showtime/Pasted%20image%2020260911211423.png)
 
-![](Pasted%20image%2020260911211343.png)
+![](/secnotes/assets/img/linux/showtime/Pasted%20image%2020260911211343.png)
 
 Ya teniendo estos datos, seguimos con la conexión a nuestra terminal con una reverse shell.
 
@@ -106,13 +106,13 @@ Ya teniendo estos datos, seguimos con la conexión a nuestra terminal con una re
 
 dejamos nuestra máquina en escucha
 
-![](Pasted%20image%2020260911212041.png)
+![](/secnotes/assets/img/linux/showtime/Pasted%20image%2020260911212041.png)
 
 y ejecutamos el comando.
 
-![](Pasted%20image%2020260911212117.png)
+![](/secnotes/assets/img/linux/showtime/Pasted%20image%2020260911212117.png)
 
-![](Pasted%20image%2020260911212126.png)
+![](/secnotes/assets/img/linux/showtime/Pasted%20image%2020260911212126.png)
 
 Ya tenemos acceso al servidor con el usuario `www-data`, lo primero será mejorar la shell.
 
@@ -122,34 +122,34 @@ luego mandamos la shell a segundo plano con **CTRL Z**
 
 y en nuestra shell ponemos `stty raw -echo; fg` ahora al presionar enter volveremos a la shell de la víctima con este mejoramiento ya no tendremos una shell “tonta” ahora podremos usar las flechas sin que salgan caracteres no deseados.
 
-![](Pasted%20image%2020260911212501.png)
+![](/secnotes/assets/img/linux/showtime/Pasted%20image%2020260911212501.png)
 
 con este usuario, generalmente tenemos los permisos mínimos para movernos por el servidor, luego de una búsqueda por los directorios, nos encontramos con un archivo oculto.
-![](Pasted%20image%2020260911212615.png)
+![](/secnotes/assets/img/linux/showtime/Pasted%20image%2020260911212615.png)
 
-![](Pasted%20image%2020260911212654.png)
+![](/secnotes/assets/img/linux/showtime/Pasted%20image%2020260911212654.png)
 
 esta documento contiene una lista de palabras sospechosas, a mi vista parece un diccionarios. Un detalle es que están todos los caracteres en mayúsculas, por lo que difícilmente podrían ser contraseñas, así que vamos a copiarlas para crearnos un archivo nuevo y pasar todas estas palabras a minúsculas.
 
-![](Pasted%20image%2020260911212958.png)
+![](/secnotes/assets/img/linux/showtime/Pasted%20image%2020260911212958.png)
 
-![](Pasted%20image%2020260911213105.png)
+![](/secnotes/assets/img/linux/showtime/Pasted%20image%2020260911213105.png)
 
 Ahora tenemos dos diccionarios, ya tenemos un usuario potencialmente valido, y dos diccionarios para realizar ataque de fuerza bruta en el servicio ssh.
 
-![](Pasted%20image%2020260911213336.png)
+![](/secnotes/assets/img/linux/showtime/Pasted%20image%2020260911213336.png)
 
 Tal como pensamos, la contraseña estaba en minúsculas.  
 
-![](Pasted%20image%2020260911213451.png)
+![](/secnotes/assets/img/linux/showtime/Pasted%20image%2020260911213451.png)
 
 Y ganamos acceso vía SSH.
 
 Buscamos si podemos ejecutar alguna herramienta con permisos de root 
 
-![](Pasted%20image%2020260911221824.png)
+![](/secnotes/assets/img/linux/showtime/Pasted%20image%2020260911221824.png)
 
-![](Pasted%20image%2020260911221644.png)
+![](/secnotes/assets/img/linux/showtime/Pasted%20image%2020260911221644.png)
 
 y vemos que el usuario `luciano`puede ejecutar `posh` con permisos de root.
 
@@ -159,15 +159,15 @@ Ya que el usuario `luciano` puede ejecutar `posh` (que sabemos que es una shell)
 
 entonces: `sudo -u luciano posh`
 
-![](Pasted%20image%2020260911222927.png)
+![](/secnotes/assets/img/linux/showtime/Pasted%20image%2020260911222927.png)
 
 Así ganamos acceso con el usuario  `luciano`.
 
 Nuevamente buscamos si tenemos algun permiso especial, y esta vez nos encontramos que con el usuario `luciano` podemos ejecutar un script que se encuentra en su directorio.
 
-![](Pasted%20image%2020260911223021.png)
+![](/secnotes/assets/img/linux/showtime/Pasted%20image%2020260911223021.png)
 
-![](Pasted%20image%2020260911223155.png)
+![](/secnotes/assets/img/linux/showtime/Pasted%20image%2020260911223155.png)
 
 Este script es una reverse shell hacia una dirección (192.168.1.100), al revisar los permisos de este script, nuestro usuario puede modificarlo, así que tenemos dos caminos:
 
@@ -176,7 +176,7 @@ Este script es una reverse shell hacia una dirección (192.168.1.100), al revisa
 
 **Opción 1:**
 
-![](Pasted%20image%2020260911224404.png)
+![](/secnotes/assets/img/linux/showtime/Pasted%20image%2020260911224404.png)
 
 
 **Desglose**
@@ -200,9 +200,9 @@ y ejecutamos con:
 
 `sudo /bin/bash /home/luciano/script.sh`
 
-![](Pasted%20image%2020260911225912.png)
+![](/secnotes/assets/img/linux/showtime/Pasted%20image%2020260911225912.png)
 
-![](Pasted%20image%2020260911225854.png)
+![](/secnotes/assets/img/linux/showtime/Pasted%20image%2020260911225854.png)
 
 
 La resolución de esta máquina demuestra de manera práctica cómo debilidades individuales en distintas capas del sistema pueden encadenarse hasta comprometer la totalidad del servidor:
