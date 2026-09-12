@@ -11,11 +11,8 @@ En esta laboratorio abordaremos la solución de la máquina Showtime en Dockerla
 Iniciamos con el escaneo inicial con nuestra herramienta **Auto Recon** para automatizar los escaneos básicos de puertos, servicios, directorios.
 
 ![](/secnotes/assets/img/linux/showtime/Pasted%20image%2020260911202634.png)
-
 ![](/secnotes/assets/img/linux/showtime/Pasted%20image%2020260911202718.png)
-
 ![](/secnotes/assets/img/linux/showtime/Pasted%20image%2020260911202735.png)
-
 ![](/secnotes/assets/img/linux/showtime/Pasted%20image%2020260911202753.png)
 
 Nuestra herramienta nos encontró el servicio SSH y WEB activos, sabemos que sin credenciales no podemos hacer nada en el servicio SSH, así que iremos por el servicio WEB.
