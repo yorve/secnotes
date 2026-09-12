@@ -33,7 +33,7 @@ Luego de varios intentos, seguimos probando si el servidor es vulnerable a inyec
 ![](/secnotes/assets/img/linux/showtime/Pasted%20image%2020260911204117.png)
 Así al enviar la solicitud obtenemos acceso al servidor y confirmamos que el formulario es vulnerable a SQL Injection (Aythentication Bypass).
 
-![]/secnotes/assets/img/linux/showtime/(Pasted%20image%2020260911204207.png)
+![](/secnotes/assets/img/linux/showtime/Pasted%20image%2020260911204207.png)
 
 Hasta ahora solo engañamos a la consulta para que nos devuelva un registro válido (habitualmente el primero de la tabla), Entonces utilizaremos **sqlmap** para exprimir la vulnerabilidad mucho mas allá.
 
