@@ -6,20 +6,20 @@ img: /assets/img/linux/showtime/1.png
 tags: [DockerLabs, Linux, SQLi, SQL Injection, posh, python]
 ---
 
-En esta laboratorio abordaremos la solución de la máquina Showtime en Dockerlabs. El proceso cubre la cadena completa de intrusión hasta la explotación de un fallo clásico de SQL Injection y la elevación de privilegios.
+En este laboratorio abordaremos la solución de la máquina Showtime en Dockerlabs. El proceso cubre la cadena completa de intrusión hasta la explotación de un fallo clásico de SQL Injection y la elevación de privilegios.
 
-Iniciamos con el escaneo inicial con nuestra herramienta **Auto Recon** para automatizar los escaneos básicos de puertos, servicios, directorios.
+Iniciamos con el escaneo de puertos y servicios mediante nuestra herramienta Auto Recon. Identificamos los puertos de SSH y HTTP (Apache) abiertos en el objetivo. Sin credenciales de acceso para SSH, centramos la fase inicial de ataque en el servicio web.
 
 ![](/secnotes/assets/img/linux/showtime/Pasted%20image%2020260911202634.png)
 ![](/secnotes/assets/img/linux/showtime/Pasted%20image%2020260911202718.png)
 ![](/secnotes/assets/img/linux/showtime/Pasted%20image%2020260911202735.png)
 ![](/secnotes/assets/img/linux/showtime/Pasted%20image%2020260911202753.png)
 
-Nuestra herramienta nos encontró el servicio SSH y WEB activos, sabemos que sin credenciales no podemos hacer nada en el servicio SSH, así que iremos por el servicio WEB.
+Nuestra herramienta nos encontró el servicio SSH y HTTP (Apache) activos, Sin credenciales de acceso para SSH, así que centramos la fase inicial de ataque en el servicio web.
 
 ![](/secnotes/assets/img/linux/showtime/Pasted%20image%2020260911202905.png)
 
-La página web no nos muestra mayor información, verificamos el código fuente de esta sin encontrar información de interés. Solo tenemos acceso a un panel de login.
+La página no nos muestra mayor información, verificamos el código fuente de esta sin encontrar información de interés. Solo tenemos acceso a un panel de login.
 
 ![](/secnotes/assets/img/linux/showtime/Pasted%20image%2020260911203056.png)
 
@@ -27,22 +27,25 @@ Intentamos acceder con credenciales conocidas sin tener éxito en el inicio de s
 
 ![](/secnotes/assets/img/linux/showtime/Pasted%20image%2020260911203156.png)
 
-Luego de varios intentos, seguimos probando si el servidor es vulnerable a inyección SQL. Para ello interceptamos la petición de inicio de sesión con BurpSuite y en el campo de usuario inyectamos el código malicioso `'OR 1=1 -- -`
+La página principal expone un formulario de autenticación clásico. Inspeccionamos el código fuente HTML sin encontrar pistas ni comentarios relevantes. Tras verificar que las credenciales por defecto no son válidas, evaluamos la presencia de SQL Injection en el formulario de inicio de sesión.
+
+Interceptamos la petición POST con Burp Suite e introdujimos en el parámetro de usuario: `'OR 1=1 -- -`
 
 ![](/secnotes/assets/img/linux/showtime/Pasted%20image%2020260911203950.png)
 ![](/secnotes/assets/img/linux/showtime/Pasted%20image%2020260911204117.png)
-Así al enviar la solicitud obtenemos acceso al servidor y confirmamos que el formulario es vulnerable a SQL Injection (Aythentication Bypass).
+
+Así al enviar la solicitud obtenemos acceso al servidor y confirmamos que el formulario es vulnerable a SQL Injection (Authentication Bypass).
 
 ![](/secnotes/assets/img/linux/showtime/Pasted%20image%2020260911204207.png)
 
 Hasta ahora solo engañamos a la consulta para que nos devuelva un registro válido (habitualmente el primero de la tabla), Entonces utilizaremos **sqlmap** para exprimir la vulnerabilidad mucho mas allá.
 
 ```
-sqlmap -u "http://172.17.0.2/login_page/home.php" --forms --dbs --batch
+sqlmap -u "http://172.17.0.2/login_page/index.php" --forms --dbs --batch
 ```
 ### Desglose del comando ###
 
-`sqlmap -u "http://172.17.0.2/login_page/home.php"` = Especificamos la URL del objetivo.
+`sqlmap -u "http://172.17.0.2/login_page/index.php"` = Especificamos la URL del objetivo.
 
 `--forms` = Habilita la detección automática de formularios HTML. En lugar de requerir que definamos los parámetros manualmente (como `?id=` o `--data`).
 
@@ -52,7 +55,7 @@ sqlmap -u "http://172.17.0.2/login_page/home.php" --forms --dbs --batch
 
 ![](/secnotes/assets/img/linux/showtime/Pasted%20image%2020260911205804.png)![](Pasted%20image%2020260911205809.png)![](Pasted%20image%2020260911205821.png)
 
-Como resultado, nos muestra las base de datos:
+Como resultado, nos muestra las bases de datos:
  - information_schema
  - mysql
  - performance_schema
@@ -101,7 +104,6 @@ os.system("COMANDO")
 también validamos si tenemos bash en el servidor para ejecutar una reverse shell con el comando `which bash`
 
 ![](/secnotes/assets/img/linux/showtime/Pasted%20image%2020260911211423.png)
-
 ![](/secnotes/assets/img/linux/showtime/Pasted%20image%2020260911211343.png)
 
 Ya teniendo estos datos, seguimos con la conexión a nuestra terminal con una reverse shell.
@@ -115,7 +117,6 @@ dejamos nuestra máquina en escucha
 y ejecutamos el comando.
 
 ![](/secnotes/assets/img/linux/showtime/Pasted%20image%2020260911212117.png)
-
 ![](/secnotes/assets/img/linux/showtime/Pasted%20image%2020260911212126.png)
 
 Ya tenemos acceso al servidor con el usuario `www-data`, lo primero será mejorar la shell.
@@ -133,10 +134,13 @@ con este usuario, generalmente tenemos los permisos mínimos para movernos por e
 
 ![](/secnotes/assets/img/linux/showtime/Pasted%20image%2020260911212654.png)
 
-esta documento contiene una lista de palabras sospechosas, a mi vista parece un diccionarios. Un detalle es que están todos los caracteres en mayúsculas, por lo que difícilmente podrían ser contraseñas, así que vamos a copiarlas para crearnos un archivo nuevo y pasar todas estas palabras a minúsculas.
+esta documento contiene una lista de palabras sospechosas, a mi vista parece un diccionario. Un detalle es que están todos los caracteres en mayúsculas, por lo que difícilmente podrían ser contraseñas, así que vamos a copiarlas para crearnos un archivo nuevo y pasar todas estas palabras a minúsculas.
+
+`cat origen.txt | tr '[:upper:]' '[:lower:]'> destino.txt` 
+o
+`tr '[:upper:]' '[:lower:]' < origen.txt > destino.txt`
 
 ![](/secnotes/assets/img/linux/showtime/Pasted%20image%2020260911212958.png)
-
 ![](/secnotes/assets/img/linux/showtime/Pasted%20image%2020260911213105.png)
 
 Ahora tenemos dos diccionarios, ya tenemos un usuario potencialmente valido, y dos diccionarios para realizar ataque de fuerza bruta en el servicio ssh.
@@ -152,10 +156,9 @@ Y ganamos acceso vía SSH.
 Buscamos si podemos ejecutar alguna herramienta con permisos de root 
 
 ![](/secnotes/assets/img/linux/showtime/Pasted%20image%2020260911221824.png)
-
 ![](/secnotes/assets/img/linux/showtime/Pasted%20image%2020260911221644.png)
 
-y vemos que el usuario `luciano`puede ejecutar `posh` con permisos de root.
+y vemos que el usuario `luciano` puede ejecutar `posh` con permisos de root.
 
 Posh (Policy Compliance Shell) es una shell de Linux, una reimplementación de `sh`  minimalista e estricta creada principalmente en Debian para verificar que los scripts se cumplan rigurosamente con los estándares POSIX.
 
@@ -167,15 +170,14 @@ entonces: `sudo -u luciano posh`
 
 Así ganamos acceso con el usuario  `luciano`.
 
-Nuevamente buscamos si tenemos algun permiso especial, y esta vez nos encontramos que con el usuario `luciano` podemos ejecutar un script que se encuentra en su directorio.
+Nuevamente buscamos si tenemos algun permiso especial, y esta vez nos encontramos que con el usuario `luciano` podemos ejecutar un script que se encuentra en su directorio. (`/home/luciano/script.sh`)
 
 ![](/secnotes/assets/img/linux/showtime/Pasted%20image%2020260911223021.png)
-
 ![](/secnotes/assets/img/linux/showtime/Pasted%20image%2020260911223155.png)
 
 Este script es una reverse shell hacia una dirección (192.168.1.100), al revisar los permisos de este script, nuestro usuario puede modificarlo, así que tenemos dos caminos:
 
-1. Otorgarle permisos de SUID a bash.Modificar el script para que apunte a nuestra ip y obtener una reverse shell en nuestro equipo
+1. Arrancar Bash en modo privilegiado con `bash -p`, así obtendríamos una shell como root.
 2. Modificar el script para que apunte a nuestra ip y obtener una reverse shell en nuestro equipo
 
 **Opción 1:**
@@ -205,7 +207,6 @@ y ejecutamos con:
 `sudo /bin/bash /home/luciano/script.sh`
 
 ![](/secnotes/assets/img/linux/showtime/Pasted%20image%2020260911225912.png)
-
 ![](/secnotes/assets/img/linux/showtime/Pasted%20image%2020260911225854.png)
 
 
