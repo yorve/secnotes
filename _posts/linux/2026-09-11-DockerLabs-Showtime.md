@@ -43,10 +43,12 @@ sqlmap -u "http://172.17.0.2/login_page/home.php" --forms --dbs --batch
 ### Desglose del comando ###
 
 `sqlmap -u "http://172.17.0.2/login_page/home.php"` = Especificamos la URL del objetivo.
-`--forms` = Habilita la detección automática de formularios HTML. En lugar de requerir que definamos los parámetros manualmente (como `?id=` o `--data`).
-`--dbs` = Ordena a la herramienta enumerar todas las bases de datos.
-`--batch` = Activa la ejecución no interactiva. Omite cualquier pregunta de confirmación en consola.
 
+`--forms` = Habilita la detección automática de formularios HTML. En lugar de requerir que definamos los parámetros manualmente (como `?id=` o `--data`).
+
+`--dbs` = Ordena a la herramienta enumerar todas las bases de datos.
+
+`--batch` = Activa la ejecución no interactiva. Omite cualquier pregunta de confirmación en consola.
 
 ![](/secnotes/assets/img/linux/showtime/Pasted%20image%2020260911205804.png)![](Pasted%20image%2020260911205809.png)![](Pasted%20image%2020260911205821.png)
 
