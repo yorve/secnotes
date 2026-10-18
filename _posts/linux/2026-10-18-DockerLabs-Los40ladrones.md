@@ -2,7 +2,7 @@
 layout: post
 title: "Los 40 Ladrones - Dockerlabs - Linux"
 date: 2026-10-18
-img: /assets/img/
+img: /assets/img/los40ladrones/banner
 tags: [DockerLabs, Linux, Enumeration, Port-Knocking, Hydra, BruteForce, SUID]
 ---
 En este laboratorio vamos a resolver la máquina **Los 40 Ladrones** de DockerLabs. Lo particular de este reto es que el servicio SSH no está expuesto de entrada: hay que descubrir y activar una secuencia de **Port Knocking** oculta en el servicio web para habilitarlo, obtener acceso por fuerza bruta con credenciales débiles, y finalmente escalar privilegios aprovechando un script ejecutado por el demonio `knockd` con permisos de root que deja un binario `bash` con bit **SUID**.
