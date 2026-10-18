@@ -2,7 +2,7 @@
 layout: post
 title: "Los 40 Ladrones - Dockerlabs - Linux"
 date: 2026-10-18
-img: /assets/img/los40ladrones/banner
+img: /secnotes/assets/img/los40ladrones/banner
 tags: [DockerLabs, Linux, Enumeration, Port-Knocking, Hydra, BruteForce, SUID]
 ---
 En este laboratorio vamos a resolver la máquina **Los 40 Ladrones** de DockerLabs. Lo particular de este reto es que el servicio SSH no está expuesto de entrada: hay que descubrir y activar una secuencia de **Port Knocking** oculta en el servicio web para habilitarlo, obtener acceso por fuerza bruta con credenciales débiles, y finalmente escalar privilegios aprovechando un script ejecutado por el demonio `knockd` con permisos de root que deja un binario `bash` con bit **SUID**.
@@ -10,27 +10,27 @@ En este laboratorio vamos a resolver la máquina **Los 40 Ladrones** de DockerLa
 
 Comenzamos con un escaneo básico con nuestra herramienta *AutoRecon*, para automatizar este primer proceso mientras preparamos nuestras herramientas.
 
-![utilizacion herramienta auto-recon](/assets/img/los40ladrones/Pasted%20image%2020261018152443.png)
+![utilizacion herramienta auto-recon](/secnotes/assets/img/los40ladrones/Pasted%20image%2020261018152443.png)
 
 Este escaneo nos encontró solo el servicio web habilitado sobre el puerto 80, y gobuster no nos muestra mayor información de primeras.
 
-![resultado de escaneo de puertos](/assets/img/los40ladrones/Pasted%20image%2020261018152730.png)
+![resultado de escaneo de puertos](/secnotes/assets/img/los40ladrones/Pasted%20image%2020261018152730.png)
 
 Al acceder a este servicio, solo nos encontramos con la página de inicio de apache
 
-![página principal apache](/assets/img/los40ladrones/Pasted%20image%2020261018152815.png)
+![página principal apache](/secnotes/assets/img/los40ladrones/Pasted%20image%2020261018152815.png)
 
 También usamos `curl` para buscar comentarios en el código de la página y nada.
 
-![uso herramienta curl](/assets/img/los40ladrones/Pasted%20image%2020261018152911.png)
+![uso herramienta curl](/secnotes/assets/img/los40ladrones/Pasted%20image%2020261018152911.png)
 
 Nuestro siguiente paso será realizar un escaneo más especializado en busca de directorios
 
-![escaneo de directorios web gobuster](/assets/img/los40ladrones/Pasted%20image%2020261018153157.png)
+![escaneo de directorios web gobuster](/secnotes/assets/img/los40ladrones/Pasted%20image%2020261018153157.png)
 
 Esta vez encontramos un archivo llamado `qdefense.txt`, Al acceder a él vemos una pista bastante importante.
 
-![archivo qdefense.txt](/assets/img/los40ladrones/Pasted%20image%2020261018153255.png)
+![archivo qdefense.txt](/secnotes/assets/img/los40ladrones/Pasted%20image%2020261018153255.png)
 
 *Recuerda llama antes de entrar*, esta es una pista que me costó bastante descubrir, se trata de un servicio llamado **Port Knocking**. Este es una técnica de seguridad en Linux que mantiene los puertos críticos cerrados o filtrados en el firewall, abriéndolos solo cuando se recibe una secuencia específica de intentos de conexión  a otros puertos cerrados.
 
@@ -56,17 +56,17 @@ Volvemos..
 
 ya sabemos que tenemos que usar el cliente de `knock` y el mismo mensaje que encontramos nos da la secuencia y un posible usuario llamado *toctoc*
 
-![manual de knock](/assets/img/los40ladrones/Pasted%20image%2020261018154707.png)
+![manual de knock](/secnotes/assets/img/los40ladrones/Pasted%20image%2020261018154707.png)
 
 Entonces usamos el comando `knock <IP> <Secuencia de puertos>` 
 
-![uso de knock](/assets/img/los40ladrones/Pasted%20image%2020261018154808.png)
+![uso de knock](/secnotes/assets/img/los40ladrones/Pasted%20image%2020261018154808.png)
 
 Al ejecutar no nos muestra ningún mensaje de confirmación ni nada... (de hecho puse una secuencia mal y tampoco nos devuelve nada).
 
 Pero al realizar  un nuevo escaneo de puertos nos habilitó el servicio SSH en el puerto 22
 
-![escaneo nmap](/assets/img/los40ladrones/Pasted%20image%2020261018154944.png)
+![escaneo nmap](/secnotes/assets/img/los40ladrones/Pasted%20image%2020261018154944.png)
 
 Ya que tenemos un posible usuario, utilizaremos la herramienta `Hydra` para realizar un ataque de diccionario con `rockyou`
 
@@ -75,15 +75,15 @@ Ya que tenemos un posible usuario, utilizaremos la herramienta `Hydra` para real
 
 `hydra -l 'toctoc' -P ~/Downloads/rockyou.txt 172.17.0.2 ssh`
 
-![uso de hydra](/assets/img/los40ladrones/Pasted%20image%2020261018155554.png)
+![uso de hydra](/secnotes/assets/img/los40ladrones/Pasted%20image%2020261018155554.png)
 
 Y luego de un momento nos entregó la contraseña de este usuario, con estos dos datos ya podemos ingresar al sistema
 
-![acceso vía ssh](/assets/img/los40ladrones/Pasted%20image%2020261018155654.png)
+![acceso vía ssh](/secnotes/assets/img/los40ladrones/Pasted%20image%2020261018155654.png)
 
 Una vez dentro nuestra misión es buscar si tenemos algún permiso de sudo 
 
-![búsqueda de privilegios](/assets/img/los40ladrones/Pasted%20image%2020261018160010.png)
+![búsqueda de privilegios](/secnotes/assets/img/los40ladrones/Pasted%20image%2020261018160010.png)
 
 efectivamente tenemos el binario de bash `/opt/bash` , así que tenemos nos dejaron la escalada de privilegios en bandeja.
 
@@ -91,7 +91,7 @@ efectivamente tenemos el binario de bash `/opt/bash` , así que tenemos nos deja
 
 `sudo -u root /opt/bash`
 
-![escalada de privilegios](/assets/img/los40ladrones/Pasted%20image%2020261018163007.png)
+![escalada de privilegios](/secnotes/assets/img/los40ladrones/Pasted%20image%2020261018163007.png)
 
 Con esto ganamos el acceso como el usuario root gracias a una mala configuración del sistema.
 
@@ -105,11 +105,11 @@ root         630  0.0  0.0   3964  2176 pts/1    S+   05:03   0:00 grep --color=
 root@4ffcaf3103b7:/home/toctoc# 
 ```
 
-![uso grep sobre ps aux](/assets/img/los40ladrones/Pasted%20image%2020261018160727.png)
+![uso grep sobre ps aux](/secnotes/assets/img/los40ladrones/Pasted%20image%2020261018160727.png)
 
 Encontramos las secuencias para abrir y cerrar el servicio SSH, además una secuencia que ejecuta un script, revisando el script nos encontramos con esto:
 
-![lectura configuración de knockd](/assets/img/los40ladrones/Pasted%20image%2020261018161306.png)
+![lectura configuración de knockd](/secnotes/assets/img/los40ladrones/Pasted%20image%2020261018161306.png)
 
 - `cp /bin/bash /opt/bash` : Toma el terminal estándar de bash y hace una copia exacta de ella guardándola en `/opt/bash`
 - `chmod +s /opt/bash` : Le asigna el permiso **SUID** al archivo copiado. Debido a que el script fue ejecutado por el demonio de `knockd` (con privilegios ded root) el nuevo archivo `/opt/bash` pertenecerá al usuario `root`.
