@@ -1,5 +1,13 @@
 title: SecNotes
-description: Writeups de hacking ético.
-baseurl: "/secnotes" 
+description: Writeups de hacking ético en español — DockerLabs, pentesting web y escalada de privilegios.
+baseurl: "/secnotes"
 url: "https://yorve.github.io"
-theme: null 
+theme: null
+lang: es
+
+plugins:
+  - jekyll-sitemap
+  - jekyll-seo-tag
+  - jekyll-feed
+
+logo: /ico.jpg
