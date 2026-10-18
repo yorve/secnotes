@@ -48,6 +48,7 @@ Esta vez encontramos un archivo llamado `qdefense.txt`, Al acceder a él vemos u
 - Bajo consumo de recursos: Genera un impacto mínimo en la CPU, memoria y tráfico de red del servidor.
 
 [ArchWiki - LLamada de puertos](https://wiki.archlinux.org/title/Port_knocking)
+
 [Manual de Knockd](https://linux.die.net/man/1/knockd)
 
 ## Explotación.
