@@ -1,0 +1,148 @@
+---
+layout: post
+title: "Etiquetas y Temas"
+---
+<style>
+  /* --- Contenedor de la Nube de Tags --- */
+.tags-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 40px;
+    padding: 20px;
+    background: var(--sidebar-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+}
+.tag-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    color: var(--text);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-family: monospace;
+    transition: all 0.2s ease-in-out;
+}
+.tag-badge:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 255, 65, 0.15);
+}
+.tag-count {
+    background: var(--border);
+    color: var(--title);
+    font-size: 0.75rem;
+    padding: 2px 7px;
+    border-radius: 10px;
+    font-weight: bold;
+}
+  /* --- Listado de Posts por Tag --- */
+.tag-section {
+    margin-bottom: 35px;
+    scroll-margin-top: 20px;
+}
+.tag-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1.4rem;
+    color: var(--accent);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 8px;
+    margin-bottom: 15px;
+}
+.tag-post-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.tag-post-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 12px;
+    border-radius: 6px;
+    transition: background 0.2s ease;
+}
+.tag-post-item:hover {
+    background: var(--sidebar-bg);
+}
+.tag-post-link {
+    color: var(--text);
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: color 0.2s ease;
+}
+.tag-post-link:hover {
+    color: var(--accent);
+}
+.tag-post-date {
+    font-size: 0.8rem;
+    color: #8b949e;
+    font-family: monospace;
+}
+</style>
+
+<!-- NUBE DE ETIQUETAS (CLICKEABLES) -->
+<!-- Excluye la serie "Metasploitable 2" (tiene su propia página dedicada) para no inundar la nube -->
+<div class="tags-cloud">
+{% for tag in site.tags %}
+{% assign tag_name = tag[0] %}
+{% if tag_name == "Metasploitable 2" %}{% continue %}{% endif %}
+{% assign posts_count = 0 %}
+{% for post in tag[1] %}
+  {% unless post.tags contains "Metasploitable 2" %}
+    {% assign posts_count = posts_count | plus: 1 %}
+  {% endunless %}
+{% endfor %}
+{% if posts_count > 0 %}
+    <a href="#{{ tag_name | slugify }}" class="tag-badge">
+      <i class="fas fa-tag" style="font-size: 0.75rem;"></i>
+      <span>{{ tag_name }}</span>
+      <span class="tag-count">{{ posts_count }}</span>
+    </a>
+{% endif %}
+{% endfor %}
+</div>
+
+<!-- LISTADO DETALLADO POR CADA ETIQUETA -->
+<div class="tags-wrapper">
+{% for tag in site.tags %}
+{% assign tag_name = tag[0] %}
+{% if tag_name == "Metasploitable 2" %}{% continue %}{% endif %}
+{% assign posts = tag[1] %}
+{% assign has_visible_posts = false %}
+{% for post in posts %}
+  {% unless post.tags contains "Metasploitable 2" %}
+    {% assign has_visible_posts = true %}
+  {% endunless %}
+{% endfor %}
+{% if has_visible_posts %}
+    <div class="tag-section" id="{{ tag_name | slugify }}">
+      <h2 class="tag-header">
+        <i class="fas fa-hashtag"></i> {{ tag_name }}
+      </h2>
+      <ul class="tag-post-list">
+{% for post in posts %}
+  {% unless post.tags contains "Metasploitable 2" %}
+          <li class="tag-post-item">
+            <a href="{{ post.url | relative_url }}" class="tag-post-link">
+              <i class="fas fa-chevron-right" style="font-size: 0.7rem; color: var(--accent); margin-right: 8px;"></i>
+{{ post.title }}
+            </a>
+            <span class="tag-post-date">{{ post.date | date: "%d/%m/%Y" }}</span>
+          </li>
+  {% endunless %}
+{% endfor %}
+      </ul>
+    </div>
+{% endif %}
+{% endfor %}
+</div>
