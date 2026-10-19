@@ -431,30 +431,7 @@ layout: null
                 <i class="fas fa-coffee"></i> Apoya el contenido de SecNotes </a>
         </header>
              <!-- Links en barra superior -->
-            <nav class="main-nav"> 
-                <div class="nav-links">
-                    <a href="{{ site.baseurl }}/" class="nav-item">Inicio</a>
-                    <a href="{{ site.baseurl }}/metasploitable2" class="nav-item project-highlight">
-                        <span class="blink-prompt">></span> Hardening Metasploitable 2
-                    </a>
-                    <a href="{{ site.baseurl }}/about" class="nav-item">Acerca de mí</a>
-                    <a href="{{ site.baseurl }}/tags" class="nav-item">Etiquetas</a>
-                    <a href="https://github.com/yorve/Auto_Recon.git" target="_blank" class="nav-item">Auto-Recon</a>
-                </div>
-
-                <div class="contact-me">
-                    <span>Contact me:</span>
-                    <a href="https://github.com/yorve" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
-                    <a href="https://www.linkedin.com/in/yonathan-rivera-velozo/" target="_blank" title="LinkedIn"><i
-                            class="fab fa-linkedin"></i></a>
-                    <a href="mailto:yorve.csec@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
-                    
-                    <!-- NUEVO: BOTÓN MODO CLARO/OSCURO DISCRETO -->
-                    <button id="theme-toggle" class="theme-btn-nav" aria-label="Cambiar modo de color">
-                        <i class="fas fa-sun" id="theme-icon"></i>
-                    </button>
-                </div>
-            </nav>
+           {% include nav.html %}
 
         <!-- CONTENEDOR DE LA BARRA DE BÚSQUEDA -->
         <div class="search-container">
