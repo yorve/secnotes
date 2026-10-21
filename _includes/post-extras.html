@@ -1,0 +1,39 @@
+{% comment %} Se incluye justo después del contenido del post/página. {% endcomment %}
+{% if page.date %}
+  {% assign shown = 0 %}
+  {% capture related_html %}
+    {% for p in site.posts %}
+      {% if p.url != page.url and shown < 3 %}
+        {% assign common = p.tags | where_exp: "t", "page.tags contains t" %}
+        {% if common.size > 0 %}
+          <li><a href="{{ p.url | relative_url }}">{{ p.title }}</a></li>
+          {% assign shown = shown | plus: 1 %}
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+  {% endcapture %}
+  {% if shown > 0 %}
+  <section class="related-posts">
+    <h3>Posts relacionados</h3>
+    <ul>{{ related_html }}</ul>
+  </section>
+  {% endif %}
+
+  {% if site.giscus.repo_id and site.giscus.repo_id != "" %}
+  <section class="comments">
+    <script src="https://giscus.app/client.js"
+      data-repo="{{ site.giscus.repo }}"
+      data-repo-id="{{ site.giscus.repo_id }}"
+      data-category="{{ site.giscus.category }}"
+      data-category-id="{{ site.giscus.category_id }}"
+      data-mapping="pathname"
+      data-reactions-enabled="1"
+      data-theme="preferred_color_scheme"
+      data-lang="es"
+      crossorigin="anonymous"
+      async></script>
+  </section>
+  {% endif %}
+{% endif %}
+<link rel="stylesheet" href="{{ '/assets/css/post-extras.css' | relative_url }}">
+<script src="{{ '/assets/js/post-extras.js' | relative_url }}" defer></script>
