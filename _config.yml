@@ -11,3 +11,9 @@ plugins:
   - jekyll-feed
 
 logo: /ico.jpg
+
+giscus:
+  repo: "yorve/secnotes"
+  repo_id: ""
+  category: "General"
+  category_id: ""
