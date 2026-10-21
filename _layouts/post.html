@@ -354,10 +354,12 @@ layout: null
                 {{ page.date | date: "%d/%m/%Y" }} • SecNotes 2.0
             </div>
             <hr>
-            
-            <div class="markdown-content">
+            <div class="markdown-content" id="post-content">
                 {{ content }}
             </div>
+
+            {% include post-extras.html %}
+            
         </main>
     </div>
 
