@@ -30,7 +30,7 @@ Comenzamos con la fase de reconocimiento con nuestra herramienta *Auto-Recon*, p
 
 Agregamos esta direccion al archivo
 
-![/etc/hosts](Pasted%20image%2020261023220101.png)
+![/etc/hosts](/secnotes/assets/img/kaboom/Pasted%20image%2020261023220101.png)
 y ahora al realizar un ping ya tenemos respuesta del servidor
 
 ![ping a host](/secnotes/assets/img/kaboom/Pasted%20image%2020261023220449.png)
