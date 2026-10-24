@@ -2,6 +2,7 @@
 layout: post
 title: Kaboom - The Hacker Labs - Linux
 date: 2026-10-24
+img: /assets/img/kaboom/banner.png
 tags:
   - web
   - dns
@@ -13,16 +14,15 @@ tags:
   - container-escape
 ---
 
-## TL;DR
 Explotamos una transferencia de zona DNS mal configurada para descubrir subdominios ocultos, uno de los cuales exponía una API GraphQL sin autenticación que filtró credenciales en texto plano. Con ellas accedimos por SSH, escalamos privilegios mediante PATH Hijacking sobre un binario SUID, y finalmente escapamos del contenedor Docker explotando capabilities excesivas (`cap_sys_admin` + `cap_mknod`) para montar el disco del host.
 
 ## Reconocimiento
 Comenzamos con la fase de reconocimiento con nuestra herramienta *Auto-Recon*, para realizar este proceso inicial de forma automatizada.
 
-![secnotes](/secnotes/assets/kaboom/Pasted%20image%2020261023215625.png)
-![escaneo nmap](Pasted%20image%2020261023215644.png)
-![escaneo de versiones](Pasted%20image%2020261023215718.png)
-![escaneo gobuster](Pasted%20image%2020261023215735.png)
+![secnotes](/secnotes/assets/img/kaboom/Pasted%20image%2020261023215625.png)
+![escaneo nmap](/secnotes/assets/img/kaboom/Pasted%20image%2020261023215644.png)
+![escaneo de versiones](/secnotes/assets/img/kaboom/Pasted%20image%2020261023215718.png)
+![escaneo gobuster](/secnotes/assets/img/kaboom/Pasted%20image%2020261023215735.png)
 
 **información importante**
 
@@ -33,7 +33,7 @@ Agregamos esta direccion al archivo
 ![/etc/hosts](Pasted%20image%2020261023220101.png)
 y ahora al realizar un ping ya tenemos respuesta del servidor
 
-![ping a host](Pasted%20image%2020261023220449.png)
+![ping a host](/secnotes/assets/img/kaboom/Pasted%20image%2020261023220449.png)
 
 ## Enumeración
 
@@ -69,10 +69,10 @@ Obtuvimos la siguiente información de interés. Servicio SSH(22), DNS(53), WEB(
 
 Al ingresar al servicio web, nos encontramos con una página informativa, luego de inspeccionarla no encontramos nada de interés de primeras.
 
-![web](Pasted%20image%2020261023220633.png)
+![web](/secnotes/assets/img/kaboom/Pasted%20image%2020261023220633.png)
 
-![web kaboom](Pasted%20image%2020261023220652.png)
-![terminal kaboom](Pasted%20image%2020261023220713.png)
+![web kaboom](/secnotes/assets/img/kaboom/Pasted%20image%2020261023220652.png)
+![terminal kaboom](/secnotes/assets/img/kaboom/Pasted%20image%2020261023220713.png)
 
 Nada de utilidad de momento..
 
@@ -124,11 +124,11 @@ kaboom.thl.		604800	IN	SOA	ns1.kaboom.thl. admin.kaboom.thl. 2026090201 604800 8
 
 Ahora que encontramos las sitios, vamos a agregarlos a nuestro archivo `/etc/hosts` y entrar a ellos en busca de nueva información.
 
-![](Pasted%20image%2020261023225636.png)
+![](/secnotes/assets/img/kaboom/Pasted%20image%2020261023225636.png)
 
 En nuestra nueva dirección tenemos acceso a una terminal con grahql donde podemos realizar consultas.
 
-![](Pasted%20image%2020261023225758.png)
+![](/secnotes/assets/img/kaboom/Pasted%20image%2020261023225758.png)
 
 ## Explotación
 
@@ -466,11 +466,11 @@ Veremos si tenemos acceso vía ssh con estas credenciales.
 
 Luego de varias pruebas con estos usuarios, tenemos acceso al servidor por el puerto 2222 con las credenciales del usuario `kaboom`
 
-![agregar host a /etc/hosts](Pasted%20image%2020261024080446.png)
+![agregar host a /etc/hosts](/secnotes/assets/img/kaboom/Pasted%20image%2020261024080446.png)
 
  Verificamos qué archivos existen en el directorio actual, encontramos la flag de usuario, y un archivo llamado `kaboom-check`, que contiene el binario SUID (tiene la letra `s` en lugar de `x` en los permisos del dueño `rws`. Esto significa que cuando cualquier usuario ejecuta este binario, el proceso corre con los privilegios del dueño del archivo (root), no con los permisos del usuario que los lanzó).
   
-![nuketown](Pasted%20image%2020261024082840.png)
+![nuketown](/secnotes/assets/img/kaboom/Pasted%20image%2020261024082840.png)
 
 Analizamos este binario con `strings`
 
@@ -602,7 +602,7 @@ Checking capabilities with getcap:
 
 Ahora al ejecutar el binario, este buscará `getcap` en el `$PATH` que modificamos y encontrará nuestro archivo `getcap` falso que nos ejecuta una shell, y como tiene el SUID de root, automáticamente nos concede el acceso a una shell interactiva con sus privilegios.
 
-![capabilities](Pasted%20image%2020261024085821.png)
+![capabilities](/secnotes/assets/img/kaboom/Pasted%20image%2020261024085821.png)
 
 Ahora tenemos acceso al sistema. Al buscar información nos encontramos con una nota.
 
@@ -675,7 +675,7 @@ major minor  #blocks  name
 
 El **major 8** y **minor 1** son como el código de barras que el kernel de Linux usa para saber exactamente a qué piezas de hardware se refiere ese archivo. Y donde mas vemos estos números?
 
-![nota root](Pasted%20image%2020261024091505.png)
+![nota root](/secnotes/assets/img/kaboom/Pasted%20image%2020261024091505.png)
 
 En la nota cuando ingresamos al sistema como el usuario root...
 
