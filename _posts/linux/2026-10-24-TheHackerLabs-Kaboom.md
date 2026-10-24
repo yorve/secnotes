@@ -7,6 +7,7 @@ tags:
   - web
   - dns
   - graphql
+  - Path Hijack
   - ssh
   - ssid
   - privesc
