@@ -19,7 +19,7 @@ Explotamos una transferencia de zona DNS mal configurada para descubrir subdomin
 ## Reconocimiento
 Comenzamos con la fase de reconocimiento con nuestra herramienta *Auto-Recon*, para realizar este proceso inicial de forma automatizada.
 
-![secnotes](Pasted%20image%2020261023215625.png)
+![secnotes](/secnotes/assets/kaboom/Pasted%20image%2020261023215625.png)
 ![escaneo nmap](Pasted%20image%2020261023215644.png)
 ![escaneo de versiones](Pasted%20image%2020261023215718.png)
 ![escaneo gobuster](Pasted%20image%2020261023215735.png)
