@@ -17,3 +17,23 @@ giscus:
   repo_id: ""
   category: "General"
   category_id: ""
+
+# Default sharing image, with existing per-article banners preserved.
+defaults:
+  - scope:
+      path: ""
+    values:
+      image: /ico.jpg
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - vendor
+  - _templates
+  - REVIEW.md
+  - _preview

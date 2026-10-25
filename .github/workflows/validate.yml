@@ -1,0 +1,22 @@
+name: Validate Jekyll
+on:
+  pull_request:
+  push:
+    branches:
+      - improvements/secnotes-navigation
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+          bundler-cache: true
+      - name: Build site
+        run: bundle exec jekyll build --trace
+      - name: Check search index and metadata
+        run: |
+          ruby -rjson -e 'JSON.parse(File.read("_site/search.json")); abort "Missing start page" unless File.exist?("_site/empieza-aqui/index.html"); abort "Missing canonical" unless File.read("_site/index.html").include?(%q{rel="canonical"})'

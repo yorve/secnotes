@@ -7,23 +7,10 @@ layout: null
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% include google-analytics.html %}
-    <title>{{ page.title }} | SecNotes</title>
-    
+    {% include article-metadata.html %}
+    {% feed_meta %}
+    <link rel="icon" href="{{ '/favicon.ico' | relative_url }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
-    <!-- METADATOS SEGUROS (Evitan URLs rotas si olvidas una barra '/') -->
-    <meta property="og:type" content="article" />
-    <meta property="og:title" content="{{ page.title }} | SecNotes" />
-    <meta property="og:site_name" content="SecNotes" />
-    <meta property="og:url" content="{{ page.url | absolute_url }}" />
-    
-    <!-- Evita que códigos extraños o CSS del contenido rompan la descripción de la tarjeta -->
-    <meta property="og:description" content="Documentación técnica y writeups de ciberseguridad por Yorve CSEC." />
-    
-    <!-- Si el post tiene 'img' en el front matter, la convierte en URL absoluta perfecta. Si no, usa tu logo 'ico.jpg' -->
-    <meta property="og:image" content="{% if page.img %}{{ page.img | absolute_url }}{% else %}{{ '/ico.jpg' | absolute_url }}{% endif %}" />
-    <meta name="twitter:card" content="summary_large_image" />
-    
     <style>
         :root {
             --bg: #0a0a0a;
@@ -294,8 +281,10 @@ layout: null
             font-family: monospace;
         }
     </style>
+    <link rel="stylesheet" href="{{ '/assets/css/site-improvements.css' | relative_url }}">
 </head>
 <body>
+<a class="skip-link" href="#main">Saltar al contenido</a>
 
     <!-- BARRA DE PROGRESO DE LECTURA -->
     <div class="progress-container" style="position: fixed; top: 0; left: 0; width: 100%; height: 4px; z-index: 999; background: transparent;">
@@ -311,6 +300,7 @@ layout: null
                 
       <nav class="sidebar-nav">
     <a href="{{ site.baseurl }}/" class="side-link"><i class="fas fa-home"></i> Inicio</a>
+    <a href="{{ "/empieza-aqui/" | relative_url }}" class="side-link">Empieza aquí</a>
     <a href="{{ site.baseurl }}/metasploitable2" class="side-link" target="_blank">
         <i class="fas fa-shield-alt"></i> Hardening Metasploitable2
     </a>
@@ -343,15 +333,15 @@ layout: null
             </div>
         </aside>
 
-        <main class="content-area">
+        <main class="content-area" id="main">
             {% if page.tags contains "Metasploitable 2" %}
                 <a href="{{ site.baseurl }}/metasploitable2" class="volver" style="color: var(--accent); text-decoration: none;">← Volver al proyecto</a>
             {% else %}
                 <a href="{{ site.baseurl }}/" class="volver" style="color: var(--accent); text-decoration: none;">← Volver al inicio</a>
             {% endif %}
-            <h1>{{ page.title }}</h1>
+            <h1>{{ page.title | escape }}</h1>
             <div class="post-meta">
-                {{ page.date | date: "%d/%m/%Y" }} • SecNotes 2.0
+                {% if page.date %}<time datetime="{{ page.date | date: '%Y-%m-%d' }}">{{ page.date | date: '%d/%m/%Y' }}</time>{% if page.last_modified_at %} · Actualizado: {{ page.last_modified_at | date: '%d/%m/%Y' }}{% endif %}{% else %}SecNotes · Guías y recursos{% endif %}
             </div>
             <hr>
             <div class="markdown-content" id="post-content">
@@ -366,48 +356,16 @@ layout: null
     <!-- SCRIPTS DE COMPORTAMIENTO (TEMA Y BARRA DE PROGRESO) -->
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            // --- 1. Lógica del Tema Claro/Oscuro ---
-            const themeToggle = document.getElementById('theme-toggle');
-            const themeIcon = document.getElementById('theme-icon');
-            const themeText = document.getElementById('theme-text');
-            
-            function applyTheme(theme) {
-                if (theme === 'light') {
-                    document.documentElement.setAttribute('data-theme', 'light');
-                    if (themeIcon) themeIcon.className = 'fas fa-sun';
-                    if (themeText) themeText.textContent = 'Modo Claro';
-                } else {
-                    document.documentElement.setAttribute('data-theme', 'dark');
-                    if (themeIcon) themeIcon.className = 'fas fa-moon';
-                    if (themeText) themeText.textContent = 'Modo Oscuro';
-                }
-            }
-
-            const currentTheme = localStorage.getItem('theme') || 'dark';
-            applyTheme(currentTheme);
-
-            if (themeToggle) {
-                themeToggle.addEventListener('click', () => {
-                    let theme = document.documentElement.getAttribute('data-theme');
-                    if (theme === 'dark') {
-                        applyTheme('light');
-                        localStorage.setItem('theme', 'light');
-                    } else {
-                        applyTheme('dark');
-                        localStorage.setItem('theme', 'dark');
-                    }
-                });
-            }
-
             // --- 2. Lógica de la Barra de Progreso ---
             window.addEventListener("scroll", function() {
                 const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
                 const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-                const scrolled = (winScroll / height) * 100;
+                const scrolled = height > 0 ? Math.min(100, (winScroll / height) * 100) : 0;
                 const bar = document.getElementById("scroll-bar");
                 if (bar) bar.style.width = scrolled + "%";
             });
         });
     </script>
+<script src="{{ '/assets/js/theme.js' | relative_url }}" defer></script>
 </body>
 </html>

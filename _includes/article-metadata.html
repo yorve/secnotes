@@ -1,0 +1,13 @@
+{% assign summary = page.description | default: site.description | strip_html | normalize_whitespace %}
+{% assign sharing_image = page.img | default: page.image | default: site.logo %}
+<title>{{ page.title | escape }} | {{ site.title | escape }}</title>
+<meta name="description" content="{{ summary | escape }}">
+<link rel="canonical" href="{{ page.url | absolute_url }}">
+<meta property="og:locale" content="es_ES">
+<meta property="og:site_name" content="{{ site.title | escape }}">
+<meta property="og:title" content="{{ page.title | escape }}">
+<meta property="og:description" content="{{ summary | escape }}">
+<meta property="og:url" content="{{ page.url | absolute_url }}">
+<meta property="og:image" content="{{ sharing_image | absolute_url }}">
+<meta name="twitter:card" content="summary_large_image">
+{% if page.date %}<meta property="og:type" content="article"><meta property="article:published_time" content="{{ page.date | date_to_xmlschema }}">{% else %}<meta property="og:type" content="website">{% endif %}

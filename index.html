@@ -1,561 +1,73 @@
 ---
 layout: null
+title: SecNotes — Pentesting y aprendizaje práctico
+description: Writeups de pentesting en español, técnicas de enumeración, escalada de privilegios y guías de hardening para aprender paso a paso.
+image: /ico.jpg
 ---
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {% include google-analytics.html %}
-    <title> >_@SecNotes | Labs Pentesting </title>
-
-    <link rel="icon" type="image/png" href="{{ site.baseurl }}/favicon.ico">
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
-    <style>
-        :root {
-            --bg: #0a0a0a;
-            --card: #141414;
-            --text: #c9d1d9;
-            --title: #ffffff;
-            --accent: #00ff41;
-            --border: #222;
-        }
-
-        /* --- Variables para el Modo Claro en la Home --- */
-        [data-theme="light"] {
-            --bg: #f4f4f5;
-            --card: #ffffff;
-            --text: #1f2328;
-            --title: #0a0a0a;
-            --border: #d0d7de;
-            --accent: #00801b; 
-        }
-
-        .post-banner img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: opacity 0.2s ease-in-out;
-        }
-        
-        /* Animación del parpadeo */
-        @keyframes blink {
-            0% { opacity: 1; }
-            50% { opacity: 0; }
-            100% { opacity: 1; }
-        }
-
-        /* Clase para hacer parpadear el símbolo del menú */
-        .blink-prompt {
-            animation: blink 1s infinite;
-            color: var(--accent);
-            margin-right: 8px;
-            font-family: monospace;
-            font-weight: bold;
-            display: inline-block;
-        }
-
-        /* El símbolo > antes de cada título de post */
-        .post-info h2::before {
-            content: "> ";
-            color: var(--accent);
-            margin-right: 10px;
-            animation: blink 1s infinite;
-            font-family: monospace;
-        }
-
-        /* Opcional: Que el título se vea un poco más tipo consola */
-        .post-info h2 {
-            font-family: 'Courier New', Courier, monospace !important;
-            display: flex;
-            align-items: center;
-            color: var(--title) !important;
-        }
-
-        body {
-            margin: 0;
-            background: var(--bg);
-            color: var(--text);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            display: flex;
-            justify-content: center;
-            transition: background 0.3s ease, color 0.3s ease;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 1000px;
-            padding: 40px 20px;
-        }
-
-        /* --- Header --- */
-        header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .logo {
-            width: 100px;
-            height: 100px;
-            margin-bottom: 15px;
-            border-radius: 50%;
-        }
-
-        h1 {
-            color: var(--title) !important;
-            margin: 0;
-            font-size: 2.5rem;
-            letter-spacing: 2px;
-        }
-
-        .bio {
-            color: #888;
-            font-size: 1rem;
-            margin-top: 10px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-            transition: color 0.3s;
-        }
-
-        /* --- Nueva Navegación --- */
-        .main-nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 0;
-            border-top: 1px solid var(--border);
-            border-bottom: 1px solid var(--border);
-            margin-bottom: 25px;
-            transition: border-color 0.3s;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 25px;
-            align-items: center;
-        }
-
-        .nav-item {
-            text-decoration: none;
-            color: var(--text);
-            font-size: 1rem;
-            font-weight: 500;
-            transition: 0.3s;
-        }
-
-        .nav-item:hover {
-            color: var(--accent);
-        }
-
-        .contact-me {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .contact-me span {
-            font-size: 0.9rem;
-            color: #666;
-            margin-right: 5px;
-            transition: color 0.3s;
-        }
-
-        .contact-me a {
-            color: var(--text);
-            text-decoration: none;
-            font-size: 1.2rem;
-            transition: 0.3s;
-        }
-
-        .contact-me a:hover {
-            color: var(--accent);
-        }
-
-        /* --- ESTILOS DEL BOTÓN DE TEMA EN LA HOME --- */
-        .theme-btn-nav {
-            background: transparent !important;
-            border: 1px solid var(--border) !important;
-            border-radius: 6px;
-            cursor: pointer;
-            padding: 5px 10px;
-            color: var(--text);
-            font-size: 0.9rem;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            margin-left: 5px;
-        }
-        .theme-btn-nav:hover {
-            color: var(--accent) !important;
-            border-color: var(--accent) !important;
-        }
-
-        /* --- ESTILOS DE LA BARRA DE BÚSQUEDA --- */
-        .search-container {
-            margin-bottom: 40px;
-            position: relative;
-        }
-
-        .search-box-wrapper {
-            position: relative;
-            display: flex;
-            align-items: center;
-        }
-
-        .search-box-wrapper i {
-            position: absolute;
-            left: 15px;
-            color: #555;
-            transition: 0.3s;
-        }
-
-        #search-input {
-            width: 100%;
-            padding: 12px 12px 12px 45px;
-            background: var(--card);
-            border: 1px solid var(--border);
-            color: var(--text);
-            font-family: monospace;
-            font-size: 1rem;
-            border-radius: 6px;
-            outline: none;
-            transition: 0.3s all;
-        }
-
-        #search-input:focus {
-            border-color: var(--accent);
-            box-shadow: 0 0 10px rgba(0, 255, 65, 0.2);
-        }
-
-        #search-input:focus+i {
-            color: var(--accent);
-        }
-
-        /* Resultados de búsqueda dinámicos */
-        #results-container {
-            list-style: none;
-            padding: 0;
-            margin: 10px 0 0 0;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        #results-container:empty {
-            margin: 0;
-        }
-
-        /* --- Lista de Posts --- */
-        .post-list {
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
-        }
-
-        .post-card {
-            background: var(--card);
-            padding: 20px;
-            border: 1px solid var(--border);
-            text-decoration: none;
-            color: inherit;
-            display: flex;
-            flex-direction: row;
-            gap: 30px;
-            align-items: center;
-            border-radius: 8px;
-            transition: 0.3s;
-        }
-
-        .post-card:hover {
-            border-color: var(--accent);
-            transform: translateX(5px);
-        }
-
-        .post-banner {
-            width: 320px;
-            height: 180px;
-            flex-shrink: 0;
-            overflow: hidden;
-            border-radius: 6px;
-            background: #000;
-        }
-
-        .post-banner img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .post-info {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .post-info p {
-            margin: 0;
-            font-size: 1rem;
-            color: #8b949e;
-            line-height: 1.4;
-            transition: color 0.3s;
-        }
-
-        /* --- Tags --- */
-        .post-tags {
-            margin: 15px 0;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        .tag {
-            background: #21262d;
-            color: #58a6ff;
-            font-size: 0.75rem;
-            padding: 2px 10px;
-            border-radius: 12px;
-            border: 1px solid #30363d;
-            font-family: monospace;
-        }
-
-        .post-meta {
-            font-size: 0.85rem;
-            color: #555;
-            font-weight: bold;
-        }
-
-        /* --- Footer --- */
-        footer {
-            text-align: center;
-            margin-top: 80px;
-            padding: 20px;
-            color: #555;
-            font-size: 0.9rem;
-            border-top: 1px solid var(--border);
-            transition: border-color 0.3s;
-        }
-
-        @media (max-width: 850px) {
-            .post-card {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .post-banner {
-                width: 100%;
-                height: 200px;
-            }
-
-            .main-nav {
-                flex-direction: column;
-                gap: 15px;
-                text-align: center;
-            }
-        }
-
-        .donate-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            margin-top: 25px;
-            padding: 12px 24px;
-            border: 1px solid var(--accent);
-            color: var(--accent);
-            text-decoration: none;
-            font-size: 0.95rem;
-            font-weight: bold;
-            border-radius: 6px;
-            transition: 0.3s all ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .donate-btn:hover {
-            background: var(--accent);
-            color: #000;
-            box-shadow: 0 0 15px var(--accent);
-            transform: translateY(-2px);
-        }
-
-        .donate-btn i {
-            font-size: 1.1rem;
-        }
-
-        /* Color amarillo destacado para el proyecto */
-        .project-highlight {
-            color: #ffd700 !important;
-            font-weight: bold;
-            transition: all 0.3s ease;
-        }
-
-        .project-highlight .blink-prompt {
-            color: #ffd700 !important;
-        }
-
-        .project-highlight:hover {
-            color: #ffffff !important;
-            text-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
-        }
-
-        .project-highlight:hover .blink-prompt {
-            color: #ffffff !important;
-        }
-
-        /* --- Mejoras de contraste específicas en Modo Claro --- */
-        [data-theme="light"] .post-info p {
-            color: #4b5563 !important; /* Gris oscuro legible */
-        }
-        [data-theme="light"] .bio {
-            color: #4b5563 !important;
-        }
-        [data-theme="light"] .contact-me span {
-            color: #4b5563 !important;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {% seo %}
+  {% feed_meta %}
+  {% include google-analytics.html %}
+  <link rel="icon" href="{{ '/favicon.ico' | relative_url }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="{{ '/assets/css/home.css' | relative_url }}">
+  <link rel="stylesheet" href="{{ '/assets/css/site-improvements.css' | relative_url }}">
 </head>
-
 <body>
-
-    <div class="container">
-        <header>
-            <img src="{{ site.baseurl }}/ico.jpg" class="logo" alt="SecNotes">
-            <h1>SecNotes</h1>
-            <p class="bio"><b>#</b> Documentación técnica, laboratorios de Pentesting y análisis Blue Team. Guías didácticas y writeups de ciberseguridad accesibles para todos los niveles.</p>
-
-            <a href="https://buymeacoffee.com/yorve" target="_blank" class="donate-btn">
-                <i class="fas fa-coffee"></i> Apoya el contenido de SecNotes </a>
-        </header>
-             <!-- Links en barra superior -->
-           {% include nav.html %}
-
-        <!-- CONTENEDOR DE LA BARRA DE BÚSQUEDA -->
-        <div class="search-container">
-            <div class="search-box-wrapper">
-                <input type="text" id="search-input"
-                    placeholder="Buscar documentación por máquina, CVE, técnica (LFI, RCE)...">  <!-- Texto de busqueda -->
-                <i class="fas fa-search"></i>
-            </div>
-            <!-- Los resultados filtrados aparecerán en esta lista -->
-            <ul id="results-container"></ul>
+<a class="skip-link" href="#main">Saltar al contenido</a>
+<div class="container">
+  {% include nav.html %}
+  <main id="main">
+    <header class="hero">
+      <span class="eyebrow">SecNotes / Aprender · Practicar · Documentar</span>
+      <h1>Ciberseguridad, paso a paso.</h1>
+      <p>Writeups de pentesting, laboratorios y análisis defensivo en español. Explora cómo funciona cada técnica y aprende a reconocerla y mitigarla.</p>
+      <a class="button primary" href="{{ '/empieza-aqui/' | relative_url }}">Empieza aquí →</a>
+      <a class="button" href="#catalog-title">Explorar artículos</a>
+    </header>
+    <nav class="routes" aria-label="Rutas de aprendizaje">
+      <a class="route" href="{{ '/empieza-aqui/' | relative_url }}"><strong>01 / Primeros pasos</strong><span>Una ruta para abordar los laboratorios y sacar más partido a cada writeup.</span></a>
+      <a class="route" href="{{ '/cheatsheet/' | relative_url }}"><strong>02 / Referencia rápida</strong><span>Comandos de reconocimiento, enumeración y escalada de privilegios.</span></a>
+      <a class="route" href="{{ '/metasploitable2' | relative_url }}"><strong>03 / Aprende a defender</strong><span>La serie de hardening de Metasploitable 2: del fallo a su corrección.</span></a>
+    </nav>
+    <section aria-labelledby="catalog-title">
+      <h2 id="catalog-title" tabindex="-1">Explora el conocimiento</h2>
+      <p class="catalog-intro">Writeups y guías de laboratorio. Filtra por técnica o sistema para encontrar tu siguiente práctica.</p>
+      <div id="catalog-controls" hidden>
+        <div class="filters">
+          <label for="search-input">Buscar<input id="search-input" type="search" placeholder="Máquina, técnica o herramienta…" autocomplete="off"></label>
+          <label for="tag-filter">Técnica o etiqueta<select id="tag-filter"><option value="">Todas las etiquetas</option>{% assign sorted_tags = site.tags | sort %}{% for tag in sorted_tags %}<option value="{{ tag[0] | escape }}">{{ tag[0] | escape }}</option>{% endfor %}</select></label>
+          <label for="system-filter">Sistema<select id="system-filter"><option value="">Todos los sistemas</option><option value="linux">Linux</option><option value="windows">Windows</option></select></label>
+          <button id="reset-filters" type="button">Restablecer</button>
         </div>
-
-        <!-- LISTA COMPLETA DE POSTS (Se oculta dinámicamente al buscar) -->
-        <div class="post-list" id="all-posts-list">
-            {% for post in site.posts %}
-                {% assign show_post = true %}
-                
-                {% if post.tags %}
-                    {% if post.tags contains "Metasploitable 2" %}
-                        {% assign show_post = false %}
-                    {% endif %}
-                {% endif %}
-
-                {% if show_post %}
-                <a href="{{ post.url | relative_url }}" class="post-card">
-                    <div class="post-banner">
-                        {% if post.img %}
-                        <img src="{{ post.img | relative_url }}" alt="{{ post.title }}">
-                        {% else %}
-                        <img src="{{ site.baseurl }}/logo.png" style="opacity: 0.2; object-fit: contain;">
-                        {% endif %}
-                    </div>
-
-                    <div class="post-info">
-                        <h2>{{ post.title }}</h2>
-                        <p>{{ post.content | strip_html | truncatewords: 20 }}</p>
-
-                        {% if post.tags %}
-                        <div class="post-tags">
-                            {% for tag in post.tags %}
-                            <span class="tag">{{ tag }}</span>
-                            {% endfor %}
-                        </div>
-                        {% endif %}
-
-                        <div class="post-meta">
-                            {{ post.date | date: "%d/%m/%Y" }} •
-                            {% capture words %}{{ post.content | number_of_words }}{% endcapture %}
-                            {{ words | plus: 250 | divided_by: 250 }} min lectura
-                        </div>
-                    </div>
-                </a>
-                {% endif %}
-            {% endfor %}
-        </div>
-
-        <footer>
-            2026 © Yorve.Csec
-        </footer>
-    </div>
-
-    <!-- SCRIPTS PARA EL FUNCIONAMIENTO DE LA BÚSQUEDA -->
-<script src="https://unpkg.com/simple-jekyll-search@latest/dest/simple-jekyll-search.min.js"></script>
-<script>
-    const allPostsList = document.getElementById('all-posts-list');
-    const resultsContainer = document.getElementById('results-container');
-    const searchInput = document.getElementById('search-input');
-
-    const sjs = SimpleJekyllSearch({
-        searchInput: searchInput,
-        resultsContainer: resultsContainer,
-        json: '{{ site.baseurl }}/search.json',
-        searchResultTemplate: `
-                <a href="{url}" class="post-card" style="padding: 15px 20px; gap: 10px;">
-                    <div class="post-info" style="flex-direction: row; justify-content: space-between; align-items: center; width: 100%;">
-                        <h2 style="margin: 0; font-size: 1.3rem;">{title}</h2>
-                        <div class="post-meta" style="white-space: nowrap;">{date}</div>
-                    </div>
-                </a>
-            `,
-        noResultsText: '<p style="text-align:center; color:#555; font-family:monospace;">[!] No se encontraron writeups que coincidan.</p>',
-        limit: 15,
-        fuzzy: false
-    });
-
-    searchInput.addEventListener('input', function () {
-        if (this.value.trim() === '') {
-            allPostsList.style.display = 'flex';
-            resultsContainer.innerHTML = '';
-        } else {
-            allPostsList.style.display = 'none';
-        }
-    });
-</script>
-
-<!-- SCRIPT DE SINCRONIZACIÓN Y SELECCIÓN DE TEMA -->
-<script>
-    const themeToggle = document.getElementById('theme-toggle');
-    const themeIcon = document.getElementById('theme-icon');
-    
-    function applyTheme(theme) {
-        if (theme === 'light') {
-            document.documentElement.setAttribute('data-theme', 'light');
-            if (themeIcon) themeIcon.className = 'fas fa-moon';
-        } else {
-            document.documentElement.setAttribute('data-theme', 'dark');
-            if (themeIcon) themeIcon.className = 'fas fa-sun';
-        }
-    }
-
-    const currentTheme = localStorage.getItem('theme') || 'dark';
-    applyTheme(currentTheme);
-
-    themeToggle.addEventListener('click', () => {
-        let theme = document.documentElement.getAttribute('data-theme');
-        if (theme === 'dark') {
-            applyTheme('light');
-            localStorage.setItem('theme', 'light');
-        } else {
-            applyTheme('dark');
-            localStorage.setItem('theme', 'dark');
-        }
-    });
-</script>
+        <p id="catalog-status" role="status" aria-live="polite"></p>
+      </div>
+      <noscript><p>Todos los artículos están disponibles a continuación. Activa JavaScript para usar filtros y paginación.</p></noscript>
+      <div class="post-list" id="catalog">
+      {% for post in site.posts %}
+        {% assign search_text = post.title | append: ' ' | append: post.tags | append: ' ' | append: post.description | append: ' ' | append: post.content | strip_html %}
+        {% assign system = '' %}{% if post.path contains '/windows/' %}{% assign system = 'windows' %}{% elsif post.path contains '/linux/' or post.tags contains 'Metasploitable 2' %}{% assign system = 'linux' %}{% endif %}
+        <article class="post-card" data-search="{{ search_text | normalize_whitespace | escape }}" data-tags="{{ post.tags | jsonify | escape }}" data-system="{{ system }}">
+          <a href="{{ post.url | relative_url }}" class="post-banner" tabindex="-1" aria-hidden="true">{% if post.img %}<img src="{{ post.img | relative_url }}" alt="" width="640" height="360" loading="lazy" decoding="async">{% else %}<img src="{{ '/ico.jpg' | relative_url }}" alt="" width="640" height="360" loading="lazy" decoding="async" style="object-fit:contain">{% endif %}</a>
+          <div class="post-info">
+            <h3><a href="{{ post.url | relative_url }}">{{ post.title | escape }}</a></h3>
+            <p>{{ post.description | default: post.excerpt | strip_html | normalize_whitespace | truncatewords: 28 | escape }}</p>
+            <div class="post-tags">{% for tag in post.tags limit: 5 %}<a class="tag" href="{{ '/tags/' | relative_url }}#tag-{{ tag | downcase | slugify }}">{{ tag | escape }}</a>{% endfor %}</div>
+            <div class="post-meta"><time datetime="{{ post.date | date: '%Y-%m-%d' }}">{{ post.date | date: '%d/%m/%Y' }}</time> · {% assign words = post.content | number_of_words %}{{ words | plus: 249 | divided_by: 250 | at_least: 1 }} min de lectura</div>
+          </div>
+        </article>
+      {% endfor %}
+      </div>
+      <nav class="pagination" id="catalog-pagination" aria-label="Páginas del catálogo" hidden><button type="button" id="previous-page">← Anterior</button><span id="page-status" aria-live="polite"></span><button type="button" id="next-page">Siguiente →</button></nav>
+    </section>
+  </main>
+  <footer>© {{ site.time | date: '%Y' }} Yorve CSEC · <a href="{{ '/feed.xml' | relative_url }}">RSS</a> · <a href="https://buymeacoffee.com/yorve" target="_blank" rel="noopener noreferrer">Apoya SecNotes</a></footer>
+</div>
+<script src="{{ '/assets/js/catalog.js' | relative_url }}" defer></script>
+<script src="{{ '/assets/js/theme.js' | relative_url }}" defer></script>
 </body>
-
 </html>

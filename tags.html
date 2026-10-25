@@ -1,25 +1,25 @@
 ---
 layout: post
-title: Tags
+title: Explora por etiquetas
 permalink: /tags/
 ---
-{% assign excluded = "metasploitable 2" | split: "," %}
+
 {% assign all_tags = "" | split: "" %}
 {% for post in site.posts %}{% for t in post.tags %}{% assign all_tags = all_tags | push: t %}{% endfor %}{% endfor %}
 {% assign groups = all_tags | group_by_exp: "t", "t | downcase" | sort: "name" %}
 
 <p class="tag-cloud">
-{% for g in groups %}{% unless excluded contains g.name %}
+{% for g in groups %}
   <a href="#tag-{{ g.name | slugify }}">{{ g.items | first }} ({{ g.size }})</a>
-{% endunless %}{% endfor %}
+{% endfor %}
 </p>
 
-{% for g in groups %}{% unless excluded contains g.name %}
+{% for g in groups %}
 <h2 id="tag-{{ g.name | slugify }}">{{ g.items | first }}</h2>
 <ul>
 {% for post in site.posts %}
   {% assign pt = post.tags | join: "|" | downcase | split: "|" %}
-  {% if pt contains g.name %}<li><a href="{{ post.url | relative_url }}">{{ post.title }}</a></li>{% endif %}
+  {% if pt contains g.name %}<li><a href="{{ post.url | relative_url }}">{{ post.title | escape }}</a></li>{% endif %}
 {% endfor %}
 </ul>
-{% endunless %}{% endfor %}
+{% endfor %}
