@@ -1,8 +1,8 @@
 ---
 layout: null
-title: SecNotes — Pentesting y aprendizaje práctico
+title: Pentesting en español — Writeups, Linux y hardening
 description: Writeups de pentesting en español, técnicas de enumeración, escalada de privilegios y guías de hardening para aprender paso a paso.
-image: /ico.jpg
+image: /assets/img/secnotes-social.png
 ---
 <!DOCTYPE html>
 <html lang="es">
@@ -24,7 +24,7 @@ image: /ico.jpg
   <main id="main">
     <header class="hero">
       <span class="eyebrow">SecNotes / Aprender · Practicar · Documentar</span>
-      <h1>Ciberseguridad, paso a paso.</h1>
+      <h1>Pentesting en español, paso a paso.</h1>
       <p>Writeups de pentesting, laboratorios y análisis defensivo en español. Explora cómo funciona cada técnica y aprende a reconocerla y mitigarla.</p>
       <a class="button primary" href="{{ '/empieza-aqui/' | relative_url }}">Empieza aquí →</a>
       <a class="button" href="#catalog-title">Explorar artículos</a>
@@ -34,6 +34,16 @@ image: /ico.jpg
       <a class="route" href="{{ '/cheatsheet/' | relative_url }}"><strong>02 / Referencia rápida</strong><span>Comandos de reconocimiento, enumeración y escalada de privilegios.</span></a>
       <a class="route" href="{{ '/metasploitable2' | relative_url }}"><strong>03 / Aprende a defender</strong><span>La serie de hardening de Metasploitable 2: del fallo a su corrección.</span></a>
     </nav>
+    <section class="topic-section" aria-labelledby="topics-title">
+      <h2 id="topics-title">Encuentra tu próximo tema</h2>
+      <div class="topic-links">
+        <a href="{{ '/temas/pentesting-web/' | relative_url }}">Pentesting web <span>SQLi, enumeración y aplicaciones</span></a>
+        <a href="{{ '/temas/linux/' | relative_url }}">Laboratorios Linux <span>Servicios, permisos y escalada</span></a>
+        <a href="{{ '/temas/windows/' | relative_url }}">Windows y Active Directory <span>Writeups y análisis de eventos</span></a>
+        <a href="{{ '/metasploitable2' | relative_url }}">Hardening y defensa <span>Corrige servicios vulnerables</span></a>
+      </div>
+      <p><a class="archive-link" href="{{ '/articulos/' | relative_url }}">Ver el índice completo de artículos →</a></p>
+    </section>
     <section aria-labelledby="catalog-title">
       <h2 id="catalog-title" tabindex="-1">Explora el conocimiento</h2>
       <p class="catalog-intro">Writeups y guías de laboratorio. Filtra por técnica o sistema para encontrar tu siguiente práctica.</p>

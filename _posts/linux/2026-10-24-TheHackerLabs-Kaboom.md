@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Kaboom - The Hacker Labs - Linux
+description: "Writeup de Kaboom en The Hacker Labs: enumeración DNS, GraphQL, PATH Hijacking y escape de un contenedor Docker en Linux."
 date: 2026-10-24
 img: /assets/img/kaboom/banner.png
 tags:

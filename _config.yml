@@ -4,6 +4,15 @@ baseurl: "/secnotes"
 url: "https://yorve.github.io"
 theme: null
 lang: es
+locale: es_ES
+author:
+  name: Yorve CSEC
+  url: https://yorve.github.io/secnotes/about
+social:
+  name: SecNotes
+  links:
+    - https://github.com/yorve
+    - https://www.linkedin.com/in/yonathan-rivera-velozo/
 
 plugins:
   - jekyll-sitemap
@@ -23,7 +32,7 @@ defaults:
   - scope:
       path: ""
     values:
-      image: /ico.jpg
+      image: /assets/img/secnotes-social.png
   - scope:
       path: ""
       type: posts
@@ -37,3 +46,5 @@ exclude:
   - _templates
   - REVIEW.md
   - _preview
+
+  - scripts

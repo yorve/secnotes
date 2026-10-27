@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Showtime - Dockerlabs - Linux"
+description: "Writeup de Showtime en DockerLabs: reconocimiento de servicios, explotación de SQL Injection y escalada de privilegios en Linux."
 date: 2026-09-11
 img: /assets/img/linux/showtime/1.png
 tags: [DockerLabs, Linux, SQLi, SQL Injection, posh, python]

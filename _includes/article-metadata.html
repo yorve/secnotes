@@ -1,13 +1,54 @@
-{% assign summary = page.description | default: site.description | strip_html | normalize_whitespace %}
+{% assign article_title = page.seo_title | default: page.title %}
+{% if page.tags contains 'Metasploitable 2' %}{% capture article_title %}Hardening de {{ page.title }} en Metasploitable 2{% endcapture %}{% endif %}
+{% assign summary = page.description | default: page.excerpt | strip_html | normalize_whitespace | truncate: 170 %}
+{% if summary == '' or summary == nil %}{% capture summary %}{{ article_title }}: guía práctica de ciberseguridad en español por Yorve CSEC.{% endcapture %}{% endif %}
 {% assign sharing_image = page.img | default: page.image | default: site.logo %}
-<title>{{ page.title | escape }} | {{ site.title | escape }}</title>
+<title>{{ article_title | escape }} | {{ site.title | escape }}</title>
 <meta name="description" content="{{ summary | escape }}">
+<meta name="author" content="{{ site.author.name | escape }}">
 <link rel="canonical" href="{{ page.url | absolute_url }}">
 <meta property="og:locale" content="es_ES">
 <meta property="og:site_name" content="{{ site.title | escape }}">
-<meta property="og:title" content="{{ page.title | escape }}">
+<meta property="og:title" content="{{ article_title | escape }}">
 <meta property="og:description" content="{{ summary | escape }}">
 <meta property="og:url" content="{{ page.url | absolute_url }}">
 <meta property="og:image" content="{{ sharing_image | absolute_url }}">
+<meta property="og:image:alt" content="{{ article_title | escape }} — SecNotes">
 <meta name="twitter:card" content="summary_large_image">
-{% if page.date %}<meta property="og:type" content="article"><meta property="article:published_time" content="{{ page.date | date_to_xmlschema }}">{% else %}<meta property="og:type" content="website">{% endif %}
+<meta name="twitter:title" content="{{ article_title | escape }}">
+<meta name="twitter:description" content="{{ summary | escape }}">
+<meta name="twitter:image" content="{{ sharing_image | absolute_url }}">
+{% if page.collection == 'posts' %}
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="{{ page.date | date_to_xmlschema }}">
+{% if page.last_modified_at %}<meta property="article:modified_time" content="{{ page.last_modified_at | date_to_xmlschema }}">{% endif %}
+{% capture structured_data %}
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BlogPosting",
+      "@id": {{ page.url | absolute_url | append: '#article' | jsonify }},
+      "mainEntityOfPage": {{ page.url | absolute_url | jsonify }},
+      "headline": {{ article_title | jsonify }},
+      "description": {{ summary | jsonify }},
+      "image": {{ sharing_image | absolute_url | jsonify }},
+      "datePublished": {{ page.date | date_to_xmlschema | jsonify }},
+      {% if page.last_modified_at %}"dateModified": {{ page.last_modified_at | date_to_xmlschema | jsonify }},{% endif %}
+      "inLanguage": "es",
+      "keywords": {{ page.tags | join: ', ' | jsonify }},
+      "author": {"@type": "Person", "name": {{ site.author.name | jsonify }}, "url": {{ site.author.url | jsonify }}}
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Inicio", "item": {{ '/' | absolute_url | jsonify }}},
+        {"@type": "ListItem", "position": 2, "name": "Artículos", "item": {{ '/articulos/' | absolute_url | jsonify }}},
+        {"@type": "ListItem", "position": 3, "name": {{ article_title | jsonify }}, "item": {{ page.url | absolute_url | jsonify }}}
+      ]
+    }
+  ]
+}
+{% endcapture %}
+<script type="application/ld+json">{{ structured_data | replace: '<', '\u003c' }}</script>
+{% else %}<meta property="og:type" content="website">{% endif %}

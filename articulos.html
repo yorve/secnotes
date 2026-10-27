@@ -1,0 +1,21 @@
+---
+layout: post
+title: Todos los writeups y guías de pentesting
+description: Índice completo de SecNotes con writeups de DockerLabs, The Hacker Labs, TryHackMe, Hack The Box y guías de hardening en español.
+permalink: /articulos/
+---
+<p>Encuentra todos los artículos de SecNotes en un solo lugar: resoluciones de máquinas, técnicas de pentesting y análisis defensivo. El índice se actualiza con cada publicación.</p>
+<nav class="topic-shortcuts" aria-label="Explorar por tema">
+  <a href="{{ '/temas/pentesting-web/' | relative_url }}">Pentesting web</a> ·
+  <a href="{{ '/temas/linux/' | relative_url }}">Linux</a> ·
+  <a href="{{ '/temas/windows/' | relative_url }}">Windows y Active Directory</a> ·
+  <a href="{{ '/metasploitable2' | relative_url }}">Hardening</a>
+</nav>
+<p>{{ site.posts.size }} artículos disponibles. ¿Buscas una técnica concreta? Usa las <a href="{{ '/tags/' | relative_url }}">etiquetas</a> o el <a href="{{ '/' | relative_url }}#catalog-title">buscador</a>.</p>
+{% assign archive_year = '' %}
+{% for post in site.posts %}
+  {% assign year = post.date | date: '%Y' %}
+  {% if year != archive_year %}{% unless forloop.first %}</ul>{% endunless %}<h2>{{ year }}</h2><ul class="archive-list">{% assign archive_year = year %}{% endif %}
+  <li><a href="{{ post.url | relative_url }}">{% if post.tags contains 'Metasploitable 2' %}Hardening de {{ post.title | escape }} en Metasploitable 2{% else %}{{ post.title | escape }}{% endif %}</a><time datetime="{{ post.date | date: '%Y-%m-%d' }}">{{ post.date | date: '%d/%m/%Y' }}</time></li>
+  {% if forloop.last %}</ul>{% endif %}
+{% endfor %}

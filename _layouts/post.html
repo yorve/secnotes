@@ -300,6 +300,7 @@ layout: null
                 
       <nav class="sidebar-nav">
     <a href="{{ site.baseurl }}/" class="side-link"><i class="fas fa-home"></i> Inicio</a>
+    <a href="{{ "/articulos/" | relative_url }}" class="side-link">Todos los artículos</a>
     <a href="{{ "/empieza-aqui/" | relative_url }}" class="side-link">Empieza aquí</a>
     <a href="{{ site.baseurl }}/metasploitable2" class="side-link" target="_blank">
         <i class="fas fa-shield-alt"></i> Hardening Metasploitable2
@@ -339,6 +340,7 @@ layout: null
             {% else %}
                 <a href="{{ site.baseurl }}/" class="volver" style="color: var(--accent); text-decoration: none;">← Volver al inicio</a>
             {% endif %}
+            {% if page.collection == 'posts' %}<nav class="breadcrumbs" aria-label="Ruta de navegación"><a href="{{ '/' | relative_url }}">Inicio</a> / <a href="{{ '/articulos/' | relative_url }}">Artículos</a> / <span>{{ page.title | escape }}</span></nav>{% endif %}
             <h1>{{ page.title | escape }}</h1>
             <div class="post-meta">
                 {% if page.date %}<time datetime="{{ page.date | date: '%Y-%m-%d' }}">{{ page.date | date: '%d/%m/%Y' }}</time>{% if page.last_modified_at %} · Actualizado: {{ page.last_modified_at | date: '%d/%m/%Y' }}{% endif %}{% else %}SecNotes · Guías y recursos{% endif %}
@@ -348,6 +350,7 @@ layout: null
                 {{ content }}
             </div>
 
+            {% if page.collection == 'posts' %}{% include share-article.html %}{% endif %}
             {% include post-extras.html %}
             
         </main>

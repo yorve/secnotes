@@ -3,7 +3,8 @@ on:
   pull_request:
   push:
     branches:
-      - improvements/secnotes-navigation
+      - 'improvements/**'
+      - main
 permissions:
   contents: read
 jobs:
@@ -18,5 +19,13 @@ jobs:
       - name: Build site
         run: bundle exec jekyll build --trace
       - name: Check search index and metadata
-        run: |
-          ruby -rjson -e 'JSON.parse(File.read("_site/search.json")); abort "Missing start page" unless File.exist?("_site/empieza-aqui/index.html"); abort "Missing canonical" unless File.read("_site/index.html").include?(%q{rel="canonical"})'
+        run: ruby scripts/validate_site.rb
+      - name: Save HTML for review
+        uses: actions/upload-artifact@v4
+        with:
+          name: site-html
+          path: |
+            _site/**/*.html
+            _site/index.html
+            _site/search.json
+          retention-days: 3

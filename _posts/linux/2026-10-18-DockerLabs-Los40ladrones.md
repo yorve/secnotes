@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Los 40 Ladrones - Dockerlabs - Linux"
+description: "Resuelve Los 40 Ladrones de DockerLabs: descubre la secuencia de Port Knocking, accede por SSH y analiza la escalada mediante SUID."
 date: 2026-10-18
 img: /assets/img/los40ladrones/banner.png
 tags: [DockerLabs, Linux, Enumeration, Port-Knocking, Hydra, BruteForce, SUID]

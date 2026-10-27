@@ -1,0 +1,11 @@
+<section class="share-article" aria-label="Compartir el artículo">
+  <strong>¿Te sirvió este writeup?</strong>
+  <p>Compártelo con alguien que esté aprendiendo o sigue los próximos artículos por RSS.</p>
+  {% assign share_url = page.url | absolute_url %}
+  {% assign share_text = page.title | append: ' — ' | append: share_url %}
+  <div class="share-links">
+    <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ share_url | url_encode }}" target="_blank" rel="noopener noreferrer">Compartir en LinkedIn</a>
+    <a href="https://wa.me/?text={{ share_text | url_encode }}" target="_blank" rel="noopener noreferrer">Compartir en WhatsApp</a>
+    <a href="{{ '/feed.xml' | relative_url }}">Seguir por RSS</a>
+  </div>
+</section>

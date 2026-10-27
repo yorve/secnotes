@@ -49,3 +49,13 @@ a, button, input, select { -webkit-tap-highlight-color: transparent; }
   .sidebar-social .side-link { margin-top: 0 !important; }
   .theme-toggle-container { margin-top: 0; width: auto; }
 }
+
+.breadcrumbs { font-size: .85rem; margin-bottom: 16px; color: var(--muted); overflow-wrap: anywhere; }
+.breadcrumbs a { color: var(--accent); }
+.archive-list { list-style: none; padding: 0; }
+.archive-list li { padding: 14px 0; border-bottom: 1px solid var(--border); }
+.archive-list time { display: block; color: var(--muted); font-size: .8rem; }
+.share-article { padding: 20px; margin: 32px 0; border: 1px solid var(--border); border-radius: 8px; }
+.share-article p { color: var(--muted); margin: 8px 0 16px; }
+.share-links { display: flex; flex-wrap: wrap; gap: 12px 20px; }
+.share-links a { color: var(--accent); text-underline-offset: 3px; }

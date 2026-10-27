@@ -1,0 +1,12 @@
+<h2>Writeups y guías de este tema</h2>
+<ul class="archive-list">
+{% for post in site.posts %}
+  {% assign matches_topic = false %}
+  {% assign topic_tags = post.tags | join: ' ' | downcase %}
+  {% if page.topic == 'linux' and post.path contains '/linux/' %}{% assign matches_topic = true %}{% endif %}
+  {% if page.topic == 'windows' and post.path contains '/windows/' %}{% assign matches_topic = true %}{% endif %}
+  {% if page.topic == 'web' %}{% if topic_tags contains 'web' or topic_tags contains 'sqli' or topic_tags contains 'sql injection' or topic_tags contains 'graphql' or topic_tags contains 'lfi' or topic_tags contains 'command injection' %}{% assign matches_topic = true %}{% endif %}{% endif %}
+  {% if matches_topic %}<li><a href="{{ post.url | relative_url }}">{{ post.title | escape }}</a><time datetime="{{ post.date | date: '%Y-%m-%d' }}">{{ post.date | date: '%d/%m/%Y' }}</time></li>{% endif %}
+{% endfor %}
+</ul>
+<p>También puedes consultar el <a href="{{ '/articulos/' | relative_url }}">índice completo</a> o buscar una <a href="{{ '/tags/' | relative_url }}">técnica por etiqueta</a>.</p>
