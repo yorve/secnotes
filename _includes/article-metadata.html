@@ -1,6 +1,13 @@
 {% assign article_title = page.seo_title | default: page.title %}
 {% if page.tags contains 'Metasploitable 2' %}{% capture article_title %}Hardening de {{ page.title }} en Metasploitable 2{% endcapture %}{% endif %}
-{% assign summary = page.description | default: page.excerpt | strip_html | normalize_whitespace | truncate: 170 %}
+{% if page.description %}
+  {% assign summary = page.description %}
+{% elsif page.tags contains 'Metasploitable 2' %}
+  {% capture summary %}Guía de hardening de {{ page.title }} en Metasploitable 2: análisis del servicio, vulnerabilidades y medidas para reforzar su configuración.{% endcapture %}
+{% else %}
+  {% assign summary = page.excerpt %}
+{% endif %}
+{% assign summary = summary | strip_html | normalize_whitespace | truncate: 170 %}
 {% if summary == '' or summary == nil %}{% capture summary %}{{ article_title }}: guía práctica de ciberseguridad en español por Yorve CSEC.{% endcapture %}{% endif %}
 {% assign sharing_image = page.img | default: page.image | default: site.logo %}
 <title>{{ article_title | escape }} | {{ site.title | escape }}</title>
