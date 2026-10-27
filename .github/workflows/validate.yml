@@ -19,7 +19,7 @@ jobs:
       - name: Build site
         run: bundle exec jekyll build --trace
       - name: Check search index and metadata
-        run: ruby scripts/validate_site.rb
+        run: bundle exec ruby scripts/validate_site.rb
       - name: Save HTML for review
         uses: actions/upload-artifact@v4
         with:
