@@ -50,5 +50,6 @@
   ]
 }
 {% endcapture %}
-<script type="application/ld+json">{{ structured_data | replace: '<', '\u003c' }}</script>
+{% capture escaped_lt %}\u003c{% endcapture %}
+<script type="application/ld+json">{{ structured_data | replace: '<', escaped_lt }}</script>
 {% else %}<meta property="og:type" content="website">{% endif %}
