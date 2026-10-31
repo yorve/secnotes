@@ -2,7 +2,17 @@
 layout: post
 title: "Rockstar - TheHackerLabs - Linux"
 date: 2026-10-29
-tags: [nmap] [ffuf] [gobuster] curl ssh zip2john john hydra BeanShell
+img: /assets/img/rockstar/banner.png
+tags: 
+- nmap
+- ffuf
+- gobuster
+- curl
+- ssh
+- zip2john
+- john
+- hydra
+- BeanShell
 ---
 
 La máquina Rockstar expone una aplicación web en PHP vulnerable a Local File Inclusion (LFI) a través de un parámetro oculto (`backdoor`), descubierto mediante fuzzing de parámetros. La explotación del LFI permite leer credenciales hardcodeadas y obtener acceso inicial vía SSH. A partir de ahí, una cadena de escaladas de privilegios por abuso de sudoers (sobrescritura de binario, Python library hijacking, y BeanShell) lleva finalmente a una shell de root.
