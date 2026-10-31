@@ -2,7 +2,7 @@
 layout: post
 title: "Rockstar - TheHackerLabs - Linux"
 date: 2026-10-29
-img: /assets/img/rockstar/banner.png
+img: /assets/img/rockstar/banner.svg
 tags: 
 - nmap
 - ffuf
