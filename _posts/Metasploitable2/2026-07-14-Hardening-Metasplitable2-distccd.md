@@ -1,6 +1,6 @@
 ---
 layout: metasploitable2-post
-title: "distccd"
+title: "Hardening de distccd en Metasploitable 2: Guía y Mitigaciones"
 date: 2026-07-14 09:00:00 -0400
 img: /assets/img/metasploitable2/banner.png
 tags: [Vuln, Linux, Hardening, distccd, C, C++, root, Metasploitable 2 ]
@@ -57,3 +57,13 @@ Debemos cambiar el valor a `false`
 ![](/secnotes/assets/img/metasploitable2/3632/3ab33a7fb53e36a0f3620fe4c03be832_MD5.jpg)
 
 Al cambiar `START_DISTCC` a `false`, neutralizamos el servicio por completo.
+
+---
+
+### 🛡️ Otros Laboratorios y Writeups Relacionados
+- [TheHackerLabs: Kaboom - Walkthrough y Writeup](/secnotes/2026/10/24/TheHackerLabs-Kaboom.html)
+- [DockerLabs: Los 40 Ladrones - Writeup y Solución](/secnotes/2026/10/18/DockerLabs-Los40ladrones.html)
+- [TheHackerLabs: Rockstar - Writeup y Explotación](/secnotes/2026/10/29/TheHackerLabs-Rockstar.html)
+- [DockerLabs: Showtime - Explotación SQLi y Privesc](/secnotes/2026/09/11/DockerLabs-Showtime.html)
+- [Serie Completa de Hardening en Metasploitable 2](/secnotes/metasploitable2)
+

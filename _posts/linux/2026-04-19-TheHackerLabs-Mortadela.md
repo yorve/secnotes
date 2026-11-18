@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Mortadela - Hackerlabs - Linux "
+title: "TheHackerLabs: Mortadela - Writeup y Solución Paso a Paso"
 date: 2026-04-16
 img: /assets/img/mortadela/banner.png
 tags: [Hackerslabs, Linux, SQLi, WPScan, JohnTheRipper, KeePass, Memory Forensics, CVE-2023-32784]
@@ -129,13 +129,12 @@ con esto solo nos queda probar estas credenciales en el servicio ssh
 
 >https://labs.thehackerslabs.com/machines/59
 
+---
 
-
-
-
-
-
-
-
-
+### 🛡️ Otros Laboratorios y Writeups Relacionados
+- [TheHackerLabs: Kaboom - Walkthrough y Writeup](/secnotes/2026/10/24/TheHackerLabs-Kaboom.html)
+- [DockerLabs: Los 40 Ladrones - Writeup y Solución](/secnotes/2026/10/18/DockerLabs-Los40ladrones.html)
+- [TheHackerLabs: Rockstar - Writeup y Explotación](/secnotes/2026/10/29/TheHackerLabs-Rockstar.html)
+- [DockerLabs: Showtime - Explotación SQLi y Privesc](/secnotes/2026/09/11/DockerLabs-Showtime.html)
+- [Serie Completa de Hardening en Metasploitable 2](/secnotes/metasploitable2)
 

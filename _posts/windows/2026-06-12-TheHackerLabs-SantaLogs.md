@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Santa Logs - Hackerlabs - Windows"
+title: "TheHackerLabs: Santa Logs - Writeup y Solución Paso a Paso"
 date: 2026-06-12
 img: /assets/img/santa/banner.png
 tags: [logs, Visor de Eventos, Windows, BlueTeam]
@@ -69,19 +69,14 @@ Ya sabemos la ruta del script y que es de Python. Para ejecutarlo vamos utilizar
 ![img14]({{ site.baseurl }}/assets/img/santa/cmd.png)
 ![img15]({{ site.baseurl }}/assets/img/santa/decript.png)
 
-Efectivamente era la clave para desencriptar. Con eso respondemos todas las preguntas y termianr el laboratorio. 
+Efectivamente era la clave para desencriptar. Con eso respondemos todas las preguntas y termianr el laboratorio.
 
+---
 
-
-
-
-
-
-
-
-
-
-
-
-
+### 🛡️ Otros Laboratorios y Writeups Relacionados
+- [TheHackerLabs: Kaboom - Walkthrough y Writeup](/secnotes/2026/10/24/TheHackerLabs-Kaboom.html)
+- [DockerLabs: Los 40 Ladrones - Writeup y Solución](/secnotes/2026/10/18/DockerLabs-Los40ladrones.html)
+- [TheHackerLabs: Rockstar - Writeup y Explotación](/secnotes/2026/10/29/TheHackerLabs-Rockstar.html)
+- [DockerLabs: Showtime - Explotación SQLi y Privesc](/secnotes/2026/09/11/DockerLabs-Showtime.html)
+- [Serie Completa de Hardening en Metasploitable 2](/secnotes/metasploitable2)
 

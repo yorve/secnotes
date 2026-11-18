@@ -1,6 +1,6 @@
 ---
 layout: metasploitable2-post
-title: "DNS - BIND 9.4.2"
+title: "Hardening de DNS - BIND 9.4.2 en Metasploitable 2: Guía y Mitigaciones"
 date: 2026-06-23 21:00:00 -0400
 img: /assets/img/metasploitable2/banner.png
 tags: [Vuln, Linux, Hardening, DNS, BIND 9.4.2, root, Metasploitable 2 ]
@@ -114,3 +114,13 @@ Ahora al intentar hacer la solicitud desde nuestra máquina atacante el servidor
 | 23 - Telnet     | Abierto (Acceso en texto plano) | Cerrado             | Línea comentada con `#` en `inetd.conf` y memoria purgada. |
 | 25 - SMTP       | Enumeración de usuarios `VRFY`  | Blindado            | Directiva `disable_vrfy_command = yes` en Postfix          |
 | 53 - DNS        | Versión expuesta `BIND 9.4.2`   | Blindado y Ofuscado | ACLs restrictivas y ocultamiento de banner con `version`   |
+
+---
+
+### 🛡️ Otros Laboratorios y Writeups Relacionados
+- [TheHackerLabs: Kaboom - Walkthrough y Writeup](/secnotes/2026/10/24/TheHackerLabs-Kaboom.html)
+- [DockerLabs: Los 40 Ladrones - Writeup y Solución](/secnotes/2026/10/18/DockerLabs-Los40ladrones.html)
+- [TheHackerLabs: Rockstar - Writeup y Explotación](/secnotes/2026/10/29/TheHackerLabs-Rockstar.html)
+- [DockerLabs: Showtime - Explotación SQLi y Privesc](/secnotes/2026/09/11/DockerLabs-Showtime.html)
+- [Serie Completa de Hardening en Metasploitable 2](/secnotes/metasploitable2)
+

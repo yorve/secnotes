@@ -1,6 +1,6 @@
 ---
 layout: metasploitable2-post
-title: "postgreSQL"
+title: "Hardening de postgreSQL en Metasploitable 2: Guía y Mitigaciones"
 date: 2026-07-14 09:05:00 -0400
 img: /assets/img/metasploitable2/banner.png
 tags: [Vuln, Linux, Hardening, postgreSQL, root, Metasploitable 2 ]
@@ -80,3 +80,13 @@ Eliminamos de raíz los enlaces de arranque automático del servicio.
 ![](/secnotes/assets/img/metasploitable2/5432/e3d4e34d1446106e783d4b5cd60c09db_MD5.jpg)
 
 ![](/secnotes/assets/img/metasploitable2/5432/253bf6ae2bfaf475ea4b8068d0d45780_MD5.jpg)
+
+---
+
+### 🛡️ Otros Laboratorios y Writeups Relacionados
+- [TheHackerLabs: Kaboom - Walkthrough y Writeup](/secnotes/2026/10/24/TheHackerLabs-Kaboom.html)
+- [DockerLabs: Los 40 Ladrones - Writeup y Solución](/secnotes/2026/10/18/DockerLabs-Los40ladrones.html)
+- [TheHackerLabs: Rockstar - Writeup y Explotación](/secnotes/2026/10/29/TheHackerLabs-Rockstar.html)
+- [DockerLabs: Showtime - Explotación SQLi y Privesc](/secnotes/2026/09/11/DockerLabs-Showtime.html)
+- [Serie Completa de Hardening en Metasploitable 2](/secnotes/metasploitable2)
+

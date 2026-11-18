@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "CyberSploit1 – VULNHUB - Linux - Fácil"
+title: "VulnHub: CyberSploit1 - Writeup y Solución Paso a Paso"
 date: 2025-07-14
 img: /assets/img/cybersploit/banner.png
 tags: [VulnHub, Linux, Enumeration, robots.txt]
@@ -103,3 +103,13 @@ Una vez ejecutado el script nos convertimos en usuario root. Ya solo nos queda e
 Si este contenido te ayudó a rootear la máquina o a aprender algo nuevo, ¡puedes invitarme un café! Todo el apoyo se va directo a mejorar el blog y seguir subiendo retos de DockerLabs.
 
 ![Invitame un café](https://img.buymeacoffee.com/button-api/?text=Invítame un café&emoji=☕&slug=TU_USUARIO&button_colour=FFDD00&font_colour=000000&font_family=Cookie&outline_colour=000000&coffee_colour=ffffff)``
+
+---
+
+### 🛡️ Otros Laboratorios y Writeups Relacionados
+- [TheHackerLabs: Kaboom - Walkthrough y Writeup](/secnotes/2026/10/24/TheHackerLabs-Kaboom.html)
+- [DockerLabs: Los 40 Ladrones - Writeup y Solución](/secnotes/2026/10/18/DockerLabs-Los40ladrones.html)
+- [TheHackerLabs: Rockstar - Writeup y Explotación](/secnotes/2026/10/29/TheHackerLabs-Rockstar.html)
+- [DockerLabs: Showtime - Explotación SQLi y Privesc](/secnotes/2026/09/11/DockerLabs-Showtime.html)
+- [Serie Completa de Hardening en Metasploitable 2](/secnotes/metasploitable2)
+

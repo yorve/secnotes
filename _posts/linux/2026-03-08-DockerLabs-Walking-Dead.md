@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Walking Dead - Dockerlabs - Linux - Fácil"
+title: "DockerLabs: Walking Dead - Writeup y Solución Paso a Paso"
 date: 2026-03-08
 img: /assets/img/walkingdead/1.png
 tags: [DockerLabs, Linux, RCE, WebShell, SUID, Python, TTY-Stabilization]
@@ -93,9 +93,12 @@ y no es magia.. es solo aprovechar una mala configuración.
 Los comandos para los permisos heredados pueden verlos en **gtfobins**, esta es la bliblia del hacker donde podemos encontrar mucha información valiosa y útil.
 >https://gtfobins.org/gtfobins/python/
 
+---
 
-
-
-
-
+### 🛡️ Otros Laboratorios y Writeups Relacionados
+- [TheHackerLabs: Kaboom - Walkthrough y Writeup](/secnotes/2026/10/24/TheHackerLabs-Kaboom.html)
+- [DockerLabs: Los 40 Ladrones - Writeup y Solución](/secnotes/2026/10/18/DockerLabs-Los40ladrones.html)
+- [TheHackerLabs: Rockstar - Writeup y Explotación](/secnotes/2026/10/29/TheHackerLabs-Rockstar.html)
+- [DockerLabs: Showtime - Explotación SQLi y Privesc](/secnotes/2026/09/11/DockerLabs-Showtime.html)
+- [Serie Completa de Hardening en Metasploitable 2](/secnotes/metasploitable2)
 

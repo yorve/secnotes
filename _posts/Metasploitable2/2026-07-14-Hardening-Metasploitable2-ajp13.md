@@ -1,6 +1,6 @@
 ---
 layout: metasploitable2-post
-title: "ajp13"
+title: "Hardening de ajp13 en Metasploitable 2: Guía y Mitigaciones"
 date: 2026-07-14 09:25:00 -0400  # 
 img: /assets/img/metasploitable2/banner.png
 tags: [Metasploitable 2, ajp13, CVE-2020-1938]
@@ -53,3 +53,13 @@ luego reiniciamos el servicio para que aplique el cambio
 ![](/secnotes/assets/img/metasploitable2/8009/75b5406f99939912308beabb35d252df_MD5.jpg)
 
 ![](/secnotes/assets/img/metasploitable2/8009/60cb4dcc33cb78025b78f591be5a5d03_MD5.jpg)
+
+---
+
+### 🛡️ Otros Laboratorios y Writeups Relacionados
+- [TheHackerLabs: Kaboom - Walkthrough y Writeup](/secnotes/2026/10/24/TheHackerLabs-Kaboom.html)
+- [DockerLabs: Los 40 Ladrones - Writeup y Solución](/secnotes/2026/10/18/DockerLabs-Los40ladrones.html)
+- [TheHackerLabs: Rockstar - Writeup y Explotación](/secnotes/2026/10/29/TheHackerLabs-Rockstar.html)
+- [DockerLabs: Showtime - Explotación SQLi y Privesc](/secnotes/2026/09/11/DockerLabs-Showtime.html)
+- [Serie Completa de Hardening en Metasploitable 2](/secnotes/metasploitable2)
+

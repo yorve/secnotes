@@ -1,6 +1,6 @@
 ---
 layout: metasploitable2-post
-title: "rmiregistry"
+title: "Hardening de rmiregistry en Metasploitable 2: Guía y Mitigaciones"
 date: 2026-07-09
 img: /assets/img/metasploitable2/banner.png
 tags: [Vuln, Linux, Hardening, rmiregistry, CVE-2011-3556, Backdoor, root, Metasploitable 2 ]
@@ -46,3 +46,13 @@ Con esto completado, al escanear desde una máquina atacante, veremos que el pue
 
 
 ![](/secnotes/assets/img/metasploitable2/1099/f648c8459742e92f3ecc6a2db20222d0_MD5.jpg)
+
+---
+
+### 🛡️ Otros Laboratorios y Writeups Relacionados
+- [TheHackerLabs: Kaboom - Walkthrough y Writeup](/secnotes/2026/10/24/TheHackerLabs-Kaboom.html)
+- [DockerLabs: Los 40 Ladrones - Writeup y Solución](/secnotes/2026/10/18/DockerLabs-Los40ladrones.html)
+- [TheHackerLabs: Rockstar - Writeup y Explotación](/secnotes/2026/10/29/TheHackerLabs-Rockstar.html)
+- [DockerLabs: Showtime - Explotación SQLi y Privesc](/secnotes/2026/09/11/DockerLabs-Showtime.html)
+- [Serie Completa de Hardening en Metasploitable 2](/secnotes/metasploitable2)
+

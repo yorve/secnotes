@@ -1,6 +1,6 @@
 ---
 layout: metasploitable2-post
-title: "MySQL"
+title: "Hardening de MySQL en Metasploitable 2: Guía y Mitigaciones"
 date: 2026-07-13
 img: /assets/img/metasploitable2/banner.png
 tags: [Vuln, Linux, Hardening, mysql, root, Metasploitable 2 ]
@@ -58,3 +58,13 @@ Luego lo eliminaremos del inicio automático con el arranque del sistema.
 y con esto cerramos el puerto del servicio y reducimos la superficie de ataque.
 
 ![](/secnotes/assets/img/metasploitable2/3306/067fdfe525d5aa3e1188e497a11432e4_MD5.jpg)
+
+---
+
+### 🛡️ Otros Laboratorios y Writeups Relacionados
+- [TheHackerLabs: Kaboom - Walkthrough y Writeup](/secnotes/2026/10/24/TheHackerLabs-Kaboom.html)
+- [DockerLabs: Los 40 Ladrones - Writeup y Solución](/secnotes/2026/10/18/DockerLabs-Los40ladrones.html)
+- [TheHackerLabs: Rockstar - Writeup y Explotación](/secnotes/2026/10/29/TheHackerLabs-Rockstar.html)
+- [DockerLabs: Showtime - Explotación SQLi y Privesc](/secnotes/2026/09/11/DockerLabs-Showtime.html)
+- [Serie Completa de Hardening en Metasploitable 2](/secnotes/metasploitable2)
+

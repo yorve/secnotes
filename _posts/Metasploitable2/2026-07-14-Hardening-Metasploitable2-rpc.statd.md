@@ -1,6 +1,6 @@
 ---
 layout: metasploitable2-post
-title: "rpc.statd"
+title: "Hardening de rpc.statd en Metasploitable 2: Guía y Mitigaciones"
 date: 2026-07-14 09:40:00 -0400  # 
 img: /assets/img/metasploitable2/banner.png
 tags: [Metasploitable 2, rpc.statd, NFC]
@@ -24,4 +24,12 @@ update-rc.d -f portmap remove
 update-rc.d -f nfs-common remove
 ```
 
+---
+
+### 🛡️ Otros Laboratorios y Writeups Relacionados
+- [TheHackerLabs: Kaboom - Walkthrough y Writeup](/secnotes/2026/10/24/TheHackerLabs-Kaboom.html)
+- [DockerLabs: Los 40 Ladrones - Writeup y Solución](/secnotes/2026/10/18/DockerLabs-Los40ladrones.html)
+- [TheHackerLabs: Rockstar - Writeup y Explotación](/secnotes/2026/10/29/TheHackerLabs-Rockstar.html)
+- [DockerLabs: Showtime - Explotación SQLi y Privesc](/secnotes/2026/09/11/DockerLabs-Showtime.html)
+- [Serie Completa de Hardening en Metasploitable 2](/secnotes/metasploitable2)
 

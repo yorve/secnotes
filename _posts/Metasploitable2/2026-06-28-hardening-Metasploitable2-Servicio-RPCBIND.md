@@ -1,6 +1,6 @@
 ---
 layout: metasploitable2-post
-title: "RCPBIND"
+title: "Hardening de RCPBIND en Metasploitable 2: Guía y Mitigaciones"
 date: 2026-06-28
 img: /assets/img/metasploitable2/banner.png
 tags: [Linux, Hardening, RCPBIND, Mountd, Metasploitable 2]
@@ -122,3 +122,13 @@ Dado a que parchamos NFS y restringimos el montaje a localhost, el puerto 111 ya
 | 53     | DNS      | Abierto (Versión expuesta `bind 9.4.2`)            | Blindado y Ofuscado                   | ACLs restrictivas y ocultamiento de banner con `version`.                                                                            |
 | 80     | HTTP     | Abierto (Cargado con aplicaciones web vulnerables) | Blindado                              | Aplicación de configuraciones de seguridad (Ocultar banner, desactivar listado de directorios, deshabilitar métodos HTTP inseguros). |
 | 111    | RCPBIND  | Abierto (`portmap` y `nfs` Vulnerables)            | Blindado                              | Aplicación de configuraciones de seguridad sobre NFS y controlar el acceso por Red con TPC Wrappers.                                 |
+
+---
+
+### 🛡️ Otros Laboratorios y Writeups Relacionados
+- [TheHackerLabs: Kaboom - Walkthrough y Writeup](/secnotes/2026/10/24/TheHackerLabs-Kaboom.html)
+- [DockerLabs: Los 40 Ladrones - Writeup y Solución](/secnotes/2026/10/18/DockerLabs-Los40ladrones.html)
+- [TheHackerLabs: Rockstar - Writeup y Explotación](/secnotes/2026/10/29/TheHackerLabs-Rockstar.html)
+- [DockerLabs: Showtime - Explotación SQLi y Privesc](/secnotes/2026/09/11/DockerLabs-Showtime.html)
+- [Serie Completa de Hardening en Metasploitable 2](/secnotes/metasploitable2)
+

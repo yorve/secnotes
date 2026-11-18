@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Optimum – HTB - Windows"
+title: "HackTheBox: Optimum - Writeup y Solución Paso a Paso"
 date: 2025-07-11
 img: /assets/img/optimun/banner.png
 tags: [HackTheBox, Windows, RCE, Metasploit]
@@ -97,5 +97,12 @@ Si este contenido te ayudó a rootear la máquina o a aprender algo nuevo, ¡pue
 
 ![Invitame un café](https://img.buymeacoffee.com/button-api/?text=Invítame un café&emoji=☕&slug=TU_USUARIO&button_colour=FFDD00&font_colour=000000&font_family=Cookie&outline_colour=000000&coffee_colour=ffffff)
 
- 
+---
+
+### 🛡️ Otros Laboratorios y Writeups Relacionados
+- [TheHackerLabs: Kaboom - Walkthrough y Writeup](/secnotes/2026/10/24/TheHackerLabs-Kaboom.html)
+- [DockerLabs: Los 40 Ladrones - Writeup y Solución](/secnotes/2026/10/18/DockerLabs-Los40ladrones.html)
+- [TheHackerLabs: Rockstar - Writeup y Explotación](/secnotes/2026/10/29/TheHackerLabs-Rockstar.html)
+- [DockerLabs: Showtime - Explotación SQLi y Privesc](/secnotes/2026/09/11/DockerLabs-Showtime.html)
+- [Serie Completa de Hardening en Metasploitable 2](/secnotes/metasploitable2)
 

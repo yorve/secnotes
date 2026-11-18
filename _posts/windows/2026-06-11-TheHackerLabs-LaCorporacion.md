@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "La Corporación - Hackerlabs"
+title: "TheHackerLabs: La Corporación - Writeup y Solución Paso a Paso"
 date: 2026-06-11
 img: /assets/img/corporacion/banner.png
 tags: [Wireshark, BlueTeam, CVE-2021-41773, HackerLabs, logs]
@@ -57,5 +57,12 @@ Ahora que tenemos toda la info podemos contestar las preguntas sin problemas.
 
 ![img9]({{ site.baseurl }}/assets/img/corporacion/preguntas2.png)
 
+---
 
+### 🛡️ Otros Laboratorios y Writeups Relacionados
+- [TheHackerLabs: Kaboom - Walkthrough y Writeup](/secnotes/2026/10/24/TheHackerLabs-Kaboom.html)
+- [DockerLabs: Los 40 Ladrones - Writeup y Solución](/secnotes/2026/10/18/DockerLabs-Los40ladrones.html)
+- [TheHackerLabs: Rockstar - Writeup y Explotación](/secnotes/2026/10/29/TheHackerLabs-Rockstar.html)
+- [DockerLabs: Showtime - Explotación SQLi y Privesc](/secnotes/2026/09/11/DockerLabs-Showtime.html)
+- [Serie Completa de Hardening en Metasploitable 2](/secnotes/metasploitable2)
 

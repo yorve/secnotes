@@ -1,6 +1,6 @@
 ---
 layout: metasploitable2-post
-title: "FTP"
+title: "Hardening de FTP en Metasploitable 2: Guía y Mitigaciones"
 date: 2026-06-21
 img: /assets/img/metasploitable2/banner.png
 tags: [Vuln, Linux, Hardening, FTP, Backdoor, root, Metasploitable 2]
@@ -74,4 +74,12 @@ Intentamos la conexión a FTP desde nuestra máquina atacante.
 
 ![FTP4]({{ site.baseurl }}/assets/img/metasploitable2/20260619211901.png)
 
+---
+
+### 🛡️ Otros Laboratorios y Writeups Relacionados
+- [TheHackerLabs: Kaboom - Walkthrough y Writeup](/secnotes/2026/10/24/TheHackerLabs-Kaboom.html)
+- [DockerLabs: Los 40 Ladrones - Writeup y Solución](/secnotes/2026/10/18/DockerLabs-Los40ladrones.html)
+- [TheHackerLabs: Rockstar - Writeup y Explotación](/secnotes/2026/10/29/TheHackerLabs-Rockstar.html)
+- [DockerLabs: Showtime - Explotación SQLi y Privesc](/secnotes/2026/09/11/DockerLabs-Showtime.html)
+- [Serie Completa de Hardening en Metasploitable 2](/secnotes/metasploitable2)
 

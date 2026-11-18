@@ -1,6 +1,6 @@
 ---
 layout: metasploitable2-post
-title: "WEB"
+title: "Hardening de WEB en Metasploitable 2: Guía y Mitigaciones"
 date: 2026-06-25
 img: /assets/img/metasploitable2/banner.png
 tags: [Vuln, Linux, Hardening, web, Metasploitable 2]
@@ -139,4 +139,14 @@ reiniciamos el servicio para aplicar las nuevas configuraciones
 ![web]({{ site.baseurl }}/assets/img/metasploitable2/6dc88da9e22f510a488bbdfa7e0d9627_MD5.jpg)
 ![web]({{ site.baseurl }}/assets/img/metasploitable2/203a157de939b190e80c554b17e919af_MD5.jpg)
 
-Con estos ajustes la máquina queda en un estado de fortificación aceptable. Nadie en la red podrá interactuar con las aplicaciones web a menos que tenga acceso vía SSH con credenciales válidas para tunelizar el tráfico. 
+Con estos ajustes la máquina queda en un estado de fortificación aceptable. Nadie en la red podrá interactuar con las aplicaciones web a menos que tenga acceso vía SSH con credenciales válidas para tunelizar el tráfico.
+
+---
+
+### 🛡️ Otros Laboratorios y Writeups Relacionados
+- [TheHackerLabs: Kaboom - Walkthrough y Writeup](/secnotes/2026/10/24/TheHackerLabs-Kaboom.html)
+- [DockerLabs: Los 40 Ladrones - Writeup y Solución](/secnotes/2026/10/18/DockerLabs-Los40ladrones.html)
+- [TheHackerLabs: Rockstar - Writeup y Explotación](/secnotes/2026/10/29/TheHackerLabs-Rockstar.html)
+- [DockerLabs: Showtime - Explotación SQLi y Privesc](/secnotes/2026/09/11/DockerLabs-Showtime.html)
+- [Serie Completa de Hardening en Metasploitable 2](/secnotes/metasploitable2)
+

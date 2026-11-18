@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Beach Bar - TryHackMe - Linux"
+title: "TryHackMe: Beach Bar - Writeup y Solución Paso a Paso"
 date: 2026-08-02
 img: assets/img/beachbar/banner.png
 tags: [Linux, TryHackMe, yml, ps aux, ]
@@ -136,3 +136,13 @@ El proceso del sistema operativo reveló el valor real de esos parámetros por q
 2. **Restricciones de** `/proc`: Montar `/proc` con la opción `hidepid=2` en el servidor para evitar que usuarios sin privilegios vean procesos de otros usuarios.
 3. **Principio de Menor Privilegio:** Un servicio de reproducción de música (`jukeboxd`) jamás debería ejecutarse con privilegios `root`
 4. **Políticas de Contraseñas:** No reutilizar contraseñas de servicios en la cuenta de administración principal del sistema.
+
+---
+
+### 🛡️ Otros Laboratorios y Writeups Relacionados
+- [TheHackerLabs: Kaboom - Walkthrough y Writeup](/secnotes/2026/10/24/TheHackerLabs-Kaboom.html)
+- [DockerLabs: Los 40 Ladrones - Writeup y Solución](/secnotes/2026/10/18/DockerLabs-Los40ladrones.html)
+- [TheHackerLabs: Rockstar - Writeup y Explotación](/secnotes/2026/10/29/TheHackerLabs-Rockstar.html)
+- [DockerLabs: Showtime - Explotación SQLi y Privesc](/secnotes/2026/09/11/DockerLabs-Showtime.html)
+- [Serie Completa de Hardening en Metasploitable 2](/secnotes/metasploitable2)
+

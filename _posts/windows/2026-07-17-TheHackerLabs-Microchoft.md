@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Microchoft - The Hacker Labs - Windows"
+title: "TheHackerLabs: Microchoft - Writeup y Solución Paso a Paso"
 date: 2026-07-17
 img: /assets/img/windows/microchoft/banner.png
 tags: [Windows, Enumeration, robots.txt, MS17-010]
@@ -124,3 +124,13 @@ La resolución de esta máquina demuestra de forma practica el riesgo de tener s
 Al abusar de un fallo de desbordamiento de búfer en el manejo de paquetes SMB por parte del kernel, logramos inyectar un shellcode personalizado que nos otorgó acceso remoto directo con los máximos privilegios del sistema, omitiendo la necesidad de credenciales válidas o escala de privilegios posterior.
 
 La remediación de este vector de ataque no requiere configuraciones complejas. Se soluciona aplicando los parches de seguridad críticos correspondientes o, idealmente, dehabilitando el protocolo SMBv1 y migrarlo a sistemas operativos con soporte vigente.
+
+---
+
+### 🛡️ Otros Laboratorios y Writeups Relacionados
+- [TheHackerLabs: Kaboom - Walkthrough y Writeup](/secnotes/2026/10/24/TheHackerLabs-Kaboom.html)
+- [DockerLabs: Los 40 Ladrones - Writeup y Solución](/secnotes/2026/10/18/DockerLabs-Los40ladrones.html)
+- [TheHackerLabs: Rockstar - Writeup y Explotación](/secnotes/2026/10/29/TheHackerLabs-Rockstar.html)
+- [DockerLabs: Showtime - Explotación SQLi y Privesc](/secnotes/2026/09/11/DockerLabs-Showtime.html)
+- [Serie Completa de Hardening en Metasploitable 2](/secnotes/metasploitable2)
+

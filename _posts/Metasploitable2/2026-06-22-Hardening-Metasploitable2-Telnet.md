@@ -1,6 +1,6 @@
 ---
 layout: metasploitable2-post
-title: "Telnet"
+title: "Hardening de Telnet en Metasploitable 2: Guía y Mitigaciones"
 date: 2026-06-22
 img: /assets/img/metasploitable2/banner.png
 tags: [Vuln, Linux, Hardening, Telnet, root, Metasploitable 2]
@@ -51,3 +51,13 @@ Para deshabilitarlo basta con comentar (#) la línea donde esta la configuració
 Con esto ejecutado, intentamos acceder desde nuestra máquina atacante resultando en una conexión fallida.
 
 ![TELNET]({{ site.baseurl }}/assets/img/metasploitable2/20260621174019.png)
+
+---
+
+### 🛡️ Otros Laboratorios y Writeups Relacionados
+- [TheHackerLabs: Kaboom - Walkthrough y Writeup](/secnotes/2026/10/24/TheHackerLabs-Kaboom.html)
+- [DockerLabs: Los 40 Ladrones - Writeup y Solución](/secnotes/2026/10/18/DockerLabs-Los40ladrones.html)
+- [TheHackerLabs: Rockstar - Writeup y Explotación](/secnotes/2026/10/29/TheHackerLabs-Rockstar.html)
+- [DockerLabs: Showtime - Explotación SQLi y Privesc](/secnotes/2026/09/11/DockerLabs-Showtime.html)
+- [Serie Completa de Hardening en Metasploitable 2](/secnotes/metasploitable2)
+

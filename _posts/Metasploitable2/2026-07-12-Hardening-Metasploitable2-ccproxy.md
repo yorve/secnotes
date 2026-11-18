@@ -1,6 +1,6 @@
 ---
 layout: metasploitable2-post
-title: "ccproxy-ftp"
+title: "Hardening de ccproxy-ftp en Metasploitable 2: Guía y Mitigaciones"
 date: 2026-07-12
 img: /assets/img/metasploitable2/banner.png
 tags: [Vuln, Linux, Hardening, ccproxy, ftp, root, Metasploitable 2 ]
@@ -37,3 +37,13 @@ Este último comando nos ayuda a eliminar el servicio del arranque automático d
 ![](/secnotes/assets/img/metasploitable2/2121/c765044e564cf1a50e0ba89bc1f11b73_MD5.jpg)
 
 ![](/secnotes/assets/img/metasploitable2/2121/abce5287a8a45c3fa5ebc438d3c49b71_MD5.jpg)
+
+---
+
+### 🛡️ Otros Laboratorios y Writeups Relacionados
+- [TheHackerLabs: Kaboom - Walkthrough y Writeup](/secnotes/2026/10/24/TheHackerLabs-Kaboom.html)
+- [DockerLabs: Los 40 Ladrones - Writeup y Solución](/secnotes/2026/10/18/DockerLabs-Los40ladrones.html)
+- [TheHackerLabs: Rockstar - Writeup y Explotación](/secnotes/2026/10/29/TheHackerLabs-Rockstar.html)
+- [DockerLabs: Showtime - Explotación SQLi y Privesc](/secnotes/2026/09/11/DockerLabs-Showtime.html)
+- [Serie Completa de Hardening en Metasploitable 2](/secnotes/metasploitable2)
+

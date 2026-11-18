@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Chimichurri - Hackerslabs - Windows AD"
+title: "Chimichurri - Writeup y Explotación Paso a Paso"
 date: 2026-07-27
 img: /assets/img/windows/chimichurri/banner.png
 tags: [Windows, AD, crackmapexec, kerbrute, winrm, evil-winrm, JuicyPotato, CVE-2024-23897]
@@ -131,3 +131,13 @@ Ponemos nuestro puerto 443 en escucha y ejecutamos los archivos apuntando a cmd 
 En esta ocasión no fue necesario poner el **CLSID** del Sistema Operativo..
 
 ![](/secnotes/assets/img/windows/chimichurri/Pasted%20image%2020260727215956.png)
+
+---
+
+### 🛡️ Otros Laboratorios y Writeups Relacionados
+- [TheHackerLabs: Kaboom - Walkthrough y Writeup](/secnotes/2026/10/24/TheHackerLabs-Kaboom.html)
+- [DockerLabs: Los 40 Ladrones - Writeup y Solución](/secnotes/2026/10/18/DockerLabs-Los40ladrones.html)
+- [TheHackerLabs: Rockstar - Writeup y Explotación](/secnotes/2026/10/29/TheHackerLabs-Rockstar.html)
+- [DockerLabs: Showtime - Explotación SQLi y Privesc](/secnotes/2026/09/11/DockerLabs-Showtime.html)
+- [Serie Completa de Hardening en Metasploitable 2](/secnotes/metasploitable2)
+

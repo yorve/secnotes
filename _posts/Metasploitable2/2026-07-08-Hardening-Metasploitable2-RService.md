@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "RServices Suite"
+title: "Hardening de RServices Suite en Metasploitable 2: Guía y Mitigaciones"
 date: 2026-07-08
 img: /assets/img/metasploitable2/banner.png
 tags: [Vuln, Linux, Hardening, root, EXEC, RLOGIND, RSHD, Metasploitable 2]
@@ -87,4 +87,13 @@ y luego de reiniciar los servicios ya no tendremos desde nuestra máquina atacan
 ![](/secnotes/assets/img/metasploitable2/6dad93ae2f8a8b8caa3cfb65a0958bbb_MD5.jpg)
 
 Con estos procedimientos, la suite completa de los R-Services ha sido erradicada del servidor de forma definitiva, forzando a que cualquier interacción legítima de administración se haga obligatoriamente cifrada por el puerto 22 (SSH).
+
+---
+
+### 🛡️ Otros Laboratorios y Writeups Relacionados
+- [TheHackerLabs: Kaboom - Walkthrough y Writeup](/secnotes/2026/10/24/TheHackerLabs-Kaboom.html)
+- [DockerLabs: Los 40 Ladrones - Writeup y Solución](/secnotes/2026/10/18/DockerLabs-Los40ladrones.html)
+- [TheHackerLabs: Rockstar - Writeup y Explotación](/secnotes/2026/10/29/TheHackerLabs-Rockstar.html)
+- [DockerLabs: Showtime - Explotación SQLi y Privesc](/secnotes/2026/09/11/DockerLabs-Showtime.html)
+- [Serie Completa de Hardening en Metasploitable 2](/secnotes/metasploitable2)
 

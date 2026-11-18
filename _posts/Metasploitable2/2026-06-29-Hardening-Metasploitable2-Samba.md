@@ -1,6 +1,6 @@
 ---
 layout: metasploitable2-post
-title: "Samba"
+title: "Hardening de Samba en Metasploitable 2: Guía y Mitigaciones"
 date: 2026-06-29
 img: /assets/img/metasploitable2/banner.png
 tags: [Vuln, Linux, Hardening, Samba, root, Metasploitable 2]
@@ -142,4 +142,13 @@ Con estas medidas ya no tenemos acceso por medio del script que escribimos en py
 | 80     | HTTP         | Abierto (Cargado con aplicaciones web vulnerables) | Blindado                              | Aplicación de configuraciones de seguridad (Ocultar banner, desactivar listado de directorios, deshabilitar métodos HTTP inseguros). |
 | 111    | RCPBIND      | Abierto (`portmap` y `nfs` Vulnerables)            | Blindado                              | Aplicación de configuraciones de seguridad sobre NFS y controlar el acceso por Red con TPC Wrappers.                                 |
 | 139    | Samba 3.0.20 | Abierto (CVE-2007-2447)                            | Ofuscado                              | Directivas `hosts allow = 127.0.0.1` / `hosts deny = ALL` y remoción de variables `%h` / `%v` en `server string`.                    |
+
+---
+
+### 🛡️ Otros Laboratorios y Writeups Relacionados
+- [TheHackerLabs: Kaboom - Walkthrough y Writeup](/secnotes/2026/10/24/TheHackerLabs-Kaboom.html)
+- [DockerLabs: Los 40 Ladrones - Writeup y Solución](/secnotes/2026/10/18/DockerLabs-Los40ladrones.html)
+- [TheHackerLabs: Rockstar - Writeup y Explotación](/secnotes/2026/10/29/TheHackerLabs-Rockstar.html)
+- [DockerLabs: Showtime - Explotación SQLi y Privesc](/secnotes/2026/09/11/DockerLabs-Showtime.html)
+- [Serie Completa de Hardening en Metasploitable 2](/secnotes/metasploitable2)
 

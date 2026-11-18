@@ -1,6 +1,6 @@
 ---
 layout: metasploitable2-post
-title: "irc - irc-u"
+title: "Hardening de irc - irc-u en Metasploitable 2: Guía y Mitigaciones"
 date: 2026-07-14 09:20:00 -0400  
 img: /assets/img/metasploitable2/banner.png
 tags: [Metasploitable 2, irc, irc-u, CVE-2010-2075]
@@ -54,4 +54,13 @@ Este segundo comando es por que el script intentó levantar otro proceso hijo an
 **Efecto Colateral de Hardening:** Como ejecutamos el comando de limpieza y matamos al proceso padre que mantenía el servicio levantado, cerramos ambos puertos de un solo golpe. 
 
 ![](/secnotes/assets/img/metasploitable2/6667/f38890f49b34124709858e5187d3c399_MD5.jpg)
+
+---
+
+### 🛡️ Otros Laboratorios y Writeups Relacionados
+- [TheHackerLabs: Kaboom - Walkthrough y Writeup](/secnotes/2026/10/24/TheHackerLabs-Kaboom.html)
+- [DockerLabs: Los 40 Ladrones - Writeup y Solución](/secnotes/2026/10/18/DockerLabs-Los40ladrones.html)
+- [TheHackerLabs: Rockstar - Writeup y Explotación](/secnotes/2026/10/29/TheHackerLabs-Rockstar.html)
+- [DockerLabs: Showtime - Explotación SQLi y Privesc](/secnotes/2026/09/11/DockerLabs-Showtime.html)
+- [Serie Completa de Hardening en Metasploitable 2](/secnotes/metasploitable2)
 

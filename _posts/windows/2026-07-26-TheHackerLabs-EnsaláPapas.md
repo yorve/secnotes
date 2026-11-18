@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Ensalá Papas - The Hacker Labs - Windows"
+title: "TheHackerLabs: Ensalá Papas - Writeup y Solución Paso a Paso"
 date: 2026-07-26
 img: /assets/img/windows/ensala/Pasted image 20260725200541.png
 tags: [Windows, Web, ISS, JuicyPotato, reverse shell]
@@ -211,3 +211,13 @@ El resultado...
 Una escalada de privilegios y el control total de la víctima.
 
 ![](/secnotes/assets/img/windows/ensala/Pasted image 20260726003444.png)
+
+---
+
+### 🛡️ Otros Laboratorios y Writeups Relacionados
+- [TheHackerLabs: Kaboom - Walkthrough y Writeup](/secnotes/2026/10/24/TheHackerLabs-Kaboom.html)
+- [DockerLabs: Los 40 Ladrones - Writeup y Solución](/secnotes/2026/10/18/DockerLabs-Los40ladrones.html)
+- [TheHackerLabs: Rockstar - Writeup y Explotación](/secnotes/2026/10/29/TheHackerLabs-Rockstar.html)
+- [DockerLabs: Showtime - Explotación SQLi y Privesc](/secnotes/2026/09/11/DockerLabs-Showtime.html)
+- [Serie Completa de Hardening en Metasploitable 2](/secnotes/metasploitable2)
+

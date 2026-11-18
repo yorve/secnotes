@@ -1,6 +1,6 @@
 ---
 layout: metasploitable2-post
-title: "Ingreslock"
+title: "Hardening de Ingreslock en Metasploitable 2: Guía y Mitigaciones"
 date: 2026-07-10
 img: /assets/img/metasploitable2/banner.png
 tags: [Vuln, Linux, Hardening, FTP, Backdoor, root, Metasploitable 2]
@@ -59,4 +59,12 @@ reiniciamos el servicio y ya no tendremos acceso desde la máquina atacante.
 
 ![](/secnotes/assets/img/metasploitable2/1524/f09c0f2f255e51599ca705ef84809516_MD5.jpg)
 
+---
+
+### 🛡️ Otros Laboratorios y Writeups Relacionados
+- [TheHackerLabs: Kaboom - Walkthrough y Writeup](/secnotes/2026/10/24/TheHackerLabs-Kaboom.html)
+- [DockerLabs: Los 40 Ladrones - Writeup y Solución](/secnotes/2026/10/18/DockerLabs-Los40ladrones.html)
+- [TheHackerLabs: Rockstar - Writeup y Explotación](/secnotes/2026/10/29/TheHackerLabs-Rockstar.html)
+- [DockerLabs: Showtime - Explotación SQLi y Privesc](/secnotes/2026/09/11/DockerLabs-Showtime.html)
+- [Serie Completa de Hardening en Metasploitable 2](/secnotes/metasploitable2)
 

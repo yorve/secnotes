@@ -1,6 +1,6 @@
 ---
 layout: metasploitable2-post
-title: "nfs"
+title: "Hardening de nfs en Metasploitable 2: Guía y Mitigaciones"
 date: 2026-07-11
 img: /assets/img/metasploitable2/banner.png
 tags: [Vuln, Linux, Hardening, Metasploitable 2, root, NFS ]
@@ -38,3 +38,13 @@ Con esto ya no tendremos acceso como atacantes.
 ![](/secnotes/assets/img/metasploitable2/2049/bf0e237d224be7f84f77de4668f5141c_MD5.jpg)
 
 Como ya habíamos aplicado el hardening sobre el servicio **rpcbind - Portmap**, mitigamos de forma indirecta la fase de reconocimiento de NFS.
+
+---
+
+### 🛡️ Otros Laboratorios y Writeups Relacionados
+- [TheHackerLabs: Kaboom - Walkthrough y Writeup](/secnotes/2026/10/24/TheHackerLabs-Kaboom.html)
+- [DockerLabs: Los 40 Ladrones - Writeup y Solución](/secnotes/2026/10/18/DockerLabs-Los40ladrones.html)
+- [TheHackerLabs: Rockstar - Writeup y Explotación](/secnotes/2026/10/29/TheHackerLabs-Rockstar.html)
+- [DockerLabs: Showtime - Explotación SQLi y Privesc](/secnotes/2026/09/11/DockerLabs-Showtime.html)
+- [Serie Completa de Hardening en Metasploitable 2](/secnotes/metasploitable2)
+

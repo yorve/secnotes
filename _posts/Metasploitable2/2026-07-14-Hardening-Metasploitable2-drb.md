@@ -1,6 +1,6 @@
 ---
 layout: metasploitable2-post
-title: "drb"
+title: "Hardening de drb en Metasploitable 2: Guía y Mitigaciones"
 date: 2026-07-14 09:35:00 -0400  # 
 img: /assets/img/metasploitable2/banner.png
 tags: [Metasploitable 2, drb, Ruby, RCE]
@@ -41,4 +41,14 @@ Si por alguna razón de negocio el servicio debiera seguir ejecutándose pero de
 
 ![](/secnotes/assets/img/metasploitable2/8787/70e1b83fa7ca17a59ee8c6221d8cb29b_MD5.jpg)
 
-Los paquetes ahora son bloqueados o ignorados antes de ser procesados. El atacante no recibirá ninguna respuesta, no sabe si el puerto está ocultando algo o si hay algún firewall en el medio. 
+Los paquetes ahora son bloqueados o ignorados antes de ser procesados. El atacante no recibirá ninguna respuesta, no sabe si el puerto está ocultando algo o si hay algún firewall en el medio.
+
+---
+
+### 🛡️ Otros Laboratorios y Writeups Relacionados
+- [TheHackerLabs: Kaboom - Walkthrough y Writeup](/secnotes/2026/10/24/TheHackerLabs-Kaboom.html)
+- [DockerLabs: Los 40 Ladrones - Writeup y Solución](/secnotes/2026/10/18/DockerLabs-Los40ladrones.html)
+- [TheHackerLabs: Rockstar - Writeup y Explotación](/secnotes/2026/10/29/TheHackerLabs-Rockstar.html)
+- [DockerLabs: Showtime - Explotación SQLi y Privesc](/secnotes/2026/09/11/DockerLabs-Showtime.html)
+- [Serie Completa de Hardening en Metasploitable 2](/secnotes/metasploitable2)
+

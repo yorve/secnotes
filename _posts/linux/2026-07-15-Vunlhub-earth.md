@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Vulnhub / The Planets - Earth"
+title: "VulnHub: Vulnhub / The Planets - Writeup y Solución Paso a Paso"
 date: 2026-07-15
 img: /assets/img/vulnhub/earth/banner.png
 tags: [VulnHub, Linux, Enumeration, GDB, SUID ]
@@ -229,3 +229,13 @@ Ahora al ejecutar el binario, este se ejecuta sin problemas y nos cambia la cont
 Con este nuevo dato cambiamos al usuario `root` y así obtenemos el control total de la máquina. 
 
 ![](/secnotes/assets/img/vulnhub/earth/Pasted image 20260715181720.png)
+
+---
+
+### 🛡️ Otros Laboratorios y Writeups Relacionados
+- [TheHackerLabs: Kaboom - Walkthrough y Writeup](/secnotes/2026/10/24/TheHackerLabs-Kaboom.html)
+- [DockerLabs: Los 40 Ladrones - Writeup y Solución](/secnotes/2026/10/18/DockerLabs-Los40ladrones.html)
+- [TheHackerLabs: Rockstar - Writeup y Explotación](/secnotes/2026/10/29/TheHackerLabs-Rockstar.html)
+- [DockerLabs: Showtime - Explotación SQLi y Privesc](/secnotes/2026/09/11/DockerLabs-Showtime.html)
+- [Serie Completa de Hardening en Metasploitable 2](/secnotes/metasploitable2)
+

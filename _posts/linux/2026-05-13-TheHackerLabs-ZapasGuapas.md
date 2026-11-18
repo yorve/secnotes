@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "ZapasGuapas - Hackerlabs - Linux"
+title: "TheHackerLabs: ZapasGuapas - Writeup y Solución Paso a Paso"
 date: 2026-05-13
 img: /assets/img/zapas/banner.png
 tags: [Command Injection, RCE, APT, AWS-CLI, stty, Linux, GTFObins, Shell Escape]
@@ -157,14 +157,12 @@ _archivo sudoers_
 
 ![img26]({{ site.baseurl }}/assets/img/zapas/sudoers.png)
 
+---
 
-
-
-
-
-
-
-
-
-
+### 🛡️ Otros Laboratorios y Writeups Relacionados
+- [TheHackerLabs: Kaboom - Walkthrough y Writeup](/secnotes/2026/10/24/TheHackerLabs-Kaboom.html)
+- [DockerLabs: Los 40 Ladrones - Writeup y Solución](/secnotes/2026/10/18/DockerLabs-Los40ladrones.html)
+- [TheHackerLabs: Rockstar - Writeup y Explotación](/secnotes/2026/10/29/TheHackerLabs-Rockstar.html)
+- [DockerLabs: Showtime - Explotación SQLi y Privesc](/secnotes/2026/09/11/DockerLabs-Showtime.html)
+- [Serie Completa de Hardening en Metasploitable 2](/secnotes/metasploitable2)
 
