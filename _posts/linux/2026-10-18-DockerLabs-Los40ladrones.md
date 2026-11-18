@@ -1,126 +1,161 @@
 ---
 layout: post
-title: "Los 40 Ladrones - Dockerlabs - Linux"
-description: "Resuelve Los 40 Ladrones de DockerLabs: descubre la secuencia de Port Knocking, accede por SSH y analiza la escalada mediante SUID."
+title: "DockerLabs: Los 40 Ladrones - Writeup y Solución Paso a Paso"
+description: "Guía completa de resolución de la máquina Los 40 Ladrones de DockerLabs. Aprende a evadir Port Knocking, explotar SSH con Hydra y escalar a root vía SUID."
 date: 2026-10-18
 img: /assets/img/los40ladrones/banner.png
-tags: [DockerLabs, Linux, Enumeration, Port-Knocking, Hydra, BruteForce, SUID]
+categories: [Writeups, DockerLabs]
+tags: [DockerLabs, Linux, Enumeration, Port-Knocking, Hydra, BruteForce, SUID, Pentesting, Writeup]
 ---
-En este laboratorio vamos a resolver la máquina **Los 40 Ladrones** de DockerLabs. Lo particular de este reto es que el servicio SSH no está expuesto de entrada: hay que descubrir y activar una secuencia de **Port Knocking** oculta en el servicio web para habilitarlo, obtener acceso por fuerza bruta con credenciales débiles, y finalmente escalar privilegios aprovechando un script ejecutado por el demonio `knockd` con permisos de root que deja un binario `bash` con bit **SUID**.
-## Fase de Reconocimiento
 
-Comenzamos con un escaneo básico con nuestra herramienta *AutoRecon*, para automatizar este primer proceso mientras preparamos nuestras herramientas.
+En este writeup detallado vamos a resolver la máquina **Los 40 Ladrones** de la plataforma **DockerLabs**. 
+
+Este laboratorio presenta un reto interesante: el servicio SSH se encuentra oculto tras una regla de firewall. Para vulnerar la máquina, debemos descubrir la secuencia de **Port Knocking** filtrada en el servicio web, realizar un ataque de fuerza bruta con **Hydra** y finalmente escalar privilegios mediante un binario `bash` con permisos **SUID** generado por el demonio `knockd`.
+
+---
+
+## 1. Fase de Reconocimiento y Enumeración de Puertos
+
+Iniciamos la fase de reconocimiento mediante un escaneo automatizado con la herramienta **AutoRecon** para identificar puertos abiertos y servicios activos:
 
 ![utilizacion herramienta auto-recon](/secnotes/assets/img/los40ladrones/Pasted%20image%2020261018152443.png)
 
-Este escaneo nos encontró solo el servicio web habilitado sobre el puerto 80, y gobuster no nos muestra mayor información de primeras.
+El resultado revela únicamente el puerto web 80 (HTTP) abierto. Una enumeración rápida con Gobuster no arroja rutas críticas a primera vista:
 
 ![resultado de escaneo de puertos](/secnotes/assets/img/los40ladrones/Pasted%20image%2020261018152730.png)
 
-Al acceder a este servicio, solo nos encontramos con la página de inicio de apache
+Al inspeccionar el servicio web en el navegador, observamos la página de inicio por defecto de Apache:
 
 ![página principal apache](/secnotes/assets/img/los40ladrones/Pasted%20image%2020261018152815.png)
 
-También usamos `curl` para buscar comentarios en el código de la página y nada.
+Revisamos el código fuente y comentarios HTML utilizando `curl`:
 
 ![uso herramienta curl](/secnotes/assets/img/los40ladrones/Pasted%20image%2020261018152911.png)
 
-Nuestro siguiente paso será realizar un escaneo más especializado en busca de directorios
+### Fuzzing de Directorios Web con Gobuster
+
+Lanzamos un escaneo exhaustivo de directorios y extensiones comunes:
 
 ![escaneo de directorios web gobuster](/secnotes/assets/img/los40ladrones/Pasted%20image%2020261018153157.png)
 
-Esta vez encontramos un archivo llamado `qdefense.txt`, Al acceder a él vemos una pista bastante importante.
+El escaneo descubre el archivo `qdefense.txt`. Al visualizar su contenido encontramos una pista determinante:
 
 ![archivo qdefense.txt](/secnotes/assets/img/los40ladrones/Pasted%20image%2020261018153255.png)
 
-*Recuerda llama antes de entrar*, esta es una pista que me costó bastante descubrir, se trata de un servicio llamado **Port Knocking**. Este es una técnica de seguridad en Linux que mantiene los puertos críticos cerrados o filtrados en el firewall, abriéndolos solo cuando se recibe una secuencia específica de intentos de conexión  a otros puertos cerrados.
+---
 
-**Como funciona?**
+## 2. Análisis Técnico: ¿Qué es Port Knocking?
 
-1. Estado inicial: El servicio (por ejemplo SSH) está ejecutandose en el servidor, pero el firewall bloquea el acceso directo para todos los usuarios. En un escaneo de puertos, el puerto aparece como cerrado o filtrado
-2. La secuencia (golpes): El usuario envía paquetes o intentos de conexión a una serie predefinida de puertos en un orden exacto utilizando una herramienta cliente como **knock** 
-3. Apertura Dinámica: Un demonio en el servidor, normalmente llamado `knockd`, escucha el tráfico de red. Al detectar que la secuencia de puertos es correcta, modifica las reglas del firewall para permitir temporalmente que la IP del cliente se conecte al servicio protegido.
-4. Cierre Automático: Tras transcurrir un tiempo límite configurado, el firewall vuelve a bloquear el puerto protegido.
+La pista *"Recuerda, llama antes de entrar"* hace referencia directa a **Port Knocking**. 
 
-**Ventajas.**
+El Port Knocking es una técnica de defensa en red que mantiene puertos críticos cerrados en el firewall hasta que el cliente envía una secuencia matemática exacta de paquetes de conexión a puertos cerrados.
 
-- Protección contra bots y escaneos: Evita ataques de fuerza bruta automatizados, ya que para cualquier escáner de puertos estos aparecerán cerrados o filtrados
-- Defensa en profundidad: Funciona como una capa extra de ocultación (clasificada como "Seguridad por oscuridad"), complementando a la autenticación tradicional por contraseña o llave SSH.
-- Bajo consumo de recursos: Genera un impacto mínimo en la CPU, memoria y tráfico de red del servidor.
+```mermaid
+flowchart LR
+    A["Cliente (knock)"] -->|"Secuencia de paquetes (SYN)"| B["Demonio knockd"]
+    B -->|"Valida secuencia"| C["Modifica regla iptables / UFW"]
+    C -->|"Habilita puerto 22"| D["Servicio SSH abierto temporalmente"]
+```
 
-[ArchWiki - LLamada de puertos](https://wiki.archlinux.org/title/Port_knocking)
+### Funcionamiento del Mecanismo
+1. **Estado Inicial:** El puerto SSH (22) permanece filtrado por el firewall.
+2. **Secuencia de Golpes:** El atacante o administrador envía paquetes a los puertos definidos en el orden exacto usando el cliente `knock`.
+3. **Apertura Dinámica:** El demonio `knockd` detecta la secuencia correcta y añade una regla dinámica en el firewall para admitir la IP de origen.
+4. **Cierre Automático:** Al expirar el tiempo de sesión, el firewall restaura el bloqueo.
 
-[Manual de Knockd](https://linux.die.net/man/1/knockd)
+Referencias técnicas adicionales:
+- [ArchWiki - Port Knocking](https://wiki.archlinux.org/title/Port_knocking)
+- [Manual Oficial de Knockd](https://linux.die.net/man/1/knockd)
 
-## Explotación.
+---
 
-Volvemos.. 
+## 3. Explotación y Acceso Inicial (Foothold)
 
-ya sabemos que tenemos que usar el cliente de `knock` y el mismo mensaje que encontramos nos da la secuencia y un posible usuario llamado *toctoc*
+El mensaje encontrado revela la secuencia de puertos y un usuario potencial llamado `toctoc`:
 
 ![manual de knock](/secnotes/assets/img/los40ladrones/Pasted%20image%2020261018154707.png)
 
-Entonces usamos el comando `knock <IP> <Secuencia de puertos>` 
+Enviamos los paquetes requeridos mediante el cliente `knock`:
+
+```bash
+knock <IP_OBJETIVO> <PUERTO_1> <PUERTO_2> <PUERTO_3>
+```
 
 ![uso de knock](/secnotes/assets/img/los40ladrones/Pasted%20image%2020261018154808.png)
 
-Al ejecutar no nos muestra ningún mensaje de confirmación ni nada... (de hecho puse una secuencia mal y tampoco nos devuelve nada).
-
-Pero al realizar  un nuevo escaneo de puertos nos habilitó el servicio SSH en el puerto 22
+El comando no genera respuesta visual. Sin embargo, al relanzar un escaneo con Nmap confirmamos que el puerto **22 (SSH)** está ahora en estado **abierto**:
 
 ![escaneo nmap](/secnotes/assets/img/los40ladrones/Pasted%20image%2020261018154944.png)
 
-Ya que tenemos un posible usuario, utilizaremos la herramienta `Hydra` para realizar un ataque de diccionario con `rockyou`
+### Fuerza Bruta SSH con Hydra
 
-`-l 'USUARIO'` = Especificamos el usuario objetivo del ataque. En este caso *toctoc*.
-`-P <DICCIONARIO>` = Especificamos la ruta del diccionario de contraseñas para probar.
+Con el usuario `toctoc` confirmado, lanzamos un ataque de diccionario empleando el listado `rockyou.txt`:
 
-`hydra -l 'toctoc' -P ~/Downloads/rockyou.txt 172.17.0.2 ssh`
+```bash
+hydra -l 'toctoc' -P ~/Downloads/rockyou.txt 172.17.0.2 ssh
+```
+
+- `-l 'toctoc'`: Define el usuario objetivo.
+- `-P rockyou.txt`: Especifica la ruta del diccionario de contraseñas.
 
 ![uso de hydra](/secnotes/assets/img/los40ladrones/Pasted%20image%2020261018155554.png)
 
-Y luego de un momento nos entregó la contraseña de este usuario, con estos dos datos ya podemos ingresar al sistema
+Hydra descubre la credencial válida en pocos segundos. Conectamos por SSH al servidor:
 
 ![acceso vía ssh](/secnotes/assets/img/los40ladrones/Pasted%20image%2020261018155654.png)
 
-Una vez dentro nuestra misión es buscar si tenemos algún permiso de sudo 
+---
+
+## 4. Escalada de Privilegios a Root
+
+Dentro de la sesión de `toctoc`, procedemos a la enumeración de privilegios de ejecución (`sudo -l`):
 
 ![búsqueda de privilegios](/secnotes/assets/img/los40ladrones/Pasted%20image%2020261018160010.png)
 
-efectivamente tenemos el binario de bash `/opt/bash` , así que tenemos nos dejaron la escalada de privilegios en bandeja.
+Identificamos una entrada directa al binario `/opt/bash`. Ejecutamos la llamada elevando privilegios:
 
-## Escalada de Privilegios.
-
-`sudo -u root /opt/bash`
+```bash
+sudo -u root /opt/bash
+```
 
 ![escalada de privilegios](/secnotes/assets/img/los40ladrones/Pasted%20image%2020261018163007.png)
 
-Con esto ganamos el acceso como el usuario root gracias a una mala configuración del sistema.
+Accedemos con privilegios de **root**.
 
-Ya que tenemos los permisos máximos, aprovechamos para inspeccionar el servicio de `knock` 
+---
+
+## 5. Análisis Post-Explotación del Demonio `knockd`
+
+Investigamos el proceso del demonio `knockd` en ejecución:
 
 ```bash
 root@4ffcaf3103b7:/home/toctoc# ps aux | grep "knockd"
 root           1  0.0  0.0   4332  3292 ?        Ss   04:21   0:00 /bin/bash -c service ufw start ; service ssh start ; service knockd start ; service apache2 start ; while true; do echo 'Alive'; sleep 60; done
 root          71  0.0  0.0   9888  3728 ?        Ss   04:21   0:00 /usr/sbin/knockd -d -i eth0
 root         630  0.0  0.0   3964  2176 pts/1    S+   05:03   0:00 grep --color=auto knockd
-root@4ffcaf3103b7:/home/toctoc# 
 ```
 
 ![uso grep sobre ps aux](/secnotes/assets/img/los40ladrones/Pasted%20image%2020261018160727.png)
 
-Encontramos las secuencias para abrir y cerrar el servicio SSH, además una secuencia que ejecuta un script, revisando el script nos encontramos con esto:
+Examinamos la configuración del servicio y descubrimos el script automatizado:
 
 ![lectura configuración de knockd](/secnotes/assets/img/los40ladrones/Pasted%20image%2020261018161306.png)
 
-- `cp /bin/bash /opt/bash` : Toma el terminal estándar de bash y hace una copia exacta de ella guardándola en `/opt/bash`
-- `chmod +s /opt/bash` : Le asigna el permiso **SUID** al archivo copiado. Debido a que el script fue ejecutado por el demonio de `knockd` (con privilegios ded root) el nuevo archivo `/opt/bash` pertenecerá al usuario `root`.
+### Vulnerabilidades Técnicas Detectadas:
+1. `cp /bin/bash /opt/bash`: Genera una réplica del intérprete de comandos en `/opt`.
+2. `chmod +s /opt/bash`: Asigna el bit **SUID**. Debido a que el script corre bajo el contexto del usuario root, el binario resultante otorga una shell privilegiada instantánea.
 
+---
 
-## Lecciones aprendidas
+## 6. Lecciones Aprendidas y Mitigaciones
 
-La resolución de esta máquina demuestra cómo una capa de ofuscación mal combinada con malas prácticas de automatización puede terminar entregando acceso total al sistema:
+- **Seguridad por Oscuridad:** Port Knocking añade una capa de ofuscación, pero nunca sustituye la autenticación robusta. La fuga de datos en `qdefense.txt` inutilizó toda la protección.
+- **Gestión de Contraseñas:** Se deben aplicar directivas de contraseñas robustas y desactivar el acceso SSH por contraseña en favor de autenticación obligatoria por claves públicas Ed25519 o RSA.
+- **Peligro de Binarios SUID Innecesarios:** Ningún script de mantenimiento debe asignar bits SUID a intérpretes de comandos (`bash`, `sh`, `python`). 
 
-- **Seguridad por oscuridad como única defensa:** Port Knocking es una capa adicional válida, pero no un mecanismo de autenticación por sí solo — aquí bastó con encontrar la pista filtrada en `qdefense.txt` para anular por completo esa protección.
-- **Gestión de credenciales débiles:** el usuario `toctoc` tenía una contraseña presente en diccionarios públicos como RockYou, lo que permitió comprometer la cuenta con un simple ataque de fuerza bruta.
-- **Automatización de procesos con privilegios elevados:** el script ejecutado por `knockd` corre como root y genera una copia de `bash` con permiso SUID sin ningún tipo de restricción, convirtiendo un servicio de red en una vía directa de escalada de privilegios para cualquier usuario del sistema.
+---
+
+### 🛡️ Otros Laboratorios y Writeups Relacionados
+- [TheHackerLabs: Kaboom - Walkthrough y Writeup](/secnotes/2026/10/24/TheHackerLabs-Kaboom.html)
+- [TheHackerLabs: Rockstar - Guía de Explotación](/secnotes/2026/10/29/TheHackerLabs-Rockstar.html)
+- [Serie de Hardening en Metasploitable 2](/secnotes/metasploitable2)
