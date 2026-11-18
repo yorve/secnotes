@@ -4,6 +4,7 @@ title: "nfs"
 date: 2026-07-11
 img: /assets/img/metasploitable2/banner.png
 tags: [Vuln, Linux, Hardening, Metasploitable 2, root, NFS ]
+description: "NFS (Network File System), en un protocolo que permite a diferentes equipos en una red compartir archivos y carpetas. Este permite que los directorios remoto..."
 ---
 ![](/secnotes/assets/img/metasploitable2/2049/87b897fb1772f92a70d2cea4c7425216_MD5.jpg)
 

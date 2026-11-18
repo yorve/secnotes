@@ -4,6 +4,7 @@ title: "irc - irc-u"
 date: 2026-07-14 09:20:00 -0400  
 img: /assets/img/metasploitable2/banner.png
 tags: [Metasploitable 2, irc, irc-u, CVE-2010-2075]
+description: "En este puerto encontramos el canal de comunicación utilizado por el protocolo IRC (Internet Relay Chat). Este protocolo es uno de los sistemas de chat de te..."
 ---
 
 En este puerto encontramos el canal de comunicación utilizado por el protocolo **IRC** (Internet Relay Chat). Este protocolo es uno de los sistemas de chat de texto y mensajería instantánea más antiguos de internet, diseñado principalmente para la comunicación en grupo mediante canales de conversación.

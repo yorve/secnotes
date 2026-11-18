@@ -4,6 +4,7 @@ title: "Beach Bar - TryHackMe - Linux"
 date: 2026-08-02
 img: assets/img/beachbar/banner.png
 tags: [Linux, TryHackMe, yml, ps aux, ]
+description: "Beach Bar es una máquina Linux que simula una aplicación web de gestión de música (jukebox) expuesta a usuarios de la red local. La máquina demuestra el impa..."
 ---
 
 Beach Bar es una máquina Linux que simula una aplicación web de gestión de música (jukebox) expuesta a usuarios de la red local. La máquina demuestra el impacto de dos fallos críticos de configuración y desarrollo: la desinfección inadecuada al procesar archivos de entrada y la exposición de credenciales sensibles a través de los argumentos en la línea de comandos de servicios en segundo plano.

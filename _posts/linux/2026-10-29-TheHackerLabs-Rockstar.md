@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Rockstar - TheHackerLabs - Linux"
+title: "TheHackerLabs: Rockstar - Writeup, LFI y Python Hijacking"
 date: 2026-10-29
 img: /assets/img/rockstar/banner.svg
 tags: 
@@ -13,6 +13,7 @@ tags:
 - john
 - hydra
 - BeanShell
+description: "La máquina Rockstar expone una aplicación web en PHP vulnerable a Local File Inclusion (LFI) a través de un parámetro oculto (`backdoor`), descubierto median..."
 ---
 
 La máquina Rockstar expone una aplicación web en PHP vulnerable a Local File Inclusion (LFI) a través de un parámetro oculto (`backdoor`), descubierto mediante fuzzing de parámetros. La explotación del LFI permite leer credenciales hardcodeadas y obtener acceso inicial vía SSH. A partir de ahí, una cadena de escaladas de privilegios por abuso de sudoers (sobrescritura de binario, Python library hijacking, y BeanShell) lleva finalmente a una shell de root.
@@ -400,3 +401,12 @@ Y finalmente nos convertimos en usuario `root` 😮‍💨
 
 ## Herramientas Usadas
 - `nmap` `ffuf` `gobuster` `curl` `ssh` `zip2john` `john` `hydra` `BeanShell`
+
+---
+
+### 🛡️ Otros Laboratorios y Writeups Relacionados
+- [DockerLabs: Los 40 Ladrones - Writeup y Solución](/secnotes/2026/10/18/DockerLabs-Los40ladrones.html)
+- [TheHackerLabs: Kaboom - Walkthrough y Writeup](/secnotes/2026/10/24/TheHackerLabs-Kaboom.html)
+- [DockerLabs: Showtime - Explotación SQLi y Privesc](/secnotes/2026/09/11/DockerLabs-Showtime.html)
+- [Serie de Hardening en Metasploitable 2](/secnotes/metasploitable2)
+

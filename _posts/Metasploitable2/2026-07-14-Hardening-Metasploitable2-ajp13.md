@@ -4,6 +4,7 @@ title: "ajp13"
 date: 2026-07-14 09:25:00 -0400  # 
 img: /assets/img/metasploitable2/banner.png
 tags: [Metasploitable 2, ajp13, CVE-2020-1938]
+description: "En este puerto se aloja AJP13 (Apache JServ Protocol versión 1.3)"
 ---
 
 

@@ -4,6 +4,7 @@ title: "drb"
 date: 2026-07-14 09:35:00 -0400  # 
 img: /assets/img/metasploitable2/banner.png
 tags: [Metasploitable 2, drb, Ruby, RCE]
+description: "En el puerto 8787 nos encontramos con el servicio `drb` (Distributed Ruby), este es un sistema de comunicación remota que permite a múltiples programas escri..."
 ---
 
 ![](/secnotes/assets/img/metasploitable2/8787/1f4fe21abd65df65e538c2b7a88feb15_MD5.jpg)

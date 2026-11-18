@@ -3,6 +3,7 @@ layout: post
 title: "Deloitte – CyberAcademy - Linux"
 date: 2025-07-17
 img: /assets/img/deloitte/banner.png
+description: "Deloitte es una máquina CTF Linux en la que tenemos que encontrar las 10 Flags ocultas."
 ---
 
 Deloitte es una máquina CTF Linux en la que tenemos que encontrar las 10 Flags ocultas.

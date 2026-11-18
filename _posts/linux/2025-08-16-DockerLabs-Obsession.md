@@ -4,6 +4,7 @@ title: "Obsession - Dockerlabs - Linux - Fácil"
 date: 2025-08-16
 img: /assets/img/obssesion/1.png
 tags: [DockerLabs, Linux, Web, Fuzzing]
+description: "En este laboratorio nos enfrentamos a un reto de nivel fácil, orientado a poner en práctica técnicas básicas de enumeración, explotación y escalada de privil..."
 ---
 
 En este laboratorio nos enfrentamos a un reto de nivel fácil, orientado a poner en práctica técnicas básicas de enumeración, explotación y escalada de privilegios en un entorno Linux.

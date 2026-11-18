@@ -4,6 +4,7 @@ title: "Microchoft - The Hacker Labs - Windows"
 date: 2026-07-17
 img: /assets/img/windows/microchoft/banner.png
 tags: [Windows, Enumeration, robots.txt, MS17-010]
+description: "Comenzamos con un reconocimiento de puertos y servicios de la máquina objetivo. Utilizaré la herramienta Auto-Recon que me ayuda a realizar este proceso de f..."
 ---
 
 

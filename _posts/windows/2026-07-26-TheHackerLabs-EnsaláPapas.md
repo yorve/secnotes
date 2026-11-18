@@ -4,6 +4,7 @@ title: "Ensalá Papas - The Hacker Labs - Windows"
 date: 2026-07-26
 img: /assets/img/windows/ensala/Pasted image 20260725200541.png
 tags: [Windows, Web, ISS, JuicyPotato, reverse shell]
+description: "[Link Descarga](https://labs.thehackerslabs.com/machine/34)"
 ---
 
 ![](/secnotes/assets/img/windows/ensala/Pasted image 20260725200541.png)

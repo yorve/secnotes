@@ -1,7 +1,7 @@
 ---
 layout: post
-title: Kaboom - The Hacker Labs - Linux
-description: "Writeup de Kaboom en The Hacker Labs: enumeración DNS, GraphQL, PATH Hijacking y escape de un contenedor Docker en Linux."
+title: "TheHackerLabs: Kaboom - Walkthrough Completo y Container Escape"
+description: "Resolución de la máquina Kaboom en TheHackerLabs paso a paso: transferencia de zona DNS, introspección GraphQL, PATH Hijacking y escape de Docker a root."
 date: 2026-10-24
 img: /assets/img/kaboom/banner.png
 tags:
@@ -725,3 +725,12 @@ docker  root.txt
 ## Herramientas Usadas 
 
 - `nmap` - `dig` - `whatweb` - `gobuster` - `nikto` - `curl` - `ssh` - `strings` - `capsh` - `mknod` - `mount`
+
+---
+
+### 🛡️ Otros Laboratorios y Writeups Relacionados
+- [DockerLabs: Los 40 Ladrones - Writeup y Solución](/secnotes/2026/10/18/DockerLabs-Los40ladrones.html)
+- [TheHackerLabs: Rockstar - Guía de Explotación](/secnotes/2026/10/29/TheHackerLabs-Rockstar.html)
+- [DockerLabs: Showtime - Explotación SQLi y Privesc](/secnotes/2026/09/11/DockerLabs-Showtime.html)
+- [Serie de Hardening en Metasploitable 2](/secnotes/metasploitable2)
+

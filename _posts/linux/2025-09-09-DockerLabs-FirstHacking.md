@@ -4,6 +4,7 @@ title: "FirstHacking – TheHackerLabs - Linux - Fácil"
 date: 2025-09-09
 img: /assets/img/firsthacking/banner.png
 tags: [DockerLabs, Linux, FTP]
+description: "La máquina First Hacking es un laboratorio básico de Docker Labs que sirve como punto de partida en el mundo del pentesting."
 ---
 
 ![img12]({{ site.baseurl }}/assets/img/firsthacking/banner.png)

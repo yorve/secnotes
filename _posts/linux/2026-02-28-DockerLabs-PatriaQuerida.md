@@ -4,6 +4,7 @@ title: "Patria Querida - Dockerlabs - Linux - Fácil"
 date: 2026-02-28
 img: /assets/img/patriaquerida/1.png
 tags: [DockerLabs, Linux, LFI, SUID,  Python, Path-Traversal, Web]
+description: "'Resolución de Patria Querida: Explotación de un Local File Inclusion (LFI) en index.php para descubrir credenciales ocultas y escalada de privilegios median..."
 ---
 
 "Resolución de Patria Querida: Explotación de un Local File Inclusion (LFI) en index.php para descubrir credenciales ocultas y escalada de privilegios mediante el abuso del bit SUID en Python 3.8."

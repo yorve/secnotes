@@ -4,6 +4,7 @@ title: "WEB"
 date: 2026-06-25
 img: /assets/img/metasploitable2/banner.png
 tags: [Vuln, Linux, Hardening, web, Metasploitable 2]
+description: "Este es un nuevo proyecto de Hardening para el laboratorio Metasploitable2. Este laboratorio es conocido por tener múltiples vulnerabilidades que como atacan..."
 ---
 ![banner]({{ site.baseurl }}/assets/img/metasploitable2/banner.png)
 

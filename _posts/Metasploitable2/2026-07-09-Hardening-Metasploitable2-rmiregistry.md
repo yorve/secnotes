@@ -4,6 +4,7 @@ title: "rmiregistry"
 date: 2026-07-09
 img: /assets/img/metasploitable2/banner.png
 tags: [Vuln, Linux, Hardening, rmiregistry, CVE-2011-3556, Backdoor, root, Metasploitable 2 ]
+description: "Sobre este puerto corre el servicio `java-rmi`, rmi este significa _Remote Method Invocation_, y es un sistema de Java que permite a un objeto que corre en u..."
 ---
 
 Sobre este puerto corre el servicio `java-rmi`, **rmi** este significa _Remote Method Invocation_, y es un sistema de Java que permite a un objeto que corre en una máquina invocar métodos de un objeto que está en otra máquina totalmente distinta.

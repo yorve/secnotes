@@ -4,6 +4,7 @@ title: "Tomcat"
 date: 2026-07-14 09:30:00 -0400  # 
 img: /assets/img/metasploitable2/banner.png
 tags: [Metasploitable 2, Tomcat, RCE]
+description: "Mientras que el puerto 8009 gestiona el protocolo AJP, el puerto 8180 aloja la interfaz de cara al usuario: El servidor HTTP de Apache Tomcat. Es el puerto a..."
 ---
 
 ![](/secnotes/assets/img/metasploitable2/8180/c8fa5e8b41dfe022a3a9f0fc0d86e010_MD5.jpg)

@@ -4,6 +4,7 @@ title: "Grillo – TheHackerLabs - Linux"
 date: 2025-07-26
 img: /assets/img/grillo/banner.png
 tags: [HackersLabs, Linux, Web]
+description: "Esta es una máquina Linux de nivel facil, diseñada para fortalecer la enumeración de aplicación web: Exploración de contenido web visible y oculto para detec..."
 ---
 ![img1]({{ site.baseurl }}/assets/img/grillo/banner.png)
 

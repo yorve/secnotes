@@ -4,6 +4,7 @@ title: "Santa Logs - Hackerlabs - Windows"
 date: 2026-06-12
 img: /assets/img/santa/banner.png
 tags: [logs, Visor de Eventos, Windows, BlueTeam]
+description: "Nuevo reto de Blue Team!"
 ---
 
 ![banner]({{ site.baseurl }}/assets/img/santa/banner.png)

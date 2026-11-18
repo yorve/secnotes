@@ -4,6 +4,7 @@ title: "Walking Dead - Dockerlabs - Linux - Fácil"
 date: 2026-03-08
 img: /assets/img/walkingdead/1.png
 tags: [DockerLabs, Linux, RCE, WebShell, SUID, Python, TTY-Stabilization]
+description: "Walking Dead (DockerLabs): Explotación de Web Shell oculta y escalada de privilegios mediante abuso de Python 3.8 con bit SUID."
 ---
 
 Walking Dead (DockerLabs): Explotación de Web Shell oculta y escalada de privilegios mediante abuso de Python 3.8 con bit SUID.

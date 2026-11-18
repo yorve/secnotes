@@ -4,6 +4,7 @@ title: "Optimum – HTB - Windows"
 date: 2025-07-11
 img: /assets/img/optimun/banner.png
 tags: [HackTheBox, Windows, RCE, Metasploit]
+description: "Optimum es una máquina para principiantes que se centra principalmente en la enumeración de servicios con exploits conocidos. Ambos exploits son fáciles de o..."
 ---
 Optimum es una máquina para principiantes que se centra principalmente en la enumeración de servicios con exploits conocidos. Ambos exploits son fáciles de obtener y cuentan con módulos de Metasploit asociados, lo que hace que esta máquina sea bastante sencilla de completar.
 

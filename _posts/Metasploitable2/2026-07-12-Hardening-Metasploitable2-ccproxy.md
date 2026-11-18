@@ -4,6 +4,7 @@ title: "ccproxy-ftp"
 date: 2026-07-12
 img: /assets/img/metasploitable2/banner.png
 tags: [Vuln, Linux, Hardening, ccproxy, ftp, root, Metasploitable 2 ]
+description: "Esta puerto está asociado a CCProxy-FTP, es un puerto de red alternativo utilizado para transferir archivos a través del protocolo FTP, Mientras que el FTP t..."
 ---
 
 Esta puerto está asociado a **CCProxy-FTP**, es un puerto de red alternativo utilizado para transferir archivos a través del protocolo **FTP**, Mientras que el FTP tradicional usa por defecto el puerto 21, la herramienta de software **CCProxy** utiliza el puerto 2121 de manera predeterminada para habilitar el servicio de proxy y transferencia de archivos.

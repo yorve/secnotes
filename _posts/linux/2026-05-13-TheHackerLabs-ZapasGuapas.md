@@ -4,6 +4,7 @@ title: "ZapasGuapas - Hackerlabs - Linux"
 date: 2026-05-13
 img: /assets/img/zapas/banner.png
 tags: [Command Injection, RCE, APT, AWS-CLI, stty, Linux, GTFObins, Shell Escape]
+description: "Este laboratorio pone a prueba nuestra capacidad para identificar vulnerabilidades web y explotar configuraciones inseguras en el sistema operativo Linux. El..."
 ---
 ![banner]({{ site.baseurl }}/assets/img/zapas/banner.png)
 

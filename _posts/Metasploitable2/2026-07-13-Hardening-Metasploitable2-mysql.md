@@ -4,6 +4,7 @@ title: "MySQL"
 date: 2026-07-13
 img: /assets/img/metasploitable2/banner.png
 tags: [Vuln, Linux, Hardening, mysql, root, Metasploitable 2 ]
+description: "Este puerto contiene el canal de comunicación predeterminado que utiliza el motor de bases de datos MySQL para establecer conexiones  de red. Permite que las..."
 ---
 
 

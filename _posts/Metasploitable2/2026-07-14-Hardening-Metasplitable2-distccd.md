@@ -4,6 +4,7 @@ title: "distccd"
 date: 2026-07-14 09:00:00 -0400
 img: /assets/img/metasploitable2/banner.png
 tags: [Vuln, Linux, Hardening, distccd, C, C++, root, Metasploitable 2 ]
+description: "En este puerto vive `distccd`, fue diseñado para la compilación distribuida de código C/C++. Su funcionamiento básico consiste en recibir código fuente de cl..."
 ---
 
 

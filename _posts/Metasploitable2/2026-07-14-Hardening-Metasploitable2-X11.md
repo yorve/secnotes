@@ -4,6 +4,7 @@ title: "X11"
 date: 2026-07-14 09:15:00 -0400  
 img: /assets/img/metasploitable2/banner.png
 tags: [Metasploitable 2, X11]
+description: "Aquí nos encontramos con otro canal de comunicación predeterminado para el Servidor x11, también conocido como X Windows System. Este sistema es la arquitect..."
 ---
 
 Aquí nos encontramos con otro canal de comunicación predeterminado para el Servidor x11, también conocido como **X Windows System**. Este sistema es la arquitectura fundamental que permite mostrar interfaces gráficas en sistemas operativos tipo Unix,  como Linux y BSD.

@@ -4,6 +4,7 @@ title: "FTP"
 date: 2026-06-21
 img: /assets/img/metasploitable2/banner.png
 tags: [Vuln, Linux, Hardening, FTP, Backdoor, root, Metasploitable 2]
+description: "Este es un nuevo proyecto de Hardening para el laboratorio Metasploitable2. Este es conocido por tener múltiples vulnerabilidades que como atacante podemos s..."
 ---
 ![BANNER]({{ site.baseurl }}/assets/img/metasploitable2/banner.png)
 

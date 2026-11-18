@@ -4,6 +4,7 @@ title: "Vacaciones - Dockerlabs - Linux - Fácil"
 date: 2025-08-21
 img: /assets/img/vacaciones/vacaciones.png
 tags: [DockerLabs, Linux, Enumeration]
+description: "La máquina Vacaciones de DockerLabs es un laboratorio de dificultad baja orientada a practicar técnicas básicas de enumeración, explotación y escalada de pri..."
 ---
 ![img1]({{ site.baseurl }}/assets/img/vacaciones/vacaciones.png)
 

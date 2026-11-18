@@ -4,6 +4,7 @@ title: "Chimichurri - Hackerslabs - Windows AD"
 date: 2026-07-27
 img: /assets/img/windows/chimichurri/banner.png
 tags: [Windows, AD, crackmapexec, kerbrute, winrm, evil-winrm, JuicyPotato, CVE-2024-23897]
+description: "Sistema operativo: Windows Active Directory."
 ---
 
  ![](/secnotes/assets/img/windows/chimichurri/banner.png)

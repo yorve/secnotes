@@ -4,6 +4,7 @@ title: "Return – HTB - Windows (A.D)"
 date: 2025-07-11
 img: /assets/img/return/return.png
 tags: [HackTheBox, Windows, Web Enumeration, Service Manipulation]
+description: "Return es una máquina Windows (Active Directory), enfocada en explotar vulnerabilidades comunes en entornos AD, como LDAP inseguro, abuso de grupos privilegi..."
 ---
 Return es una máquina Windows (Active Directory), enfocada en explotar vulnerabilidades comunes en entornos AD, como LDAP inseguro, abuso de grupos privilegiados y BinPath Hijacking.
 

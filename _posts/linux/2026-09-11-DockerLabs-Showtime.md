@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "Showtime - Dockerlabs - Linux"
-description: "Writeup de Showtime en DockerLabs: reconocimiento de servicios, explotación de SQL Injection y escalada de privilegios en Linux."
+title: "DockerLabs: Showtime - Writeup, SQL Injection y Elevación a Root"
+description: "Guía paso a paso de Showtime en DockerLabs: explotación de SQL Injection (Auth Bypass), volcado con SQLMap, fuerza bruta SSH y escalada de privilegios."
 date: 2026-09-11
 img: /assets/img/linux/showtime/1.png
 tags: [DockerLabs, Linux, SQLi, SQL Injection, posh, python]
@@ -218,3 +218,12 @@ La resolución de esta máquina demuestra de manera práctica cómo debilidades 
 - **Gestión de credenciales y contraseñas:** El uso de contraseñas predecibles o basadas en diccionarios locales expuso el servicio SSH una vez obtenido un vector inicial en el servidor web.
     
 - **Principio de menor privilegio:** Delegar la ejecución de intérpretes de comandos (`posh`) o scripts en rutas donde el propio usuario posee permisos de escritura representa un riesgo crítico, ya que cualquier atacante puede alterar el flujo de ejecución para invocar shells interactivas con privilegios elevados (`root`).
+
+---
+
+### 🛡️ Otros Laboratorios y Writeups Relacionados
+- [DockerLabs: Los 40 Ladrones - Writeup y Solución](/secnotes/2026/10/18/DockerLabs-Los40ladrones.html)
+- [TheHackerLabs: Kaboom - Walkthrough y Writeup](/secnotes/2026/10/24/TheHackerLabs-Kaboom.html)
+- [TheHackerLabs: Rockstar - Guía de Explotación](/secnotes/2026/10/29/TheHackerLabs-Rockstar.html)
+- [Serie de Hardening en Metasploitable 2](/secnotes/metasploitable2)
+
