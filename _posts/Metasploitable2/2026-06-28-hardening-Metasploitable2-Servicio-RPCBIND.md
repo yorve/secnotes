@@ -4,7 +4,7 @@ title: "Hardening de RCPBIND en Metasploitable 2: Guía y Mitigaciones"
 date: 2026-06-28
 img: /assets/img/metasploitable2/banner.png
 tags: [Linux, Hardening, RCPBIND, Mountd, Metasploitable 2]
-description: "Este es un nuevo proyecto de Hardening para el laboratorio Metasploitable2. Este laboratorio es conocido por tener múltiples vulnerabilidades que como atacan..."
+description: "Hardening de RPCBIND en Metasploitable 2: enumera servicios RPC y revisa los directorios expuestos mediante NFS."
 ---
 
 ![banner](/secnotes/assets/img/metasploitable2/banner.png)

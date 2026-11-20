@@ -1,5 +1,5 @@
 {% assign article_title = page.seo_title | default: page.title %}
-{% if page.tags contains 'Metasploitable 2' %}{% capture article_title %}Hardening de {{ page.title }} en Metasploitable 2{% endcapture %}{% endif %}
+{% if page.tags contains 'Metasploitable 2' %}{% unless article_title contains 'Metasploitable 2' %}{% capture article_title %}Hardening de {{ article_title }} en Metasploitable 2{% endcapture %}{% endunless %}{% endif %}
 {% if page.description %}
   {% assign summary = page.description %}
 {% elsif page.tags contains 'Metasploitable 2' %}
