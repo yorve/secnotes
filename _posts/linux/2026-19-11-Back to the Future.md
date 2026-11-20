@@ -2,7 +2,7 @@
 layout: post
 title: Back To The Future I - TheHackerLabs - Linux
 date: 2026-11-18
-tags:  
+tags:
 - `nmap`
 - `whatweb`
 - `gobuster`
