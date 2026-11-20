@@ -2,8 +2,8 @@
 layout: post
 title: Back To The Future I - TheHackerLabs - Linux
 date: 2026-11-18
-tags:
-  - sqlmap
+tags: nmap, whatweb, gobuster, sqlmap, hashcat, curl, ftp, zip2john, john, ssh2john, ssh-keygen, getcap 
+
 ---
 
 ## TL;DR
@@ -24,7 +24,7 @@ Comenzamos con la fase de reconocimiento con nuestra herramienta **Auto_Recon**,
 
 ## Enumeración
 
-![](Pasted%20image%2020261118200134.png)
+![/secnotes/assets](Pasted%20image%2020261118200134.png)
 ![](Pasted%20image%2020261118200209.png)
 
 Como vimos en otro laboratorio, `whatweb` nos muestra un error al intentar abrir un dominio.
