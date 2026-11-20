@@ -4,7 +4,7 @@ title: "Hardening de FTP en Metasploitable 2: Guía y Mitigaciones"
 date: 2026-06-21
 img: /assets/img/metasploitable2/banner.png
 tags: [Vuln, Linux, Hardening, FTP, Backdoor, root, Metasploitable 2]
-description: "Este es un nuevo proyecto de Hardening para el laboratorio Metasploitable2. Este es conocido por tener múltiples vulnerabilidades que como atacante podemos s..."
+description: "Hardening de FTP en Metasploitable 2: analiza el backdoor de vsftpd y aplica medidas para proteger el servicio."
 ---
 ![BANNER]({{ site.baseurl }}/assets/img/metasploitable2/banner.png)
 

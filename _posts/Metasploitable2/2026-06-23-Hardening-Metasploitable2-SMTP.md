@@ -4,7 +4,7 @@ title: "Hardening de SMTP en Metasploitable 2: Guía y Mitigaciones"
 date: 2026-06-23 10:00:00 -0400
 img: /assets/img/metasploitable2/banner.png
 tags: [Vuln, Linux, Hardening, SMTP, Enumeration, root, Metasploitable 2 ]
-description: "Este es un nuevo proyecto de Hardening para el laboratorio Metasploitable2. Este laboratorio es conocido por tener múltiples vulnerabilidades que como atacan..."
+description: "Hardening de SMTP en Metasploitable 2: analiza la enumeración de usuarios y revisa la configuración de Postfix."
 ---
 
 ![banner]({{ site.baseurl }}/assets/img/metasploitable2/banner.png)

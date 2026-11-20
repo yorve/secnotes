@@ -4,7 +4,7 @@ title: "Hardening de RServices Suite en Metasploitable 2: Guía y Mitigaciones"
 date: 2026-07-08
 img: /assets/img/metasploitable2/banner.png
 tags: [Vuln, Linux, Hardening, root, EXEC, RLOGIND, RSHD, Metasploitable 2]
-description: "Este es un nuevo proyecto de Hardening para el laboratorio Metasploitable2. Este laboratorio es conocido por tener múltiples vulnerabilidades que como atacan..."
+description: "Hardening de RServices en Metasploitable 2: revisa EXEC, RLOGIN y RSH y elimina servicios heredados inseguros."
 ---
 Este es un nuevo proyecto de Hardening para el laboratorio **Metasploitable2**. Este laboratorio es conocido por tener múltiples vulnerabilidades que como atacante podemos sacar provecho y comprometer la máquina. Pero esta vez nos pondrémos en los zapatos del equipo defensivo y aplicaremos configuraciones correctas para volver Metasploitable 2 una máquina segura.
 

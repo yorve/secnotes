@@ -4,7 +4,7 @@ title: "Hardening de Telnet en Metasploitable 2: Guía y Mitigaciones"
 date: 2026-06-22
 img: /assets/img/metasploitable2/banner.png
 tags: [Vuln, Linux, Hardening, Telnet, root, Metasploitable 2]
-description: "Este es un nuevo proyecto de Hardening para el laboratorio Metasploitable2. Este es conocido por tener múltiples vulnerabilidades que como atacante podemos s..."
+description: "Hardening de Telnet en Metasploitable 2: revisa el acceso inseguro y deshabilita el servicio para reducir riesgos."
 ---
 ![Banner]({{ site.baseurl }}/assets/img/metasploitable2/banner.png)
 
