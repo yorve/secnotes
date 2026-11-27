@@ -6,7 +6,7 @@ noticias:
     fuente: "VulDB · Programa CVE"
     titulo: "DB-GPT 0.8.3 corrige un fallo de autorización en su API de datos"
     resumen: "El registro CVE-2026-137681 identifica un fallo de autorización en DB-GPT 0.8.0 a 0.8.2. Si administras una instancia, actualiza a 0.8.3 y revisa los permisos de acceso a tus bases de datos."
-    url: "https://raw.githubusercontent.com/CVEProject/cvelistV5/main/cves/2026/137xxx/CVE-2026-137681.json"
+    url: "https://www.cve.org/CVERecord?id=CVE-2026-137681"
   - fecha: "2026-11-25"
     categoria: "Regulación"
     fuente: "Comisión Europea"
