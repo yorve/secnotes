@@ -4,7 +4,7 @@ title: "Hardening de Ingreslock en Metasploitable 2: Guía y Mitigaciones"
 date: 2026-07-10
 img: /assets/img/metasploitable2/banner.png
 tags: [Vuln, Linux, Hardening, FTP, Backdoor, root, Metasploitable 2]
-description: "Originalmente, el puerto 1524 estaba reservado para un servicio de bases de datos antiguo, llamado _Ingres Lock_. Pero los creadores de Metasploitable introd..."
+description: "Originalmente, el puerto 1524 estaba reservado para un servicio de bases de datos antiguo, llamado Ingres Lock. Pero los creadores de Metasploitable introd..."
 ---
 # Puerto 1524 - Ingreslock #
 

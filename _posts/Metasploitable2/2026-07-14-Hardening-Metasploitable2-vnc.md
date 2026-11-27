@@ -4,7 +4,7 @@ title: "Hardening de vnc en Metasploitable 2: Guía y Mitigaciones"
 date: 2026-07-14 09:10:00 -0400  # 
 img: /assets/img/metasploitable2/banner.png
 tags: [Metasploitable 2]
-description: "En el puerto 5900 nos encontramos con el protocolo `vnc` (Virtual Network Computing) para permitir el control remoto de pantallas. A través de este puerto, u..."
+description: "En el puerto 5900 nos encontramos con el protocolo vnc (Virtual Network Computing) para permitir el control remoto de pantallas. A través de este puerto, u..."
 ---
 
 En el puerto 5900 nos encontramos con el protocolo `vnc` (Virtual Network Computing) para permitir el control remoto de pantallas. A través de este puerto, un usuario puede ver el escritorio de otro equipo a distancia y controlar su mouse y teclado en tiempo real.

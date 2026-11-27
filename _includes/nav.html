@@ -8,12 +8,13 @@
   cursor: pointer;
   padding: 5px 10px;
   color: var(--text);
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 6px;
   transition: all 0.3s ease;
-  margin-left: 10px;
+  margin-left: 6px;
 }
 .theme-btn-nav:hover {
   color: var(--accent) !important;
@@ -23,17 +24,18 @@
 
 <nav class="main-nav" aria-label="Navegación principal">
   <div class="nav-links">
-    <a href="{{ site.baseurl }}/" class="nav-item">Inicio</a>
-    <a href="{{ "/articulos/" | relative_url }}" class="nav-item">Artículos</a>
-    <a href="{{ "/noticias.html" | relative_url }}" class="nav-item"{% if page.url == "/noticias.html" %} aria-current="page"{% endif %}>Noticias de IA</a>
-    <a href="{{ "/empieza-aqui/" | relative_url }}" class="nav-item">Empieza aquí</a>
+    <a href="{{ site.baseurl }}/" class="nav-item"{% if page.url == "/" or page.url == "/index.html" %} aria-current="page"{% endif %}>Inicio</a>
+    <a href="{{ '/articulos/' | relative_url }}" class="nav-item"{% if page.url == "/articulos/" %} aria-current="page"{% endif %}>Artículos</a>
+    <a href="{{ '/noticias.html' | relative_url }}" class="nav-item"{% if page.url == "/noticias.html" %} aria-current="page"{% endif %}>SecNews</a>
+    <a href="{{ '/empieza-aqui/' | relative_url }}" class="nav-item"{% if page.url == "/empieza-aqui/" %} aria-current="page"{% endif %}>Empieza aquí</a>
     <a href="{{ site.baseurl }}/metasploitable2" class="nav-item project-highlight">
-      <span class="blink-prompt">></span> Hardening Metasploitable 2
+      <span class="blink-prompt">></span> Metasploitable 2
     </a>
     <a href="{{ site.baseurl }}/cheatsheet" class="nav-item">Cheatsheet</a>
-    <a href="{{ site.baseurl }}/about" class="nav-item">Sobre SecNotes</a>
+    <a href="{{ '/stats/' | relative_url }}" class="nav-item"{% if page.url == "/stats/" %} aria-current="page"{% endif %}>Estadísticas</a>
     <a href="{{ site.baseurl }}/tags" class="nav-item">Etiquetas</a>
-    <a href="https://github.com/yorve/Auto_Recon.git" target="_blank" rel="noopener noreferrer" class="nav-item">Auto-Recon</a>
+    <a href="{{ site.baseurl }}/about" class="nav-item">Sobre SecNotes</a>
+    <a href="https://github.com/yorve/Auto_Recon" target="_blank" rel="noopener noreferrer" class="nav-item">Auto-Recon</a>
     <button id="theme-toggle" class="theme-btn-nav" aria-label="Cambiar modo de color">
       <i class="fas fa-sun" id="theme-icon" aria-hidden="true"></i> Tema
     </button>

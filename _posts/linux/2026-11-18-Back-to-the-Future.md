@@ -5,7 +5,7 @@ description: "Resuelve Back to the Future I de TheHackerLabs: SQLi, LFI, claves 
 date: 2026-11-18
 last_modified_at: 2026-11-19
 img: /assets/img/backtothefuture/Banner.png
-tags: [TheHackerLabs, Linux, SQLi, LFI, SSH, Command Injection, Capabilities, PrivEsc, nmap, whatweb, gobuster, sqlmap, hashcat, curl, ftp, john, ssh2john, ssh-keygen, getcap]
+tags: [TheHackerLabs, Linux, SQLi, LFI, SSH, Command Injection, Capabilities, PrivEsc, nmap, whatweb, gobuster, sqlmap, hashcat, curl, FTP, JohnTheRipper, ssh2john, ssh-keygen, getcap]
 ---
 
 ![Back to the Future I: laboratorio de TheHackerLabs]({{ '/assets/img/backtothefuture/Banner.png' | relative_url }})

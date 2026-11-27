@@ -34,6 +34,38 @@ image: /assets/img/secnotes-social.png
       <a class="route" href="{{ '/cheatsheet/' | relative_url }}"><strong>02 / Referencia rápida</strong><span>Comandos de reconocimiento, enumeración y escalada de privilegios.</span></a>
       <a class="route" href="{{ '/metasploitable2' | relative_url }}"><strong>03 / Aprende a defender</strong><span>La serie de hardening de Metasploitable 2: del fallo a su corrección.</span></a>
     </nav>
+
+    {% assign valid_editions = site.boletines | where_exp: "e", "e.noticias" | sort: "path" | reverse %}
+    {% assign latest_news = valid_editions.first %}
+    {% assign total_news = 0 %}
+    {% for e in valid_editions %}{% assign total_news = total_news | plus: e.noticias.size %}{% endfor %}
+    <section class="secnews-invite" aria-labelledby="secnews-title">
+      <div class="secnews-invite-head">
+        <div>
+          <span class="secnews-badge"><i class="fas fa-newspaper" aria-hidden="true"></i> NUEVO · SECNEWS</span>
+          <h2 id="secnews-title">Mantente al día con SecNews</h2>
+          <p class="secnews-pitch">¿Estás empezando en ciberseguridad? En <strong>SecNews</strong> resumimos en español incidentes reales, vulnerabilidades críticas (CVE), defensa y novedades de IA con acciones claras y enlace a la fuente original.</p>
+        </div>
+        <div class="secnews-cta">
+          <a class="button primary" href="{{ '/noticias.html' | relative_url }}">Ir a SecNews →</a>
+          {% if total_news > 0 %}<span class="secnews-count">{{ total_news }} noticias en {{ valid_editions.size }} boletines</span>{% endif %}
+        </div>
+      </div>
+      {% if latest_news %}
+      <div class="secnews-preview">
+        <p class="secnews-edition-label">Última edición: <a href="{{ '/noticias.html' | relative_url }}#{{ latest_news.slug | escape }}">{{ latest_news.title | escape }}</a></p>
+        <ul class="secnews-headlines">
+          {% for news in latest_news.noticias limit: 4 %}
+          <li>
+            <span class="secnews-cat">{{ news.categoria | escape }}</span>
+            <span>{{ news.titulo | escape }}</span>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
+    </section>
+
     <section class="topic-section" aria-labelledby="topics-title">
       <h2 id="topics-title">Encuentra tu próximo tema</h2>
       <div class="topic-links">
@@ -42,21 +74,9 @@ image: /assets/img/secnotes-social.png
         <a href="{{ '/temas/windows/' | relative_url }}">Windows y Active Directory <span>Writeups y análisis de eventos</span></a>
         <a href="{{ '/metasploitable2' | relative_url }}">Hardening y defensa <span>Corrige servicios vulnerables</span></a>
       </div>
-      <p><a class="archive-link" href="{{ '/articulos/' | relative_url }}">Ver el índice completo de artículos →</a></p>
+      <p><a class="archive-link" href="{{ '/articulos/' | relative_url }}">Ver el índice completo de artículos →</a> · <a class="archive-link" href="{{ '/stats/' | relative_url }}">Ver estadísticas del blog →</a></p>
     </section>
-    {% assign latest_news = site.boletines | sort: "path" | last %}
-    <section class="topic-section" aria-labelledby="news-title">
-      <h2 id="news-title">Noticias de IA</h2>
-      {% if latest_news %}
-      <h3><a href="{{ '/noticias.html' | relative_url }}#{{ latest_news.slug | escape }}">{{ latest_news.title | escape }}</a></h3>
-      <ul>
-        {% for news in latest_news.noticias %}
-        <li>{{ news.titulo | escape }}</li>
-        {% endfor %}
-      </ul>
-      {% endif %}
-      <a class="button" href="{{ '/noticias.html' | relative_url }}">Ver boletines</a>
-    </section>
+
     <section aria-labelledby="catalog-title">
       <h2 id="catalog-title" tabindex="-1">Explora el conocimiento</h2>
       <p class="catalog-intro">Writeups y guías de laboratorio. Filtra por técnica o sistema para encontrar tu siguiente práctica.</p>
@@ -72,7 +92,7 @@ image: /assets/img/secnotes-social.png
       <noscript><p>Todos los artículos están disponibles a continuación. Activa JavaScript para usar filtros y paginación.</p></noscript>
       <div class="post-list" id="catalog">
       {% for post in site.posts %}
-        {% assign search_text = post.title | append: ' ' | append: post.tags | append: ' ' | append: post.description | append: ' ' | append: post.content | strip_html %}
+        {% assign search_text = post.title | append: ' ' | append: post.tags | append: ' ' | append: post.description | strip_html %}
         {% assign system = '' %}{% if post.path contains '/windows/' %}{% assign system = 'windows' %}{% elsif post.path contains '/linux/' or post.tags contains 'Metasploitable 2' %}{% assign system = 'linux' %}{% endif %}
         <article class="post-card" data-search="{{ search_text | normalize_whitespace | escape }}" data-tags="{{ post.tags | jsonify | escape }}" data-system="{{ system }}">
           <a href="{{ post.url | relative_url }}" class="post-banner" tabindex="-1" aria-hidden="true">{% if post.img %}<img src="{{ post.img | relative_url }}" alt="" width="640" height="360" loading="lazy" decoding="async">{% else %}<img src="{{ '/ico.jpg' | relative_url }}" alt="" width="640" height="360" loading="lazy" decoding="async" style="object-fit:contain">{% endif %}</a>
@@ -88,7 +108,7 @@ image: /assets/img/secnotes-social.png
       <nav class="pagination" id="catalog-pagination" aria-label="Páginas del catálogo" hidden><button type="button" id="previous-page">← Anterior</button><span id="page-status" aria-live="polite"></span><button type="button" id="next-page">Siguiente →</button></nav>
     </section>
   </main>
-  <footer>© {{ site.time | date: '%Y' }} SecNotes · <a href="{{ '/feed.xml' | relative_url }}">RSS</a></footer>
+  <footer>© {{ site.time | date: '%Y' }} SecNotes · <a href="{{ '/noticias.html' | relative_url }}">SecNews</a> · <a href="{{ '/stats/' | relative_url }}">Estadísticas</a> · <a href="{{ '/feed.xml' | relative_url }}">RSS</a></footer>
 </div>
 <script src="{{ '/assets/js/catalog.js' | relative_url }}" defer></script>
 <script src="{{ '/assets/js/theme.js' | relative_url }}" defer></script>

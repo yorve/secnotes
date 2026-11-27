@@ -3,7 +3,7 @@ layout: post
 title: "TheHackerLabs: Fruits - Writeup y Solución Paso a Paso"
 date: 2026-04-30
 img: /assets/img/fruits/banner.png
-tags: [Linux, Enumeration, Web, LFI, SUID, ffuf, hydra, GTFObins]
+tags: [Linux, Enumeration, Web, LFI, SUID, ffuf, Hydra, GTFObins]
 description: "El compromiso de la máquina Fruits destaca la importancia de la enumeración de parámetros y el análisis de binarios con permisos especiales. Aqui detallamos ..."
 ---
 

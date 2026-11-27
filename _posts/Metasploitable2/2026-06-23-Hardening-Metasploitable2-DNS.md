@@ -3,7 +3,7 @@ layout: metasploitable2-post
 title: "Hardening de DNS - BIND 9.4.2 en Metasploitable 2: Guía y Mitigaciones"
 date: 2026-06-23 21:00:00 -0400
 img: /assets/img/metasploitable2/banner.png
-tags: [Vuln, Linux, Hardening, DNS, BIND 9.4.2, root, Metasploitable 2 ]
+tags: [Vuln, Linux, Hardening, DNS, BIND 9.4.2, root, Metasploitable 2]
 description: "Hardening de DNS en Metasploitable 2: revisa BIND y limita la recursión abierta para reducir la exposición del servidor."
 ---
 ![banner]({{ site.baseurl }}/assets/img/metasploitable2/banner.png)

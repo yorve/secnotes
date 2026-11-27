@@ -53,7 +53,6 @@ Este segundo comando es por que el script intentó levantar otro proceso hijo an
 
 **Efecto Colateral de Hardening:** Como ejecutamos el comando de limpieza y matamos al proceso padre que mantenía el servicio levantado, cerramos ambos puertos de un solo golpe. 
 
-![](/secnotes/assets/img/metasploitable2/6667/f38890f49b34124709858e5187d3c399_MD5.jpg)
 
 ---
 

@@ -5,15 +5,15 @@ description: "Resolución de la máquina Kaboom en TheHackerLabs paso a paso: tr
 date: 2026-10-24
 img: /assets/img/kaboom/banner.png
 tags:
-  - web
-  - dns
-  - graphql
-  - Path Hijack
-  - ssh
-  - ssid
-  - privesc
-  - docker
-  - container-escape
+- Web
+- DNS
+- graphql
+- Path Hijack
+- SSH
+- ssid
+- PrivEsc
+- docker
+- Container-Escape
 ---
 
 Explotamos una transferencia de zona DNS mal configurada para descubrir subdominios ocultos, uno de los cuales exponía una API GraphQL sin autenticación que filtró credenciales en texto plano. Con ellas accedimos por SSH, escalamos privilegios mediante PATH Hijacking sobre un binario SUID, y finalmente escapamos del contenedor Docker explotando capabilities excesivas (`cap_sys_admin` + `cap_mknod`) para montar el disco del host.

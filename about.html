@@ -24,7 +24,7 @@ description: "SecNotes reúne aprendizaje de ciberseguridad, writeups de pentest
   }
   .about-content p {
     line-height: 1.6;
-    color: #8b949e;
+    color: var(--muted);
   }
   .skills-grid {
     display: grid;
@@ -40,7 +40,7 @@ description: "SecNotes reúne aprendizaje de ciberseguridad, writeups de pentest
     font-family: monospace;
   }
   .skill-card h3 { color: var(--accent); margin: 0 0 10px 0; }
-  .skill-card ul { margin: 0; padding-left: 20px; color: #8b949e; }
+  .skill-card ul { margin: 0; padding-left: 20px; color: var(--muted); }
 
 
 </style>
@@ -59,7 +59,8 @@ description: "SecNotes reúne aprendizaje de ciberseguridad, writeups de pentest
   <p>Creé <strong>SecNotes</strong> con el objetivo de estructurar mis notas de estudio y, al mismo
   tiempo, aportar guías fáciles de entender para la comunidad que recién está partiendo en el mundo
   de la ciberseguridad. Aquí encontrarás la resolución detallada de máquinas de diversas plataformas,
-  análisis de malware y proyectos propios de hardening.</p>
+  análisis de malware, proyectos propios de hardening, resúmenes de actualidad en <a href="{{ '/noticias.html' | relative_url }}">SecNews</a>
+  y las <a href="{{ '/stats/' | relative_url }}">estadísticas del blog</a>.</p>
 
   <h2>Áreas de Interés</h2>
   <div class="skills-grid">

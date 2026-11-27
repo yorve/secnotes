@@ -4,7 +4,7 @@ title: "DockerLabs: Showtime - Writeup, SQL Injection y Elevación a Root"
 description: "Guía paso a paso de Showtime en DockerLabs: explotación de SQL Injection (Auth Bypass), volcado con SQLMap, fuerza bruta SSH y escalada de privilegios."
 date: 2026-09-11
 img: /assets/img/linux/showtime/1.png
-tags: [DockerLabs, Linux, SQLi, SQL Injection, posh, python]
+tags: [DockerLabs, Linux, SQLi, posh, Python]
 ---
 
 En este laboratorio abordaremos la solución de la máquina Showtime en Dockerlabs. El proceso cubre la cadena completa de intrusión hasta la explotación de un fallo clásico de SQL Injection y la elevación de privilegios.
@@ -54,7 +54,11 @@ sqlmap -u "http://172.17.0.2/login_page/index.php" --forms --dbs --batch
 
 `--batch` = Activa la ejecución no interactiva. Omite cualquier pregunta de confirmación en consola.
 
-![](/secnotes/assets/img/linux/showtime/Pasted%20image%2020260911205804.png)![](Pasted%20image%2020260911205809.png)![](Pasted%20image%2020260911205821.png)
+![](/secnotes/assets/img/linux/showtime/Pasted%20image%2020260911205804.png)
+
+![](/secnotes/assets/img/linux/showtime/Pasted%20image%2020260911205809.png)
+
+![](/secnotes/assets/img/linux/showtime/Pasted%20image%2020260911205821.png)
 
 Como resultado, nos muestra las bases de datos:
  - information_schema

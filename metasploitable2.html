@@ -11,7 +11,7 @@ description: "Serie completa de hardening para Metasploitable 2 en español: aud
     {% include google-analytics.html %}
     {% include article-metadata.html %}
     {% feed_meta %}
-    <link rel="icon" type="image/png" href="{{ site.baseurl }}/logo.png">
+    <link rel="icon" href="{{ '/favicon.ico' | relative_url }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root { 
@@ -204,6 +204,9 @@ description: "Serie completa de hardening para Metasploitable 2 en español: aud
             color: var(--accent);
             font-family: monospace;
             font-size: 1.1rem;
+            white-space: nowrap;
+            flex-shrink: 0;
+            margin-left: 12px;
             transition: 0.2s;
         }
         .post-item:hover .read-icon {
@@ -220,10 +223,13 @@ description: "Serie completa de hardening para Metasploitable 2 en español: aud
         <!-- Cabecera reorganizada para incluir el botón en un contenedor Flex -->
         <div class="header-nav">
             <a href="{{ site.baseurl }}/" class="back-link">← [cd ..] Volver al inicio</a>
-            
-            <button id="theme-toggle" class="theme-btn-nav" aria-label="Cambiar modo de color">
-                <i class="fas fa-moon" id="theme-icon"></i>
-            </button>
+            <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;">
+                <a href="{{ '/noticias.html' | relative_url }}" class="back-link">SecNews</a>
+                <a href="{{ '/stats/' | relative_url }}" class="back-link">Estadísticas</a>
+                <button id="theme-toggle" class="theme-btn-nav" aria-label="Cambiar modo de color">
+                    <i class="fas fa-sun" id="theme-icon" aria-hidden="true"></i>
+                </button>
+            </div>
         </div>
         
         <h1>>_ PROYECTO: HARDENING METASPLOITABLE 2</h1>
@@ -264,34 +270,6 @@ description: "Serie completa de hardening para Metasploitable 2 en español: aud
         </div>
     </div>
 
-    <!-- SCRIPT DE SINCRONIZACIÓN CORREGIDO (LUNA PARA OSCURO / SOL PARA CLARO) -->
-    <script>
-        const themeToggle = document.getElementById('theme-toggle');
-        const themeIcon = document.getElementById('theme-icon');
-        
-        function applyTheme(theme) {
-            if (theme === 'light') {
-                document.documentElement.setAttribute('data-theme', 'light');
-                if (themeIcon) themeIcon.className = 'fas fa-sun';
-            } else {
-                document.documentElement.setAttribute('data-theme', 'dark');
-                if (themeIcon) themeIcon.className = 'fas fa-moon';
-            }
-        }
-
-        const currentTheme = localStorage.getItem('theme') || 'dark';
-        applyTheme(currentTheme);
-
-        themeToggle.addEventListener('click', () => {
-            let theme = document.documentElement.getAttribute('data-theme');
-            if (theme === 'dark') {
-                applyTheme('light');
-                localStorage.setItem('theme', 'light');
-            } else {
-                applyTheme('dark');
-                localStorage.setItem('theme', 'dark');
-            }
-        });
-    </script>
+    <script src="{{ '/assets/js/theme.js' | relative_url }}" defer></script>
 </body>
 </html>

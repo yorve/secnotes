@@ -3,17 +3,17 @@ layout: post
 title: "TheHackerLabs: Rockstar - Writeup, LFI y Python Hijacking"
 date: 2026-10-29
 img: /assets/img/rockstar/banner.svg
-tags: 
+tags:
 - nmap
 - ffuf
 - gobuster
 - curl
-- ssh
+- SSH
 - zip2john
-- john
-- hydra
+- JohnTheRipper
+- Hydra
 - BeanShell
-description: "La máquina Rockstar expone una aplicación web en PHP vulnerable a Local File Inclusion (LFI) a través de un parámetro oculto (`backdoor`), descubierto median..."
+description: "Writeup de Rockstar en TheHackerLabs: explotación de Local File Inclusion (LFI) mediante un parámetro oculto y escalada con Python Hijacking."
 ---
 
 La máquina Rockstar expone una aplicación web en PHP vulnerable a Local File Inclusion (LFI) a través de un parámetro oculto (`backdoor`), descubierto mediante fuzzing de parámetros. La explotación del LFI permite leer credenciales hardcodeadas y obtener acceso inicial vía SSH. A partir de ahí, una cadena de escaladas de privilegios por abuso de sudoers (sobrescritura de binario, Python library hijacking, y BeanShell) lleva finalmente a una shell de root.

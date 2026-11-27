@@ -3,8 +3,8 @@ layout: metasploitable2-post
 title: "Hardening de MySQL en Metasploitable 2: Guía y Mitigaciones"
 date: 2026-07-13
 img: /assets/img/metasploitable2/banner.png
-tags: [Vuln, Linux, Hardening, mysql, root, Metasploitable 2 ]
-description: "Este puerto contiene el canal de comunicación predeterminado que utiliza el motor de bases de datos MySQL para establecer conexiones  de red. Permite que las..."
+tags: [Vuln, Linux, Hardening, mysql, root, Metasploitable 2]
+description: "Este puerto contiene el canal de comunicación predeterminado que utiliza el motor de bases de datos MySQL para establecer conexiones de red. Permite que las..."
 ---
 
 

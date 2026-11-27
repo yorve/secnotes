@@ -3,7 +3,7 @@ layout: metasploitable2-post
 title: "Hardening de postgreSQL en Metasploitable 2: Guía y Mitigaciones"
 date: 2026-07-14 09:05:00 -0400
 img: /assets/img/metasploitable2/banner.png
-tags: [Vuln, Linux, Hardening, postgreSQL, root, Metasploitable 2 ]
+tags: [Vuln, Linux, Hardening, PostgreSQL, root, Metasploitable 2]
 description: "Este es el canal de comunicación predeterminado que utiliza el motor de bases de datos PostgreSQL. Al igual que en MySQL, este permite que aplicaciones, serv..."
 ---
 

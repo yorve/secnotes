@@ -3,7 +3,7 @@ layout: post
 title: "TheHackerLabs: Mortadela - Writeup y Solución Paso a Paso"
 date: 2026-04-16
 img: /assets/img/mortadela/banner.png
-tags: [Hackerslabs, Linux, SQLi, WPScan, JohnTheRipper, KeePass, Memory Forensics, CVE-2023-32784]
+tags: [TheHackerLabs, Linux, SQLi, WPScan, JohnTheRipper, KeePass, Memory Forensics, CVE-2023-32784]
 description: "En este laboratorio nos enfrentamos a un escenario de post-explotación avanzado. Tras obtener acceso inicial y recolectar archivos confidenciales, el desafío..."
 ---
 

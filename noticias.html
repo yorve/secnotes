@@ -1,95 +1,243 @@
 ---
 layout: null
-title: Noticias de IA
-description: Incidentes, vulnerabilidades, defensa y regulación de IA en español.
+title: SecNews
+description: "SecNews: incidentes, vulnerabilidades, defensa y regulación de IA y ciberseguridad explicados en español."
 ---
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-{% seo %}
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-<style>
-:root{
-  --bg:#f4f6f9; --panel:#ffffff; --ink:#18212d; --muted:#586577; --line:#d5dce6; --accent:#0b6e8a; --tag:#e3eef3;
-  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
-  --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  --text:var(--ink); --border:var(--line);
-  box-sizing:border-box;
-}
-@media (prefers-color-scheme:dark){
-  :root:not([data-theme="light"]){--bg:#0e141c;--panel:#151d28;--ink:#dbe3ee;--muted:#8d9bb0;--line:#243142;--accent:#4cc3e0;--tag:#1b2a38;}
-}
-:root[data-theme="dark"]{--bg:#0e141c;--panel:#151d28;--ink:#dbe3ee;--muted:#8d9bb0;--line:#243142;--accent:#4cc3e0;--tag:#1b2a38;}
-*{box-sizing:inherit}
-html{height:100%}
-body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 var(--sans);padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-a{color:var(--accent)}
-:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-.wrap{max-width:760px;margin:0 auto;padding:0 20px}
-header{border-bottom:1px solid var(--line);padding:18px 0}
-header .wrap{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
-.brand{font-family:var(--mono);font-weight:700;font-size:1.05rem;color:var(--ink);text-decoration:none}
-.brand span{color:var(--accent)}
-nav{display:flex;flex-wrap:wrap;gap:16px;align-items:center;font-size:.95rem}
-nav .nav-links{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center}
-nav a{color:var(--muted);text-decoration:none}
-nav a[aria-current]{color:var(--ink);border-bottom:2px solid var(--accent)}
-#theme-toggle{background:none;border:1px solid var(--line);color:var(--muted);border-radius:6px;padding:2px 10px;cursor:pointer;font:inherit}
-.edition-title{font-family:var(--mono);font-size:1rem;margin:28px 0 14px}
-.item{overflow-wrap:anywhere}
-.item .source{margin-inline-start:10px}
-h1{font-family:var(--mono);font-size:2rem;line-height:1.2;margin:44px 0 8px}
-.lead{color:var(--muted);margin:0 0 28px;max-width:60ch}
-.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px}
-.filters[hidden]{display:none}
-.filters button{font:inherit;font-size:.9rem;background:transparent;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:4px 14px;cursor:pointer}
-.filters button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--bg);font-weight:600}
-.item{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:6px;padding:18px 22px;margin-bottom:16px}
-.meta{font-family:var(--mono);font-size:.82rem;color:var(--muted);margin:0 0 6px}
-.item h3{font-size:1.2rem;line-height:1.35;margin:0 0 8px}
-.item p{margin:0 0 10px}
-.tag{display:inline-block;background:var(--tag);color:var(--accent);font-family:var(--mono);font-size:.78rem;padding:1px 9px;border-radius:4px}
-.empty{color:var(--muted);padding:24px 0}
-footer{border-top:1px solid var(--line);margin-top:48px;padding:24px 0;color:var(--muted);font-size:.9rem}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  {% seo %}
+  {% feed_meta %}
+  {% include google-analytics.html %}
+  <link rel="icon" href="{{ '/favicon.ico' | relative_url }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="{{ '/assets/css/site-improvements.css' | relative_url }}">
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --panel: #14181c;
+      --ink: #c9d1d9;
+      --title: #ffffff;
+      --muted: #9aa6b2;
+      --line: #30363d;
+      --accent: #00e676;
+      --tag: rgba(0, 230, 118, 0.12);
+      --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      --sans: 'Segoe UI', system-ui, -apple-system, Roboto, sans-serif;
+      --text: var(--ink);
+      --border: var(--line);
+    }
+    [data-theme="light"] {
+      --bg: #f4f4f5;
+      --panel: #ffffff;
+      --ink: #1f2328;
+      --title: #111111;
+      --muted: #52606d;
+      --line: #c8cdd3;
+      --accent: #087a34;
+      --tag: rgba(8, 122, 52, 0.1);
+      --text: var(--ink);
+      --border: var(--line);
+    }
+    html { height: 100%; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font: 16px/1.65 var(--sans);
+      padding-top: env(safe-area-inset-top, 0px);
+      padding-bottom: env(safe-area-inset-bottom, 0px);
+      transition: background 0.25s ease, color 0.25s ease;
+    }
+    a { color: var(--accent); text-underline-offset: 3px; }
+    .wrap { max-width: 960px; margin: 0 auto; padding: 0 24px; }
+    .site-header { border-bottom: 1px solid var(--line); padding: 18px 0; }
+    .site-header .wrap { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+    .brand { font-family: var(--mono); font-weight: 700; font-size: 1.05rem; color: var(--title); text-decoration: none; }
+    .brand span { color: var(--accent); }
+    .main-nav { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; font-size: 0.94rem; }
+    .nav-links { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; }
+    .main-nav a { color: var(--ink); text-decoration: none; }
+    .main-nav a:hover { color: var(--accent); }
+    .main-nav a[aria-current] { color: var(--accent); border-bottom: 2px solid var(--accent); padding-bottom: 2px; }
+    .hero-news { padding: 40px 0 24px; }
+    .eyebrow { display: inline-block; font-family: var(--mono); font-size: 0.82rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+    h1 { font-family: var(--mono); font-size: clamp(1.9rem, 4.5vw, 2.5rem); line-height: 1.2; color: var(--title); margin: 0 0 12px; }
+    .lead { color: var(--muted); margin: 0 0 20px; max-width: 68ch; }
+    .news-summary-bar { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 22px; font-family: var(--mono); font-size: 0.84rem; }
+    .news-pill { background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 5px 12px; color: var(--ink); }
+    .news-pill strong { color: var(--accent); }
+    .glossary-box { background: var(--panel); border: 1px solid var(--line); border-left: 3px solid var(--accent); border-radius: 8px; padding: 14px 18px; margin-bottom: 24px; }
+    .glossary-box summary { cursor: pointer; font-weight: 600; color: var(--title); }
+    .glossary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin: 14px 0 10px; }
+    .glossary-item { background: var(--bg); border: 1px solid var(--line); border-radius: 6px; padding: 10px 12px; font-size: 0.9rem; }
+    .glossary-item strong { display: block; color: var(--accent); font-family: var(--mono); font-size: 0.85rem; margin-bottom: 4px; }
+    .glossary-links { margin: 10px 0 0; font-size: 0.9rem; color: var(--muted); }
+    .controls-panel { display: flex; flex-direction: column; gap: 14px; margin-bottom: 24px; }
+    .news-search-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+    .news-search-row input[type="search"] {
+      flex: 1 1 260px;
+      padding: 10px 14px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: var(--panel);
+      color: var(--ink);
+      font: inherit;
+    }
+    .news-status { font-family: var(--mono); font-size: 0.85rem; color: var(--muted); margin: 0; }
+    .filters { display: flex; gap: 8px; flex-wrap: wrap; }
+    .filters[hidden] { display: none; }
+    .filters button {
+      font: inherit;
+      font-size: 0.88rem;
+      background: var(--panel);
+      color: var(--ink);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 5px 14px;
+      cursor: pointer;
+      transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+    }
+    .filters button:hover { border-color: var(--accent); color: var(--accent); }
+    .filters button[aria-pressed="true"] {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: var(--bg);
+      font-weight: 700;
+    }
+    .edition-title {
+      font-family: var(--mono);
+      font-size: 1.05rem;
+      color: var(--title);
+      margin: 30px 0 14px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--line);
+    }
+    .item {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-left: 4px solid var(--accent);
+      border-radius: 8px;
+      padding: 18px 22px;
+      margin-bottom: 16px;
+      overflow-wrap: anywhere;
+      transition: border-color 0.2s ease;
+    }
+    .item:hover { border-color: var(--accent); }
+    .meta { font-family: var(--mono); font-size: 0.82rem; color: var(--muted); margin: 0 0 6px; }
+    .item h3 { font-size: 1.15rem; line-height: 1.35; color: var(--title); margin: 0 0 8px; }
+    .item p { margin: 0 0 10px; }
+    .item-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; margin-bottom: 0; }
+    .tag {
+      display: inline-block;
+      background: var(--tag);
+      color: var(--accent);
+      border: 1px solid var(--line);
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      padding: 2px 10px;
+      border-radius: 999px;
+    }
+    .item .source { font-size: 0.92rem; font-weight: 600; }
+    .empty { color: var(--muted); padding: 24px 0; }
+    footer {
+      border-top: 1px solid var(--line);
+      margin-top: 48px;
+      padding: 24px 0;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+    footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; }
+    @media (max-width: 600px) {
+      .wrap { padding: 0 16px; }
+      .hero-news { padding-top: 28px; }
+      .item { padding: 16px; }
+    }
+  </style>
 </head>
 <body>
-<header>
+<a class="skip-link" href="#main">Saltar al contenido</a>
+
+<header class="site-header">
   <div class="wrap">
-    <a class="brand" href="{{ '/' | relative_url }}">Sec<span>Notes</span> 2.0</a>
+    <a class="brand" href="{{ '/' | relative_url }}">Sec<span>Notes</span></a>
     {% include nav.html %}
   </div>
 </header>
 
-<main class="wrap">
-  <h1>Noticias de IA</h1>
-  <p class="lead">Incidentes, vulnerabilidades, defensa y regulación de IA con impacto en ciberseguridad. Cada noticia incluye un resumen en español y un enlace a la fuente.</p>
-  <div class="filters" role="group" aria-label="Filtrar por categoría" id="filters" hidden></div>
+{% assign valid_editions = site.boletines | where_exp: "e", "e.noticias" | sort: "path" | reverse %}
+{% assign total_stories = 0 %}
+{% for edition in valid_editions %}{% assign total_stories = total_stories | plus: edition.noticias.size %}{% endfor %}
+
+<main class="wrap" id="main">
+  <section class="hero-news">
+    <span class="eyebrow">SecNotes / Boletín de actualidad</span>
+    <h1>SecNews</h1>
+    <p class="lead">Incidentes reales, vulnerabilidades críticas, defensa y regulación en IA y ciberseguridad, resumidos en español con acciones prácticas y enlace directo a la fuente original.</p>
+
+    <div class="news-summary-bar">
+      <span class="news-pill"><strong>{{ total_stories }}</strong> noticias publicadas</span>
+      <span class="news-pill"><strong>{{ valid_editions.size }}</strong> boletines</span>
+      {% if valid_editions.first %}
+      <span class="news-pill">Última edición: <strong>{{ valid_editions.first.title | escape }}</strong></span>
+      {% endif %}
+    </div>
+
+    <details class="glossary-box">
+      <summary>¿Recién empezando? Glosario rápido para leer estas noticias</summary>
+      <div class="glossary-grid">
+        <div class="glossary-item"><strong>CVE</strong>Identificador público de una vulnerabilidad conocida en un software o servicio.</div>
+        <div class="glossary-item"><strong>CISA KEV</strong>Catálogo oficial de vulnerabilidades que ya están siendo explotadas en ataques reales.</div>
+        <div class="glossary-item"><strong>Blue Team / SOC</strong>Equipos encargados de monitorear alertas, investigar incidentes y defender sistemas.</div>
+        <div class="glossary-item"><strong>Prompt Injection</strong>Técnica donde texto malicioso intenta desviar las instrucciones de un modelo o agente de IA.</div>
+      </div>
+      <p class="glossary-links">¿Quieres practicar estos conceptos en laboratorio? Revisa <a href="{{ '/empieza-aqui/' | relative_url }}">Empieza aquí</a>, el <a href="{{ '/cheatsheet/' | relative_url }}">Cheatsheet</a> o la serie de <a href="{{ '/metasploitable2' | relative_url }}">Hardening en Metasploitable 2</a>.</p>
+    </details>
+  </section>
+
+  <div class="controls-panel" id="news-controls" hidden>
+    <div class="news-search-row">
+      <input type="search" id="news-search" aria-label="Buscar en SecNews" placeholder="Buscar por CVE, tema, herramienta o fuente…" autocomplete="off">
+      <p class="news-status" id="news-status" role="status" aria-live="polite"></p>
+    </div>
+    <div class="filters" role="group" aria-label="Filtrar por categoría" id="filters"></div>
+  </div>
+
   <div id="list">
-    {% assign editions = site.boletines | sort: "path" | reverse %}
-    {% for edition in editions %}
+    {% for edition in valid_editions %}
     <section class="edition" aria-labelledby="{{ edition.slug | escape }}">
       <h2 class="edition-title" id="{{ edition.slug | escape }}">{{ edition.title | escape }}</h2>
       {% assign stories = edition.noticias | sort: "fecha" | reverse %}
-    {% for news in stories %}
-      <article class="item" data-category="{{ news.categoria | escape }}">
+      {% for news in stories %}
+      <article class="item" data-category="{{ news.categoria | escape }}" data-search="{{ news.titulo | append: ' ' | append: news.resumen | append: ' ' | append: news.fuente | append: ' ' | append: news.categoria | escape }}">
         <p class="meta"><time datetime="{{ news.fecha | escape }}">{{ news.fecha | date: "%d/%m/%Y" }}</time> · {{ news.fuente | escape }}</p>
         <h3>{{ news.titulo | escape }}</h3>
         <p>{{ news.resumen | escape }}</p>
-        <p><span class="tag">{{ news.categoria | escape }}</span><a class="source" href="{{ news.url | escape }}">Leer la fuente original</a></p>
+        <p class="item-foot">
+          <span class="tag">{{ news.categoria | escape }}</span>
+          <a class="source" href="{{ news.url | escape }}" target="_blank" rel="noopener noreferrer">Leer la fuente original ↗</a>
+        </p>
       </article>
       {% endfor %}
     </section>
     {% else %}
-    <p class="empty">Pronto aparecerá aquí el primer boletín de IA.</p>
+    <p class="empty">Pronto aparecerá aquí el primer boletín de SecNews.</p>
     {% endfor %}
+    <p class="empty" id="news-empty" hidden>No hay noticias que coincidan con ese filtro. Prueba otra palabra clave o selecciona "Todas".</p>
   </div>
 </main>
 
 <footer>
-  <div class="wrap">SecNotes 2.0 · Notas de ciberseguridad ofensiva y defensiva.</div>
+  <div class="wrap">
+    <span>© {{ site.time | date: '%Y' }} SecNotes · SecNews</span>
+    <span>
+      <a href="{{ '/' | relative_url }}">Inicio</a> ·
+      <a href="{{ '/stats/' | relative_url }}">Estadísticas</a> ·
+      <a href="{{ '/feed.xml' | relative_url }}">RSS</a>
+    </span>
+  </div>
 </footer>
 
 <script src="{{ '/assets/js/theme.js' | relative_url }}" defer></script>

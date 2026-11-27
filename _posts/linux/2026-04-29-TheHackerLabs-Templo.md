@@ -3,7 +3,7 @@ layout: post
 title: "TheHackerLabs: Templo - Writeup y Solución Paso a Paso"
 date: 2026-04-29
 img: /assets/img/templo/banner.png
-tags: [HackerLabs, Linux, Enumeration, LFI, PHP-Wrappers, RCE, ROT13, Zip-Cracking, JohnTheRipper, LXC, LXD, Container-Escape]
+tags: [TheHackerLabs, Linux, Enumeration, LFI, PHP-Wrappers, RCE, ROT13, Zip-Cracking, JohnTheRipper, LXC, LXD, Container-Escape]
 description: "En este laboratorio, exploraremos cómo un parámetro de inclusión de archivos (LFI) aparentemente inofensivo puede ser la llave maestra para extraer el código..."
 ---
 ![banner]({{ site.baseurl }}/assets/img/templo/banner.png)

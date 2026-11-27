@@ -8,7 +8,6 @@ description: "Deloitte es una máquina CTF Linux en la que tenemos que encontrar
 
 Deloitte es una máquina CTF Linux en la que tenemos que encontrar las 10 Flags ocultas.
 
-
 **Reconocimiento**
 
 identificación la máquina en la red.
@@ -101,8 +100,6 @@ Listado de las flags encontradas
 
 ☕ ¿Te sirvió el Write-up?
 Si este contenido te ayudó a rootear la máquina o a aprender algo nuevo, ¡puedes invitarme un café! Todo el apoyo se va directo a mejorar el blog y seguir subiendo retos de DockerLabs.
-
-![Invitame un café](https://img.buymeacoffee.com/button-api/?text=Invítame un café&emoji=☕&slug=TU_USUARIO&button_colour=FFDD00&font_colour=000000&font_family=Cookie&outline_colour=000000&coffee_colour=ffffff)
 
 ---
 

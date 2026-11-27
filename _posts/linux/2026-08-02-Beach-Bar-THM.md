@@ -3,8 +3,8 @@ layout: post
 title: "TryHackMe: Beach Bar - Writeup y Solución Paso a Paso"
 date: 2026-08-02
 img: assets/img/beachbar/banner.png
-tags: [Linux, TryHackMe, yml, ps aux, ]
-description: "Beach Bar es una máquina Linux que simula una aplicación web de gestión de música (jukebox) expuesta a usuarios de la red local. La máquina demuestra el impa..."
+tags: [Linux, TryHackMe, yml, ps aux]
+description: "Writeup de Beach Bar en TryHackMe: vulnerabilidad de entrada en una aplicación jukebox en Linux y credenciales expuestas en procesos."
 ---
 
 Beach Bar es una máquina Linux que simula una aplicación web de gestión de música (jukebox) expuesta a usuarios de la red local. La máquina demuestra el impacto de dos fallos críticos de configuración y desarrollo: la desinfección inadecuada al procesar archivos de entrada y la exposición de credenciales sensibles a través de los argumentos en la línea de comandos de servicios en segundo plano.
@@ -15,7 +15,9 @@ Beach Bar es una máquina Linux que simula una aplicación web de gestión de m�
 
 ![](/secnotes/assets/img/beachbar/Pasted%20image%2020260802124712.png)
 
-![](/secnotes/assets/img/beachbar/Pasted%20image%2020260802125135.png)![](Pasted%20image%2020260802125429.png)
+![](/secnotes/assets/img/beachbar/Pasted%20image%2020260802125135.png)
+
+![](/secnotes/assets/img/beachbar/Pasted%20image%2020260802125429.png)
 
 
 En el código de la página de login encontramos un comentario que nos dice que sigue habilitada el demo con las credenciales dj / dj 

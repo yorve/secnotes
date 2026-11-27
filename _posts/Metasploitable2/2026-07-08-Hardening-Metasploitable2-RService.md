@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: metasploitable2-post
 title: "Hardening de RServices Suite en Metasploitable 2: Guía y Mitigaciones"
 date: 2026-07-08
 img: /assets/img/metasploitable2/banner.png

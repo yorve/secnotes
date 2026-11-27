@@ -81,7 +81,6 @@ setup(name="poison", version="1.0", cmdclass={'install': PreInstall})
 EOF
 ``` 
 
-
 vamos a explicar este script
 
 << EOF: le indica a la Shell que todo lo que se escriba a continuación es parte del archivo, hasta que se escriba la palabra EOF (End Of File) solo en una linea.
@@ -121,10 +120,6 @@ EN resumen, utilizamos un archivo lamado setup.py malicioso para abusar de la fu
 ![img11]({{ site.baseurl }}/assets/img/pkgpoison/root.png)
 
 ---
-### ☕ ¿Te sirvió el Write-up?
-Si este contenido te ayudó a rootear la máquina o a aprender algo nuevo, ¡puedes invitarme un café! Todo el apoyo se va directo a mejorar el blog y seguir subiendo retos de **DockerLabs**.
-
-
 ---
 
 ### 🛡️ Otros Laboratorios y Writeups Relacionados

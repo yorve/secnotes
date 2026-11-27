@@ -8,8 +8,6 @@ description: "TProot es una máquina Linux de nivel fácil en DockerLabs que nos
 ---
 TProot es una máquina Linux de nivel fácil en DockerLabs que nos permite practicar enumeración básica y explotación de vulnerabilidades conocidas.
 
-
-
 **Enumeración**
 
 Comenzamos con un reconocimiento de la máquina objetivo.
@@ -40,7 +38,6 @@ Ejecutamos el script que descargamos pero nos da un error. Indica que no tenemos
 
 ![img7]({{ site.baseurl }}/assets/img/tproot/7.png) 
 
-
 con el siguiente comando podemos ejecutar directamente la versión 3.11.13 de Python desde un contenedor de docker en nuestro entorno aislado
 
 `docker run -it --rm -v "$PWD":/work -w /work python:3.11 bash
@@ -55,8 +52,6 @@ Al ejecutar el script obtendremos automaticamente una shell como usuario root en
 
 ☕ ¿Te sirvió el Write-up?
 Si este contenido te ayudó a rootear la máquina o a aprender algo nuevo, ¡puedes invitarme un café! Todo el apoyo se va directo a mejorar el blog y seguir subiendo retos de DockerLabs.
-
-![Invitame un café](https://img.buymeacoffee.com/button-api/?text=Invítame un café&emoji=☕&slug=TU_USUARIO&button_colour=FFDD00&font_colour=000000&font_family=Cookie&outline_colour=000000&coffee_colour=ffffff)
 
 ---
 

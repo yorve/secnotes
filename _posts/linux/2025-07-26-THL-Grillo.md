@@ -3,7 +3,7 @@ layout: post
 title: "TheHackerLabs: Grillo - Writeup y Solución Paso a Paso"
 date: 2025-07-26
 img: /assets/img/grillo/banner.png
-tags: [HackersLabs, Linux, Web]
+tags: [TheHackerLabs, Linux, Web]
 description: "Esta es una máquina Linux de nivel facil, diseñada para fortalecer la enumeración de aplicación web: Exploración de contenido web visible y oculto para detec..."
 ---
 ![img1]({{ site.baseurl }}/assets/img/grillo/banner.png)
@@ -32,7 +32,6 @@ Al escanear el objetivo nos encontramos con alguna información necesaria para e
 ![img6]({{ site.baseurl }}/assets/img/grillo/5.png)
  
 Al revisar el servicio web nos encontramos con este mensaje y un posible usuario.
-
 
 **Explotación**
 
@@ -71,8 +70,6 @@ Entonces solo nos queda conectarnos como root por ssh y obtendremos el acceso.
 
 ☕ ¿Te sirvió el Write-up?
 Si este contenido te ayudó a rootear la máquina o a aprender algo nuevo, ¡puedes invitarme un café! Todo el apoyo se va directo a mejorar el blog y seguir subiendo retos de DockerLabs.
-
-![Invitame un café](https://img.buymeacoffee.com/button-api/?text=Invítame un café&emoji=☕&slug=TU_USUARIO&button_colour=FFDD00&font_colour=000000&font_family=Cookie&outline_colour=000000&coffee_colour=ffffff)
 
 ---
 

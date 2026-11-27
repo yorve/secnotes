@@ -18,7 +18,8 @@ SecNotes es mi bitácora de ciberseguridad en español. Aquí documento cómo re
 | [Artículos](https://yorve.github.io/secnotes/articulos/) | El índice de writeups y guías. En la portada puedes buscar y filtrar por técnica, etiqueta o sistema. |
 | [Hardening de Metasploitable 2](https://yorve.github.io/secnotes/metasploitable2) | Una serie dedicada a identificar configuraciones vulnerables y corregirlas servicio por servicio. |
 | [Cheatsheet](https://yorve.github.io/secnotes/cheatsheet) | Una referencia rápida de comandos de reconocimiento, enumeración y escalada de privilegios para laboratorios. |
-| [Noticias de IA](https://yorve.github.io/secnotes/noticias.html) | Boletines en español sobre modelos, herramientas, investigación y regulación, con enlaces a las fuentes originales. |
+| [SecNews](https://yorve.github.io/secnotes/noticias.html) | Boletines en español sobre incidentes, vulnerabilidades, defensa y regulación de IA, con enlaces a las fuentes originales. |
+| [Estadísticas](https://yorve.github.io/secnotes/stats/) | Resumen automático de writeups publicados, cobertura por plataforma, etiquetas y ediciones de SecNews. |
 
 Puedes explorar los artículos por [pentesting web](https://yorve.github.io/secnotes/temas/pentesting-web/), [laboratorios Linux](https://yorve.github.io/secnotes/temas/linux/), [Windows y Active Directory](https://yorve.github.io/secnotes/temas/windows/) o [etiquetas](https://yorve.github.io/secnotes/tags). Los writeups incluyen laboratorios de DockerLabs, TheHackerLabs, TryHackMe y Hack The Box.
 

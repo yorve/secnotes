@@ -3,8 +3,8 @@ layout: post
 title: "TheHackerLabs: Ensalá Papas - Writeup y Solución Paso a Paso"
 date: 2026-07-26
 img: /assets/img/windows/ensala/Pasted image 20260725200541.png
-tags: [Windows, Web, ISS, JuicyPotato, reverse shell]
-description: "[Link Descarga](https://labs.thehackerslabs.com/machine/34)"
+tags: [Windows, Web, IIS, JuicyPotato, reverse shell]
+description: "Writeup de Ensalá Papas en TheHackerLabs: enumeración web en IIS, acceso inicial y escalada de privilegios en Windows con JuicyPotato."
 ---
 
 ![](/secnotes/assets/img/windows/ensala/Pasted image 20260725200541.png)

@@ -113,7 +113,7 @@ layout: null
 
         .side-link {
             text-decoration: none;
-            color: #8b949e;
+            color: var(--muted);
             font-size: 0.95rem;
             display: flex;
             align-items: center;
@@ -122,7 +122,7 @@ layout: null
         }
 
         .side-link i { width: 20px; text-align: center; }
-        .side-link:hover { color: var(--accent); transform: translateX(5px); }
+        .side-link:hover, .side-link[aria-current="page"] { color: var(--accent); transform: translateX(5px); }
 
         /* Estilos del Switcher de Tema en el Sidebar */
         .theme-toggle-container {
@@ -234,7 +234,7 @@ layout: null
         }
 
         pre::before {
-            content: "root@yorve:~#";
+            content: "secnotes@lab:~$";
             display: block;
             color: #8b949e;
             font-size: 0.7rem;
@@ -298,17 +298,19 @@ layout: null
                     <img src="{{ site.baseurl }}/ico.jpg" alt="Logo">
                 </a>
                 
-      <nav class="sidebar-nav">
-    <a href="{{ site.baseurl }}/" class="side-link"><i class="fas fa-home"></i> Inicio</a>
-    <a href="{{ "/articulos/" | relative_url }}" class="side-link">Todos los artículos</a>
-    <a href="{{ "/empieza-aqui/" | relative_url }}" class="side-link">Empieza aquí</a>
-    <a href="{{ site.baseurl }}/metasploitable2" class="side-link" target="_blank">
-        <i class="fas fa-shield-alt"></i> Hardening Metasploitable2
+      <nav class="sidebar-nav" aria-label="Navegación principal">
+    <a href="{{ site.baseurl }}/" class="side-link"><i class="fas fa-home" aria-hidden="true"></i> Inicio</a>
+    <a href="{{ '/articulos/' | relative_url }}" class="side-link"{% if page.url == "/articulos/" %} aria-current="page"{% endif %}><i class="fas fa-book-open" aria-hidden="true"></i> Artículos</a>
+    <a href="{{ '/noticias.html' | relative_url }}" class="side-link"><i class="fas fa-newspaper" aria-hidden="true"></i> SecNews</a>
+    <a href="{{ '/empieza-aqui/' | relative_url }}" class="side-link"{% if page.url == "/empieza-aqui/" %} aria-current="page"{% endif %}><i class="fas fa-compass" aria-hidden="true"></i> Empieza aquí</a>
+    <a href="{{ site.baseurl }}/metasploitable2" class="side-link">
+        <i class="fas fa-shield-alt" aria-hidden="true"></i> Hardening Metasploitable 2
     </a>
-    <a href="{{ site.baseurl }}/cheatsheet" class="side-link"><i class="fas fa-terminal"></i> Cheatsheet</a>
-    <a href="{{ site.baseurl }}/tags" class="side-link"><i class="fas fa-tags"></i> Etiquetas</a>
-    <a href="{{ site.baseurl }}/about" class="side-link"><i class="fas fa-user"></i> Sobre SecNotes</a>
-    <a href="https://github.com/yorve/Auto_Recon.git" target="_blank" class="side-link"><i class="fas fa-terminal"></i> Auto-Recon</a>         
+    <a href="{{ site.baseurl }}/cheatsheet" class="side-link"{% if page.url == "/cheatsheet/" %} aria-current="page"{% endif %}><i class="fas fa-terminal" aria-hidden="true"></i> Cheatsheet</a>
+    <a href="{{ '/stats/' | relative_url }}" class="side-link"{% if page.url == "/stats/" %} aria-current="page"{% endif %}><i class="fas fa-chart-bar" aria-hidden="true"></i> Estadísticas</a>
+    <a href="{{ site.baseurl }}/tags" class="side-link"{% if page.url == "/tags/" %} aria-current="page"{% endif %}><i class="fas fa-tags" aria-hidden="true"></i> Etiquetas</a>
+    <a href="{{ site.baseurl }}/about" class="side-link"{% if page.url == "/about.html" or page.url == "/about" %} aria-current="page"{% endif %}><i class="fas fa-user" aria-hidden="true"></i> Sobre SecNotes</a>
+    <a href="https://github.com/yorve/Auto_Recon" target="_blank" rel="noopener noreferrer" class="side-link"><i class="fas fa-code-branch" aria-hidden="true"></i> Auto-Recon</a>
                     
                     <!-- BOTÓN DEL CAMBIO DE MODO INTEGRADO -->
                     <div class="theme-toggle-container">

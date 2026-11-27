@@ -17,7 +17,6 @@ Comenzamos con un escaneo a los puertos de la máquina objetivo, con el fin de e
 
  ![img2]({{ site.baseurl }}/assets/img/obssesion/2.png)
 
-
 Seguimos con un escaneo a las versiones de los servicios encontrados y verificaricamos si existe alguna vulnerabilidad conocida de ellos.
 
 ![img3]({{ site.baseurl }}/assets/img/obssesion/3.png)
@@ -27,7 +26,6 @@ En el servicio FTP tenemos acceso como _Anonymous_, esto significa que podemos i
 Una vez dentro de la máquina utilizaremos el comando `get` para descargarnos en nuestra máquina los archivos listados.
  
 ![img4]({{ site.baseurl }}/assets/img/obssesion/4.png)
-
 
 Vemos el archivo chat-gonza.txt 
 
@@ -114,15 +112,12 @@ Ahora solo navegamos por los directorios en búsqueda del famoso video.
 
 ![img22]({{ site.baseurl }}/assets/img/obssesion/22.png)
 
-
 ![img23]({{ site.baseurl }}/assets/img/obssesion/23.png)
 
 :heart_eyes:
 
 ☕ ¿Te sirvió el Write-up?
 Si este contenido te ayudó a rootear la máquina o a aprender algo nuevo, ¡puedes invitarme un café! Todo el apoyo se va directo a mejorar el blog y seguir subiendo retos de DockerLabs.
-
-![Invitame un café](https://img.buymeacoffee.com/button-api/?text=Invítame un café&emoji=☕&slug=TU_USUARIO&button_colour=FFDD00&font_colour=000000&font_family=Cookie&outline_colour=000000&coffee_colour=ffffff)
 
 ---
 

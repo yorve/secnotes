@@ -3,7 +3,7 @@ layout: metasploitable2-post
 title: "Hardening de RCPBIND en Metasploitable 2: Guía y Mitigaciones"
 date: 2026-06-28
 img: /assets/img/metasploitable2/banner.png
-tags: [Linux, Hardening, RCPBIND, Mountd, Metasploitable 2]
+tags: [Linux, Hardening, RPCBIND, Mountd, Metasploitable 2]
 description: "Hardening de RPCBIND en Metasploitable 2: enumera servicios RPC y revisa los directorios expuestos mediante NFS."
 ---
 

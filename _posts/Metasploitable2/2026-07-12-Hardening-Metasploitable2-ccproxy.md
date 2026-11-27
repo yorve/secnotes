@@ -3,7 +3,7 @@ layout: metasploitable2-post
 title: "Hardening de ccproxy-ftp en Metasploitable 2: Guía y Mitigaciones"
 date: 2026-07-12
 img: /assets/img/metasploitable2/banner.png
-tags: [Vuln, Linux, Hardening, ccproxy, ftp, root, Metasploitable 2 ]
+tags: [Vuln, Linux, Hardening, ccproxy, FTP, root, Metasploitable 2]
 description: "Esta puerto está asociado a CCProxy-FTP, es un puerto de red alternativo utilizado para transferir archivos a través del protocolo FTP, Mientras que el FTP t..."
 ---
 

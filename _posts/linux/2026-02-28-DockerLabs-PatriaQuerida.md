@@ -3,8 +3,8 @@ layout: post
 title: "DockerLabs: Patria Querida - Writeup y Solución Paso a Paso"
 date: 2026-02-28
 img: /assets/img/patriaquerida/1.png
-tags: [DockerLabs, Linux, LFI, SUID,  Python, Path-Traversal, Web]
-description: "'Resolución de Patria Querida: Explotación de un Local File Inclusion (LFI) en index.php para descubrir credenciales ocultas y escalada de privilegios median..."
+tags: [DockerLabs, Linux, LFI, SUID, Python, Path-Traversal, Web]
+description: "Resolución de Patria Querida en DockerLabs: explotación de Local File Inclusion (LFI) en index.php para descubrir credenciales y escalar privilegios."
 ---
 
 "Resolución de Patria Querida: Explotación de un Local File Inclusion (LFI) en index.php para descubrir credenciales ocultas y escalada de privilegios mediante el abuso del bit SUID en Python 3.8."
@@ -95,7 +95,7 @@ os.execl - reemplaza el proceso actual por un nuevo proceso
 
 Les comparto el laboratorio donde explicamos los permisos heredados. 
 
-https://yorve.github.io/secnotes/DockerLabs-PingCTF/
+https://yorve.github.io/secnotes/2026/02/14/DockerLabs-PingCTF.html
 
 ---
 

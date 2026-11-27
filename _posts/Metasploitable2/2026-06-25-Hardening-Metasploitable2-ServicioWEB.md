@@ -3,7 +3,7 @@ layout: metasploitable2-post
 title: "Hardening de WEB en Metasploitable 2: Guía y Mitigaciones"
 date: 2026-06-25
 img: /assets/img/metasploitable2/banner.png
-tags: [Vuln, Linux, Hardening, web, Metasploitable 2]
+tags: [Vuln, Linux, Hardening, Web, Metasploitable 2]
 description: "Hardening de Apache en Metasploitable 2: oculta versiones, deshabilita el listado de directorios y reduce la información expuesta."
 ---
 ![banner]({{ site.baseurl }}/assets/img/metasploitable2/banner.png)

@@ -3,7 +3,7 @@ layout: post
 title: "TheHackerLabs: La Corporación - Writeup y Solución Paso a Paso"
 date: 2026-06-11
 img: /assets/img/corporacion/banner.png
-tags: [Wireshark, BlueTeam, CVE-2021-41773, HackerLabs, logs]
+tags: [Wireshark, BlueTeam, CVE-2021-41773, TheHackerLabs, logs]
 description: "Hoy toca auditoría de red con La Corporación, un laboratorio diseñado para entrenar el ojo del Blue Team."
 ---
 ![banner]({{ site.baseurl }}/assets/img/corporacion/banner.png)

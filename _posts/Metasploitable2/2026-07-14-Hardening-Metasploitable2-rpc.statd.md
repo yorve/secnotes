@@ -3,8 +3,8 @@ layout: metasploitable2-post
 title: "Hardening de rpc.statd en Metasploitable 2: Guía y Mitigaciones"
 date: 2026-07-14 09:40:00 -0400  # 
 img: /assets/img/metasploitable2/banner.png
-tags: [Metasploitable 2, rpc.statd, NFC]
-description: "Análisis de `rpc.statd`"
+tags: [Metasploitable 2, rpc.statd, NFS]
+description: "Guía de hardening de rpc.statd en Metasploitable 2: análisis del servicio RPC con puertos dinámicos y medidas de mitigación."
 ---
 
 Análisis de `rpc.statd`  
