@@ -14,6 +14,10 @@ social:
     - https://github.com/yorve
     - https://www.linkedin.com/in/yonathan-rivera-velozo/
 
+collections:
+  boletines:
+    output: false
+
 plugins:
   - jekyll-sitemap
   - jekyll-seo-tag
