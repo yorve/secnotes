@@ -1,0 +1,34 @@
+name: Borrador de noticias de IA
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 9 * * 2,5'
+      timezone: America/Santiago
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ai-news-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  draft:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Preparar boletín
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: python3 scripts/draft_ai_news.py "$RUNNER_TEMP/borradores"
+      - name: Guardar borrador para revisión
+        uses: actions/upload-artifact@v4
+        with:
+          name: borrador-noticias-ia
+          path: ${{ runner.temp }}/borradores/*.md
+          if-no-files-found: ignore
+          retention-days: 14

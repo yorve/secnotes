@@ -1,0 +1,98 @@
+---
+layout: null
+title: Noticias de IA
+description: Novedades de modelos, herramientas, investigación y regulación de IA en español.
+---
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+{% seo %}
+<style>
+:root{
+  --bg:#f4f6f9; --panel:#ffffff; --ink:#18212d; --muted:#586577; --line:#d5dce6; --accent:#0b6e8a; --tag:#e3eef3;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  box-sizing:border-box;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){--bg:#0e141c;--panel:#151d28;--ink:#dbe3ee;--muted:#8d9bb0;--line:#243142;--accent:#4cc3e0;--tag:#1b2a38;}
+}
+:root[data-theme="dark"]{--bg:#0e141c;--panel:#151d28;--ink:#dbe3ee;--muted:#8d9bb0;--line:#243142;--accent:#4cc3e0;--tag:#1b2a38;}
+*{box-sizing:inherit}
+html{height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 var(--sans);padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+a{color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.wrap{max-width:760px;margin:0 auto;padding:0 20px}
+header{border-bottom:1px solid var(--line);padding:18px 0}
+header .wrap{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.brand{font-family:var(--mono);font-weight:700;font-size:1.05rem;color:var(--ink);text-decoration:none}
+.brand span{color:var(--accent)}
+nav{display:flex;flex-wrap:wrap;gap:16px;align-items:center;font-size:.95rem}
+nav a{color:var(--muted);text-decoration:none}
+nav a[aria-current]{color:var(--ink);border-bottom:2px solid var(--accent)}
+#theme-toggle{background:none;border:1px solid var(--line);color:var(--muted);border-radius:6px;padding:2px 10px;cursor:pointer;font:inherit}
+.edition-title{font-family:var(--mono);font-size:1rem;margin:28px 0 14px}
+.item{overflow-wrap:anywhere}
+.item .source{margin-inline-start:10px}
+h1{font-family:var(--mono);font-size:2rem;line-height:1.2;margin:44px 0 8px}
+.lead{color:var(--muted);margin:0 0 28px;max-width:60ch}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px}
+.filters[hidden]{display:none}
+.filters button{font:inherit;font-size:.9rem;background:transparent;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:4px 14px;cursor:pointer}
+.filters button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--bg);font-weight:600}
+.item{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:6px;padding:18px 22px;margin-bottom:16px}
+.meta{font-family:var(--mono);font-size:.82rem;color:var(--muted);margin:0 0 6px}
+.item h3{font-size:1.2rem;line-height:1.35;margin:0 0 8px}
+.item p{margin:0 0 10px}
+.tag{display:inline-block;background:var(--tag);color:var(--accent);font-family:var(--mono);font-size:.78rem;padding:1px 9px;border-radius:4px}
+.empty{color:var(--muted);padding:24px 0}
+footer{border-top:1px solid var(--line);margin-top:48px;padding:24px 0;color:var(--muted);font-size:.9rem}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="brand" href="{{ '/' | relative_url }}">Sec<span>Notes</span> 2.0</a>
+    <nav aria-label="Principal">
+      <a href="{{ '/' | relative_url }}">Writeups</a>
+      <a href="{{ '/noticias.html' | relative_url }}" aria-current="page">Noticias de IA</a>
+      <button id="theme-toggle" type="button" aria-label="Cambiar tema">Tema</button>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <h1>Noticias de IA</h1>
+  <p class="lead">Novedades sobre modelos, herramientas, investigación y regulación. Cada noticia incluye un resumen en español y un enlace a la fuente.</p>
+  <div class="filters" role="group" aria-label="Filtrar por categoría" id="filters" hidden></div>
+  <div id="list">
+    {% assign editions = site.boletines | sort: "path" | reverse %}
+    {% for edition in editions %}
+    <section class="edition" aria-labelledby="{{ edition.slug | escape }}">
+      <h2 class="edition-title" id="{{ edition.slug | escape }}">{{ edition.title | escape }}</h2>
+      {% for news in edition.noticias %}
+      <article class="item" data-category="{{ news.categoria | escape }}">
+        <p class="meta"><time datetime="{{ news.fecha | escape }}">{{ news.fecha | date: "%d/%m/%Y" }}</time> · {{ news.fuente | escape }}</p>
+        <h3>{{ news.titulo | escape }}</h3>
+        <p>{{ news.resumen | escape }}</p>
+        <p><span class="tag">{{ news.categoria | escape }}</span><a class="source" href="{{ news.url | escape }}">Leer la fuente original</a></p>
+      </article>
+      {% endfor %}
+    </section>
+    {% else %}
+    <p class="empty">Pronto aparecerá aquí el primer boletín de IA.</p>
+    {% endfor %}
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">SecNotes 2.0 · Notas de ciberseguridad ofensiva y defensiva.</div>
+</footer>
+
+<script src="{{ '/assets/js/theme.js' | relative_url }}" defer></script>
+<script src="{{ '/assets/js/news.js' | relative_url }}" defer></script>
+</body>
+</html>

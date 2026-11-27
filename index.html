@@ -44,6 +44,19 @@ image: /assets/img/secnotes-social.png
       </div>
       <p><a class="archive-link" href="{{ '/articulos/' | relative_url }}">Ver el índice completo de artículos →</a></p>
     </section>
+    {% assign latest_news = site.boletines | sort: "path" | last %}
+    <section class="topic-section" aria-labelledby="news-title">
+      <h2 id="news-title">Noticias de IA</h2>
+      {% if latest_news %}
+      <h3><a href="{{ '/noticias.html' | relative_url }}#{{ latest_news.slug | escape }}">{{ latest_news.title | escape }}</a></h3>
+      <ul>
+        {% for news in latest_news.noticias %}
+        <li>{{ news.titulo | escape }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+      <a class="button" href="{{ '/noticias.html' | relative_url }}">Ver boletines</a>
+    </section>
     <section aria-labelledby="catalog-title">
       <h2 id="catalog-title" tabindex="-1">Explora el conocimiento</h2>
       <p class="catalog-intro">Writeups y guías de laboratorio. Filtra por técnica o sistema para encontrar tu siguiente práctica.</p>
