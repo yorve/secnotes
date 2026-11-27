@@ -22,7 +22,7 @@ SecNotes es mi bitácora de ciberseguridad en español. Aquí documento cómo re
 
 Puedes explorar los artículos por [pentesting web](https://yorve.github.io/secnotes/temas/pentesting-web/), [laboratorios Linux](https://yorve.github.io/secnotes/temas/linux/), [Windows y Active Directory](https://yorve.github.io/secnotes/temas/windows/) o [etiquetas](https://yorve.github.io/secnotes/tags). Los writeups incluyen laboratorios de DockerLabs, TheHackerLabs, TryHackMe y Hack The Box.
 
-También puedes seguir las publicaciones por [RSS](https://yorve.github.io/secnotes/feed.xml), consultar el proyecto [Auto-Recon](https://github.com/yorve/Auto_Recon) o conocer más sobre [Yorve](https://yorve.github.io/secnotes/about).
+También puedes seguir las publicaciones por [RSS](https://yorve.github.io/secnotes/feed.xml), consultar el proyecto [Auto-Recon](https://github.com/yorve/Auto_Recon) o leer [sobre SecNotes](https://yorve.github.io/secnotes/about).
 
 ## Publicación y mantenimiento
 

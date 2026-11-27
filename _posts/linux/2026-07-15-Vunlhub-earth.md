@@ -176,7 +176,7 @@ Al iniciar el programa con el comando `run`, la ejecución se detuvo inmediatame
 
 ```
 (gdb) run
-Starting program: /home/yorve/reset_root 
+Starting program: /home/usuario/reset_root
 [Thread debugging using libthread_db enabled]
 Using host libthread_db library "/usr/lib/x86_64-linux-gnu/libthread_db.so.1".
 CHECKING IF RESET TRIGGERS PRESENT...

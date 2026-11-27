@@ -6,13 +6,10 @@ theme: null
 lang: es
 locale: es_ES
 author:
-  name: Yorve CSEC
+  name: SecNotes
   url: https://yorve.github.io/secnotes/about
 social:
   name: SecNotes
-  links:
-    - https://github.com/yorve
-    - https://www.linkedin.com/in/yonathan-rivera-velozo/
 
 collections:
   boletines:
