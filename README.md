@@ -1,34 +1,33 @@
-# 🔒 SecNotes | Cybersecurity Writeups & Documentation
+# SecNotes
 
 <p align="center">
-  <img src="./SecNotes.png" alt="SecNotes Logo" width="120">
+  <a href="https://yorve.github.io/secnotes/">
+    <img src="./SecNotes.png" alt="Logotipo de SecNotes" width="120">
+  </a>
 </p>
 
-<p align="center">
-  <strong>Bitácora personal de Hacking Ético, Auditoría Ofensiva (Red Team) y Fortificación de Sistemas (Blue Team).</strong>
-</p>
+SecNotes es mi bitácora de ciberseguridad en español. Aquí documento cómo resuelvo laboratorios de pentesting, analizo eventos de seguridad y corrijo configuraciones vulnerables. El blog reúne writeups, guías paso a paso y referencias para practicar en laboratorio.
 
-<p align="center">
-  <a href="https://yorve.github.io/secnotes/">🌐 Visitar el Blog en Vivo</a>
-</p>
+**[Visitar SecNotes](https://yorve.github.io/secnotes/)**
 
-## 🚀 ¿Qué es SecNotes?
+## Explora el blog
 
-**SecNotes**  Este espacio nació con el objetivo de centralizar, estructurar y documentar de manera didáctica mis notas de estudio, laboratorios técnicos y guías formativas orientadas al sector de la seguridad informática en español.
+| Sección | Qué encontrarás |
+| --- | --- |
+| [Empieza aquí](https://yorve.github.io/secnotes/empieza-aqui/) | Una ruta para preparar tu laboratorio, seguir un writeup y conectar lo aprendido con la defensa. |
+| [Artículos](https://yorve.github.io/secnotes/articulos/) | El índice de writeups y guías. En la portada puedes buscar y filtrar por técnica, etiqueta o sistema. |
+| [Hardening de Metasploitable 2](https://yorve.github.io/secnotes/metasploitable2) | Una serie dedicada a identificar configuraciones vulnerables y corregirlas servicio por servicio. |
+| [Cheatsheet](https://yorve.github.io/secnotes/cheatsheet) | Una referencia rápida de comandos de reconocimiento, enumeración y escalada de privilegios para laboratorios. |
+| [Noticias de IA](https://yorve.github.io/secnotes/noticias.html) | Boletines en español sobre modelos, herramientas, investigación y regulación, con enlaces a las fuentes originales. |
 
-## 📁 Estructura del Arsenal (Etiquetas principales)
+Puedes explorar los artículos por [pentesting web](https://yorve.github.io/secnotes/temas/pentesting-web/), [laboratorios Linux](https://yorve.github.io/secnotes/temas/linux/), [Windows y Active Directory](https://yorve.github.io/secnotes/temas/windows/) o [etiquetas](https://yorve.github.io/secnotes/tags). Los writeups incluyen laboratorios de DockerLabs, TheHackerLabs, TryHackMe y Hack The Box.
 
-El contenido se divide dinámicamente en cuatro grandes frentes tácticos:
+También puedes seguir las publicaciones por [RSS](https://yorve.github.io/secnotes/feed.xml), consultar el proyecto [Auto-Recon](https://github.com/yorve/Auto_Recon) o conocer más sobre [Yorve](https://yorve.github.io/secnotes/about).
 
-*   **`[#] PLATAFORMAS`:** Resolución detallada (*writeups*) de laboratorios en DockerLabs, HackTheBox, TryHackMe, entre otras.
-*   **`[#] SISTEMAS`:** Guías de explotación y evasión en entornos Linux, Windows, contenedores (LXC/LXD) y Cloud (AWS).
-*   **`[#] RED TEAM`:** Técnicas de explotación web, pivoting, escalada de privilegios (SUID, scripts) y análisis de vulnerabilidades (CVEs).
-*   **`[#] BLUE TEAM`:** Hardening de servidores, análisis forense de memoria, gestión de logs y auditoría defensiva de redes.
+## Publicación y mantenimiento
 
-## Noticias de IA
+El sitio usa Jekyll y se publica con GitHub Pages. Los artículos se guardan en `_posts/` y los boletines aprobados en `_boletines/`.
 
-La acción **Borrador de noticias de IA** se ejecuta los martes y viernes a las 09:17 (hora de Santiago). También se puede iniciar desde **Actions → Borrador de noticias de IA → Run workflow**.
+El flujo [Borrador de noticias de IA](https://github.com/yorve/secnotes/actions/workflows/ai-news.yml) consulta fuentes RSS los martes y viernes a las 09:17, hora de Santiago. También se puede iniciar con **Run workflow**. El secreto `OPENAI_API_KEY` permite redactar los resúmenes en español. Cuando hay novedades, la ejecución guarda el Markdown en el artefacto `borrador-noticias-ia`.
 
-Configura el secreto `OPENAI_API_KEY` en GitHub Actions para redactar los resúmenes en español con la API de OpenAI. Si hay novedades con información suficiente, el archivo Markdown estará en el artefacto **borrador-noticias-ia** de la ejecución.
-
-Para publicar un boletín, descarga el Markdown, contrasta los enlaces y resúmenes con las fuentes y edita los campos que necesites. Guarda después el archivo aprobado en `_boletines/` con su nombre fechado y publica mediante el flujo habitual de GitHub Pages. Si ya existe una edición de esa fecha, revisa los dos archivos antes de incorporar novedades al boletín publicado.
+Para publicar una edición, descarga el borrador, comprueba los resúmenes y sus fuentes, y guarda el archivo aprobado en `_boletines/` con su nombre fechado. Si ya hay un boletín de esa fecha, incorpora las novedades a la edición existente.
