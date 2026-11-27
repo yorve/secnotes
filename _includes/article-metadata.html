@@ -8,7 +8,7 @@
   {% assign summary = page.excerpt %}
 {% endif %}
 {% assign summary = summary | strip_html | normalize_whitespace | truncate: 170 %}
-{% if summary == '' or summary == nil %}{% capture summary %}{{ article_title }}: guía práctica de ciberseguridad en español por Yorve CSEC.{% endcapture %}{% endif %}
+{% if summary == '' or summary == nil %}{% capture summary %}{{ article_title }}: guía práctica de ciberseguridad en español en SecNotes.{% endcapture %}{% endif %}
 {% assign sharing_image = page.img | default: page.image | default: site.logo %}
 <title>{{ article_title | escape }} | {{ site.title | escape }}</title>
 <meta name="description" content="{{ summary | escape }}">

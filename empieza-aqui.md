@@ -39,7 +39,7 @@ Guarda comandos junto a su propósito, parámetros y resultado esperado. Anota v
 
 - [Cheatsheet de comandos]({{ '/cheatsheet/' | relative_url }})
 - [Artículos por etiquetas]({{ '/tags/' | relative_url }})
-- [Acerca de mí]({{ '/about' | relative_url }})
+- [Sobre SecNotes]({{ '/about' | relative_url }})
 
 ## Antes de dar por terminado un laboratorio
 
